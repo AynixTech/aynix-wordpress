@@ -1,0 +1,14 @@
+# .htaccess WordPress senza redirect www
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+# Redirect www to non-www
+<IfModule mod_rewrite.c>
+RewriteCond %{HTTP_HOST} ^www\.aynix\.tech$ [NC]
+RewriteRule ^(.*)$ https://aynix.tech/$1 [R=301,L]
+</IfModule>

@@ -1,0 +1,68 @@
+# Translation of Plugins - Hostinger Tools - Stable (latest release) in Italian
+# This file is distributed under the same license as the Plugins - Hostinger Tools - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2024-04-18 17:23:12+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/4.0.1\n"
+"Language: it\n"
+"Project-Id-Version: Plugins - Hostinger Tools - Stable (latest release)\n"
+
+#: includes/Admin/Assets.php:137
+msgid "Preview my website"
+msgstr "Anteprima del mio sito web"
+
+#: includes/Admin/Views/Partials/RateUs.php:38
+msgid "on <a href=\"https://wordpress.org/support/plugin/hostinger/reviews/#new-post\" target=\"_blank\" rel=\"noopener noreferrer\">WordPress.org</a>"
+msgstr "su <a href=\"https://wordpress.org/support/plugin/hostinger/reviews/#new-post\" target=\"_blank\" rel=\"noopener noreferrer\">WordPress.org</a>"
+
+#: includes/Admin/Views/Partials/RateUs.php:2
+msgid "Rate this plugin"
+msgstr "Valuta questo plugin"
+
+#: includes/Views/ComingSoon.php:27
+msgid "New WordPress website is being built and will be published soon"
+msgstr "Il nuovo sito web WordPress è in fase di costruzione e sarà pubblicato a breve."
+
+#: includes/Views/ComingSoon.php:6 includes/Views/ComingSoon.php:24
+msgid "Coming Soon"
+msgstr "Prossimamente"
+
+#: includes/Errors.php:38
+msgid "Unknown error code."
+msgstr "Codice errore sconosciuto."
+
+#: includes/Errors.php:22
+msgid "We apologize for the inconvenience. The AI content generation process encountered a server error. Please try again later, and if the issue persists, kindly contact our support team for assistance."
+msgstr "Ci scusiamo per l'inconveniente. Il processo di generazione dei contenuti AI ha riscontrato un errore del server. Riprova più tardi e, se il problema persiste, contatta il nostro team di supporto per ricevere assistenza."
+
+#: includes/Errors.php:19
+msgid "An unexpected error occurred. Please try again or contact support."
+msgstr "Si è verificato un errore imprevisto. Riprova o contatta l'assistenza."
+
+#: includes/Errors.php:16
+msgid "Action Failed. Try again or contact support. Apologies."
+msgstr "Azione fallita. Riprova o contatta l'assistenza."
+
+#. Author URI of the plugin
+#: hostinger.php
+msgid "https://www.hostinger.com"
+msgstr "https://www.hostinger.it"
+
+#. Description of the plugin
+#: hostinger.php
+msgid "Hostinger WordPress plugin."
+msgstr "Plugin WordPress di Hostinger."
+
+#. Plugin URI of the plugin
+#: hostinger.php
+msgid "https://hostinger.com"
+msgstr "https://hostinger.it"
+
+#. Author of the plugin
+#: hostinger.php
+msgid "Hostinger"
+msgstr "Hostinger"

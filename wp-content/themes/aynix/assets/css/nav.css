@@ -1,0 +1,121 @@
+/* NAVIGATION - DARK MODE */
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-menu li {
+    display: inline-block; /* Prevents full-width issue */
+}
+
+.nav-menu a {
+    display: inline-flex; /* Prevents block-level behavior */
+    justify-content: center;
+    font-family: "Oxanium", sans-serif;
+    align-items: center;
+    padding: 8px 12px; /* Adds some clickable space */
+    color: #484747; /* Light gray for readability */
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+    width: 100%;
+}
+
+.nav-menu a:hover {
+    color: var(--aynix-secondary-color, #ff9800); /* Default to orange */
+}
+
+/* MODAL MENU - DARK MODE */
+.modal-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9); /* Darker background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 100;
+}
+
+.modal-menu.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.menu-content {
+    background: #222; /* Dark background */
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+    color: #fff; /* White text */
+}
+
+.menu-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: #fff;
+}
+
+/* MODAL MENU LIST */
+.modal-menu ul {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.modal-menu ul li {
+    margin: 15px 0;
+}
+
+.modal-menu ul a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.modal-menu ul a:hover {
+    color: var(--aynix-primary-color, #ff9800);
+}
+
+/* HAMBURGER MENU */
+.hamburger {
+    display: none; /* Hidden by default */
+}
+
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none; /* Hide normal nav */
+    }
+
+    .hamburger {
+        cursor: pointer;
+        display: block;
+    }
+
+    .hamburger .line {
+        width: 30px;
+        height: 3px;
+        background: #ddd;
+        margin: 5px;
+        transition: all 0.3s;
+    }
+}

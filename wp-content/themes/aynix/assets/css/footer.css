@@ -1,0 +1,145 @@
+footer {
+    width: 100%;
+    padding: 30px 0;
+    color: #ffffff;
+    background-color: #000000a6;
+}
+footer .container {
+    display: flex;
+    flex-direction: row;
+}
+
+footer .container .logo-footer img {
+    width: 100px;
+}
+
+@media (max-width: 768px) {
+    .logo-footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    footer .container .logo-footer img {
+        width: 200px;
+    }
+}
+footer .col-md-4 {
+    flex: 1;
+    padding: 0 20px;
+    min-width: 250px;
+}
+footer h5 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    background: linear-gradient(
+        358deg,
+        var(--aynix-primary-color),
+        var(--aynix-secondary-color),
+        var(--aynix-ternary-color)
+    );
+    -webkit-background-clip: text;
+    color: transparent;
+    width: 200px;
+}
+footer ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+footer ul li {
+    margin-bottom: 8px;
+}
+footer ul li a {
+    text-decoration: none;
+    color: #ffffff;
+    transition: color 0.3s ease-in-out;
+}
+footer ul li a:hover {
+    color: linear-gradient(20deg, var(--aynix-primary-color), var(--aynix-secondary-color), var(--aynix-ternary-color));
+}
+footer .text-center {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 10px;
+}
+footer .logo {
+    font-size: 22px;
+    font-weight: bold;
+    background: linear-gradient(
+        20deg,
+        var(--aynix-primary-color),
+        var(--aynix-secondary-color),
+        var(--aynix-ternary-color)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+footer .description {
+    font-size: 14px;
+    margin-top: 5px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.social-icons ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 10px;
+}
+
+.social-icons ul li {
+    display: inline-block;
+}
+
+.social-icons ul li a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 20px;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+}
+
+.social-icons ul li a.facebook {
+    background: transparent;
+}
+.social-icons ul li a.twitter {
+    background: transparent;
+}
+.social-icons ul li a.instagram {
+    background: transparent;
+}
+.social-icons ul li a.linkedin {
+    background: transparent;
+}
+
+.social-icons ul li a:hover {
+    opacity: 0.8;
+}
+
+#languageSwitcher {
+    color: #363636;
+    position: fixed; /* Fixes the element to the screen */
+    bottom: 20px; /* Distance from the bottom of the screen */
+    left: 20px; /* Distance from the left of the screen */
+    padding: 10px; /* Adds padding for better spacing */
+    border-radius: 5px; /* Optional: rounded corners for the select */
+    z-index: 9999; /* Ensures the select is on top of other elements */
+    box-shadow: 0 10px 20px #0003;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.language-select {
+    font-size: 14px; /* Optional: adjust font size */
+}
