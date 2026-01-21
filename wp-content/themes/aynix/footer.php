@@ -11,7 +11,7 @@
                     <?php echo aynix_translate('footer.address'); ?><br>
                     <?php echo aynix_translate('footer.postal_code'); ?><br>
                     <?php echo aynix_translate('footer.vat'); ?><br>
-                    <?php echo aynix_translate('footer.sdi'); ?>
+                    <a href="mailto:admin@aynix.tech" style="color: #fff; text-decoration: none;">admin@aynix.tech</a>
                 </p>
             </div>
 
@@ -54,10 +54,10 @@
         <div class="col-md-4">
             <h5>Links</h5>
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="<?php echo home_url('/'); ?>"><?php echo aynix_translate('nav.home'); ?></a></li>
+                <li><a href="<?php echo home_url('/about'); ?>"><?php echo aynix_translate('nav.about'); ?></a></li>
+                <li><a href="<?php echo home_url('/services'); ?>"><?php echo aynix_translate('nav.services'); ?></a></li>
+                <li><a href="<?php echo home_url('/contact-us'); ?>"><?php echo aynix_translate('nav.contact'); ?></a></li>
             </ul>
         </div>
         <div class="col-md-4 social-icons">
