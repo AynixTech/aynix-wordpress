@@ -40,11 +40,7 @@ get_header(); ?>
                     <h3><?php echo aynix_translate('about_us.team1_name'); ?></h3>
                     <p><?php echo aynix_translate('about_us.team1_desc'); ?></p>
                 </div>
-                <div class="team-card">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/team2.png" alt="Team Member 2">
-                    <h3><?php echo aynix_translate('about_us.team2_name'); ?></h3>
-                    <p><?php echo aynix_translate('about_us.team2_desc'); ?></p>
-                </div>
+
                  <div class="team-card">
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/images/team3.png" alt="Team Member 3">
                     <h3><?php echo aynix_translate('about_us.team3_name'); ?></h3>
