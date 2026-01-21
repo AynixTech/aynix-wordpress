@@ -1,151 +1,143 @@
 <?php
-/* Template Name: Demos Page */
+/* Template Name: Contact Us */
 get_header();
 ?>
 
-<?php
-$projects = [
-  [
-    'name' => 'Safe Fleet',
-    'description_key' => 'demo.safefleet.description',
-    'demo_url' => 'https://safe-fleet-fe.onrender.com/auth/login',
-    'logo' => 'https://www.wecoop.org/wp-content/uploads/2025/11/safe-fleet.png',
-    'pdfs' => [
-      'it' => 'https://www.wecoop.org/wp-content/uploads/2025/11/PICH-DECK-SAFE-FLEET-IT.pdf',
-      'es' => 'https://www.wecoop.org/wp-content/uploads/2025/11/PITCH-DECK-SAFE-FLEET-ES.pdf',
-      'en' => 'https://www.wecoop.org/wp-content/uploads/2025/11/PITCH-DECK-SAFE-FLEET-ING.pdf',
-    ],
-    'credentials' => [
-      ['role' => 'Admin', 'username' => 'BRMBYN92D21Z605C', 'password' => 'securePassword123'],
-    ]
-  ]
-];
-?>
+<div class="contact-page-container">
+    <div class="contact-header">
+        <h1><?php echo aynix_translate('contact.heading'); ?></h1>
+    </div>
 
-<div class="demo-page-container">
-  <h1 class="page-title"><?php echo aynix_translate('demo.page_title'); ?></h1>
-
-  <div class="project-grid">
-    <?php foreach ($projects as $project): ?>
-      <div class="project-card">
-        <?php if (!empty($project['logo'])): ?>
-          <div class="project-logo">
-            <img src="<?= esc_url($project['logo']) ?>" alt="Logo <?= esc_attr($project['name']) ?>">
-          </div>
-        <?php endif; ?>
-
-        <h2><?= esc_html($project['name']) ?></h2>
-        <p><?= esc_html(aynix_translate($project['description_key'])) ?></p>
-
-        <a class="demo-link" href="<?= esc_url($project['demo_url']) ?>" target="_blank">
-          🔗 <?= aynix_translate('demo.view_demo') ?>
-        </a>
-
-        <div class="pdf-buttons">
-          <strong>📄 <?= aynix_translate('demo.pdf_title') ?></strong><br>
-          <a class="pdf-link" href="<?= esc_url($project['pdfs']['it']) ?>" target="_blank">🇮🇹 IT</a>
-          <a class="pdf-link" href="<?= esc_url($project['pdfs']['es']) ?>" target="_blank">🇪🇸 ES</a>
-          <a class="pdf-link" href="<?= esc_url($project['pdfs']['en']) ?>" target="_blank">🇬🇧 EN</a>
-        </div>
-
-        <div class="credentials">
-          <strong><?= aynix_translate('demo.credentials_title') ?></strong><br>
-          <?php foreach ($project['credentials'] as $cred): ?>
-            <div class="cred-block">
-              <em><?= esc_html($cred['role']) ?></em><br>
-              <?= aynix_translate('demo.username_label') ?> <?= esc_html($cred['username']) ?><br>
-              <?= aynix_translate('demo.password_label') ?> <?= esc_html($cred['password']) ?><br><br>
+    <div class="contact-content">
+        <div class="contact-info">
+            <div class="info-card">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3><?php echo aynix_translate('contact.address_label'); ?></h3>
+                <p><?php echo aynix_translate('contact.address'); ?></p>
             </div>
-          <?php endforeach; ?>
+
+            <div class="info-card">
+                <i class="fas fa-envelope"></i>
+                <h3><?php echo aynix_translate('contact.email_label'); ?></h3>
+                <p><a href="mailto:<?php echo aynix_translate('contact.email'); ?>"><?php echo aynix_translate('contact.email'); ?></a></p>
+            </div>
+
+            <div class="info-card">
+                <i class="fas fa-phone"></i>
+                <h3><?php echo aynix_translate('contact.phone_label'); ?></h3>
+                <p><a href="tel:<?php echo str_replace(' ', '', aynix_translate('contact.phone')); ?>"><?php echo aynix_translate('contact.phone'); ?></a></p>
+            </div>
+
+            <div class="info-card company-details">
+                <i class="fas fa-building"></i>
+                <h3>Informazioni Aziendali</h3>
+                <p>
+                    <strong>AYNIX SRL</strong><br>
+                    VIA POPULONIA, 8<br>
+                    20159 MILANO (MI)<br>
+                    CF/P.IVA 14287050968<br>
+                    SDI: 66OZKW1
+                </p>
+            </div>
         </div>
-      </div>
-    <?php endforeach; ?>
-  </div>
+
+        <div class="contact-form">
+            <?php echo do_shortcode('[contact-form-7 id="0859f02" title="' . aynix_translate('contact.form_title') . '"]'); ?>
+        </div>
+    </div>
 </div>
 
 <style>
-.demo-page-container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 50px 20px;
-  font-family: 'Segoe UI', sans-serif;
-  color: #222;
+.contact-page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 20px;
 }
-.page-title {
-  text-align: center;
-  font-size: 2.5em;
-  margin-bottom: 50px;
-  color: #0073aa;
+
+.contact-header {
+    text-align: center;
+    margin-bottom: 50px;
 }
-.project-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 30px;
+
+.contact-header h1 {
+    font-size: 2.5em;
+    color: #0073aa;
+    margin-bottom: 10px;
 }
-.project-card {
-  background: #ffffff;
-  border: 1px solid #e0e0e0;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  transition: transform 0.2s ease;
+
+.contact-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: start;
 }
-.project-card:hover {
-  transform: translateY(-5px);
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
 }
-.project-logo {
-  text-align: center;
-  margin-bottom: 20px;
+
+.info-card {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border: 1px solid #e0e0e0;
+    transition: transform 0.2s ease;
 }
-.project-logo img {
-  max-width: 200px;
-  height: auto;
+
+.info-card:hover {
+    transform: translateY(-5px);
 }
-.project-card h2 {
-  font-size: 1.5em;
-  margin: 0 0 10px;
-  color: #333;
+
+.info-card i {
+    font-size: 2em;
+    color: #0073aa;
+    margin-bottom: 15px;
+    display: block;
 }
-.project-card p {
-  font-size: 1em;
-  line-height: 1.5;
-  color: #444;
+
+.info-card h3 {
+    font-size: 1.3em;
+    margin-bottom: 10px;
+    color: #333;
 }
-.demo-link,
-.pdf-link {
-  display: inline-block;
-  margin: 8px 6px 0 0;
-  padding: 8px 14px;
-  background-color: #0073aa;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 6px;
-  font-size: 0.9em;
-  transition: background-color 0.3s ease;
+
+.info-card p {
+    font-size: 1em;
+    color: #666;
+    margin: 0;
+    line-height: 1.6;
 }
-.demo-link:hover,
-.pdf-link:hover {
-  background-color: #005a8c;
+
+.info-card a {
+    color: #0073aa;
+    text-decoration: none;
+    transition: color 0.3s ease;
 }
-.pdf-buttons {
-  margin-top: 15px;
-  font-size: 0.95em;
+
+.info-card a:hover {
+    color: #005a8c;
 }
-.credentials {
-  margin-top: 20px;
-  font-size: 0.95em;
-  background: #f8f8f8;
-  padding: 15px;
-  border-radius: 8px;
-  border: 1px dashed #ccc;
+
+.contact-form {
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border: 1px solid #e0e0e0;
 }
-.cred-block {
-  margin-bottom: 12px;
-  color: #555;
-}
-.cred-block em {
-  font-weight: bold;
-  color: #333;
+
+@media (max-width: 768px) {
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .contact-header h1 {
+        font-size: 2em;
+    }
 }
 </style>
 
