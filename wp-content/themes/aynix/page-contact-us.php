@@ -172,7 +172,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form_submit']
     background: #ffffff;
     padding: 25px;
     border-radius: 10px;
- 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border: 1px solid #e0e0e0;
+    transition: transform 0.2s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+}
+
+.info-card i {
+    font-size: 2em;
+    color: #0073aa;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.info-card h3 {
+    font-size: 1.3em;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.info-card p {
+    font-size: 1em;
+    color: #666;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.info-card a {
+    color: #0073aa;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.info-card a:hover {
+    color: #005a8c;
+}
+
+.contact-form {
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border: 1px solid #e0e0e0;
+}
 
 .contact-form h2 {
     margin-top: 0;
@@ -223,6 +268,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form_submit']
     font-size: 1em;
     font-family: inherit;
     transition: border-color 0.3s ease;
+    box-sizing: border-box;
 }
 
 .form-group input:focus,
@@ -253,51 +299,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form_submit']
 
 .submit-button:hover {
     background: #005a8c;
-}   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    border: 1px solid #e0e0e0;
-    transition: transform 0.2s ease;
-}
-
-.info-card:hover {
-    transform: translateY(-5px);
-}
-
-.info-card i {
-    font-size: 2em;
-    color: #0073aa;
-    margin-bottom: 15px;
-    display: block;
-}
-
-.info-card h3 {
-    font-size: 1.3em;
-    margin-bottom: 10px;
-    color: #333;
-}
-
-.info-card p {
-    font-size: 1em;
-    color: #666;
-    margin: 0;
-    line-height: 1.6;
-}
-
-.info-card a {
-    color: #0073aa;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.info-card a:hover {
-    color: #005a8c;
-}
-
-.contact-form {
-    background: #ffffff;
-    padding: 35px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    border: 1px solid #e0e0e0;
 }
 
 @media (max-width: 768px) {
