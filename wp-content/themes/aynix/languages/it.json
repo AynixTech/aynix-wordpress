@@ -88,5 +88,21 @@
   "demo.pdf_title": "Presentazione PDF:",
   "demo.credentials_title": "Credenziali di prova:",
   "demo.username_label": "Utente:",
-  "demo.password_label": "Password:"
+  "demo.password_label": "Password:",
+  "contact.form.name_label": "Nome",
+  "contact.form.name_placeholder": "Il tuo nome",
+  "contact.form.email_label": "Email",
+  "contact.form.email_placeholder": "tua@email.com",
+  "contact.form.phone_label": "Telefono",
+  "contact.form.phone_placeholder": "+39 123 456 7890",
+  "contact.form.subject_label": "Oggetto",
+  "contact.form.subject_placeholder": "Oggetto del messaggio",
+  "contact.form.message_label": "Messaggio",
+  "contact.form.message_placeholder": "Il tuo messaggio...",
+  "contact.form.submit_button": "Invia Messaggio",
+  "contact.form.success_message": "Il tuo messaggio è stato inviato con successo!",
+  "contact.form.error_message": "Si è verificato un errore nell'invio del messaggio. Riprova.",
+  "contact.form.required_fields": "Compila tutti i campi obbligatori.",
+  "contact.form.invalid_email": "Inserisci un indirizzo email valido.",
+  "contact.form.company_info_title": "Informazioni Aziendali"
 }

@@ -88,5 +88,21 @@
   "demo.pdf_title": "Apresentação em PDF:",
   "demo.credentials_title": "Credenciais de teste:",
   "demo.username_label": "Utilizador:",
-  "demo.password_label": "Senha:"
+  "demo.password_label": "Senha:",
+  "contact.form.name_label": "Nome",
+  "contact.form.name_placeholder": "O seu nome",
+  "contact.form.email_label": "Email",
+  "contact.form.email_placeholder": "seu@email.com",
+  "contact.form.phone_label": "Telefone",
+  "contact.form.phone_placeholder": "+39 123 456 7890",
+  "contact.form.subject_label": "Assunto",
+  "contact.form.subject_placeholder": "Assunto da mensagem",
+  "contact.form.message_label": "Mensagem",
+  "contact.form.message_placeholder": "A sua mensagem...",
+  "contact.form.submit_button": "Enviar Mensagem",
+  "contact.form.success_message": "A sua mensagem foi enviada com sucesso!",
+  "contact.form.error_message": "Ocorreu um erro ao enviar a sua mensagem. Por favor, tente novamente.",
+  "contact.form.required_fields": "Por favor, preencha todos os campos obrigatórios.",
+  "contact.form.invalid_email": "Por favor, introduza um endereço de email válido.",
+  "contact.form.company_info_title": "Informações da Empresa"
 }

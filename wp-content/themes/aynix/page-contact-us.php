@@ -1,6 +1,51 @@
 <?php
 /* Template Name: Contact Us */
 get_header();
+
+// Handle form submission
+$success_message = '';
+$error_message = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form_submit'])) {
+    // Verify nonce for security
+    if (!isset($_POST['contact_nonce']) || !wp_verify_nonce($_POST['contact_nonce'], 'contact_form')) {
+        $error_message = 'Security check failed';
+    } else {
+        $name = sanitize_text_field($_POST['name']);
+        $email = sanitize_email($_POST['email']);
+        $phone = sanitize_text_field($_POST['phone']);
+        $subject = sanitize_text_field($_POST['subject']);
+        $message = sanitize_textarea_field($_POST['message']);
+
+        // Validate fields
+        if (empty($name) || empty($email) || empty($message)) {
+            $error_message = aynix_translate('contact.form.required_fields');
+        } elseif (!is_email($email)) {
+            $error_message = aynix_translate('contact.form.invalid_email');
+        } else {
+            // Prepare email
+            $to = 'admin@aynix.tech';
+            $email_subject = 'Contact Form: ' . $subject;
+            $email_body = "Name: $name\n";
+            $email_body .= "Email: $email\n";
+            $email_body .= "Phone: $phone\n\n";
+            $email_body .= "Message:\n$message\n";
+            
+            $headers = array(
+                'From: ' . $name . ' <' . $email . '>',
+                'Reply-To: ' . $email,
+                'Content-Type: text/plain; charset=UTF-8'
+            );
+
+            // Send email
+            if (wp_mail($to, $email_subject, $email_body, $headers)) {
+                $success_message = aynix_translate('contact.form.success_message');
+            } else {
+                $error_message = aynix_translate('contact.form.error_message');
+            }
+        }
+    }
+}
 ?>
 
 <div class="contact-page-container">
@@ -30,7 +75,7 @@ get_header();
 
             <div class="info-card company-details">
                 <i class="fas fa-building"></i>
-                <h3>Informazioni Aziendali</h3>
+                <h3><?php echo aynix_translate('contact.form.company_info_title'); ?></h3>
                 <p>
                     <strong>AYNIX SRL</strong><br>
                     VIA POPULONIA, 8<br>
@@ -42,7 +87,52 @@ get_header();
         </div>
 
         <div class="contact-form">
-            <?php echo do_shortcode('[contact-form-7 id="0859f02" title="' . aynix_translate('contact.form_title') . '"]'); ?>
+            <h2><?php echo aynix_translate('contact.form_title'); ?></h2>
+            
+            <?php if ($success_message): ?>
+                <div class="success-message">
+                    <i class="fas fa-check-circle"></i> <?php echo $success_message; ?>
+                </div>
+            <?php endif; ?>
+
+            <?php if ($error_message): ?>
+                <div class="error-message">
+                    <i class="fas fa-exclamation-circle"></i> <?php echo $error_message; ?>
+                </div>
+            <?php endif; ?>
+
+            <form method="POST" action="" class="aynix-contact-form">
+                <?php wp_nonce_field('contact_form', 'contact_nonce'); ?>
+                
+                <div class="form-group">
+                    <label for="name"><?php echo aynix_translate('contact.form.name_label'); ?> *</label>
+                    <input type="text" id="name" name="name" required placeholder="<?php echo aynix_translate('contact.form.name_placeholder'); ?>">
+                </div>
+
+                <div class="form-group">
+                    <label for="email"><?php echo aynix_translate('contact.form.email_label'); ?> *</label>
+                    <input type="email" id="email" name="email" required placeholder="<?php echo aynix_translate('contact.form.email_placeholder'); ?>">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone"><?php echo aynix_translate('contact.form.phone_label'); ?></label>
+                    <input type="tel" id="phone" name="phone" placeholder="<?php echo aynix_translate('contact.form.phone_placeholder'); ?>">
+                </div>
+
+                <div class="form-group">
+                    <label for="subject"><?php echo aynix_translate('contact.form.subject_label'); ?> *</label>
+                    <input type="text" id="subject" name="subject" required placeholder="<?php echo aynix_translate('contact.form.subject_placeholder'); ?>">
+                </div>
+
+                <div class="form-group">
+                    <label for="message"><?php echo aynix_translate('contact.form.message_label'); ?> *</label>
+                    <textarea id="message" name="message" rows="6" required placeholder="<?php echo aynix_translate('contact.form.message_placeholder'); ?>"></textarea>
+                </div>
+
+                <button type="submit" name="contact_form_submit" class="submit-button">
+                    <i class="fas fa-paper-plane"></i> <?php echo aynix_translate('contact.form.submit_button'); ?>
+                </button>
+            </form>
         </div>
     </div>
 </div>
@@ -82,7 +172,88 @@ get_header();
     background: #ffffff;
     padding: 25px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+ 
+
+.contact-form h2 {
+    margin-top: 0;
+    margin-bottom: 25px;
+    color: #333;
+    font-size: 1.5em;
+}
+
+.success-message,
+.error-message {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.success-message {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.error-message {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #0073aa;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.submit-button {
+    background: #0073aa;
+    color: #fff;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+}
+
+.submit-button:hover {
+    background: #005a8c;
+}   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     border: 1px solid #e0e0e0;
     transition: transform 0.2s ease;
 }
