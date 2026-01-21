@@ -30,7 +30,14 @@ get_header();
                         'es' => 'https://aynix.tech/wp-content/uploads/2025/11/PITCH-DECK-SAFE-FLEET-ES.pdf',
                         'en' => 'https://aynix.tech/wp-content/uploads/2025/11/PITCH-DECK-SAFE-FLEET-ING.pdf',
                     ]
-                ]
+                ],
+                //Navenza
+                [
+                    'title'       => 'Navenza',
+                    'description' => aynix_translate('innovation_solutions.navenza'),
+                    'images'      => [129, 130],
+                    'logo'        => 'navenza-logo.svg',
+                ],
             ];
 
             foreach ($portfolio_items as $item) : ?>
