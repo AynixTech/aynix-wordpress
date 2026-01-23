@@ -70,7 +70,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form_submit']
             <div class="info-card">
                 <i class="fas fa-phone"></i>
                 <h3><?php echo aynix_translate('contact.phone_label'); ?></h3>
-                <p><a href="tel:<?php echo str_replace(' ', '', aynix_translate('contact.phone')); ?>"><?php echo aynix_translate('contact.phone'); ?></a></p>
+                <p>
+                    <strong>Italia / Europa:</strong> <a href="tel:<?php echo str_replace(' ', '', aynix_translate('contact.phone_europe')); ?>"><?php echo aynix_translate('contact.phone_europe'); ?></a><br>
+                    <strong>America Latina:</strong> <a href="tel:<?php echo str_replace(' ', '', aynix_translate('contact.phone_latin_america')); ?>"><?php echo aynix_translate('contact.phone_latin_america'); ?></a>
+                </p>
             </div>
 
             <div class="info-card company-details">
