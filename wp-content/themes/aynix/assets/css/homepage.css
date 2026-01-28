@@ -595,9 +595,6 @@
         width: 90%;
     }
 }
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-}
 
 .container-partners {
     display: flex;
