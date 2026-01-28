@@ -134,7 +134,7 @@
 /* Section Titles */
 .section-title {
     text-align: center;
-    margin: 1.5rem 0 1rem;
+    margin: 2rem 0 1.5rem;
     padding: 0;
 }
 
@@ -161,15 +161,16 @@
 
 /* Metodo Home Section */
 .metodo-home {
-    padding: 1.5rem 0;
-    margin: 0;
+    padding: 3rem 0;
+    margin: 2rem 0;
 }
 
 .metodo-fasi-home {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1.25rem;
-    margin-top: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
 }
 
 .fase-home {
@@ -218,9 +219,9 @@
 
 /* Problemi Home Section */
 .problemi-home {
-    padding: 1.5rem 0;
+    padding: 3rem 0;
     background: #f8f9fa;
-    margin: 0 -1rem;
+    margin: 2rem -1rem;
     padding-left: 1rem;
     padding-right: 1rem;
 }
@@ -229,7 +230,8 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.25rem;
-    margin-top: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
 }
 
 .problema-home {
@@ -264,7 +266,8 @@
 
 .problemi-cta-home {
     text-align: center;
-    margin-top: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
 }
 
 .problemi-cta-home .btn-secondary {
@@ -287,15 +290,16 @@
 
 /* Perché AYNIX Section */
 .perche-aynix {
-    padding: 1.5rem 0;
-    margin: 0;
+    padding: 3rem 0;
+    margin: 2rem 0;
 }
 
 .perche-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1.25rem;
-    margin-top: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
 }
 
 .perche-item {
@@ -326,8 +330,8 @@
 
 /* Home CTA Final */
 .home-cta-final {
-    padding: 1.5rem 0;
-    margin: 0;
+    padding: 3rem 0;
+    margin: 2rem 0;
 }
 
 .cta-box {
@@ -496,7 +500,8 @@
 }
 
 .container-presentation {
-    margin-top: 1.5rem;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
     border-radius: 8px;
     padding: 1.25rem;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
