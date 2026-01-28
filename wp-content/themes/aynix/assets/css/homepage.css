@@ -41,21 +41,21 @@
     max-width: 700px;
     color: #111;
     background-color: rgba(255, 255, 255, 0.92);
-    padding: 3rem;
+    padding: 2rem;
     border-radius: 16px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
 
     h1 {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
         font-weight: 700;
         line-height: 1.2;
         color: #222;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
     }
 
     p {
-        font-size: 1.2rem;
-        margin-bottom: 2rem;
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
         color: #444;
         line-height: 1.6;
     }
@@ -124,25 +124,25 @@
 /* Section Titles */
 .section-title {
     text-align: center;
-    margin: 4rem 0 2rem;
+    margin: 2.5rem 0 1.5rem;
 }
 
 .section-title h2 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     color: #222;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     font-weight: 700;
 }
 
 .section-title h3 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: #222;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     font-weight: 600;
 }
 
 .section-title p {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: #666;
     max-width: 700px;
     margin: 0 auto;
@@ -150,19 +150,19 @@
 
 /* Metodo Home Section */
 .metodo-home {
-    padding: 4rem 0;
+    padding: 2.5rem 0;
 }
 
 .metodo-fasi-home {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
+    gap: 1.5rem;
+    margin-top: 2rem;
 }
 
 .fase-home {
     background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
-    padding: 2.5rem;
+    padding: 1.75rem;
     border-radius: 12px;
     border: 2px solid #e9ecef;
     transition: all 0.3s ease;
@@ -176,17 +176,17 @@
 }
 
 .fase-number {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     background: linear-gradient(135deg, #438ef9, #2c6edc);
     color: white;
-    font-size: 2rem;
+    font-size: 1.75rem;
     font-weight: 700;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .fase-home h3 {
@@ -204,7 +204,7 @@
 
 /* Problemi Home Section */
 .problemi-home {
-    padding: 4rem 0;
+    padding: 2.5rem 0;
     background: #f8f9fa;
     margin: 0 -2rem;
     padding-left: 2rem;
@@ -214,13 +214,13 @@
 .problemi-grid-home {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
+    gap: 1.5rem;
+    margin-top: 2rem;
 }
 
 .problema-home {
     background: white;
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: 12px;
     text-align: center;
     transition: all 0.3s ease;
@@ -234,9 +234,9 @@
 }
 
 .problema-home i {
-    font-size: 3rem;
+    font-size: 2.5rem;
     color: #ff6331;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .problema-home h3 {
@@ -248,7 +248,7 @@
 
 .problemi-cta-home {
     text-align: center;
-    margin-top: 3rem;
+    margin-top: 2rem;
 }
 
 .problemi-cta-home .btn-secondary {
@@ -271,25 +271,25 @@
 
 /* Perché AYNIX Section */
 .perche-aynix {
-    padding: 4rem 0;
+    padding: 2.5rem 0;
 }
 
 .perche-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
+    gap: 1.5rem;
+    margin-top: 2rem;
 }
 
 .perche-item {
     text-align: center;
-    padding: 2rem;
+    padding: 1.5rem;
 }
 
 .perche-item i {
-    font-size: 3.5rem;
+    font-size: 3rem;
     color: #438ef9;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .perche-item h3 {
@@ -307,12 +307,12 @@
 
 /* Home CTA Final */
 .home-cta-final {
-    padding: 4rem 0;
+    padding: 2.5rem 0;
 }
 
 .cta-box {
     background: linear-gradient(135deg, #438ef9 0%, #2c6edc 100%);
-    padding: 4rem;
+    padding: 2.5rem;
     border-radius: 16px;
     text-align: center;
     color: white;
@@ -320,14 +320,14 @@
 }
 
 .cta-box h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+    font-size: 2.2rem;
+    margin-bottom: 0.75rem;
     font-weight: 700;
 }
 
 .cta-box p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
     opacity: 0.95;
 }
 
@@ -350,8 +350,8 @@
 }
 
 .cta-box .cta-microcopy {
-    font-size: 0.95rem;
-    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    margin-top: 1rem;
     opacity: 0.9;
 }
 
@@ -476,9 +476,9 @@
 }
 
 .container-presentation {
-    margin-top: 4rem;
+    margin-top: 2.5rem;
     border-radius: 8px;
-    padding: 2rem;
+    padding: 1.5rem;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
     background: #f8f9fa;
 }
