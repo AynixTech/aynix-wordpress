@@ -105,5 +105,306 @@
   "contact.form.error_message": "There was an error sending your message. Please try again.",
   "contact.form.required_fields": "Please fill in all required fields.",
   "contact.form.invalid_email": "Please enter a valid email address.",
-  "contact.form.company_info_title": "Company Information"
+  "contact.form.company_info_title": "Company Information",
+  
+  "cta.avvia_diagnosi": "Start Diagnosis",
+  "cta.microcopy": "10 min · No cost · No sales pitch",
+  
+  "nav.metodo": "Method",
+  "nav.problemi": "Problems",
+  "nav.soluzioni": "Solutions",
+  "nav.esperienza": "Experience",
+  "nav.chi_siamo": "About Us",
+  
+  "home.hero.title": "AYNIX doesn't sell packages. We understand the problem and build solutions.",
+  "home.hero.description": "We start with a diagnosis, not a catalog. Every business is unique, and so is our approach.",
+  
+  "home.metodo.title": "Our Method in 3 Steps",
+  "home.metodo.subtitle": "Before building, we understand",
+  "home.metodo.fase1_title": "1. Diagnosis",
+  "home.metodo.fase1_desc": "We analyze your real needs, not what we want to sell",
+  "home.metodo.fase2_title": "2. Design",
+  "home.metodo.fase2_desc": "We build a custom solution, specific to your problem",
+  "home.metodo.fase3_title": "3. Implementation",
+  "home.metodo.fase3_desc": "We develop and deploy with constant monitoring",
+  
+  "home.problemi.title": "Real Problems We Solve",
+  "home.problemi.subtitle": "Technology is a means, not an end",
+  "home.problemi.problema1": "Time wasted on manual tasks",
+  "home.problemi.problema2": "Systems that don't talk to each other",
+  "home.problemi.problema3": "Unreliable or outdated data",
+  "home.problemi.problema4": "Difficulty scaling the business",
+  "home.problemi.view_all": "See All Problems",
+  
+  "home.perche.title": "Why AYNIX",
+  "home.perche.punto1_title": "Custom, not prepackaged",
+  "home.perche.punto1_desc": "We don't sell packages. We build what you actually need.",
+  "home.perche.punto2_title": "Diagnosis before sale",
+  "home.perche.punto2_desc": "We start by understanding, not by offering.",
+  "home.perche.punto3_title": "Long-term partnership",
+  "home.perche.punto3_desc": "We don't disappear after delivery. We grow with you.",
+  
+  "home.cta.title": "Ready to start?",
+  "home.cta.subtitle": "Start with a free 10-minute diagnosis. No commitment.",
+  
+  "diagnosi.hero.title": "AYNIX Operational Diagnosis",
+  "diagnosi.hero.subtitle": "Understand the problem before talking about solutions",
+  
+  "diagnosi.what.title": "What It Is / What It Isn't",
+  "diagnosi.what.is_title": "What It Is",
+  "diagnosi.what.is_1": "A structured conversation about your real challenges",
+  "diagnosi.what.is_2": "An operational analysis (not technical) of your processes",
+  "diagnosi.what.is_3": "The first step to understand if and how we can help you",
+  "diagnosi.what.is_4": "A free and commitment-free service",
+  "diagnosi.what.isnot_title": "What It Isn't",
+  "diagnosi.what.isnot_1": "A sales pitch disguised as a consultation",
+  "diagnosi.what.isnot_2": "A generic quote for prepackaged services",
+  "diagnosi.what.isnot_3": "An evaluation of your technology stack",
+  "diagnosi.what.isnot_4": "A commitment to buy something",
+  
+  "diagnosi.how.title": "How It Works",
+  "diagnosi.how.step1_title": "Fill out the questionnaire",
+  "diagnosi.how.step1_desc": "10 minutes of focused questions on your business processes",
+  "diagnosi.how.step2_title": "We analyze the data",
+  "diagnosi.how.step2_desc": "We study your responses and identify critical patterns",
+  "diagnosi.how.step3_title": "You receive the diagnosis",
+  "diagnosi.how.step3_desc": "A clear document with findings and (if relevant) next steps",
+  
+  "diagnosi.benefits.title": "What You Get",
+  "diagnosi.benefits.benefit1_title": "Diagnosis Report (PDF)",
+  "diagnosi.benefits.benefit1_desc": "A document outlining what we found, in business language (not technical jargon)",
+  "diagnosi.benefits.benefit2_title": "Targeted Call (if it makes sense)",
+  "diagnosi.benefits.benefit2_desc": "If there's something concrete to discuss, we'll schedule a call. Otherwise, no.",
+  
+  "diagnosi.cta.title": "Start Your Diagnosis Now",
+  "diagnosi.cta.subtitle": "10 minutes that could change how you work",
+  "diagnosi.cta.button": "Start Diagnosis (10 min)",
+  "diagnosi.cta.reminder": "Remember: no cost, no commitment, no sales pitch",
+  
+  "metodo.hero.title": "First understand. Then build.",
+  "metodo.hero.subtitle": "The AYNIX method: Diagnosis, Design, Implementation",
+  "metodo.hero.cta": "Start Diagnosis",
+  
+  "metodo.principio.title": "The Principle",
+  "metodo.principio.text": "We don't believe in one-size-fits-all packages. Every business has unique problems, and generic solutions create new issues. We start by understanding, then we build.",
+  
+  "metodo.fasi.title": "The 3 Phases",
+  "metodo.fasi.fase1_title": "Diagnosis",
+  "metodo.fasi.fase1_desc": "We understand what really slows you down or costs you money",
+  "metodo.fasi.fase1_point1": "Structured interviews and questionnaires",
+  "metodo.fasi.fase1_point2": "Process analysis, not systems",
+  "metodo.fasi.fase1_point3": "Delivery of diagnosis report",
+  "metodo.fasi.fase2_title": "Design",
+  "metodo.fasi.fase2_desc": "We design a solution tailored to your specific problem",
+  "metodo.fasi.fase2_point1": "Custom architecture, not templates",
+  "metodo.fasi.fase2_point2": "Technology chosen based on needs",
+  "metodo.fasi.fase2_point3": "Clear roadmap and transparent timeline",
+  "metodo.fasi.fase3_title": "Implementation",
+  "metodo.fasi.fase3_desc": "We build, test, deploy, and monitor with you",
+  "metodo.fasi.fase3_point1": "Iterative development with constant feedback",
+  "metodo.fasi.fase3_point2": "Testing on real data and scenarios",
+  "metodo.fasi.fase3_point3": "Post-launch support and continuous optimization",
+  
+  "metodo.no_pacchetti.title": "Why We Don't Use Packages",
+  "metodo.no_pacchetti.reason1": "They force problems into predefined solutions",
+  "metodo.no_pacchetti.reason2": "They include features you'll never use (and pay for)",
+  "metodo.no_pacchetti.reason3": "They lack what you actually need",
+  "metodo.no_pacchetti.reason4": "They don't scale with your business",
+  
+  "metodo.tecnologia.title": "Technology Is a Means, Not an End",
+  "metodo.tecnologia.text": "We don't talk about programming languages, frameworks, or cloud infrastructure in the diagnosis. We talk about problems and impacts. Technology comes later, chosen based on real needs.",
+  
+  "metodo.cta.title": "Want to see how it works?",
+  "metodo.cta.subtitle": "Start with a diagnosis. If it makes sense, we move forward. Otherwise, no problem.",
+  "metodo.cta.button": "Start Diagnosis",
+  
+  "problemi.hero.title": "Real Problems, Custom Solutions",
+  "problemi.hero.subtitle": "We don't sell services. We solve specific problems.",
+  
+  "problemi.intro.text": "If you recognize yourself in one of these situations, a diagnosis could be the first step to solve it.",
+  
+  "problemi.impatto_label": "Impact",
+  "problemi.cta_button": "Start Diagnosis",
+  
+  "problemi.problema1.title": "Time wasted on repetitive manual tasks",
+  "problemi.problema1.description": "Your team spends hours doing things that could be automated: data entry, report generation, notifications, updates.",
+  "problemi.problema1.impatto": "Less time for strategic work, higher costs, higher risk of human error",
+  
+  "problemi.problema2.title": "Systems that don't communicate",
+  "problemi.problema2.description": "You have multiple tools (CRM, ERP, e-commerce, accounting) that don't talk to each other. Data is duplicated or lost.",
+  "problemi.problema2.impatto": "Inconsistent information, wasted time, poor decisions based on incomplete data",
+  
+  "problemi.problema3.title": "Unreliable or outdated data",
+  "problemi.problema3.description": "You can't trust the numbers you see. Reports are outdated or require manual aggregation from multiple sources.",
+  "problemi.problema3.impatto": "Reactive (not proactive) decisions, missed opportunities, operational chaos",
+  
+  "problemi.problema4.title": "Difficulty scaling the business",
+  "problemi.problema4.description": "What worked with 10 customers doesn't work with 100. Every new customer creates exponential complexity.",
+  "problemi.problema4.impatto": "Bottlenecks, quality loss, inability to grow without proportionally increasing costs",
+  
+  "problemi.problema5.title": "Dependence on specific people",
+  "problemi.problema5.description": "Only one person knows how a critical process works. If they're absent, everything stops.",
+  "problemi.problema5.impatto": "Business risk, inability to delegate, inability to grow the team",
+  
+  "problemi.problema6.title": "Poor customer experience",
+  "problemi.problema6.description": "Customers have to repeat information, wait for manual responses, or navigate confusing systems.",
+  "problemi.problema6.impatto": "Lost customers, bad reputation, competitive disadvantage",
+  
+  "problemi.problema7.title": "Data scattered across multiple files",
+  "problemi.problema7.description": "Excel spreadsheets, shared documents, emails with attachments. No single source of truth.",
+  "problemi.problema7.impatto": "Version conflicts, data loss, inability to analyze trends or generate insights",
+  
+  "problemi.problema8.title": "Security and compliance issues",
+  "problemi.problema8.description": "Sensitive data isn't protected. You don't know who has access to what. You're not compliant with regulations.",
+  "problemi.problema8.impatto": "Legal risk, reputational damage, potential fines and sanctions",
+  
+  "problemi.final_cta.title": "Recognize any of these problems?",
+  "problemi.final_cta.subtitle": "Start with a diagnosis. We'll help you understand what's really going on.",
+  "problemi.final_cta.button": "Start Diagnosis",
+  
+  "soluzioni.hero.title": "Solutions Built, Not Prepackaged",
+  "soluzioni.hero.subtitle": "What we build depends on what you actually need",
+  
+  "soluzioni.intro.text": "We don't have a catalog of products to sell. We design solutions based on your diagnosis. Here's what we can create.",
+  
+  "soluzioni.examples_title": "Examples",
+  
+  "soluzioni.automazione.title": "Process Automation",
+  "soluzioni.automazione.description": "Eliminate repetitive manual tasks. Save time, reduce errors, scale without hiring proportionally.",
+  "soluzioni.automazione.example1": "Automatic invoice generation from order data",
+  "soluzioni.automazione.example2": "Customer notifications based on specific events",
+  "soluzioni.automazione.example3": "Synchronization between CRM, e-commerce, and accounting",
+  
+  "soluzioni.software.title": "Custom Software",
+  "soluzioni.software.description": "Tools built specifically for your process, not generic platforms you have to adapt to.",
+  "soluzioni.software.example1": "Internal management systems tailored to your workflow",
+  "soluzioni.software.example2": "Web or mobile apps for customers/suppliers",
+  "soluzioni.software.example3": "Custom dashboards with the KPIs that matter to you",
+  
+  "soluzioni.ia.title": "Integrations & Applied AI",
+  "soluzioni.ia.description": "Connect systems, analyze data, use AI to make faster and better decisions.",
+  "soluzioni.ia.example1": "APIs to connect tools that don't communicate",
+  "soluzioni.ia.example2": "AI chatbots for customer support",
+  "soluzioni.ia.example3": "Data analysis and automatic trend detection",
+  
+  "soluzioni.processo.title": "How Solutions Are Born",
+  "soluzioni.processo.step1_title": "Diagnosis",
+  "soluzioni.processo.step1_desc": "We understand the real problem",
+  "soluzioni.processo.step2_title": "Design",
+  "soluzioni.processo.step2_desc": "We design the specific solution",
+  "soluzioni.processo.step3_title": "Build",
+  "soluzioni.processo.step3_desc": "We develop, test, and deploy",
+  
+  "soluzioni.differenza.title": "The AYNIX Difference",
+  "soluzioni.differenza.others_title": "Others",
+  "soluzioni.differenza.others_1": "Prepackaged solutions (take it or leave it)",
+  "soluzioni.differenza.others_2": "You pay for features you don't use",
+  "soluzioni.differenza.others_3": "You adapt your process to the tool",
+  "soluzioni.differenza.aynix_title": "AYNIX",
+  "soluzioni.differenza.aynix_1": "Custom solutions designed for your case",
+  "soluzioni.differenza.aynix_2": "You pay only for what you need",
+  "soluzioni.differenza.aynix_3": "The tool adapts to your process",
+  
+  "soluzioni.cta.title": "Want to see what we can build for you?",
+  "soluzioni.cta.subtitle": "Start with a diagnosis. We'll show you what's possible.",
+  "soluzioni.cta.button": "Start Diagnosis",
+  
+  "esperienza.hero.title": "Experience: Real Cases",
+  "esperienza.hero.subtitle": "Problem → Solution → Result",
+  
+  "esperienza.intro.text": "These are real examples (anonymized) of problems we've solved. Your situation is unique, but the patterns are often similar.",
+  
+  "esperienza.case_label": "Case",
+  
+  "esperienza.case1.problema_title": "Problem",
+  "esperienza.case1.problema": "E-commerce company with 3 different systems (shop, warehouse, accounting) that didn't communicate",
+  "esperienza.case1.soluzione_title": "Solution",
+  "esperienza.case1.soluzione": "Custom integration with automatic synchronization and centralized dashboard",
+  "esperienza.case1.risultato_title": "Result",
+  "esperienza.case1.risultato": "95% reduction in data entry time, zero sync errors, 30% faster order processing",
+  
+  "esperienza.case2.problema_title": "Problem",
+  "esperienza.case2.problema": "Service company spending 15 hours/week generating manual reports from Excel files",
+  "esperienza.case2.soluzione_title": "Solution",
+  "esperienza.case2.soluzione": "Automated system with real-time dashboard and scheduled reports",
+  "esperienza.case2.risultato_title": "Result",
+  "esperienza.case2.risultato": "Time saved reinvested in business development, more accurate and timely data",
+  
+  "esperienza.case3.problema_title": "Problem",
+  "esperienza.case3.problema": "B2B business with an onboarding process that took 2-3 weeks per client",
+  "esperienza.case3.soluzione_title": "Solution",
+  "esperienza.case3.soluzione": "Automated onboarding platform with progressive forms and notifications",
+  "esperienza.case3.risultato_title": "Result",
+  "esperienza.case3.risultato": "Onboarding reduced to 3 days, better customer experience, ability to scale",
+  
+  "esperienza.case4.problema_title": "Problem",
+  "esperienza.case4.problema": "Manufacturing company unable to track production status in real-time",
+  "esperienza.case4.soluzione_title": "Solution",
+  "esperienza.case4.soluzione": "Custom tracking system with mobile app for operators",
+  "esperienza.case4.risultato_title": "Result",
+  "esperienza.case4.risultato": "Real-time visibility, 40% reduction in delays, proactive quality management",
+  
+  "esperienza.case5.problema_title": "Problem",
+  "esperienza.case5.problema": "Consulting firm with a customer management process entirely based on emails and Excel",
+  "esperienza.case5.soluzione_title": "Solution",
+  "esperienza.case5.soluzione": "Lightweight custom CRM integrated with email and calendar",
+  "esperienza.case5.risultato_title": "Result",
+  "esperienza.case5.risultato": "No more lost information, complete client history, ability to delegate to new resources",
+  
+  "esperienza.case6.problema_title": "Problem",
+  "esperienza.case6.problema": "Marketplace with customer support overwhelmed by repetitive questions",
+  "esperienza.case6.soluzione_title": "Solution",
+  "esperienza.case6.soluzione": "AI chatbot for first-level support, integrated with existing ticketing system",
+  "esperienza.case6.risultato_title": "Result",
+  "esperienza.case6.risultato": "70% of questions resolved automatically, team focused on complex cases",
+  
+  "esperienza.cta.title": "Want results like these?",
+  "esperienza.cta.subtitle": "Every project starts with a diagnosis. Let's understand your case.",
+  "esperienza.cta.button": "Start Diagnosis",
+  
+  "chi_siamo.hero.title": "Who We Are",
+  "chi_siamo.hero.subtitle": "People who solve problems, not just write code",
+  
+  "chi_siamo.visione.title": "Our Vision",
+  "chi_siamo.visione.text": "We believe most technology purchases are driven by what companies sell, not by what businesses actually need. We exist to reverse this logic.",
+  
+  "chi_siamo.missione.title": "Our Mission",
+  "chi_siamo.missione.text": "Help businesses solve real problems with custom solutions, starting from operational understanding, not from a service catalog.",
+  
+  "chi_siamo.team.title": "The Team",
+  "chi_siamo.team.intro": "We're engineers, analysts, and designers. But above all, we're people who listen and understand before building.",
+  
+  "chi_siamo.team.member1_name": "Lizandro Vivanco",
+  "chi_siamo.team.member1_role": "CEO & Process Analyst",
+  "chi_siamo.team.member1_bio": "Management Engineer with MBA and ISO certifications. Specialized in operational diagnosis and process optimization.",
+  
+  "chi_siamo.team.member2_name": "Maria Paula Vega",
+  "chi_siamo.team.member2_role": "CRO & Client Relations",
+  "chi_siamo.team.member2_bio": "International Business specialist. Bridges business needs and technical solutions.",
+  
+  "chi_siamo.team.member3_name": "Anthony Avila",
+  "chi_siamo.team.member3_role": "CTO & Solution Architect",
+  "chi_siamo.team.member3_bio": "Senior developer and project manager. Builds scalable and secure systems.",
+  
+  "chi_siamo.team.member4_name": "Team Member",
+  "chi_siamo.team.member4_role": "Role",
+  "chi_siamo.team.member4_bio": "Description of the team member's expertise and contribution.",
+  
+  "chi_siamo.metodo.title": "Our Method: Diagnosis First",
+  "chi_siamo.metodo.text": "We don't start by offering solutions. We start by understanding. Every project begins with a diagnosis to ensure we're solving the right problem.",
+  "chi_siamo.metodo.button": "Learn About the Method",
+  
+  "chi_siamo.valori.title": "Our Values",
+  "chi_siamo.valori.valore1_title": "Honesty",
+  "chi_siamo.valori.valore1_desc": "If we can't help you, we tell you. We don't sell solutions that don't fit.",
+  "chi_siamo.valori.valore2_title": "Transparency",
+  "chi_siamo.valori.valore2_desc": "Clear timelines, fixed budgets, no hidden surprises.",
+  "chi_siamo.valori.valore3_title": "Pragmatism",
+  "chi_siamo.valori.valore3_desc": "We choose the best technology for the problem, not the trendiest one.",
+  "chi_siamo.valori.valore4_title": "Results",
+  "chi_siamo.valori.valore4_desc": "We measure success by business impact, not by lines of code written.",
+  
+  "chi_siamo.cta.title": "Want to work with us?",
+  "chi_siamo.cta.subtitle": "Let's start with a diagnosis. We'll see if it makes sense together.",
+  "chi_siamo.cta.button": "Start Diagnosis"
 }

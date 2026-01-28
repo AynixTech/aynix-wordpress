@@ -1,0 +1,240 @@
+/* Metodo Page Styles */
+
+.metodo-page {
+    background: #f8f9fa;
+}
+
+/* Principio Section */
+.metodo-principio {
+    padding: 60px 0;
+}
+
+.principio-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.lead-text {
+    font-size: 1.4rem;
+    line-height: 1.8;
+    color: #333;
+    font-weight: 300;
+}
+
+/* Fasi Section */
+.metodo-fasi {
+    padding: 60px 0;
+}
+
+.fasi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.fase-card {
+    background: white;
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.fase-card:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(
+        180deg,
+        var(--aynix-primary-color),
+        var(--aynix-secondary-color)
+    );
+}
+
+.fase-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.fase-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(
+        135deg,
+        var(--aynix-primary-color),
+        var(--aynix-secondary-color)
+    );
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.fase-icon i {
+    font-size: 2.5rem;
+    color: white;
+}
+
+.fase-content h3 {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.fase-content p {
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.fase-list {
+    list-style: none;
+    padding: 0;
+}
+
+.fase-list li {
+    padding: 8px 0;
+    padding-left: 25px;
+    position: relative;
+    color: #555;
+    line-height: 1.6;
+}
+
+.fase-list li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--aynix-primary-color);
+    font-weight: bold;
+}
+
+/* No Pacchetti Section */
+.metodo-no-pacchetti {
+    padding: 60px 0;
+    background: white;
+    margin: 60px 0;
+    border-radius: 15px;
+}
+
+.no-pacchetti-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.no-pacchetti-reasons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.reason-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.reason-item:hover {
+    background: #e9ecef;
+    transform: translateX(5px);
+}
+
+.reason-item i {
+    font-size: 1.5rem;
+    color: #dc3545;
+    flex-shrink: 0;
+    margin-top: 3px;
+}
+
+.reason-item p {
+    margin: 0;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Tecnologia Section */
+.metodo-tecnologia {
+    padding: 40px 0;
+}
+
+.tecnologia-box {
+    background: linear-gradient(
+        135deg,
+        #f093fb 0%,
+        #f5576c 100%
+    );
+    background: linear-gradient(
+        135deg,
+        var(--aynix-primary-color),
+        var(--aynix-ternary-color)
+    );
+    border-radius: 20px;
+    padding: 50px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 10px 40px rgba(67, 142, 249, 0.3);
+}
+
+.tecnologia-box i {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+.tecnologia-box h3 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.tecnologia-box p {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    max-width: 700px;
+    margin: 0 auto;
+    opacity: 0.95;
+}
+
+/* CTA Section */
+.metodo-cta {
+    padding: 60px 0 80px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .lead-text {
+        font-size: 1.2rem;
+    }
+    
+    .fasi-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .no-pacchetti-reasons {
+        grid-template-columns: 1fr;
+    }
+    
+    .tecnologia-box {
+        padding: 30px 20px;
+    }
+    
+    .tecnologia-box h3 {
+        font-size: 1.5rem;
+    }
+    
+    .tecnologia-box p {
+        font-size: 1rem;
+    }
+}

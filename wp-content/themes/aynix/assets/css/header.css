@@ -64,3 +64,54 @@
         display: none;
     }
 }
+
+/* CTA Button Header */
+.btn-cta-header {
+    font-weight: 600;
+}
+
+/* Sticky CTA Mobile */
+.sticky-cta-mobile {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.15);
+    z-index: 999;
+    text-align: center;
+}
+
+.sticky-cta-mobile a {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* Show sticky CTA only on mobile */
+@media (max-width: 768px) {
+    .sticky-cta-mobile {
+        display: block;
+    }
+}
+
+/* Menu CTA Link Style */
+.menu-cta-link {
+    background: linear-gradient(
+        20deg,
+        var(--aynix-primary-color),
+        var(--aynix-secondary-color),
+        var(--aynix-ternary-color)
+    );
+    color: white !important;
+    padding: 12px 25px !important;
+    border-radius: 5px;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 10px;
+}

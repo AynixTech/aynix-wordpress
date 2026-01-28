@@ -1,0 +1,286 @@
+/* Diagnosi Page Styles */
+
+.diagnosi-page {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.hero-page {
+    background: linear-gradient(
+        20deg,
+        var(--aynix-primary-color),
+        var(--aynix-secondary-color),
+        var(--aynix-ternary-color)
+    );
+    color: white;
+    padding: 80px 20px 60px;
+    text-align: center;
+}
+
+.hero-page h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+}
+
+.diagnosi-badges {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.badge {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 1rem;
+    backdrop-filter: blur(10px);
+}
+
+.badge i {
+    margin-right: 8px;
+}
+
+/* Section Titles */
+.diagnosi-page h2 {
+    font-size: 2.2rem;
+    text-align: center;
+    margin: 60px 0 40px;
+    color: #333;
+}
+
+/* Grid Layouts */
+.diagnosi-grid-two {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.diagnosi-grid-three {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+/* Cards */
+.diagnosi-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.diagnosi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.diagnosi-card--is {
+    border-left: 5px solid #28a745;
+}
+
+.diagnosi-card--isnot {
+    border-left: 5px solid #dc3545;
+}
+
+.card-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.card-icon--success {
+    color: #28a745;
+}
+
+.card-icon--danger {
+    color: #dc3545;
+}
+
+.diagnosi-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.diagnosi-list {
+    list-style: none;
+    padding: 0;
+}
+
+.diagnosi-list li {
+    padding: 10px 0;
+    padding-left: 25px;
+    position: relative;
+    line-height: 1.6;
+}
+
+.diagnosi-list li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--aynix-primary-color);
+    font-size: 1.5rem;
+}
+
+/* Steps */
+.diagnosi-step {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+}
+
+.diagnosi-step:hover {
+    transform: translateY(-5px);
+}
+
+.step-number {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(
+        20deg,
+        var(--aynix-primary-color),
+        var(--aynix-secondary-color)
+    );
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0 auto 20px;
+}
+
+.diagnosi-step h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.diagnosi-step p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Benefits */
+.diagnosi-benefit {
+    background: white;
+    border-radius: 15px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.diagnosi-benefit i {
+    font-size: 3.5rem;
+    color: var(--aynix-primary-color);
+    margin-bottom: 20px;
+}
+
+.diagnosi-benefit h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.diagnosi-benefit p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* CTA Section */
+.diagnosi-cta {
+    margin: 80px 0 60px;
+}
+
+.cta-box {
+    background: linear-gradient(
+        135deg,
+        var(--aynix-primary-color) 0%,
+        var(--aynix-secondary-color) 100%
+    );
+    border-radius: 20px;
+    padding: 60px 40px;
+    text-align: center;
+    color: white;
+}
+
+.cta-box h2 {
+    color: white;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.cta-box p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    opacity: 0.95;
+}
+
+.diagnosi-form-container {
+    margin: 40px 0;
+}
+
+.btn-large {
+    font-size: 1.3rem;
+    padding: 18px 40px;
+    display: inline-block;
+    background: white;
+    color: var(--aynix-primary-color);
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-large:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    color: var(--aynix-primary-darker);
+}
+
+.cta-reminder {
+    font-size: 0.9rem;
+    margin-top: 20px;
+    opacity: 0.85;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-page h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .diagnosi-page h2 {
+        font-size: 1.8rem;
+    }
+    
+    .diagnosi-grid-two,
+    .diagnosi-grid-three {
+        grid-template-columns: 1fr;
+    }
+    
+    .cta-box {
+        padding: 40px 20px;
+    }
+    
+    .btn-large {
+        font-size: 1.1rem;
+        padding: 15px 30px;
+    }
+}

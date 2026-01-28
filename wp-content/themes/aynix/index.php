@@ -32,17 +32,14 @@
             </div>
 
             <div class="hero-left">
-                <h1><?php echo aynix_translate('hero_section.title'); ?> <br><?php echo aynix_translate('hero_section.subtitle'); ?></h1>
-                <p><?php echo aynix_translate('hero_section.description'); ?></p>
+                <h1><?php echo aynix_translate('home.hero.title'); ?></h1>
+                <p><?php echo aynix_translate('home.hero.description'); ?></p>
                <div class="hero-buttons">
-                    <a class="btn-primary" href="<?php echo esc_url(home_url('/about-us')); ?>">
-                        <?php echo aynix_translate('hero_section.button_left.text'); ?>
-                    </a>
-                    <a class="btn-secondary" href="<?php echo esc_url(home_url('/services')); ?>">
-                        <?php echo aynix_translate('hero_section.button_right.text'); ?>
+                    <a class="btn-primary btn-large" href="<?php echo esc_url(home_url('/diagnosi')); ?>">
+                        <?php echo aynix_translate('cta.avvia_diagnosi'); ?>
                     </a>
                 </div>
-
+                <p class="hero-microcopy"><?php echo aynix_translate('cta.microcopy'); ?></p>
             </div>
             <div class="hero-right">
                 <!-- Optional futuristic HUD (commented out) -->
@@ -50,8 +47,88 @@
         </section>
 
         <div class="container">
-            <!-- Insert 3 services block -->
-            <section class="services">
+            <!-- Metodo in 3 fasi -->
+            <section class="metodo-home">
+                <div class="section-title">
+                    <h2><?php echo aynix_translate('home.metodo.title'); ?></h2>
+                    <p><?php echo aynix_translate('home.metodo.subtitle'); ?></p>
+                </div>
+                <div class="metodo-fasi-home">
+                    <div class="fase-home">
+                        <div class="fase-number">1</div>
+                        <h3><?php echo aynix_translate('home.metodo.fase1_title'); ?></h3>
+                        <p><?php echo aynix_translate('home.metodo.fase1_desc'); ?></p>
+                    </div>
+                    <div class="fase-home">
+                        <div class="fase-number">2</div>
+                        <h3><?php echo aynix_translate('home.metodo.fase2_title'); ?></h3>
+                        <p><?php echo aynix_translate('home.metodo.fase2_desc'); ?></p>
+                    </div>
+                    <div class="fase-home">
+                        <div class="fase-number">3</div>
+                        <h3><?php echo aynix_translate('home.metodo.fase3_title'); ?></h3>
+                        <p><?php echo aynix_translate('home.metodo.fase3_desc'); ?></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Problemi che risolviamo -->
+            <section class="problemi-home">
+                <div class="section-title">
+                    <h2><?php echo aynix_translate('home.problemi.title'); ?></h2>
+                    <p><?php echo aynix_translate('home.problemi.subtitle'); ?></p>
+                </div>
+                <div class="problemi-grid-home">
+                    <div class="problema-home">
+                        <i class="fas fa-stopwatch"></i>
+                        <h3><?php echo aynix_translate('home.problemi.problema1'); ?></h3>
+                    </div>
+                    <div class="problema-home">
+                        <i class="fas fa-unlink"></i>
+                        <h3><?php echo aynix_translate('home.problemi.problema2'); ?></h3>
+                    </div>
+                    <div class="problema-home">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3><?php echo aynix_translate('home.problemi.problema3'); ?></h3>
+                    </div>
+                    <div class="problema-home">
+                        <i class="fas fa-database"></i>
+                        <h3><?php echo aynix_translate('home.problemi.problema4'); ?></h3>
+                    </div>
+                </div>
+                <div class="problemi-cta-home">
+                    <a href="<?php echo esc_url(home_url('/problemi')); ?>" class="btn-secondary">
+                        <?php echo aynix_translate('home.problemi.view_all'); ?>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Perché AYNIX -->
+            <section class="perche-aynix">
+                <div class="section-title">
+                    <h2><?php echo aynix_translate('home.perche.title'); ?></h2>
+                </div>
+                <div class="perche-grid">
+                    <div class="perche-item">
+                        <i class="fas fa-user-check"></i>
+                        <h3><?php echo aynix_translate('home.perche.punto1_title'); ?></h3>
+                        <p><?php echo aynix_translate('home.perche.punto1_desc'); ?></p>
+                    </div>
+                    <div class="perche-item">
+                        <i class="fas fa-cogs"></i>
+                        <h3><?php echo aynix_translate('home.perche.punto2_title'); ?></h3>
+                        <p><?php echo aynix_translate('home.perche.punto2_desc'); ?></p>
+                    </div>
+                    <div class="perche-item">
+                        <i class="fas fa-handshake"></i>
+                        <h3><?php echo aynix_translate('home.perche.punto3_title'); ?></h3>
+                        <p><?php echo aynix_translate('home.perche.punto3_desc'); ?></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Insert 3 services block (mantenuto per compatibilità) -->
+            <section class="services" style="display: none;">
                 <div class="service">
                     <div class="service-header">
                         <i class="fas fa-mobile-alt"></i>
@@ -185,6 +262,18 @@
                         </div>
                     <?php endforeach; ?>
                 </div>
+
+            <!-- CTA finale -->
+            <section class="home-cta-final">
+                <div class="cta-box">
+                    <h2><?php echo aynix_translate('home.cta.title'); ?></h2>
+                    <p><?php echo aynix_translate('home.cta.subtitle'); ?></p>
+                    <a href="<?php echo esc_url(home_url('/diagnosi')); ?>" class="btn-primary btn-large">
+                        <?php echo aynix_translate('cta.avvia_diagnosi'); ?>
+                    </a>
+                    <p class="cta-microcopy"><?php echo aynix_translate('cta.microcopy'); ?></p>
+                </div>
+            </section>
         </div>
     </div>
 </main>

@@ -49,15 +49,16 @@
     <nav class="header__nav">
         <ul class="nav-menu">
             <li><a href="<?php echo home_url(); ?>"><?php echo aynix_translate('nav.home'); ?></a></li>
-            <li><a href="<?php echo esc_url(home_url('/about-us')); ?>"><?php echo aynix_translate('nav.about'); ?></a></li>
-            <li><a href="<?php echo esc_url(home_url('/services')); ?>"><?php echo aynix_translate('nav.services'); ?></a></li>
-            <li><a href="<?php echo esc_url(home_url('/innovation-solutions')); ?>"><?php echo aynix_translate('nav.innovation_solutions'); ?></a></li>
-            <li><a href="<?php echo esc_url(home_url('/blog')); ?>"><?php echo aynix_translate('nav.blog'); ?></a></li>
+            <li><a href="<?php echo esc_url(home_url('/metodo')); ?>"><?php echo aynix_translate('nav.metodo'); ?></a></li>
+            <li><a href="<?php echo esc_url(home_url('/problemi')); ?>"><?php echo aynix_translate('nav.problemi'); ?></a></li>
+            <li><a href="<?php echo esc_url(home_url('/soluzioni')); ?>"><?php echo aynix_translate('nav.soluzioni'); ?></a></li>
+            <li><a href="<?php echo esc_url(home_url('/esperienza')); ?>"><?php echo aynix_translate('nav.esperienza'); ?></a></li>
+            <li><a href="<?php echo esc_url(home_url('/chi-siamo')); ?>"><?php echo aynix_translate('nav.chi_siamo'); ?></a></li>
         </ul>
     </nav>
     <div class="header__contact">
-        <a href="<?php echo esc_url(home_url('/contact-us')); ?>" class="contact-button">
-             <button class="btn-primary"><?php echo aynix_translate('nav.contact'); ?></button>
+        <a href="<?php echo esc_url(home_url('/diagnosi')); ?>" class="contact-button">
+             <button class="btn-primary btn-cta-header"><?php echo aynix_translate('cta.avvia_diagnosi'); ?></button>
         </a>
     </div>
     <div class="hamburger" onclick="toggleMenu()">
@@ -73,11 +74,12 @@
        <nav >
         <ul class="nav-menu">
             <li><a href="<?php echo home_url(); ?>"><?php echo aynix_translate('nav.home'); ?></a></li>
-            <li><a href="<?php echo esc_url(home_url('/about-us')); ?>"><?php echo aynix_translate('nav.about'); ?></a></li>
-            <li><a href="<?php echo esc_url(home_url('/services')); ?>"><?php echo aynix_translate('nav.services'); ?></a></li>
-            <li><a href="<?php echo esc_url(home_url('/innovation-solutions')); ?>"><?php echo aynix_translate('nav.innovation_solutions'); ?></a></li>
-            <li><a href="<?php echo esc_url(home_url('/blog')); ?>"><?php echo aynix_translate('nav.blog'); ?></a></li>
-            <li><a href="<?php echo esc_url(home_url('/contact-us')); ?>"><?php echo aynix_translate('nav.contact'); ?></a></li>
+            <li><a href="<?php echo esc_url(home_url('/metodo')); ?>"><?php echo aynix_translate('nav.metodo'); ?></a></li>
+            <li><a href="<?php echo esc_url(home_url('/problemi')); ?>"><?php echo aynix_translate('nav.problemi'); ?></a></li>
+            <li><a href="<?php echo esc_url(home_url('/soluzioni')); ?>"><?php echo aynix_translate('nav.soluzioni'); ?></a></li>
+            <li><a href="<?php echo esc_url(home_url('/esperienza')); ?>"><?php echo aynix_translate('nav.esperienza'); ?></a></li>
+            <li><a href="<?php echo esc_url(home_url('/chi-siamo')); ?>"><?php echo aynix_translate('nav.chi_siamo'); ?></a></li>
+            <li><a href="<?php echo esc_url(home_url('/diagnosi')); ?>" class="menu-cta-link"><?php echo aynix_translate('cta.avvia_diagnosi'); ?></a></li>
         </ul>
     </nav>
     </div>
@@ -89,6 +91,13 @@
         modal.classList.toggle('active');
     }
 </script>
+
+<!-- Sticky CTA Mobile -->
+<div id="sticky-cta-mobile" class="sticky-cta-mobile">
+    <a href="<?php echo esc_url(home_url('/diagnosi')); ?>" class="btn-primary">
+        <?php echo aynix_translate('cta.avvia_diagnosi'); ?>
+    </a>
+</div>
 
 <?php wp_footer(); ?>
 </body>

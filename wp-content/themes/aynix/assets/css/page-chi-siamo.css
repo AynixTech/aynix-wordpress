@@ -1,0 +1,231 @@
+/* Chi Siamo Page Styles */
+
+.chi-siamo-page {
+    background: #f8f9fa;
+}
+
+/* Visione/Missione Section */
+.chi-siamo-visione {
+    padding: 60px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+}
+
+.visione-content,
+.missione-content {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.visione-content h2,
+.missione-content h2 {
+    color: var(--aynix-primary-color);
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    margin-top: 0;
+}
+
+/* Team Section */
+.chi-siamo-team {
+    padding: 60px 0;
+}
+
+.team-intro {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 50px;
+    color: #666;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 35px;
+}
+
+.team-member {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.team-member:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+}
+
+.member-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 20px;
+    border: 4px solid var(--aynix-primary-color);
+}
+
+.member-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.member-info h3 {
+    font-size: 1.4rem;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.member-role {
+    color: var(--aynix-primary-color);
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.member-bio {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Metodo Box */
+.chi-siamo-metodo {
+    padding: 60px 0;
+}
+
+.metodo-box {
+    background: linear-gradient(
+        135deg,
+        var(--aynix-primary-color),
+        var(--aynix-secondary-color)
+    );
+    border-radius: 20px;
+    padding: 60px 40px;
+    text-align: center;
+    color: white;
+}
+
+.metodo-box i {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+.metodo-box h2 {
+    color: white;
+    margin: 0 0 20px 0;
+}
+
+.metodo-box p {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    max-width: 700px;
+    margin: 0 auto 30px;
+    opacity: 0.95;
+}
+
+.metodo-box .btn-secondary {
+    background: white;
+    color: var(--aynix-primary-color);
+    border: none;
+}
+
+.metodo-box .btn-secondary:hover {
+    background: #f8f9fa;
+    color: var(--aynix-primary-darker);
+}
+
+/* Valori Section */
+.chi-siamo-valori {
+    padding: 60px 0;
+}
+
+.chi-siamo-valori h2 {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.valori-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.valore-card {
+    background: white;
+    border-radius: 15px;
+    padding: 35px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.valore-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.valore-card i {
+    font-size: 3rem;
+    color: var(--aynix-primary-color);
+    margin-bottom: 20px;
+}
+
+.valore-card h3 {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.valore-card p {
+    color: #666;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* CTA Section */
+.chi-siamo-cta {
+    padding: 60px 0 80px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .chi-siamo-visione {
+        grid-template-columns: 1fr;
+    }
+    
+    .visione-content,
+    .missione-content {
+        padding: 30px 20px;
+    }
+    
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .metodo-box {
+        padding: 40px 20px;
+    }
+    
+    .metodo-box h2 {
+        font-size: 1.6rem;
+    }
+    
+    .metodo-box p {
+        font-size: 1rem;
+    }
+    
+    .valori-grid {
+        grid-template-columns: 1fr;
+    }
+}

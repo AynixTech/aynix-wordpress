@@ -105,5 +105,306 @@
   "contact.form.error_message": "Ocorreu um erro ao enviar a sua mensagem. Por favor, tente novamente.",
   "contact.form.required_fields": "Por favor, preencha todos os campos obrigatórios.",
   "contact.form.invalid_email": "Por favor, introduza um endereço de email válido.",
-  "contact.form.company_info_title": "Informações da Empresa"
+  "contact.form.company_info_title": "Informações da Empresa",
+  
+  "cta.avvia_diagnosi": "Iniciar Diagnóstico",
+  "cta.microcopy": "10 min · Sem custo · Sem venda",
+  
+  "nav.metodo": "Método",
+  "nav.problemi": "Problemas",
+  "nav.soluzioni": "Soluções",
+  "nav.esperienza": "Experiência",
+  "nav.chi_siamo": "Quem Somos",
+  
+  "home.hero.title": "AYNIX não vende pacotes. Entende o problema e constrói soluções.",
+  "home.hero.description": "Partimos de um diagnóstico, não de um catálogo. Cada empresa é única, e assim nossa abordagem.",
+  
+  "home.metodo.title": "Nosso Método em 3 Passos",
+  "home.metodo.subtitle": "Antes de construir, entendemos",
+  "home.metodo.fase1_title": "1. Diagnóstico",
+  "home.metodo.fase1_desc": "Analisamos suas necessidades reais, não o que queremos vender",
+  "home.metodo.fase2_title": "2. Projeto",
+  "home.metodo.fase2_desc": "Construímos uma solução sob medida, específica para seu problema",
+  "home.metodo.fase3_title": "3. Implementação",
+  "home.metodo.fase3_desc": "Desenvolvemos e colocamos em produção com monitoramento constante",
+  
+  "home.problemi.title": "Problemas Reais Que Resolvemos",
+  "home.problemi.subtitle": "A tecnologia é um meio, não um fim",
+  "home.problemi.problema1": "Tempo perdido em operações manuais",
+  "home.problemi.problema2": "Sistemas que não se comunicam entre si",
+  "home.problemi.problema3": "Dados pouco confiáveis ou desatualizados",
+  "home.problemi.problema4": "Dificuldade em escalar o negócio",
+  "home.problemi.view_all": "Ver Todos os Problemas",
+  
+  "home.perche.title": "Por Que AYNIX",
+  "home.perche.punto1_title": "Sob medida, não pré-configurado",
+  "home.perche.punto1_desc": "Não vendemos pacotes. Construímos o que realmente é necessário.",
+  "home.perche.punto2_title": "Diagnóstico antes da venda",
+  "home.perche.punto2_desc": "Começamos entendendo, não propondo.",
+  "home.perche.punto3_title": "Parceria de longo prazo",
+  "home.perche.punto3_desc": "Não desaparecemos após a entrega. Crescemos com você.",
+  
+  "home.cta.title": "Pronto para começar?",
+  "home.cta.subtitle": "Comece com um diagnóstico gratuito de 10 minutos. Sem compromisso.",
+  
+  "diagnosi.hero.title": "Diagnóstico Operacional AYNIX",
+  "diagnosi.hero.subtitle": "Entender o problema antes de falar de soluções",
+  
+  "diagnosi.what.title": "O Que É / O Que Não É",
+  "diagnosi.what.is_title": "O Que É",
+  "diagnosi.what.is_1": "Uma conversa estruturada sobre seus desafios reais",
+  "diagnosi.what.is_2": "Uma análise operacional (não técnica) de seus processos",
+  "diagnosi.what.is_3": "O primeiro passo para entender se e como podemos ajudá-lo",
+  "diagnosi.what.is_4": "Um serviço gratuito e sem compromisso",
+  "diagnosi.what.isnot_title": "O Que Não É",
+  "diagnosi.what.isnot_1": "Uma ligação de vendas disfarçada de consultoria",
+  "diagnosi.what.isnot_2": "Um orçamento genérico sobre serviços pré-configurados",
+  "diagnosi.what.isnot_3": "Uma avaliação de sua pilha tecnológica",
+  "diagnosi.what.isnot_4": "Um compromisso de comprar algo",
+  
+  "diagnosi.how.title": "Como Funciona",
+  "diagnosi.how.step1_title": "Preencha o questionário",
+  "diagnosi.how.step1_desc": "10 minutos de perguntas focadas sobre seus processos empresariais",
+  "diagnosi.how.step2_title": "Analisamos os dados",
+  "diagnosi.how.step2_desc": "Estudamos suas respostas e identificamos padrões críticos",
+  "diagnosi.how.step3_title": "Você recebe o diagnóstico",
+  "diagnosi.how.step3_desc": "Um documento claro com os achados e (se relevante) os próximos passos",
+  
+  "diagnosi.benefits.title": "O Que Você Obtém",
+  "diagnosi.benefits.benefit1_title": "Relatório de Diagnóstico (PDF)",
+  "diagnosi.benefits.benefit1_desc": "Um documento que explica o que encontramos, em linguagem empresarial (não técnica)",
+  "diagnosi.benefits.benefit2_title": "Ligação Focada (se fizer sentido)",
+  "diagnosi.benefits.benefit2_desc": "Se houver algo concreto para discutir, agendamos uma ligação. Caso contrário, não.",
+  
+  "diagnosi.cta.title": "Inicie Seu Diagnóstico Agora",
+  "diagnosi.cta.subtitle": "10 minutos que podem mudar como você trabalha",
+  "diagnosi.cta.button": "Iniciar Diagnóstico (10 min)",
+  "diagnosi.cta.reminder": "Lembre-se: sem custo, sem compromisso, sem venda",
+  
+  "metodo.hero.title": "Primeiro entender. Depois construir.",
+  "metodo.hero.subtitle": "O método AYNIX: Diagnóstico, Projeto, Implementação",
+  "metodo.hero.cta": "Iniciar Diagnóstico",
+  
+  "metodo.principio.title": "O Princípio",
+  "metodo.principio.text": "Não acreditamos em pacotes iguais para todos. Cada negócio tem problemas únicos, e soluções genéricas criam novos problemas. Partimos da compreensão, depois construímos.",
+  
+  "metodo.fasi.title": "As 3 Fases",
+  "metodo.fasi.fase1_title": "Diagnóstico",
+  "metodo.fasi.fase1_desc": "Entendemos o que realmente te atrasa ou te custa",
+  "metodo.fasi.fase1_point1": "Entrevistas estruturadas e questionários",
+  "metodo.fasi.fase1_point2": "Análise de processos, não de sistemas",
+  "metodo.fasi.fase1_point3": "Entrega do relatório de diagnóstico",
+  "metodo.fasi.fase2_title": "Projeto",
+  "metodo.fasi.fase2_desc": "Projetamos uma solução sob medida para seu problema específico",
+  "metodo.fasi.fase2_point1": "Arquitetura personalizada, não modelos",
+  "metodo.fasi.fase2_point2": "Tecnologia escolhida com base nas necessidades",
+  "metodo.fasi.fase2_point3": "Roteiro claro e prazos transparentes",
+  "metodo.fasi.fase3_title": "Implementação",
+  "metodo.fasi.fase3_desc": "Construímos, testamos, colocamos em produção e monitoramos com você",
+  "metodo.fasi.fase3_point1": "Desenvolvimento iterativo com feedback constante",
+  "metodo.fasi.fase3_point2": "Testes com dados e cenários reais",
+  "metodo.fasi.fase3_point3": "Suporte pós-lançamento e otimização contínua",
+  
+  "metodo.no_pacchetti.title": "Por Que Não Usamos Pacotes",
+  "metodo.no_pacchetti.reason1": "Forçam os problemas em soluções predefinidas",
+  "metodo.no_pacchetti.reason2": "Incluem funcionalidades que você nunca usará (e paga)",
+  "metodo.no_pacchetti.reason3": "Não têm o que você realmente precisa",
+  "metodo.no_pacchetti.reason4": "Não escalam com seu negócio",
+  
+  "metodo.tecnologia.title": "A Tecnologia É um Meio, Não um Fim",
+  "metodo.tecnologia.text": "Não falamos de linguagens de programação, frameworks ou infraestrutura cloud no diagnóstico. Falamos de problemas e impactos. A tecnologia vem depois, escolhida com base nas necessidades reais.",
+  
+  "metodo.cta.title": "Quer ver como funciona?",
+  "metodo.cta.subtitle": "Comece com um diagnóstico. Se fizer sentido, seguimos em frente. Caso contrário, sem problema.",
+  "metodo.cta.button": "Iniciar Diagnóstico",
+  
+  "problemi.hero.title": "Problemas Reais, Soluções Sob Medida",
+  "problemi.hero.subtitle": "Não vendemos serviços. Resolvemos problemas específicos.",
+  
+  "problemi.intro.text": "Se você se reconhece em uma dessas situações, um diagnóstico pode ser o primeiro passo para resolvê-la.",
+  
+  "problemi.impatto_label": "Impacto",
+  "problemi.cta_button": "Iniciar Diagnóstico",
+  
+  "problemi.problema1.title": "Tempo perdido em operações manuais repetitivas",
+  "problemi.problema1.description": "Sua equipe passa horas fazendo coisas que poderiam ser automatizadas: entrada de dados, geração de relatórios, envio de notificações, atualizações.",
+  "problemi.problema1.impatto": "Menos tempo para trabalho estratégico, custos mais altos, maior risco de erros humanos",
+  
+  "problemi.problema2.title": "Sistemas que não se comunicam",
+  "problemi.problema2.description": "Você tem várias ferramentas (CRM, ERP, e-commerce, contabilidade) que não conversam entre si. Os dados são duplicados ou perdidos.",
+  "problemi.problema2.impatto": "Informações inconsistentes, tempo perdido, decisões erradas baseadas em dados incompletos",
+  
+  "problemi.problema3.title": "Dados pouco confiáveis ou desatualizados",
+  "problemi.problema3.description": "Você não pode confiar nos números que vê. Os relatórios estão obsoletos ou requerem agregação manual de múltiplas fontes.",
+  "problemi.problema3.impatto": "Decisões reativas (não proativas), oportunidades perdidas, caos operacional",
+  
+  "problemi.problema4.title": "Dificuldade em escalar o negócio",
+  "problemi.problema4.description": "O que funcionava com 10 clientes não funciona com 100. Cada novo cliente cria complexidade exponencial.",
+  "problemi.problema4.impatto": "Gargalos, perda de qualidade, incapacidade de crescer sem aumentar os custos proporcionalmente",
+  
+  "problemi.problema5.title": "Dependência de pessoas específicas",
+  "problemi.problema5.description": "Apenas uma pessoa sabe como funciona um processo crítico. Se ela está ausente, tudo para.",
+  "problemi.problema5.impatto": "Risco empresarial, impossibilidade de delegar, incapacidade de fazer a equipe crescer",
+  
+  "problemi.problema6.title": "Experiência do cliente deficiente",
+  "problemi.problema6.description": "Os clientes precisam repetir informações, esperar respostas manuais ou navegar por sistemas confusos.",
+  "problemi.problema6.impatto": "Clientes perdidos, reputação prejudicada, desvantagem competitiva",
+  
+  "problemi.problema7.title": "Dados dispersos em vários arquivos",
+  "problemi.problema7.description": "Planilhas Excel, documentos compartilhados, e-mails com anexos. Nenhuma fonte única da verdade.",
+  "problemi.problema7.impatto": "Conflitos de versão, perda de dados, impossibilidade de analisar tendências ou gerar insights",
+  
+  "problemi.problema8.title": "Problemas de segurança e conformidade",
+  "problemi.problema8.description": "Dados sensíveis não estão protegidos. Você não sabe quem tem acesso ao quê. Você não está em conformidade com as regulamentações.",
+  "problemi.problema8.impatto": "Risco legal, dano reputacional, possíveis multas e sanções",
+  
+  "problemi.final_cta.title": "Reconhece algum desses problemas?",
+  "problemi.final_cta.subtitle": "Comece com um diagnóstico. Ajudaremos você a entender o que está realmente acontecendo.",
+  "problemi.final_cta.button": "Iniciar Diagnóstico",
+  
+  "soluzioni.hero.title": "Soluções Construídas, Não Pré-Configuradas",
+  "soluzioni.hero.subtitle": "O que construímos depende do que você realmente precisa",
+  
+  "soluzioni.intro.text": "Não temos um catálogo de produtos para vender. Projetamos soluções com base no seu diagnóstico. Aqui está o que podemos criar.",
+  
+  "soluzioni.examples_title": "Exemplos",
+  
+  "soluzioni.automazione.title": "Automação de Processos",
+  "soluzioni.automazione.description": "Elimine operações manuais repetitivas. Economize tempo, reduza erros, escale sem contratar proporcionalmente.",
+  "soluzioni.automazione.example1": "Geração automática de faturas a partir de dados de pedidos",
+  "soluzioni.automazione.example2": "Notificações aos clientes com base em eventos específicos",
+  "soluzioni.automazione.example3": "Sincronização entre CRM, e-commerce e contabilidade",
+  
+  "soluzioni.software.title": "Software Personalizado",
+  "soluzioni.software.description": "Ferramentas construídas especificamente para seu processo, não plataformas genéricas às quais você deve se adaptar.",
+  "soluzioni.software.example1": "Sistemas de gestão internos sob medida para seu fluxo de trabalho",
+  "soluzioni.software.example2": "Apps web ou mobile para clientes/fornecedores",
+  "soluzioni.software.example3": "Dashboards personalizados com os KPIs que importam para você",
+  
+  "soluzioni.ia.title": "Integrações e IA Aplicada",
+  "soluzioni.ia.description": "Conecte sistemas, analise dados, use IA para tomar decisões mais rápidas e melhores.",
+  "soluzioni.ia.example1": "APIs para conectar ferramentas que não se comunicam",
+  "soluzioni.ia.example2": "Chatbots de IA para atendimento ao cliente",
+  "soluzioni.ia.example3": "Análise de dados e detecção automática de tendências",
+  
+  "soluzioni.processo.title": "Como Nascem as Soluções",
+  "soluzioni.processo.step1_title": "Diagnóstico",
+  "soluzioni.processo.step1_desc": "Entendemos o problema real",
+  "soluzioni.processo.step2_title": "Projeto",
+  "soluzioni.processo.step2_desc": "Projetamos a solução específica",
+  "soluzioni.processo.step3_title": "Construção",
+  "soluzioni.processo.step3_desc": "Desenvolvemos, testamos e colocamos em produção",
+  
+  "soluzioni.differenza.title": "A Diferença AYNIX",
+  "soluzioni.differenza.others_title": "Outros",
+  "soluzioni.differenza.others_1": "Soluções pré-configuradas (pegar ou largar)",
+  "soluzioni.differenza.others_2": "Você paga por funcionalidades que não usa",
+  "soluzioni.differenza.others_3": "Você adapta seu processo à ferramenta",
+  "soluzioni.differenza.aynix_title": "AYNIX",
+  "soluzioni.differenza.aynix_1": "Soluções personalizadas projetadas para seu caso",
+  "soluzioni.differenza.aynix_2": "Você paga apenas pelo que precisa",
+  "soluzioni.differenza.aynix_3": "A ferramenta se adapta ao seu processo",
+  
+  "soluzioni.cta.title": "Quer ver o que podemos construir para você?",
+  "soluzioni.cta.subtitle": "Comece com um diagnóstico. Mostraremos o que é possível.",
+  "soluzioni.cta.button": "Iniciar Diagnóstico",
+  
+  "esperienza.hero.title": "Experiência: Casos Reais",
+  "esperienza.hero.subtitle": "Problema → Solução → Resultado",
+  
+  "esperienza.intro.text": "Estes são exemplos reais (anonimizados) de problemas que resolvemos. Sua situação é única, mas os padrões costumam ser semelhantes.",
+  
+  "esperienza.case_label": "Caso",
+  
+  "esperienza.case1.problema_title": "Problema",
+  "esperienza.case1.problema": "Empresa de e-commerce com 3 sistemas diferentes (loja, estoque, contabilidade) que não se comunicavam",
+  "esperienza.case1.soluzione_title": "Solução",
+  "esperienza.case1.soluzione": "Integração personalizada com sincronização automática e dashboard centralizado",
+  "esperienza.case1.risultato_title": "Resultado",
+  "esperienza.case1.risultato": "95% de redução no tempo de entrada de dados, zero erros de sincronização, 30% mais velocidade no processamento de pedidos",
+  
+  "esperienza.case2.problema_title": "Problema",
+  "esperienza.case2.problema": "Empresa de serviços que gastava 15 horas/semana gerando relatórios manuais a partir de arquivos Excel",
+  "esperienza.case2.soluzione_title": "Solução",
+  "esperienza.case2.soluzione": "Sistema automatizado com dashboard em tempo real e relatórios programados",
+  "esperienza.case2.risultato_title": "Resultado",
+  "esperienza.case2.risultato": "Tempo economizado reinvestido em desenvolvimento de negócios, dados mais precisos e oportunos",
+  
+  "esperienza.case3.problema_title": "Problema",
+  "esperienza.case3.problema": "Negócio B2B com processo de onboarding que exigia 2-3 semanas por cliente",
+  "esperienza.case3.soluzione_title": "Solução",
+  "esperienza.case3.soluzione": "Plataforma de onboarding automatizada com formulários progressivos e notificações",
+  "esperienza.case3.risultato_title": "Resultado",
+  "esperienza.case3.risultato": "Onboarding reduzido para 3 dias, melhor experiência do cliente, capacidade de escalar",
+  
+  "esperienza.case4.problema_title": "Problema",
+  "esperienza.case4.problema": "Empresa manufatureira sem visibilidade em tempo real do status de produção",
+  "esperienza.case4.soluzione_title": "Solução",
+  "esperienza.case4.soluzione": "Sistema de rastreamento personalizado com app mobile para operadores",
+  "esperienza.case4.risultato_title": "Resultado",
+  "esperienza.case4.risultato": "Visibilidade em tempo real, 40% de redução em atrasos, gestão de qualidade proativa",
+  
+  "esperienza.case5.problema_title": "Problema",
+  "esperienza.case5.problema": "Firma de consultoria com gestão de clientes totalmente baseada em e-mails e Excel",
+  "esperienza.case5.soluzione_title": "Solução",
+  "esperienza.case5.soluzione": "CRM personalizado leve integrado com e-mail e calendário",
+  "esperienza.case5.risultato_title": "Resultado",
+  "esperienza.case5.risultato": "Nenhuma informação perdida, histórico completo de clientes, capacidade de delegar a novos recursos",
+  
+  "esperienza.case6.problema_title": "Problema",
+  "esperienza.case6.problema": "Marketplace com atendimento ao cliente sobrecarregado por perguntas repetitivas",
+  "esperienza.case6.soluzione_title": "Solução",
+  "esperienza.case6.soluzione": "Chatbot de IA para suporte de primeiro nível, integrado com sistema de tickets existente",
+  "esperienza.case6.risultato_title": "Resultado",
+  "esperienza.case6.risultato": "70% das perguntas resolvidas automaticamente, equipe focada em casos complexos",
+  
+  "esperienza.cta.title": "Quer resultados como estes?",
+  "esperienza.cta.subtitle": "Cada projeto começa com um diagnóstico. Vamos entender seu caso.",
+  "esperienza.cta.button": "Iniciar Diagnóstico",
+  
+  "chi_siamo.hero.title": "Quem Somos",
+  "chi_siamo.hero.subtitle": "Pessoas que resolvem problemas, não apenas escrevem código",
+  
+  "chi_siamo.visione.title": "Nossa Visão",
+  "chi_siamo.visione.text": "Acreditamos que a maioria das compras de tecnologia é impulsionada pelo que as empresas vendem, não pelo que os negócios realmente precisam. Existimos para reverter essa lógica.",
+  
+  "chi_siamo.missione.title": "Nossa Missão",
+  "chi_siamo.missione.text": "Ajudar empresas a resolver problemas reais com soluções sob medida, partindo da compreensão operacional, não de um catálogo de serviços.",
+  
+  "chi_siamo.team.title": "A Equipe",
+  "chi_siamo.team.intro": "Somos engenheiros, analistas e designers. Mas acima de tudo somos pessoas que ouvem e entendem antes de construir.",
+  
+  "chi_siamo.team.member1_name": "Lizandro Vivanco",
+  "chi_siamo.team.member1_role": "CEO & Analista de Processos",
+  "chi_siamo.team.member1_bio": "Engenheiro de Gestão com MBA e certificações ISO. Especializado em diagnóstico operacional e otimização de processos.",
+  
+  "chi_siamo.team.member2_name": "Maria Paula Vega",
+  "chi_siamo.team.member2_role": "CRO & Relações com Clientes",
+  "chi_siamo.team.member2_bio": "Especialista em Negócios Internacionais. Faz a ponte entre necessidades empresariais e soluções técnicas.",
+  
+  "chi_siamo.team.member3_name": "Anthony Avila",
+  "chi_siamo.team.member3_role": "CTO & Arquiteto de Soluções",
+  "chi_siamo.team.member3_bio": "Desenvolvedor sênior e gerente de projetos. Constrói sistemas escaláveis e seguros.",
+  
+  "chi_siamo.team.member4_name": "Membro da Equipe",
+  "chi_siamo.team.member4_role": "Função",
+  "chi_siamo.team.member4_bio": "Descrição da experiência e contribuição do membro da equipe.",
+  
+  "chi_siamo.metodo.title": "Nosso Método: Primeiro o Diagnóstico",
+  "chi_siamo.metodo.text": "Não começamos oferecendo soluções. Começamos entendendo. Cada projeto parte de um diagnóstico para garantir que estamos resolvendo o problema certo.",
+  "chi_siamo.metodo.button": "Conheça o Método",
+  
+  "chi_siamo.valori.title": "Nossos Valores",
+  "chi_siamo.valori.valore1_title": "Honestidade",
+  "chi_siamo.valori.valore1_desc": "Se não podemos ajudá-lo, dizemos isso. Não vendemos soluções que não servem.",
+  "chi_siamo.valori.valore2_title": "Transparência",
+  "chi_siamo.valori.valore2_desc": "Prazos claros, orçamentos fixos, nenhuma surpresa oculta.",
+  "chi_siamo.valori.valore3_title": "Pragmatismo",
+  "chi_siamo.valori.valore3_desc": "Escolhemos a melhor tecnologia para o problema, não a mais na moda.",
+  "chi_siamo.valori.valore4_title": "Resultados",
+  "chi_siamo.valori.valore4_desc": "Medimos o sucesso pelo impacto nos negócios, não pelas linhas de código escritas.",
+  
+  "chi_siamo.cta.title": "Quer trabalhar conosco?",
+  "chi_siamo.cta.subtitle": "Vamos começar com um diagnóstico. Vejamos se faz sentido juntos.",
+  "chi_siamo.cta.button": "Iniciar Diagnóstico"
 }
