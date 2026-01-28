@@ -123,6 +123,8 @@
     text-align: center;
     padding: 12px 20px;
     display: block;
+    box-sizing: border-box;
+    margin: 0;
 }
 
 /* CTA Section */
