@@ -1,51 +1,50 @@
 <?php get_header(); ?>
 
 <main>
-    <div class="homepage-layout">
-        <!-- Insert Hero with background image -->
-        <section class="hero">
-            <!-- <div class="hero-background">
-                <img src="https://aynix.tech/wp-content/uploads/2025/03/wallpaper-andes-with-sunset-and-river.png'" alt="Aynix header logo"/>
-            </div> -->
-           <div class="hero-background">
-                <div class="background-container">
-                    <div class="gradient-bg">
-                        <svg xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <filter id="goo">
-                                    <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-                                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8" result="goo" />
-                                    <feBlend in="SourceGraphic" in2="goo" />
-                                </filter>
-                            </defs>
-                        </svg>
-                        <div class="gradients-container">
-                            <div class="g1"></div>
-                            <div class="g2"></div>
-                            <div class="g3"></div>
-                            <div class="g4"></div>
-                            <div class="g5"></div>
-                            <div class="interactive"></div>
-                        </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background">
+            <div class="background-container">
+                <div class="gradient-bg">
+                    <svg xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <filter id="goo">
+                                <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8" result="goo" />
+                                <feBlend in="SourceGraphic" in2="goo" />
+                            </filter>
+                        </defs>
+                    </svg>
+                    <div class="gradients-container">
+                        <div class="g1"></div>
+                        <div class="g2"></div>
+                        <div class="g3"></div>
+                        <div class="g4"></div>
+                        <div class="g5"></div>
+                        <div class="interactive"></div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="hero-left">
-                <h1><?php echo aynix_translate('home.hero.title'); ?></h1>
-                <p><?php echo aynix_translate('home.hero.description'); ?></p>
-               <div class="hero-buttons">
-                    <a class="btn-primary btn-large" href="<?php echo esc_url(home_url('/diagnosi')); ?>">
-                        <?php echo aynix_translate('cta.avvia_diagnosi'); ?>
-                    </a>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-left">
+                    <h1><?php echo aynix_translate('home.hero.title'); ?></h1>
+                    <p><?php echo aynix_translate('home.hero.description'); ?></p>
+                    <div class="hero-buttons">
+                        <a class="btn-primary btn-large" href="<?php echo esc_url(home_url('/diagnosi')); ?>">
+                            <?php echo aynix_translate('cta.avvia_diagnosi'); ?>
+                        </a>
+                    </div>
+                    <p class="hero-microcopy"><?php echo aynix_translate('cta.microcopy'); ?></p>
                 </div>
-                <p class="hero-microcopy"><?php echo aynix_translate('cta.microcopy'); ?></p>
             </div>
-            <div class="hero-right">
-                <!-- Optional futuristic HUD (commented out) -->
-            </div>
-        </section>
+        </div>
+    </section>
 
+    <!-- Content Sections -->
+    <div class="homepage-content">
         <div class="container">
             <!-- Metodo in 3 fasi -->
             <section class="metodo-home">
