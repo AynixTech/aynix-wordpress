@@ -4,7 +4,9 @@ wp-content/debug.log
 wp-config.php
 
 # Upload directory (solo in locale, non commitare uploads)
+wp-content/uploads/
 wp-content/uploads/*
+wp-content/uploads/**/*
 
 # Environment variables
 .env
@@ -29,6 +31,10 @@ llms.txt
 # Plugin vendor directories (gestiti da composer)
 wp-content/plugins/*/vendor/
 
-# weMail plugin generated files
+# Plugin generated/cache files
 wp-content/plugins/wemail/includes/Rest/Remote.php
 wp-content/plugins/wemail/includes/Rest/Tracking.php
+wp-content/cache/
+wp-content/backup-db/
+wp-content/advanced-cache.php
+wp-content/wp-cache-config.php
