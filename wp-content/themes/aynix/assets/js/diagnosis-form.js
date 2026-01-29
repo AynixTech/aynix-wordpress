@@ -337,44 +337,6 @@
                 self.submitForm();
             });
         },
-
-        updateNavigation: function() {
-            $('#prev-btn').toggle(this.currentStep > 0);
-            $('#next-btn').toggle(this.currentStep < this.totalSteps - 1);
-            $('#submit-btn').toggle(this.currentStep === this.totalSteps - 1);
-            
-            $('.progress-fill').css('width', `${((this.currentStep + 1) / this.totalSteps) * 100}%`);
-        },
-
-        bindEvents: function() {
-            const self = this;
-            
-            $(document).on('click', '.radio-option', function() {
-                const input = $(this).find('input');
-                const questionId = input.attr('name');
-                const value = input.val();
-                
-                $('.radio-option').removeClass('checked');
-                $(this).addClass('checked');
-                
-                self.formData[questionId] = value;
-                
-                // Auto-advance after selection
-                setTimeout(() => {
-                    if (self.currentStep < self.totalSteps - 1) {
-                        self.nextStep();
-                    }
-                }, 300);
-            });
-            
-            $(document).on('click', '#next-btn', function() {
-                self.nextStep();
-            });
-            
-            $(document).on('click', '#prev-btn', function() {
-                self.prevStep();
-            });
-        },
         
         validateEmail: function(email) {
             return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
