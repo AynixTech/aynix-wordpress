@@ -2,6 +2,7 @@ wp-content/debug.log
 
 # WordPress config (contiene credentials e API keys)
 wp-config.php
+wp-config-custom.php
 
 # Upload directory (solo in locale, non commitare uploads)
 wp-content/uploads/

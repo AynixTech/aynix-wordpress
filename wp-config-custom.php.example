@@ -1,0 +1,14 @@
+<?php
+/**
+ * Template per configurazioni custom del server
+ * 
+ * ISTRUZIONI:
+ * 1. Copia questo file in wp-config-custom.php sul server
+ * 2. Modifica i valori con le tue credenziali reali
+ * 3. NON committare wp-config-custom.php in Git
+ */
+
+// OpenAI API Key
+define('OPENAI_API_KEY', 'inserisci-qui-la-tua-api-key-openai');
+
+// Altre configurazioni custom del server possono essere aggiunte qui
