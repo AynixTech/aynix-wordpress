@@ -336,10 +336,10 @@
             $(document).on('click', '#prev-btn', function() {
                 self.prevStep();
             });
-            
-            $(document).on('click', '#submit-btn', function() {
-                self.submitForm();
-            });
+        },
+        
+        validateEmail: function(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
         },
 
         nextStep: function() {
@@ -358,6 +358,17 @@
 
         submitForm: function() {
             const self = this;
+            
+            // Validate email
+            const email = $('#user-email').val();
+            if (!email || !this.validateEmail(email)) {
+                alert('Inserisci un indirizzo email valido');
+                return;
+            }
+            
+            // Salva email in formData
+            this.formData.email = email;
+            
             $('#submit-btn').prop('disabled', true).text('Invio in corso...');
             
             $.ajax({
