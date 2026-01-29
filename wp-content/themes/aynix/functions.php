@@ -776,7 +776,7 @@ function diagnosis_custom_columns_content($column, $post_id) {
             $ai_error = get_post_meta($post_id, 'ai_proposal_error', true);
             
             if ($ai_proposal) {
-                echo '<button type="button" class="button button-small view-ai-proposal" data-post-id="' . $post_id . '">📄 Visualizza Proposta</button>';
+                echo '<a href="' . admin_url('post.php?post=' . $post_id . '&action=edit') . '" class="button button-small">📄 Visualizza Proposta</a>';
             } elseif ($ai_error) {
                 echo '<span style="color: #dc3545;">✗ Errore: ' . esc_html($ai_error) . '</span>';
             } else {
