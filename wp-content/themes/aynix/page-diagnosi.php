@@ -19,6 +19,12 @@ get_header();
                     <span class="badge"><i class="fas fa-gift"></i> <?php echo aynix_translate('diagnosi.badge.cost'); ?></span>
                     <span class="badge"><i class="fas fa-ban"></i> <?php echo aynix_translate('diagnosi.badge.no_sales'); ?></span>
                 </div>
+                
+                <div class="diagnosi-cta-hero">
+                    <a href="<?php echo esc_url(home_url('/questionario')); ?>" class="btn-primary btn-large">
+                        <?php echo aynix_translate('diagnosi.cta.button'); ?>
+                    </a>
+                </div>
             </div>
         </section>
 

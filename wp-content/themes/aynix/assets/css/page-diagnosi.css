@@ -49,6 +49,24 @@
     margin-right: 0.5rem;
 }
 
+.diagnosi-cta-hero {
+    margin-top: 2.5rem;
+    text-align: center;
+}
+
+.diagnosi-cta-hero .btn-primary {
+    padding: 16px 40px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    box-shadow: 0 8px 25px rgba(67, 142, 249, 0.3);
+    transition: all 0.3s ease;
+}
+
+.diagnosi-cta-hero .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(67, 142, 249, 0.4);
+}
+
 /* What section */
 .diagnosi-what {
     margin: 3rem 0;
