@@ -89,135 +89,183 @@ $prefilled_email = isset($_GET['email']) ? sanitize_email($_GET['email']) : '';
 <style>
 .richiesta-contatto-page {
     background: #f7fafc;
+    min-height: 100vh;
 }
 
 .richiesta-hero {
     background: linear-gradient(135deg, #438ef9 0%, #ff6331 100%);
     color: white;
-    padding: 3rem 1rem;
+    padding: 4rem 1.5rem 3rem;
     text-align: center;
 }
 
 .richiesta-hero h1 {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: 1rem;
     color: white;
+    line-height: 1.2;
 }
 
 .hero-subtitle {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     max-width: 700px;
     margin: 0 auto;
     opacity: 0.95;
+    line-height: 1.5;
 }
 
 .richiesta-form-section {
-    padding: 3rem 0;
+    padding: 3rem 1.5rem;
 }
 
 .richiesta-form-section .container {
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 3rem;
+    grid-template-columns: 1.8fr 1fr;
+    gap: 2.5rem;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 1rem;
 }
 
 .form-container {
     background: white;
-    padding: 2.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 3rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.form-container:hover {
+    transform: translateY(-2px);
 }
 
 .contact-request-form .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
 }
 
 .contact-request-form .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.8rem;
 }
 
 .contact-request-form label {
     display: block;
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
     color: #2d3748;
+    font-size: 0.95rem;
 }
 
 .contact-request-form input,
 .contact-request-form textarea {
     width: 100%;
-    padding: 12px 16px;
+    padding: 14px 18px;
     border: 2px solid #e2e8f0;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 16px;
-    transition: border-color 0.3s;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    background: #fff;
 }
 
 .contact-request-form input:focus,
 .contact-request-form textarea:focus {
     outline: none;
     border-color: #438ef9;
+    box-shadow: 0 0 0 3px rgba(67, 142, 249, 0.1);
+    background: #fafbfc;
+}
+
+.contact-request-form input::placeholder,
+.contact-request-form textarea::placeholder {
+    color: #a0aec0;
 }
 
 .contact-request-form textarea {
     resize: vertical;
-    font-family: inherit;
+    min-height: 120px;
 }
 
 .form-actions {
-    margin-top: 2rem;
+    margin-top: 2.5rem;
+}
+
+.form-actions .btn-primary {
+    width: 100%;
+    padding: 16px 32px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.form-actions .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(67, 142, 249, 0.3);
 }
 
 .form-message {
     margin-top: 1.5rem;
-    padding: 1rem;
-    border-radius: 8px;
+    padding: 1.2rem 1.5rem;
+    border-radius: 10px;
     display: none;
+    font-weight: 500;
+    text-align: center;
 }
 
 .form-message.success {
     display: block;
     background: #d4edda;
     color: #155724;
-    border: 1px solid #c3e6cb;
+    border: 2px solid #c3e6cb;
 }
 
 .form-message.error {
     display: block;
     background: #f8d7da;
     color: #721c24;
-    border: 1px solid #f5c6cb;
+    border: 2px solid #f5c6cb;
+}
+
+.info-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 .info-sidebar .info-box {
     background: white;
     padding: 2rem;
-    border-radius: 12px;
+    border-radius: 16px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.info-sidebar .info-box:hover {
+    transform: translateY(-3px);
 }
 
 .info-sidebar .info-box h3 {
     color: #438ef9;
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+    font-size: 1.25rem;
+    font-weight: 700;
 }
 
 .info-sidebar .info-box ul {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .info-sidebar .info-box ul li {
-    padding: 0.5rem 0;
-    padding-left: 1.5rem;
+    padding: 0.7rem 0;
+    padding-left: 2rem;
     position: relative;
+    color: #4a5568;
+    line-height: 1.5;
 }
 
 .info-sidebar .info-box ul li:before {
@@ -226,30 +274,113 @@ $prefilled_email = isset($_GET['email']) ? sanitize_email($_GET['email']) : '';
     left: 0;
     color: #438ef9;
     font-weight: 700;
+    font-size: 1.2rem;
 }
 
 .info-sidebar .info-box p {
     color: #4a5568;
-    line-height: 1.6;
+    line-height: 1.7;
+    margin: 0;
 }
 
-@media (max-width: 968px) {
+/* Tablet */
+@media (max-width: 1024px) {
     .richiesta-form-section .container {
         grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 0 1rem;
+    }
+    
+    .form-container {
+        padding: 2.5rem;
+    }
+    
+    .info-sidebar {
+        flex-direction: row;
+        gap: 1.5rem;
+    }
+    
+    .info-sidebar .info-box {
+        flex: 1;
+    }
+}
+
+/* Mobile Large */
+@media (max-width: 768px) {
+    .richiesta-hero {
+        padding: 3rem 1rem 2.5rem;
+    }
+    
+    .richiesta-hero h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .richiesta-form-section {
+        padding: 2rem 1rem;
+    }
+    
+    .richiesta-form-section .container {
+        padding: 0;
     }
 
     .contact-request-form .form-row {
         grid-template-columns: 1fr;
+        gap: 0;
     }
 
     .form-container {
-        padding: 1.5rem;
+        padding: 2rem 1.5rem;
+        border-radius: 12px;
+    }
+    
+    .info-sidebar {
+        flex-direction: column;
+    }
+    
+    .contact-request-form input,
+    .contact-request-form textarea {
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+    
+    .form-actions .btn-primary {
+        padding: 14px 28px;
+        font-size: 1rem;
     }
 }
 
-@media (max-width: 768px) {
+/* Mobile Small */
+@media (max-width: 480px) {
     .richiesta-hero h1 {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.95rem;
+    }
+    
+    .form-container {
+        padding: 1.5rem 1rem;
+    }
+    
+    .contact-request-form .form-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .contact-request-form input,
+    .contact-request-form textarea {
+        padding: 12px 14px;
+    }
+    
+    .info-sidebar .info-box {
+        padding: 1.5rem;
+    }
+    
+    .info-sidebar .info-box h3 {
+        font-size: 1.1rem;
     }
 }
 </style>
