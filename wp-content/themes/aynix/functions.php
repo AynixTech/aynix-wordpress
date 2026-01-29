@@ -721,6 +721,182 @@ function register_diagnosis_post_type() {
 add_action('init', 'register_diagnosis_post_type');
 
 /**
+ * Aggiungi colonne personalizzate alla tabella Diagnosi in admin
+ */
+function diagnosis_custom_columns($columns) {
+    $new_columns = array();
+    $new_columns['cb'] = $columns['cb'];
+    $new_columns['title'] = 'Titolo';
+    $new_columns['email'] = 'Email Cliente';
+    $new_columns['tipo_progetto'] = 'Tipo Progetto';
+    $new_columns['budget'] = 'Budget';
+    $new_columns['email_status'] = 'Email Status';
+    $new_columns['ai_status'] = 'AI Status';
+    $new_columns['date'] = 'Data';
+    return $new_columns;
+}
+add_filter('manage_diagnosis_posts_columns', 'diagnosis_custom_columns');
+
+/**
+ * Popola le colonne personalizzate con i dati
+ */
+function diagnosis_custom_columns_content($column, $post_id) {
+    switch ($column) {
+        case 'email':
+            $email = get_post_meta($post_id, 'email', true);
+            echo esc_html($email);
+            break;
+            
+        case 'tipo_progetto':
+            $tipo = get_post_meta($post_id, 'tipo_progetto', true);
+            echo esc_html($tipo);
+            break;
+            
+        case 'budget':
+            $budget = get_post_meta($post_id, 'budget', true);
+            echo '<strong>' . esc_html($budget) . '</strong>';
+            break;
+            
+        case 'email_status':
+            // Verifica se esiste proposta AI (indica che le email sono state inviate)
+            $ai_proposal = get_post_meta($post_id, 'ai_proposal', true);
+            $ai_error = get_post_meta($post_id, 'ai_proposal_error', true);
+            
+            if ($ai_proposal) {
+                echo '<span style="color: #28a745;">✓ Email conferma + Proposta inviata</span>';
+            } elseif ($ai_error) {
+                echo '<span style="color: #ffa500;">✓ Email conferma (AI fallito)</span>';
+            } else {
+                echo '<span style="color: #999;">⏳ In elaborazione...</span>';
+            }
+            break;
+            
+        case 'ai_status':
+            $ai_proposal = get_post_meta($post_id, 'ai_proposal', true);
+            $ai_error = get_post_meta($post_id, 'ai_proposal_error', true);
+            
+            if ($ai_proposal) {
+                echo '<button type="button" class="button button-small view-ai-proposal" data-post-id="' . $post_id . '">📄 Visualizza Proposta</button>';
+            } elseif ($ai_error) {
+                echo '<span style="color: #dc3545;">✗ Errore: ' . esc_html($ai_error) . '</span>';
+            } else {
+                echo '<span style="color: #999;">⏳ Generazione in corso...</span>';
+            }
+            break;
+    }
+}
+add_action('manage_diagnosis_posts_custom_column', 'diagnosis_custom_columns_content', 10, 2);
+
+/**
+ * Rendi le colonne ordinabili
+ */
+function diagnosis_sortable_columns($columns) {
+    $columns['email'] = 'email';
+    $columns['tipo_progetto'] = 'tipo_progetto';
+    $columns['budget'] = 'budget';
+    return $columns;
+}
+add_filter('manage_edit-diagnosis_sortable_columns', 'diagnosis_sortable_columns');
+
+/**
+ * Aggiungi meta box per visualizzare proposta AI completa
+ */
+function diagnosis_add_meta_boxes() {
+    add_meta_box(
+        'diagnosis_ai_proposal',
+        'Proposta AI Generata',
+        'diagnosis_ai_proposal_callback',
+        'diagnosis',
+        'normal',
+        'high'
+    );
+    
+    add_meta_box(
+        'diagnosis_form_data',
+        'Dati Questionario Completi',
+        'diagnosis_form_data_callback',
+        'diagnosis',
+        'normal',
+        'default'
+    );
+}
+add_action('add_meta_boxes', 'diagnosis_add_meta_boxes');
+
+/**
+ * Callback per meta box proposta AI
+ */
+function diagnosis_ai_proposal_callback($post) {
+    $ai_proposal = get_post_meta($post->ID, 'ai_proposal', true);
+    $ai_error = get_post_meta($post->ID, 'ai_proposal_error', true);
+    
+    if ($ai_proposal) {
+        echo '<div style="background: #f0f9ff; border-left: 4px solid #438ef9; padding: 20px; margin: 10px 0;">';
+        echo '<h3 style="margin-top: 0; color: #438ef9;">✓ Proposta AI Generata con Successo</h3>';
+        echo '<div style="white-space: pre-wrap; font-family: monospace; background: white; padding: 15px; border-radius: 5px; line-height: 1.6;">';
+        echo esc_html($ai_proposal);
+        echo '</div>';
+        echo '</div>';
+    } elseif ($ai_error) {
+        echo '<div style="background: #fff3cd; border-left: 4px solid #ffa500; padding: 20px; margin: 10px 0;">';
+        echo '<h3 style="margin-top: 0; color: #ff6331;">⚠️ Errore Generazione AI</h3>';
+        echo '<p><strong>Errore:</strong> ' . esc_html($ai_error) . '</p>';
+        echo '<p><em>La prima email di conferma è stata comunque inviata al cliente.</em></p>';
+        echo '</div>';
+    } else {
+        echo '<div style="background: #f8f9fa; border-left: 4px solid #999; padding: 20px; margin: 10px 0;">';
+        echo '<h3 style="margin-top: 0; color: #666;">⏳ Proposta AI in generazione...</h3>';
+        echo '<p>La proposta AI verrà generata a breve dal cron di WordPress.</p>';
+        echo '</div>';
+    }
+}
+
+/**
+ * Callback per meta box dati questionario
+ */
+function diagnosis_form_data_callback($post) {
+    $form_data = json_decode($post->post_content, true);
+    
+    if (!$form_data) {
+        echo '<p>Nessun dato disponibile.</p>';
+        return;
+    }
+    
+    $labels = array(
+        'email' => 'Email',
+        'tipo_progetto' => 'Tipo Progetto',
+        'obiettivo_principale' => 'Obiettivo Principale',
+        'funzionalita' => 'Funzionalità',
+        'utenti_target' => 'Utenti Target',
+        'numero_utenti' => 'Numero Utenti',
+        'stato_progetto' => 'Stato Progetto',
+        'complessita' => 'Complessità',
+        'tempistiche' => 'Tempistiche',
+        'budget' => 'Budget',
+        'dettagli_extra' => 'Dettagli Extra'
+    );
+    
+    echo '<table class="wp-list-table widefat fixed striped" style="margin-top: 10px;">';
+    echo '<thead><tr><th style="width: 200px;">Campo</th><th>Valore</th></tr></thead>';
+    echo '<tbody>';
+    
+    foreach ($labels as $key => $label) {
+        if (isset($form_data[$key]) && !empty($form_data[$key])) {
+            $value = $form_data[$key];
+            if (is_array($value)) {
+                $value = implode(', ', $value);
+            }
+            echo '<tr>';
+            echo '<td><strong>' . esc_html($label) . '</strong></td>';
+            echo '<td>' . esc_html($value) . '</td>';
+            echo '</tr>';
+        }
+    }
+    
+    echo '</tbody>';
+    echo '</table>';
+}
+
+/**
  * Registra Custom Post Type per Richieste Contatto
  */
 function register_contact_request_post_type() {
