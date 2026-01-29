@@ -177,8 +177,9 @@
   "diagnosi.cta.title": "Start Diagnosis",
   "diagnosi.cta.note": "10 min · Sem custo · Sem venda",
   "diagnosi.cta.button": "Start Diagnosis",
-  
-  "thankyou.title": "Obrigado. Recebemos o seu diagn\u00f3stico.",
+    "questionario.title": "Questionário de Diagnóstico",
+  "questionario.subtitle": "Responda 10 perguntas para nos ajudar a entender o seu contexto",
+    "thankyou.title": "Obrigado. Recebemos o seu diagn\u00f3stico.",
   "thankyou.text": "Estamos analisando as informa\u00e7\u00f5es que voc\u00ea compartilhou para entender se e como podemos realmente ajudar.",
   "thankyou.next_title": "O que acontece agora",
   "thankyou.next_step1": "Avaliamos o problema",

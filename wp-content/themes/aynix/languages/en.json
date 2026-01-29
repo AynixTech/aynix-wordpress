@@ -178,6 +178,9 @@
   "diagnosi.cta.note": "10 min · No cost · No sales pitch",
   "diagnosi.cta.button": "Start Diagnosis",
   
+  "questionario.title": "Diagnosis Questionnaire",
+  "questionario.subtitle": "Answer 10 questions to help us understand your context",
+  
   "thankyou.title": "Thank you. We've received your diagnosis.",
   "thankyou.text": "We're reviewing the information you shared. This allows us to understand if and how we can genuinely help.",
   "thankyou.next_title": "What happens next",

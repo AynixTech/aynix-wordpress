@@ -178,6 +178,9 @@
   "diagnosi.cta.note": "10 min · Nessun costo · Nessuna vendita",
   "diagnosi.cta.button": "Avvia Diagnosi",
   
+  "questionario.title": "Questionario Diagnosi",
+  "questionario.subtitle": "Rispondi a 10 domande per aiutarci a capire il tuo contesto",
+  
   "thankyou.title": "Grazie. Abbiamo ricevuto la tua diagnosi.",
   "thankyou.text": "Stiamo analizzando le informazioni che hai condiviso per capire se e come possiamo aiutarti davvero.",
   "thankyou.next_title": "Cosa succede ora",

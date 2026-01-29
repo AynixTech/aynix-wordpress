@@ -89,29 +89,19 @@ get_header();
                 </div>
             </section>
 
-            <!-- CTA + Questionario -->
+            <!-- CTA finale -->
             <section class="diagnosi-cta">
                 <div class="cta-box">
                     <h2><?php echo aynix_translate('diagnosi.cta.title'); ?></h2>
                     <p class="cta-note"><?php echo aynix_translate('diagnosi.cta.note'); ?></p>
                     
-                    <!-- Questionario Diagnosi -->
-                    <div class="diagnosi-form-container" id="diagnosi-form">
-                        <!-- Il questionario verrà caricato qui tramite JavaScript -->
-                    </div>
+                    <a href="<?php echo esc_url(home_url('/questionario')); ?>" class="btn-primary btn-large">
+                        <?php echo aynix_translate('diagnosi.cta.button'); ?>
+                    </a>
                 </div>
             </section>
         </div>
     </div>
 </main>
-
-<script>
-// Load diagnosis form script
-document.addEventListener('DOMContentLoaded', function() {
-    const script = document.createElement('script');
-    script.src = '<?php echo get_template_directory_uri(); ?>/assets/js/diagnosis-form.js';
-    document.body.appendChild(script);
-});
-</script>
 
 <?php get_footer(); ?>
