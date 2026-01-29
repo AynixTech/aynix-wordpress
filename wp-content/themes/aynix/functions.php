@@ -250,6 +250,12 @@ Scrivi in tono professionale ma accessibile, in italiano. Sii specifico e tecnic
     // Chiamata API OpenAI
     $api_key = defined('OPENAI_API_KEY') ? OPENAI_API_KEY : '';
     
+    // Verifica che l'API key sia configurata
+    if (empty($api_key)) {
+        error_log('OPENAI_API_KEY non configurata in wp-config.php');
+        return false;
+    }
+    
     $response = wp_remote_post('https://api.openai.com/v1/chat/completions', array(
         'headers' => array(
             'Authorization' => 'Bearer ' . $api_key,
@@ -280,11 +286,21 @@ Scrivi in tono professionale ma accessibile, in italiano. Sii specifico e tecnic
     
     $body = json_decode(wp_remote_retrieve_body($response), true);
     
+    // Log della risposta completa per debug
+    error_log('OpenAI Response Status: ' . wp_remote_retrieve_response_code($response));
+    error_log('OpenAI Response Body: ' . wp_remote_retrieve_body($response));
+    
     if (isset($body['choices'][0]['message']['content'])) {
         return $body['choices'][0]['message']['content'];
     }
     
-    error_log('Risposta OpenAI non valida: ' . print_r($body, true));
+    // Log errore con dettagli
+    if (isset($body['error'])) {
+        error_log('Errore OpenAI API: ' . $body['error']['message']);
+    } else {
+        error_log('Risposta OpenAI non valida: ' . print_r($body, true));
+    }
+    
     return false;
 }
 
