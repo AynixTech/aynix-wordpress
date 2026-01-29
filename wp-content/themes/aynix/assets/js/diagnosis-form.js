@@ -337,13 +337,6 @@
                 self.submitForm();
             });
         },
-        
-        validateEmail: function(email) {
-            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email;
-            
-            container.html(html);
-            this.updateNavigation();
-        },
 
         updateNavigation: function() {
             $('#prev-btn').toggle(this.currentStep > 0);
