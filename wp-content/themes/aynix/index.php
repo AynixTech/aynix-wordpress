@@ -109,12 +109,12 @@
                 </div>
                 <div class="perche-grid">
                     <div class="perche-item">
-                        <i class="fas fa-user-check"></i>
+                        <i class="fas fa-stethoscope"></i>
                         <h3><?php echo aynix_translate('home.perche.punto1_title'); ?></h3>
                         <p><?php echo aynix_translate('home.perche.punto1_desc'); ?></p>
                     </div>
                     <div class="perche-item">
-                        <i class="fas fa-cogs"></i>
+                        <i class="fas fa-chart-line"></i>
                         <h3><?php echo aynix_translate('home.perche.punto2_title'); ?></h3>
                         <p><?php echo aynix_translate('home.perche.punto2_desc'); ?></p>
                     </div>

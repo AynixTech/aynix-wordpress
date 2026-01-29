@@ -52,13 +52,20 @@
 
         </div>
         <div class="col-md-4">
-            <h5>Links</h5>
+            <h5><?php echo aynix_translate('footer.navigation'); ?></h5>
             <ul>
                 <li><a href="<?php echo home_url('/'); ?>"><?php echo aynix_translate('nav.home'); ?></a></li>
-                <li><a href="<?php echo home_url('/about'); ?>"><?php echo aynix_translate('nav.about'); ?></a></li>
-                <li><a href="<?php echo home_url('/services'); ?>"><?php echo aynix_translate('nav.services'); ?></a></li>
-                <li><a href="<?php echo home_url('/contact-us'); ?>"><?php echo aynix_translate('nav.contact'); ?></a></li>
+                <li><a href="<?php echo esc_url(home_url('/metodo')); ?>"><?php echo aynix_translate('nav.metodo'); ?></a></li>
+                <li><a href="<?php echo esc_url(home_url('/problemi')); ?>"><?php echo aynix_translate('nav.problemi'); ?></a></li>
+                <li><a href="<?php echo esc_url(home_url('/soluzioni')); ?>"><?php echo aynix_translate('nav.soluzioni'); ?></a></li>
+                <li><a href="<?php echo esc_url(home_url('/esperienza')); ?>"><?php echo aynix_translate('nav.esperienza'); ?></a></li>
+                <li><a href="<?php echo esc_url(home_url('/chi-siamo')); ?>"><?php echo aynix_translate('nav.chi_siamo'); ?></a></li>
             </ul>
+            <div class="footer-cta" style="margin-top: 20px;">
+                <a href="<?php echo esc_url(home_url('/diagnosi')); ?>" class="btn-primary" style="display: inline-block; padding: 12px 24px; border-radius: 8px;">
+                    <?php echo aynix_translate('cta.avvia_diagnosi'); ?>
+                </a>
+            </div>
         </div>
         <div class="col-md-4 social-icons">
     <h5><?php echo aynix_translate('follow_us'); ?></h5>
