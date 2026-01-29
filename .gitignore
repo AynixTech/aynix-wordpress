@@ -28,3 +28,7 @@ llms.txt
 
 # Plugin vendor directories (gestiti da composer)
 wp-content/plugins/*/vendor/
+
+# weMail plugin generated files
+wp-content/plugins/wemail/includes/Rest/Remote.php
+wp-content/plugins/wemail/includes/Rest/Tracking.php
