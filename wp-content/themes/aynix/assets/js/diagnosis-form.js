@@ -9,7 +9,7 @@
     const DiagnosisForm = {
         currentStep: 0,
         formData: {},
-        totalSteps: 10,
+        totalSteps: 11, // 10 domande + email
 
         init: function() {
             this.renderForm();
@@ -19,126 +19,126 @@
         questions: {
             it: [
                 {
-                    id: 'settore',
-                    question: 'In quale settore opera la tua azienda?',
+                    id: 'tipo_progetto',
+                    question: 'Che tipo di soluzione stai cercando?',
                     type: 'radio',
-                    options: ['Servizi', 'Logistica / Trasporti', 'Produzione / Industria', 'Retail / E-commerce', 'Altro']
+                    options: ['Web App', 'App Mobile (iOS/Android)', 'Software Desktop', 'Sistema gestionale custom', 'Automazione / Integrazione', 'Non sono sicuro']
                 },
                 {
-                    id: 'dimensione',
-                    question: 'Dimensione dell\'organizzazione',
+                    id: 'obiettivo_principale',
+                    question: 'Qual è l\'obiettivo principale del progetto?',
                     type: 'radio',
-                    options: ['1-5 persone', '6-20 persone', '21-50 persone', '50+ persone']
+                    options: ['Automatizzare processi interni', 'Vendere online / E-commerce', 'Gestire clienti e dati', 'Comunicare con i clienti', 'Altro']
                 },
                 {
-                    id: 'area_problema',
-                    question: 'Quale area oggi crea più difficoltà?',
-                    type: 'radio',
-                    options: ['Vendite', 'Operazioni / Processi interni', 'Amministrazione', 'Logistica', 'Customer support']
+                    id: 'funzionalita',
+                    question: 'Quali funzionalità principali ti servono?',
+                    type: 'checkbox',
+                    options: ['Gestione utenti / Login', 'Database / Archiviazione dati', 'Pagamenti online', 'Integrazioni (CRM, email, etc)', 'Dashboard / Report', 'App mobile', 'API / Automazioni']
                 },
                 {
-                    id: 'problema_principale',
-                    question: 'Qual è il problema principale che stai vivendo?',
+                    id: 'utenti_target',
+                    question: 'Chi userà principalmente questa soluzione?',
                     type: 'radio',
-                    options: ['Perdiamo troppo tempo', 'Ci sono troppi errori manuali', 'Mancanza di controllo / dati', 'I costi stanno aumentando', 'Facciamo fatica a scalare']
+                    options: ['Solo il mio team interno', 'I miei clienti', 'Sia team che clienti', 'Partner / Fornitori']
                 },
                 {
-                    id: 'criticita',
-                    question: 'Quanto è critico questo problema?',
+                    id: 'numero_utenti',
+                    question: 'Quanti utenti prevedi?',
                     type: 'radio',
-                    options: ['È un fastidio', 'Ha un impatto economico', 'Sta bloccando la crescita']
+                    options: ['< 10', '10-50', '50-200', '200-1000', '> 1000']
                 },
                 {
-                    id: 'gestione_attuale',
-                    question: 'Come gestite oggi questo processo?',
+                    id: 'stato_progetto',
+                    question: 'A che punto sei con il progetto?',
                     type: 'radio',
-                    options: ['Manualmente (email, Excel, carta)', 'Con strumenti parziali', 'Con sistemi strutturati', 'Non è chiaramente definito']
+                    options: ['Solo un\'idea iniziale', 'Ho specifiche dettagliate', 'Ho già un prototipo/MVP', 'Ho già qualcosa ma va migliorato']
                 },
                 {
-                    id: 'volume',
-                    question: 'Volume medio mensile coinvolto (ordini, richieste, documenti, clienti)',
+                    id: 'complessita',
+                    question: 'Complessità percepita del progetto',
                     type: 'radio',
-                    options: ['< 100', '100 – 500', '500 – 2.000', '> 2.000']
+                    options: ['Semplice (landing page, form)', 'Media (gestionale base)', 'Complessa (marketplace, piattaforma)', 'Molto complessa (fintech, healthcare)']
                 },
                 {
-                    id: 'obiettivo',
-                    question: 'Qual è l\'obiettivo principale?',
+                    id: 'tempistiche',
+                    question: 'In quanto tempo vorresti lanciare?',
                     type: 'radio',
-                    options: ['Ridurre costi', 'Risparmiare tempo', 'Avere più controllo', 'Scalare senza assumere']
-                },
-                {
-                    id: 'timing',
-                    question: 'In che orizzonte temporale vorresti risolvere il problema?',
-                    type: 'radio',
-                    options: ['Subito / urgente', '3–6 mesi', '> 6 mesi']
+                    options: ['< 1 mese', '1-3 mesi', '3-6 mesi', '> 6 mesi', 'Non ho scadenze']
                 },
                 {
                     id: 'budget',
-                    question: 'Hai già previsto un budget per affrontare questo problema?',
+                    question: 'Qual è il tuo budget indicativo?',
                     type: 'radio',
-                    options: ['Sì, indicativamente', 'Non ancora', 'No']
+                    options: ['< 5.000€', '5.000€ - 15.000€', '15.000€ - 50.000€', '> 50.000€', 'Da definire']
+                },
+                {
+                    id: 'dettagli_extra',
+                    question: 'Descrivi brevemente il tuo progetto (opzionale)',
+                    type: 'textarea',
+                    placeholder: 'Es: Voglio un\'app per gestire le prenotazioni del mio ristorante con pagamento online...'
                 }
             ],
             en: [
                 {
-                    id: 'settore',
-                    question: 'Which sector does your company operate in?',
+                    id: 'tipo_progetto',
+                    question: 'What type of solution are you looking for?',
                     type: 'radio',
-                    options: ['Services', 'Logistics / Transportation', 'Manufacturing / Industry', 'Retail / E-commerce', 'Other']
+                    options: ['Web App', 'Mobile App (iOS/Android)', 'Desktop Software', 'Custom ERP/Management System', 'Automation / Integration', 'Not sure']
                 },
                 {
-                    id: 'dimensione',
-                    question: 'Company size',
+                    id: 'obiettivo_principale',
+                    question: 'What is the main goal of the project?',
                     type: 'radio',
-                    options: ['1-5 people', '6-20 people', '21-50 people', '50+ people']
+                    options: ['Automate internal processes', 'Sell online / E-commerce', 'Manage clients and data', 'Communicate with customers', 'Other']
                 },
                 {
-                    id: 'area_problema',
-                    question: 'Which area currently causes the most difficulties?',
-                    type: 'radio',
-                    options: ['Sales', 'Operations / Internal processes', 'Administration', 'Logistics', 'Customer support']
+                    id: 'funzionalita',
+                    question: 'Which main features do you need?',
+                    type: 'checkbox',
+                    options: ['User management / Login', 'Database / Data storage', 'Online payments', 'Integrations (CRM, email, etc)', 'Dashboard / Reports', 'Mobile app', 'API / Automations']
                 },
                 {
-                    id: 'problema_principale',
-                    question: 'What is the main problem you are experiencing?',
+                    id: 'utenti_target',
+                    question: 'Who will primarily use this solution?',
                     type: 'radio',
-                    options: ['Too much time wasted', 'Too many manual errors', 'Lack of control / data visibility', 'Increasing costs', 'Difficulty scaling']
+                    options: ['Only my internal team', 'My customers', 'Both team and customers', 'Partners / Suppliers']
                 },
                 {
-                    id: 'criticita',
-                    question: 'How critical is this problem?',
+                    id: 'numero_utenti',
+                    question: 'How many users do you expect?',
                     type: 'radio',
-                    options: ['Minor inconvenience', 'Financial impact', 'Blocking growth']
+                    options: ['< 10', '10-50', '50-200', '200-1000', '> 1000']
                 },
                 {
-                    id: 'gestione_attuale',
-                    question: 'How is this process managed today?',
+                    id: 'stato_progetto',
+                    question: 'What stage is your project at?',
                     type: 'radio',
-                    options: ['Manually (emails, spreadsheets, paper)', 'With partially structured tools', 'With structured systems', 'Not clearly defined']
+                    options: ['Just an initial idea', 'I have detailed specifications', 'I already have a prototype/MVP', 'I have something but needs improvement']
                 },
                 {
-                    id: 'volume',
-                    question: 'Average monthly volume involved (orders, requests, documents, customers)',
+                    id: 'complessita',
+                    question: 'Perceived project complexity',
                     type: 'radio',
-                    options: ['< 100', '100 – 500', '500 – 2,000', '> 2,000']
+                    options: ['Simple (landing page, forms)', 'Medium (basic management system)', 'Complex (marketplace, platform)', 'Very complex (fintech, healthcare)']
                 },
                 {
-                    id: 'obiettivo',
-                    question: 'What is your main objective?',
+                    id: 'tempistiche',
+                    question: 'When would you like to launch?',
                     type: 'radio',
-                    options: ['Reduce costs', 'Save time', 'Gain more control', 'Scale without hiring']
-                },
-                {
-                    id: 'timing',
-                    question: 'When would you like to address this problem?',
-                    type: 'radio',
-                    options: ['Immediately / urgent', 'Within 3–6 months', 'In more than 6 months']
+                    options: ['< 1 month', '1-3 months', '3-6 months', '> 6 months', 'No deadline']
                 },
                 {
                     id: 'budget',
-                    question: 'Have you already allocated a budget to address this problem?',
+                    question: 'What is your indicative budget?',
                     type: 'radio',
-                    options: ['Yes, approximately', 'Not yet', 'No']
+                    options: ['< €5,000', '€5,000 - €15,000', '€15,000 - €50,000', '> €50,000', 'To be defined']
+                },
+                {
+                    id: 'dettagli_extra',
+                    question: 'Briefly describe your project (optional)',
+                    type: 'textarea',
+                    placeholder: 'E.g., I want an app to manage my restaurant bookings with online payment...'
                 }
             ]
         },
@@ -178,29 +178,117 @@
 
         renderQuestion: function() {
             const lang = this.getLanguage();
-            const question = this.questions[lang][this.currentStep];
             const container = $('.question-container');
             
-            let optionsHtml = '';
-            question.options.forEach((option, index) => {
-                const isChecked = this.formData[question.id] === option ? 'checked' : '';
-                optionsHtml += `
-                    <label class="radio-option ${isChecked}">
-                        <input type="radio" name="${question.id}" value="${option}" ${isChecked}>
-                        <span class="radio-label">${option}</span>
-                    </label>
+            // Step finale: richiesta email
+            if (this.currentStep === this.totalSteps - 1) {
+                const emailLabel = lang === 'it' ? 'Inserisci la tua email per ricevere la proposta personalizzata' : 'Enter your email to receive the personalized proposal';
+                const emailPlaceholder = lang === 'it' ? 'tua@email.com' : 'your@email.com';
+                
+                const html = `
+                    <div class="question-step" data-step="${this.currentStep}">
+                        <p class="step-indicator">Step ${this.currentStep + 1} di ${this.totalSteps}</p>
+                        <h3 class="question-title">${emailLabel}</h3>
+                        <div class="options-container">
+                            <input type="email" id="user-email" class="email-input" placeholder="${emailPlaceholder}" value="${this.formData.email || ''}" required>
+                        </div>
+                    </div>
                 `;
+                container.html(html);
+                this.updateNavigation();
+                return;
+            }
+            
+            const question = this.questions[lang][this.currentStep];
+            
+            let optionsHtml = '';
+            
+            // Textarea
+            if (question.type === 'textarea') {
+                const value = this.formData[question.id] || '';
+                optionsHtml = `
+                    <textarea id="${question.id}" name="${question.id}" class="textarea-input" 
+                              placeholder="${question.placeholder || ''}" rows="5">${value}</textarea>
+                `;
+            }
+            // Checkbox
+            else if (question.type === 'checkbox') {
+                const selectedValues = this.formData[question.id] || [];
+                question.options.forEach((option, index) => {
+                    const isChecked = selectedValues.includes(option) ? 'checked' : '';
+                    optionsHtml += `
+            // Radio click con auto-advance
+            $(document).on('click', '.radio-option', function() {
+                const input = $(this).find('input');
+                const questionId = input.attr('name');
+                const value = input.val();
+                
+                $('.radio-option').removeClass('checked');
+                $(this).addClass('checked');
+                
+                self.formData[questionId] = value;
+                
+                // Auto-advance after selection
+                setTimeout(() => {
+                    if (self.currentStep < self.totalSteps - 1) {
+                        self.nextStep();
+                    }
+                }, 300);
             });
             
-            const html = `
-                <div class="question-step" data-step="${this.currentStep}">
-                    <p class="step-indicator">Domanda ${this.currentStep + 1} di ${this.totalSteps}</p>
-                    <h3 class="question-title">${question.question}</h3>
-                    <div class="options-container">
-                        ${optionsHtml}
-                    </div>
-                </div>
-            `;
+            // Checkbox toggle
+            $(document).on('change', '.checkbox-option input', function() {
+                const questionId = $(this).attr('name');
+                const value = $(this).val();
+                
+                if (!self.formData[questionId]) {
+                    self.formData[questionId] = [];
+                }
+                
+                if ($(this).is(':checked')) {
+                    $(this).closest('.checkbox-option').addClass('checked');
+                    if (!self.formData[questionId].includes(value)) {
+                        self.formData[questionId].push(value);
+                    }
+                } else {
+                    $(this).closest('.checkbox-option').removeClass('checked');
+                    self.formData[questionId] = self.formData[questionId].filter(v => v !== value);
+                }
+            });
+            
+            // Textarea change
+            $(document).on('blur', '.textarea-input', function() {
+                const questionId = $(this).attr('name');
+                self.formData[questionId] = $(this).val();
+            });
+            
+            // Email input
+            $(document).on('blur', '#user-email', function() {
+                self.formData.email = $(this).val();
+            });
+            
+            $(document).on('click', '#next-btn', function() {
+                self.nextStep();
+            });
+            
+            $(document).on('click', '#prev-btn', function() {
+                self.prevStep();
+            });
+            
+            $(document).on('click', '#submit-btn', function() {
+                // Validate email
+                const email = $('#user-email').val();
+                if (!email || !self.validateEmail(email)) {
+                    alert('Inserisci un indirizzo email valido');
+                    return;
+                }
+                self.formData.email = email;
+                self.submitForm();
+            });
+        },
+        
+        validateEmail: function(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email;
             
             container.html(html);
             this.updateNavigation();

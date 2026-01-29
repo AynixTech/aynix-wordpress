@@ -127,17 +127,21 @@ function aynix_enqueue_fonts() {
 add_action('wp_enqueue_scripts', 'aynix_enqueue_fonts');
 
 /**
- * AJAX Handler per salvataggio diagnosi
+ * AJAX Handler per salvataggio diagnosi e generazione proposta AI
  */
 function save_diagnosis_submission() {
-    // Verifica nonce per sicurezza (opzionale, ma consigliato)
-    
     $form_data = isset($_POST['formData']) ? $_POST['formData'] : array();
     $timestamp = isset($_POST['timestamp']) ? sanitize_text_field($_POST['timestamp']) : current_time('mysql');
+    $user_email = isset($form_data['email']) ? sanitize_email($form_data['email']) : '';
     
-    // Salva i dati in un custom post type o in una tabella
+    if (empty($user_email)) {
+        wp_send_json_error(array('message' => 'Email richiesta'));
+        return;
+    }
+    
+    // Salva i dati in custom post type
     $diagnosis_data = array(
-        'post_title'    => 'Diagnosi - ' . $timestamp,
+        'post_title'    => 'Progetto Software - ' . $user_email . ' - ' . $timestamp,
         'post_content'  => json_encode($form_data),
         'post_status'   => 'private',
         'post_type'     => 'diagnosis',
@@ -146,25 +150,148 @@ function save_diagnosis_submission() {
     
     $post_id = wp_insert_post($diagnosis_data);
     
-    if ($post_id) {
-        // Salva i metadati
-        foreach ($form_data as $key => $value) {
+    if (!$post_id) {
+        wp_send_json_error(array('message' => 'Errore nel salvataggio'));
+        return;
+    }
+    
+    // Salva metadati
+    foreach ($form_data as $key => $value) {
+        if (is_array($value)) {
+            update_post_meta($post_id, $key, json_encode($value));
+        } else {
             update_post_meta($post_id, $key, sanitize_text_field($value));
         }
+    }
+    
+    // Genera proposta AI con OpenAI
+    $ai_proposal = generate_ai_proposal($form_data);
+    
+    if ($ai_proposal) {
+        update_post_meta($post_id, 'ai_proposal', $ai_proposal);
         
-        // Invia email di notifica (opzionale)
+        // Invia email all'utente con proposta
+        send_proposal_email($user_email, $ai_proposal, $form_data);
+        
+        // Notifica admin
         $admin_email = get_option('admin_email');
-        $subject = 'Nuova Diagnosi Ricevuta - AYNIX';
-        $message = "Nuova diagnosi ricevuta.\n\n";
-        $message .= "Dati:\n" . print_r($form_data, true);
+        $subject = 'Nuova Richiesta Progetto Software - AYNIX';
+        $message = "Nuova richiesta progetto software ricevuta.\n\n";
+        $message .= "Email cliente: $user_email\n";
+        $message .= "Post ID: $post_id\n\n";
+        $message .= "Tipo progetto: " . (isset($form_data['tipo_progetto']) ? $form_data['tipo_progetto'] : 'N/A') . "\n";
+        $message .= "Budget: " . (isset($form_data['budget']) ? $form_data['budget'] : 'N/A') . "\n";
         
         wp_mail($admin_email, $subject, $message);
         
-        wp_send_json_success(array('post_id' => $post_id));
+        wp_send_json_success(array('post_id' => $post_id, 'proposal_sent' => true));
     } else {
-        wp_send_json_error(array('message' => 'Errore nel salvataggio'));
+        wp_send_json_error(array('message' => 'Errore nella generazione della proposta'));
     }
 }
+
+/**
+ * Genera proposta software personalizzata usando OpenAI
+ */
+function generate_ai_proposal($form_data) {
+    if (!defined('OPENAI_API_KEY')) {
+        error_log('OpenAI API Key non configurata');
+        return false;
+    }
+    
+    // Costruisci prompt per OpenAI
+    $prompt = "Sei un esperto programmatore e consulente tecnico di AYNIX, una software house specializzata in soluzioni custom.
+
+Analizza queste risposte del cliente e genera una proposta tecnica dettagliata per il loro progetto software:
+
+";
+    
+    foreach ($form_data as $key => $value) {
+        if ($key !== 'email' && !empty($value)) {
+            $label = ucfirst(str_replace('_', ' ', $key));
+            if (is_array($value)) {
+                $prompt .= "$label: " . implode(', ', $value) . "\n";
+            } else {
+                $prompt .= "$label: $value\n";
+            }
+        }
+    }
+    
+    $prompt .= "\n
+Genera una proposta che includa:
+1. **Analisi del Progetto**: Riepilogo obiettivi e necessità
+2. **Soluzione Tecnica Proposta**: Stack tecnologico consigliato, architettura, funzionalità principali
+3. **Tempistiche Stimate**: Fasi di sviluppo e durata
+4. **Investimento Indicativo**: Range di costo basato sulla complessità
+5. **Prossimi Passi**: Come procedere
+
+Scrivi in tono professionale ma accessibile, in italiano. Sii specifico e tecnico dove necessario.";
+    
+    // Chiamata API OpenAI
+    $response = wp_remote_post('https://api.openai.com/v1/chat/completions', array(
+        'headers' => array(
+            'Authorization' => 'Bearer ' . OPENAI_API_KEY,
+            'Content-Type' => 'application/json',
+        ),
+        'body' => json_encode(array(
+            'model' => 'gpt-4',
+            'messages' => array(
+                array(
+                    'role' => 'system',
+                    'content' => 'Sei un esperto programmatore e consulente tecnico specializzato in sviluppo software custom, web app, mobile app e sistemi gestionali.'
+                ),
+                array(
+                    'role' => 'user',
+                    'content' => $prompt
+                )
+            ),
+            'temperature' => 0.7,
+            'max_tokens' => 2000
+        )),
+        'timeout' => 60,
+    ));
+    
+    if (is_wp_error($response)) {
+        error_log('Errore OpenAI API: ' . $response->get_error_message());
+        return false;
+    }
+    
+    $body = json_decode(wp_remote_retrieve_body($response), true);
+    
+    if (isset($body['choices'][0]['message']['content'])) {
+        return $body['choices'][0]['message']['content'];
+    }
+    
+    error_log('Risposta OpenAI non valida: ' . print_r($body, true));
+    return false;
+}
+
+/**
+ * Invia email con proposta AI al cliente
+ */
+function send_proposal_email($to_email, $proposal, $form_data) {
+    $subject = 'La Tua Proposta Personalizzata - AYNIX';
+    
+    $message = "Ciao,\n\n";
+    $message .= "Grazie per aver completato il nostro questionario!\n\n";
+    $message .= "Abbiamo analizzato le tue risposte e preparato una proposta tecnica personalizzata per il tuo progetto:\n\n";
+    $message .= "═══════════════════════════════════════\n\n";
+    $message .= $proposal;
+    $message .= "\n\n═══════════════════════════════════════\n\n";
+    $message .= "Vuoi discutere questa proposta? Rispondi a questa email o prenota una call: https://aynix.tech/contatti\n\n";
+    $message .= "A presto,\n";
+    $message .= "Il Team AYNIX\n";
+    $message .= "https://aynix.tech\n";
+    
+    $headers = array(
+        'From: AYNIX <admin@aynix.tech>',
+        'Reply-To: admin@aynix.tech',
+        'Content-Type: text/plain; charset=UTF-8'
+    );
+    
+    return wp_mail($to_email, $subject, $message, $headers);
+}
+
 add_action('wp_ajax_save_diagnosis', 'save_diagnosis_submission');
 add_action('wp_ajax_nopriv_save_diagnosis', 'save_diagnosis_submission');
 
