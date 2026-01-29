@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form_submit']
             $error_message = aynix_translate('contact.form.invalid_email');
         } else {
             // Prepare email
-            $to = 'admin@aynix.tech';
+            $to = 'info@aynix.tech';
             $email_subject = 'Contact Form: ' . $subject;
             $email_body = "Name: $name\n";
             $email_body .= "Email: $email\n";

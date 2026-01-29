@@ -202,66 +202,6 @@
                 <p>No articles found.</p>
             <?php endif; ?>
 
-            <?php
-                $partners = [
-                    [
-                        'name' => 'WeCoop',
-                        'url' => 'https://www.wecoop.org/',
-                        'img' => 'https://aynix.tech/wp-content/uploads/2025/03/wecooplogo2.png',
-                        'alt' => 'Partner tecnologico'
-                    ],
-                    [
-                        'name' => 'UNIUMA',
-                        'url' => 'https://www.uniuma.it/',
-                        'img' => 'https://aynix.tech/wp-content/uploads/2025/11/Logo-Uniuma.png',
-                        'alt' => 'Partner tecnologico'
-                    ]
-                ];
-
-                $clienti = [
-                    [
-                        'name' => 'Choema',
-                        'url' => 'https://choema.com/',
-                        'img' => 'https://www.aynix.tech/wp-content/uploads/2025/03/choema-white-1.png',
-                        'alt' => 'Choema'
-                    ],
-                    [
-                        'name' => 'SicurezzaFull',
-                        'url' => 'https://sicurezzafull.it/',
-                        'img' => 'https://www.aynix.tech/wp-content/uploads/2025/03/logo_sicurezzafull_y-1.png',
-                        'alt' => 'SicurezzaFull'
-                    ]
-                ];
-                ?>
-
-                <div class="section-title">
-                    <h3><?php echo aynix_translate('partners.title'); ?></h3>
-                </div>
-
-                <div class="container-partners">
-                    <?php foreach ($partners as $partner): ?>
-                        <div class="partner">
-                            <a href="<?php echo $partner['url']; ?>">
-                                <img src="<?php echo $partner['img']; ?>" alt="<?php echo $partner['alt']; ?>" />
-                            </a>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-
-                <div class="section-title">
-                    <h3><?php echo aynix_translate('clients.title'); ?></h3>
-                </div>
-
-                <div class="container-partners">
-                    <?php foreach ($clienti as $cliente): ?>
-                        <div class="partner">
-                            <a href="<?php echo $cliente['url']; ?>">
-                                <img src="<?php echo $cliente['img']; ?>" alt="<?php echo $cliente['alt']; ?>" />
-                            </a>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-
             <!-- CTA finale -->
             <section class="home-cta-final">
                 <div class="cta-box">

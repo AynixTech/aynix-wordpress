@@ -226,7 +226,7 @@ function aynix_email_template($content, $title = '') {
             <p>Sviluppiamo soluzioni software su misura</p>
             <p>
                 <a href="https://aynix.tech">aynix.tech</a> | 
-                <a href="mailto:admin@aynix.tech">admin@aynix.tech</a>
+                <a href="mailto:info@aynix.tech">info@aynix.tech</a>
             </p>
             <p style="font-size: 12px; color: #999; margin-top: 20px;">
                 Hai ricevuto questa email perché hai compilato il questionario sul nostro sito.
@@ -442,8 +442,8 @@ function send_proposal_email($to_email, $proposal, $form_data) {
     $html_message = aynix_email_template($content, 'La Tua Analisi Personalizzata');
     
     $headers = array(
-        'From: AYNIX <admin@aynix.tech>',
-        'Reply-To: admin@aynix.tech',
+        'From: AYNIX <info@aynix.tech>',
+        'Reply-To: info@aynix.tech',
         'Content-Type: text/html; charset=UTF-8'
     );
     
@@ -481,8 +481,8 @@ function send_confirmation_email($to_email) {
     $html_message = aynix_email_template($content, 'Questionario Ricevuto');
     
     $headers = array(
-        'From: AYNIX <admin@aynix.tech>',
-        'Reply-To: admin@aynix.tech',
+        'From: AYNIX <info@aynix.tech>',
+        'Reply-To: info@aynix.tech',
         'Content-Type: text/html; charset=UTF-8'
     );
     
@@ -565,7 +565,7 @@ function send_admin_notification($user_email, $form_data, $ai_proposal = null, $
     $html_message = aynix_email_template($content, 'Nuova Richiesta Progetto');
     
     $headers = array(
-        'From: AYNIX Sistema <admin@aynix.tech>',
+        'From: AYNIX Sistema <info@aynix.tech>',
         'Reply-To: ' . $user_email,
         'Content-Type: text/html; charset=UTF-8'
     );
@@ -674,7 +674,7 @@ function send_contact_request_notification($nome, $cognome, $email, $telefono, $
     $html_message = aynix_email_template($content, 'Nuova Richiesta di Contatto');
     
     $headers = array(
-        'From: AYNIX Sistema <admin@aynix.tech>',
+        'From: AYNIX Sistema <info@aynix.tech>',
         'Reply-To: ' . $email,
         'Content-Type: text/html; charset=UTF-8'
     );
@@ -716,8 +716,8 @@ function send_contact_request_confirmation($email, $nome) {
     $html_message = aynix_email_template($content, 'Richiesta Ricevuta');
     
     $headers = array(
-        'From: AYNIX <admin@aynix.tech>',
-        'Reply-To: admin@aynix.tech',
+        'From: AYNIX <info@aynix.tech>',
+        'Reply-To: info@aynix.tech',
         'Content-Type: text/html; charset=UTF-8'
     );
     

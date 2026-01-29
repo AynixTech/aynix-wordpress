@@ -11,7 +11,7 @@
                     <?php echo aynix_translate('footer.address'); ?><br>
                     <?php echo aynix_translate('footer.postal_code'); ?><br>
                     <?php echo aynix_translate('footer.vat'); ?><br>
-                    <a href="mailto:admin@aynix.tech" style="color: #fff; text-decoration: none;">admin@aynix.tech</a>
+                    <a href="mailto:info@aynix.tech" style="color: #fff; text-decoration: none;">info@aynix.tech</a>
                 </p>
             </div>
 
