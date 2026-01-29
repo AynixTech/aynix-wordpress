@@ -287,7 +287,7 @@ function save_diagnosis_submission() {
     }
     
     // PRIMA EMAIL: Invia SEMPRE email di conferma immediata (prima della risposta)
-    send_confirmation_email($user_email, $user_lang);
+    send_confirmation_email($user_email, $user_lang, $post_id);
     
     // Schedula elaborazione AI e seconda email in background
     wp_schedule_single_event(time() + 10, 'process_diagnosis_ai', array($post_id, $user_email, $form_data, $user_lang));
@@ -444,10 +444,13 @@ IMPORTANTE:
 /**
  * Invia email con proposta AI al cliente (SECONDA EMAIL - dopo analisi)
  */
-function send_proposal_email($to_email, $proposal, $form_data, $lang = 'it') {
+function send_proposal_email($to_email, $proposal, $form_data, $lang = 'it', $post_id = null) {
+    // Genera ID univoco per evitare thread email
+    $email_id = $post_id ? 'PROP-' . $post_id : 'PROP-' . time();
+    
     $translations = array(
         'it' => array(
-            'subject' => 'La Tua Analisi Personalizzata - AYNIX',
+            'subject' => 'La Tua Analisi Personalizzata - AYNIX [#' . $email_id . ']',
             'title' => '🚀 Abbiamo Analizzato il Tuo Progetto',
             'greeting' => 'Ciao!',
             'intro' => 'Abbiamo completato l\'analisi del questionario che hai compilato. Ecco cosa abbiamo capito del tuo progetto:',
@@ -460,7 +463,7 @@ function send_proposal_email($to_email, $proposal, $form_data, $lang = 'it') {
             'email_title' => 'La Tua Analisi Personalizzata'
         ),
         'en' => array(
-            'subject' => 'Your Personalized Analysis - AYNIX',
+            'subject' => 'Your Personalized Analysis - AYNIX [#' . $email_id . ']',
             'title' => '🚀 We Analyzed Your Project',
             'greeting' => 'Hello!',
             'intro' => 'We have completed the analysis of the questionnaire you filled out. Here\'s what we understood about your project:',
@@ -473,7 +476,7 @@ function send_proposal_email($to_email, $proposal, $form_data, $lang = 'it') {
             'email_title' => 'Your Personalized Analysis'
         ),
         'es' => array(
-            'subject' => 'Tu Análisis Personalizado - AYNIX',
+            'subject' => 'Tu Análisis Personalizado - AYNIX [#' . $email_id . ']',
             'title' => '🚀 Hemos Analizado Tu Proyecto',
             'greeting' => '¡Hola!',
             'intro' => 'Hemos completado el análisis del cuestionario que completaste. Esto es lo que entendimos de tu proyecto:',
@@ -486,7 +489,7 @@ function send_proposal_email($to_email, $proposal, $form_data, $lang = 'it') {
             'email_title' => 'Tu Análisis Personalizado'
         ),
         'pt' => array(
-            'subject' => 'A Sua Análise Personalizada - AYNIX',
+            'subject' => 'A Sua Análise Personalizada - AYNIX [#' . $email_id . ']',
             'title' => '🚀 Analisámos o Seu Projeto',
             'greeting' => 'Olá!',
             'intro' => 'Completámos a análise do questionário que preencheu. Aqui está o que entendemos sobre o seu projeto:',
@@ -541,10 +544,13 @@ function send_proposal_email($to_email, $proposal, $form_data, $lang = 'it') {
 /**
  * Invia email immediata di conferma ricezione questionario (PRIMA EMAIL)
  */
-function send_confirmation_email($to_email, $lang = 'it') {
+function send_confirmation_email($to_email, $lang = 'it', $post_id = null) {
+    // Genera ID univoco per evitare thread email
+    $email_id = $post_id ? 'CONF-' . $post_id : 'CONF-' . time();
+    
     $translations = array(
         'it' => array(
-            'subject' => 'Grazie per aver compilato il questionario - AYNIX',
+            'subject' => 'Grazie per aver compilato il questionario - AYNIX [#' . $email_id . ']',
             'title' => '✅ Questionario Ricevuto',
             'thanks' => 'Grazie per aver completato il nostro questionario!',
             'received' => 'Abbiamo ricevuto le tue informazioni e le stiamo analizzando.',
@@ -561,7 +567,7 @@ function send_confirmation_email($to_email, $lang = 'it') {
             'email_title' => 'Questionario Ricevuto'
         ),
         'en' => array(
-            'subject' => 'Thank you for completing the questionnaire - AYNIX',
+            'subject' => 'Thank you for completing the questionnaire - AYNIX [#' . $email_id . ']',
             'title' => '✅ Questionnaire Received',
             'thanks' => 'Thank you for completing our questionnaire!',
             'received' => 'We have received your information and are analyzing it.',
@@ -578,7 +584,7 @@ function send_confirmation_email($to_email, $lang = 'it') {
             'email_title' => 'Questionnaire Received'
         ),
         'es' => array(
-            'subject' => 'Gracias por completar el cuestionario - AYNIX',
+            'subject' => 'Gracias por completar el cuestionario - AYNIX [#' . $email_id . ']',
             'title' => '✅ Cuestionario Recibido',
             'thanks' => '¡Gracias por completar nuestro cuestionario!',
             'received' => 'Hemos recibido tu información y la estamos analizando.',
@@ -595,7 +601,7 @@ function send_confirmation_email($to_email, $lang = 'it') {
             'email_title' => 'Cuestionario Recibido'
         ),
         'pt' => array(
-            'subject' => 'Obrigado por preencher o questionário - AYNIX',
+            'subject' => 'Obrigado por preencher o questionário - AYNIX [#' . $email_id . ']',
             'title' => '✅ Questionário Recebido',
             'thanks' => 'Obrigado por preencher o nosso questionário!',
             'received' => 'Recebemos as suas informações e estamos a analisá-las.',
@@ -1354,7 +1360,7 @@ function process_diagnosis_ai_background($post_id, $user_email, $form_data, $use
         update_post_meta($post_id, 'ai_proposal', $ai_proposal);
         
         // SECONDA EMAIL: Invia email con proposta AI e CTA per richiesta contatto
-        send_proposal_email($user_email, $ai_proposal, $form_data, $user_lang);
+        send_proposal_email($user_email, $ai_proposal, $form_data, $user_lang, $post_id);
         
         // Invia email all'admin con proposta e dati questionario
         send_admin_notification($user_email, $form_data, $ai_proposal, $post_id);
