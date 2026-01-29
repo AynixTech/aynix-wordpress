@@ -130,8 +130,8 @@ add_action('wp_enqueue_scripts', 'aynix_enqueue_fonts');
  * Template email HTML con branding AYNIX
  */
 function aynix_email_template($content, $title = '') {
-    // URL assoluto del logo (necessario per client email)
-    $logo_url = 'https://aynix.tech/wp-content/themes/aynix/assets/images/logo-white.svg';
+    // URL assoluto del logo (PNG invece di SVG per compatibilità client email)
+    $logo_url = 'https://aynix.tech/wp-content/uploads/2025/03/logo_aynix_white-768x274.png';
     
     $html = '
 <!DOCTYPE html>
