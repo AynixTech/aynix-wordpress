@@ -278,22 +278,22 @@ function save_diagnosis_submission() {
         }
     }
     
-    // Genera proposta AI con OpenAI
+    // PRIMA EMAIL: Invia SEMPRE email di conferma immediata
+    send_confirmation_email($user_email);
+    
+    // Genera proposta AI con OpenAI (in background)
     $ai_proposal = generate_ai_proposal($form_data);
     
     if ($ai_proposal) {
         update_post_meta($post_id, 'ai_proposal', $ai_proposal);
         
-        // Invia email all'utente con proposta
+        // SECONDA EMAIL: Invia email con proposta AI e CTA per richiesta contatto
         send_proposal_email($user_email, $ai_proposal, $form_data);
         
         // Invia email all'admin con proposta e dati questionario
         send_admin_notification($user_email, $form_data, $ai_proposal, $post_id);
     } else {
-        // Se OpenAI fallisce, invia comunque email base all'utente
-        send_fallback_email($user_email);
-        
-        // Invia email all'admin senza proposta AI
+        // Se OpenAI fallisce, invia comunque notifica all'admin (cliente ha già ricevuto conferma)
         send_admin_notification($user_email, $form_data, null, $post_id);
         
         update_post_meta($post_id, 'ai_proposal_error', 'OpenAI API non disponibile');
@@ -402,36 +402,37 @@ Scrivi in tono professionale ma accessibile, in italiano. Sii specifico e tecnic
 }
 
 /**
- * Invia email con proposta AI al cliente
+ * Invia email con proposta AI al cliente (SECONDA EMAIL - dopo analisi)
  */
 function send_proposal_email($to_email, $proposal, $form_data) {
-    $subject = 'La Tua Proposta Personalizzata - AYNIX';
+    $subject = 'La Tua Analisi Personalizzata - AYNIX';
+    
+    // Genera parametro email per pre-compilare il form
+    $email_param = urlencode($to_email);
     
     $content = '
-        <h1>🚀 La Tua Proposta Personalizzata</h1>
+        <h1>🚀 Abbiamo Analizzato il Tuo Progetto</h1>
         <p>Ciao!</p>
-        <p>Grazie per aver completato il nostro questionario. Abbiamo analizzato le tue esigenze e preparato una proposta su misura per il tuo progetto.</p>
+        <p>Abbiamo completato l\'analisi del questionario che hai compilato. Ecco cosa abbiamo capito del tuo progetto:</p>
         
         <div class="info-box">
             ' . nl2br(esc_html($proposal)) . '
         </div>
         
-        <p><strong>Prossimi Passi:</strong></p>
-        <ul>
-            <li>Rispondi a questa email con le tue domande</li>
-            <li>Prenota una call gratuita per discutere nel dettaglio</li>
-            <li>Riceverai un preventivo dettagliato entro 24 ore</li>
-        </ul>
+        <h2>💡 Sei interessato a procedere?</h2>
+        <p>Se vuoi discutere questa analisi e capire i prossimi passi concreti, clicca il pulsante qui sotto per richiedere un contatto:</p>
         
-        <p style="text-align: center;">
-            <a href="https://aynix.tech/contatti" class="cta-button">Prenota una Call Gratuita</a>
+        <p style="text-align: center; margin: 30px 0;">
+            <a href="https://aynix.tech/richiesta-contatto?email=' . $email_param . '" class="cta-button" style="font-size: 18px; padding: 18px 40px;">📞 Richiedi di Essere Contattato</a>
         </p>
         
-        <p>Non vediamo l\'ora di lavorare insieme!</p>
+        <p style="font-size: 14px; color: #666;">Compila il form con i tuoi dati e ti contatteremo per fissare una call gratuita di 15-20 minuti.</p>
+        
+        <p>A presto!</p>
         <p><strong>Il Team AYNIX</strong></p>
     ';
     
-    $html_message = aynix_email_template($content, 'La Tua Proposta Personalizzata');
+    $html_message = aynix_email_template($content, 'La Tua Analisi Personalizzata');
     
     $headers = array(
         'From: AYNIX <admin@aynix.tech>',
@@ -443,30 +444,28 @@ function send_proposal_email($to_email, $proposal, $form_data) {
 }
 
 /**
- * Invia email fallback se AI non disponibile
+ * Invia email immediata di conferma ricezione questionario (PRIMA EMAIL)
  */
-function send_fallback_email($to_email) {
-    $subject = 'Questionario Ricevuto - AYNIX';
+function send_confirmation_email($to_email) {
+    $subject = 'Grazie per aver compilato il questionario - AYNIX';
     
     $content = '
-        <h1>✅ Questionario Ricevuto!</h1>
+        <h1>✅ Questionario Ricevuto</h1>
         <p>Grazie per aver completato il nostro questionario!</p>
-        <p>Abbiamo ricevuto le tue informazioni e il nostro team le sta analizzando attentamente.</p>
+        <p>Abbiamo ricevuto le tue informazioni e le stiamo analizzando.</p>
         
         <div class="info-box">
             <p><strong>📋 Cosa succede ora?</strong></p>
             <ul style="margin: 10px 0;">
-                <li>Analizzeremo le tue esigenze in dettaglio</li>
-                <li>Prepareremo una proposta personalizzata</li>
-                <li>Ti contatteremo entro 24 ore</li>
+                <li>Analizziamo le tue esigenze</li>
+                <li>Valutiamo se e come possiamo aiutarti</li>
+                <li>Ti ricontattiamo solo se c\'è valore reale</li>
             </ul>
         </div>
         
-        <p>Nel frattempo, se hai domande urgenti puoi contattarci direttamente:</p>
+        <p><strong>Tempo stimato:</strong> 24-48 ore</p>
         
-        <p style="text-align: center;">
-            <a href="https://aynix.tech/contatti" class="cta-button">Contattaci Ora</a>
-        </p>
+        <p><strong>Nota importante:</strong> Non riceverai proposte commerciali automatiche. Ti contatteremo solo se riteniamo di poter davvero aiutarti.</p>
         
         <p>A presto!</p>
         <p><strong>Il Team AYNIX</strong></p>
@@ -571,6 +570,154 @@ add_action('wp_ajax_save_diagnosis', 'save_diagnosis_submission');
 add_action('wp_ajax_nopriv_save_diagnosis', 'save_diagnosis_submission');
 
 /**
+ * AJAX Handler per richiesta contatto
+ */
+function submit_contact_request_handler() {
+    // Raccolta dati
+    $nome = isset($_POST['nome']) ? sanitize_text_field($_POST['nome']) : '';
+    $cognome = isset($_POST['cognome']) ? sanitize_text_field($_POST['cognome']) : '';
+    $email = isset($_POST['email']) ? sanitize_email($_POST['email']) : '';
+    $telefono = isset($_POST['telefono']) ? sanitize_text_field($_POST['telefono']) : '';
+    $azienda = isset($_POST['azienda']) ? sanitize_text_field($_POST['azienda']) : '';
+    $note = isset($_POST['note']) ? sanitize_textarea_field($_POST['note']) : '';
+    
+    // Validazione
+    if (empty($nome) || empty($cognome) || empty($email) || empty($telefono)) {
+        wp_send_json_error(array('message' => 'Compila tutti i campi obbligatori'));
+        return;
+    }
+    
+    if (!is_email($email)) {
+        wp_send_json_error(array('message' => 'Email non valida'));
+        return;
+    }
+    
+    // Salva in custom post type
+    $contact_data = array(
+        'post_title'    => 'Richiesta Contatto - ' . $nome . ' ' . $cognome . ' - ' . current_time('mysql'),
+        'post_content'  => "Nome: $nome $cognome\nEmail: $email\nTelefono: $telefono\nAzienda: $azienda\n\nNote:\n$note",
+        'post_status'   => 'private',
+        'post_type'     => 'contact_request',
+        'post_author'   => 1,
+    );
+    
+    $post_id = wp_insert_post($contact_data);
+    
+    if (!$post_id) {
+        wp_send_json_error(array('message' => 'Errore nel salvataggio'));
+        return;
+    }
+    
+    // Salva metadati
+    update_post_meta($post_id, 'nome', $nome);
+    update_post_meta($post_id, 'cognome', $cognome);
+    update_post_meta($post_id, 'email', $email);
+    update_post_meta($post_id, 'telefono', $telefono);
+    update_post_meta($post_id, 'azienda', $azienda);
+    update_post_meta($post_id, 'note', $note);
+    
+    // Invia email all'admin
+    send_contact_request_notification($nome, $cognome, $email, $telefono, $azienda, $note, $post_id);
+    
+    // Invia conferma al cliente
+    send_contact_request_confirmation($email, $nome);
+    
+    wp_send_json_success(array('message' => 'Richiesta inviata con successo'));
+}
+
+add_action('wp_ajax_submit_contact_request', 'submit_contact_request_handler');
+add_action('wp_ajax_nopriv_submit_contact_request', 'submit_contact_request_handler');
+
+/**
+ * Invia notifica admin per richiesta contatto
+ */
+function send_contact_request_notification($nome, $cognome, $email, $telefono, $azienda, $note, $post_id) {
+    $admin_email = get_option('admin_email');
+    $subject = '📞 Nuova Richiesta di Contatto - AYNIX';
+    
+    $content = '
+        <h1>📞 Nuova Richiesta di Contatto</h1>
+        
+        <div class="info-box">
+            <p><strong>👤 Nome:</strong> ' . esc_html($nome) . ' ' . esc_html($cognome) . '</p>
+            <p><strong>📧 Email:</strong> ' . esc_html($email) . '</p>
+            <p><strong>📱 Telefono:</strong> ' . esc_html($telefono) . '</p>
+            ' . (!empty($azienda) ? '<p><strong>🏢 Azienda:</strong> ' . esc_html($azienda) . '</p>' : '') . '
+            <p><strong>📅 Data:</strong> ' . date('d/m/Y H:i') . '</p>
+        </div>
+    ';
+    
+    if (!empty($note)) {
+        $content .= '
+            <h2>📝 Note</h2>
+            <div class="info-box">
+                <p>' . nl2br(esc_html($note)) . '</p>
+            </div>
+        ';
+    }
+    
+    $content .= '
+        <p style="text-align: center; margin-top: 30px;">
+            <a href="' . admin_url('post.php?post=' . $post_id . '&action=edit') . '" class="cta-button">Visualizza nel Pannello Admin</a>
+        </p>
+        
+        <p><strong>⚡ Azione richiesta:</strong> Contatta il cliente entro 24-48 ore per fissare la call.</p>
+    ';
+    
+    $html_message = aynix_email_template($content, 'Nuova Richiesta di Contatto');
+    
+    $headers = array(
+        'From: AYNIX Sistema <admin@aynix.tech>',
+        'Reply-To: ' . $email,
+        'Content-Type: text/html; charset=UTF-8'
+    );
+    
+    return wp_mail($admin_email, $subject, $html_message, $headers);
+}
+
+/**
+ * Invia conferma al cliente per richiesta contatto
+ */
+function send_contact_request_confirmation($email, $nome) {
+    $subject = 'Richiesta Ricevuta - Ti Contatteremo Presto - AYNIX';
+    
+    $content = '
+        <h1>✅ Richiesta Ricevuta</h1>
+        <p>Ciao ' . esc_html($nome) . ',</p>
+        <p>Abbiamo ricevuto la tua richiesta di essere contattato.</p>
+        
+        <div class="info-box">
+            <p><strong>📞 Cosa succede ora?</strong></p>
+            <ul style="margin: 10px 0;">
+                <li>Ti contatteremo entro 24-48 ore</li>
+                <li>Fisseremo una call gratuita di 15-20 minuti</li>
+                <li>Discuteremo il tuo progetto in dettaglio</li>
+            </ul>
+        </div>
+        
+        <p><strong>Preparati per la call:</strong></p>
+        <ul>
+            <li>Pensa agli obiettivi principali del progetto</li>
+            <li>Identifica le criticità che vuoi risolvere</li>
+            <li>Annota eventuali domande specifiche</li>
+        </ul>
+        
+        <p>A presto!</p>
+        <p><strong>Il Team AYNIX</strong></p>
+    ';
+    
+    $html_message = aynix_email_template($content, 'Richiesta Ricevuta');
+    
+    $headers = array(
+        'From: AYNIX <admin@aynix.tech>',
+        'Reply-To: admin@aynix.tech',
+        'Content-Type: text/html; charset=UTF-8'
+    );
+    
+    return wp_mail($email, $subject, $html_message, $headers);
+}
+
+/**
  * Registra Custom Post Type per Diagnosi
  */
 function register_diagnosis_post_type() {
@@ -588,4 +735,23 @@ function register_diagnosis_post_type() {
     ));
 }
 add_action('init', 'register_diagnosis_post_type');
+
+/**
+ * Registra Custom Post Type per Richieste Contatto
+ */
+function register_contact_request_post_type() {
+    register_post_type('contact_request', array(
+        'labels' => array(
+            'name' => 'Richieste Contatto',
+            'singular_name' => 'Richiesta Contatto'
+        ),
+        'public' => false,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'capability_type' => 'post',
+        'supports' => array('title', 'editor'),
+        'menu_icon' => 'dashicons-phone'
+    ));
+}
+add_action('init', 'register_contact_request_post_type');
 ?>
