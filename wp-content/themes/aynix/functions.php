@@ -977,7 +977,7 @@ function contact_request_custom_columns_content($column, $post_id) {
             $email = get_post_meta($post_id, 'email', true);
             
             // Crea link Google Calendar con Meet
-            $event_title = 'Call Diagnosi - ' . $nome . ' ' . $cognome;
+            $event_title = 'Aynix Call Diagnosi - ' . $nome . ' ' . $cognome;
             $event_details = 'Call di diagnosi con ' . $nome . ' ' . $cognome . '\nEmail: ' . $email;
             
             // Link Google Calendar (apre form per creare evento)
@@ -1074,7 +1074,7 @@ function contact_request_info_callback($post) {
     }
     
     // Link Google Meet
-    $event_title = 'Call Diagnosi - ' . $nome . ' ' . $cognome;
+    $event_title = 'Aynix Call Diagnosi - ' . $nome . ' ' . $cognome;
     $event_details = 'Call di diagnosi con ' . $nome . ' ' . $cognome . '\n\nEmail: ' . $email . '\nTelefono: ' . $telefono . ($azienda ? '\nAzienda: ' . $azienda : '');
     
     $google_calendar_url = 'https://calendar.google.com/calendar/render?action=TEMPLATE';
