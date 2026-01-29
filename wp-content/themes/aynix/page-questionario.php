@@ -87,10 +87,10 @@ get_header();
 </style>
 
 <script>
-// Load diagnosis form script
+// Load diagnosis form script with cache busting
 document.addEventListener('DOMContentLoaded', function() {
     const script = document.createElement('script');
-    script.src = '<?php echo get_template_directory_uri(); ?>/assets/js/diagnosis-form.js';
+    script.src = '<?php echo get_template_directory_uri(); ?>/assets/js/diagnosis-form.js?v=' + Date.now();
     document.body.appendChild(script);
 });
 </script>
