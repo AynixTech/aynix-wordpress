@@ -380,15 +380,18 @@
                     timestamp: new Date().toISOString()
                 },
                 success: function(response) {
+                    console.log('Response:', response);
                     if (response.success) {
                         window.location.href = '/grazie-diagnosi';
                     } else {
-                        alert('Errore nell\'invio. Riprova.');
+                        console.error('Errore backend:', response.data);
+                        alert('Errore: ' + (response.data.message || 'Errore nell\'invio. Riprova.'));
                         $('#submit-btn').prop('disabled', false).text('Invia Diagnosi');
                     }
                 },
-                error: function() {
-                    alert('Errore di connessione. Riprova.');
+                error: function(xhr, status, error) {
+                    console.error('Errore AJAX:', xhr.responseText, status, error);
+                    alert('Errore di connessione: ' + error);
                     $('#submit-btn').prop('disabled', false).text('Invia Diagnosi');
                 }
             });

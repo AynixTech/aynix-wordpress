@@ -172,22 +172,42 @@ function save_diagnosis_submission() {
         
         // Invia email all'utente con proposta
         send_proposal_email($user_email, $ai_proposal, $form_data);
-        
-        // Notifica admin
-        $admin_email = get_option('admin_email');
-        $subject = 'Nuova Richiesta Progetto Software - AYNIX';
-        $message = "Nuova richiesta progetto software ricevuta.\n\n";
-        $message .= "Email cliente: $user_email\n";
-        $message .= "Post ID: $post_id\n\n";
-        $message .= "Tipo progetto: " . (isset($form_data['tipo_progetto']) ? $form_data['tipo_progetto'] : 'N/A') . "\n";
-        $message .= "Budget: " . (isset($form_data['budget']) ? $form_data['budget'] : 'N/A') . "\n";
-        
-        wp_mail($admin_email, $subject, $message);
-        
-        wp_send_json_success(array('post_id' => $post_id, 'proposal_sent' => true));
     } else {
-        wp_send_json_error(array('message' => 'Errore nella generazione della proposta'));
+        // Se OpenAI fallisce, invia comunque email base all'utente
+        $fallback_message = "Grazie per aver completato il questionario!\n\n";
+        $fallback_message .= "Abbiamo ricevuto le tue informazioni e il nostro team le sta analizzando.\n";
+        $fallback_message .= "Ti contatteremo a breve con una proposta personalizzata per il tuo progetto.\n\n";
+        $fallback_message .= "A presto,\nIl Team AYNIX";
+        
+        wp_mail($user_email, 'Questionario Ricevuto - AYNIX', $fallback_message, array(
+            'From: AYNIX <admin@aynix.tech>',
+            'Content-Type: text/plain; charset=UTF-8'
+        ));
+        
+        update_post_meta($post_id, 'ai_proposal_error', 'OpenAI API non disponibile');
     }
+    
+    // Notifica admin SEMPRE (anche se OpenAI fallisce)
+    $admin_email = get_option('admin_email');
+    $subject = 'Nuova Richiesta Progetto Software - AYNIX';
+    $message = "Nuova richiesta progetto software ricevuta.\n\n";
+    $message .= "Email cliente: $user_email\n";
+    $message .= "Post ID: $post_id\n\n";
+    $message .= "Tipo progetto: " . (isset($form_data['tipo_progetto']) ? $form_data['tipo_progetto'] : 'N/A') . "\n";
+    $message .= "Budget: " . (isset($form_data['budget']) ? $form_data['budget'] : 'N/A') . "\n";
+    
+    if (!$ai_proposal) {
+        $message .= "\nNOTA: Generazione proposta AI fallita. Verifica OpenAI API key.\n";
+    }
+    
+    wp_mail($admin_email, $subject, $message);
+    
+    // SEMPRE success se i dati sono stati salvati
+    wp_send_json_success(array(
+        'post_id' => $post_id, 
+        'proposal_sent' => (bool)$ai_proposal,
+        'message' => $ai_proposal ? 'Proposta inviata via email' : 'Dati salvati, proposta manuale in arrivo'
+    ));
 }
 
 /**
