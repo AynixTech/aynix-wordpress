@@ -228,9 +228,9 @@
                 
                 self.formData[questionId] = value;
                 
-                // Auto-advance after selection
+                // Auto-advance solo se non siamo alla penultima domanda (prima dell'email)
                 setTimeout(() => {
-                    if (self.currentStep < self.totalSteps - 1) {
+                    if (self.currentStep < self.totalSteps - 2) {
                         self.nextStep();
                     }
                 }, 300);
@@ -258,6 +258,12 @@
             
             // Textarea change
             $(document).on('blur', '.textarea-input', function() {
+                const questionId = $(this).attr('name');
+                self.formData[questionId] = $(this).val();
+            });
+            
+            // Textarea input - salva anche durante la digitazione
+            $(document).on('input', '.textarea-input', function() {
                 const questionId = $(this).attr('name');
                 self.formData[questionId] = $(this).val();
             });
