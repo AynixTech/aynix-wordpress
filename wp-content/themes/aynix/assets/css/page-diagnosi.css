@@ -435,6 +435,7 @@
     resize: vertical;
     min-height: 120px;
     font-family: inherit;
+    box-sizing: border-box;
 }
 
 .textarea-input:focus {
@@ -455,6 +456,7 @@
     color: #2d3748;
     margin: 2rem auto;
     display: block;
+    box-sizing: border-box;
 }
 
 .email-input:focus {
