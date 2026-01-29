@@ -1,1 +1,30 @@
 wp-content/debug.log
+
+# WordPress config (contiene credentials e API keys)
+wp-config.php
+
+# Upload directory (solo in locale, non commitare uploads)
+wp-content/uploads/*
+
+# Environment variables
+.env
+.env.local
+
+# IDE and editor files
+.cursor/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+llms.txt
+
+# Plugin vendor directories (gestiti da composer)
+wp-content/plugins/*/vendor/
