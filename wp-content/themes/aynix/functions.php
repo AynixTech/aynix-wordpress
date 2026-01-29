@@ -301,9 +301,9 @@ function generate_ai_proposal($form_data) {
     }
     
     // Costruisci prompt per OpenAI
-    $prompt = "Sei un esperto programmatore e consulente tecnico di AYNIX, una software house specializzata in soluzioni custom.
+    $prompt = "Sei un Project Manager di AYNIX, una software house specializzata in soluzioni custom. Devi creare una proposta commerciale convincente ma chiara.
 
-Analizza queste risposte del cliente e genera una proposta tecnica dettagliata per il loro progetto software:
+Analizza queste risposte del cliente e genera una proposta per il loro progetto software:
 
 ";
     
@@ -319,14 +319,37 @@ Analizza queste risposte del cliente e genera una proposta tecnica dettagliata p
     }
     
     $prompt .= "\n
-Genera una proposta che includa:
-1. **Analisi del Progetto**: Riepilogo obiettivi e necessità
-2. **Soluzione Tecnica Proposta**: Stack tecnologico consigliato, architettura, funzionalità principali
-3. **Tempistiche Stimate**: Fasi di sviluppo e durata
-4. **Investimento Indicativo**: Range di costo basato sulla complessità
-5. **Prossimi Passi**: Come procedere
+Genera una proposta strutturata in ITALIANO che includa:
 
-Scrivi in tono professionale ma accessibile, in italiano. Sii specifico e tecnico dove necessario.";
+1. **Cosa Abbiamo Capito del Tuo Progetto** (linguaggio semplice, orientato ai benefici di business)
+   - Riassumi gli obiettivi principali
+   - Identifica i problemi che il software risolverà
+   - Evidenzia l'impatto sul business
+
+2. **La Soluzione Che Proponiamo** (linguaggio accessibile, focus su cosa otterranno)
+   - Descrivi la soluzione in termini di funzionalità e valore, non tecnologie
+   - Spiega come migliorerà i processi attuali
+   - Elenca i benefici principali (efficienza, risparmio tempo, automazione, etc.)
+
+3. **Dettagli Tecnici** (SOLO IN QUESTA SEZIONE usa linguaggio tecnico)
+   - Stack tecnologico consigliato: **prioritizza Angular (frontend), Node.js (backend), Flutter (mobile)** quando applicabile
+   - Architettura del sistema (microservizi, monolite, cloud-native, etc.)
+   - Database e infrastruttura consigliati
+   - Integrazioni con sistemi esistenti
+   - Scalabilità e performance
+
+4. **Prossimi Passi**
+   - Call di approfondimento gratuita per discutere tempistiche e aspetti economici
+   - Cosa preparare per la call
+   - Come procederemo insieme
+
+IMPORTANTE:
+- NON menzionare MAI prezzi, costi, budget, investimenti o tempistiche di sviluppo
+- Usa un tono professionale ma caldo e accessibile
+- Evita gergo tecnico nelle prime 2 sezioni
+- Concentrati sui BENEFICI prima delle TECNOLOGIE
+- Nella sezione tecnica, privilegia Angular, Node.js e Flutter quando sensato
+- Lunghezza: circa 400-600 parole totali";
     
     // Chiamata API OpenAI
     $api_key = defined('OPENAI_API_KEY') ? OPENAI_API_KEY : '';
@@ -347,7 +370,7 @@ Scrivi in tono professionale ma accessibile, in italiano. Sii specifico e tecnic
             'messages' => array(
                 array(
                     'role' => 'system',
-                    'content' => 'Sei un esperto programmatore e consulente tecnico specializzato in sviluppo software custom, web app, mobile app e sistemi gestionali.'
+                    'content' => 'Sei un Project Manager e consulente commerciale di AYNIX con forte competenza tecnica. Il tuo obiettivo è spiegare soluzioni software in modo chiaro e comprensibile, evidenziando i benefici di business prima dei dettagli tecnici. Privilegia l\'uso di tecnologie moderne come Angular per il frontend, Node.js per il backend e Flutter per le app mobile. Usa un tono professionale ma accessibile, evita eccessivo gergo tecnico nelle sezioni iniziali, ma includi sempre una sezione tecnica dettagliata per chi vuole approfondire.'
                 ),
                 array(
                     'role' => 'user',
@@ -355,7 +378,7 @@ Scrivi in tono professionale ma accessibile, in italiano. Sii specifico e tecnic
                 )
             ),
             'temperature' => 0.7,
-            'max_tokens' => 2000
+            'max_tokens' => 2500
         )),
         'timeout' => 60,
     ));
