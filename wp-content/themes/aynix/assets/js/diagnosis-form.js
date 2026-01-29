@@ -583,7 +583,8 @@
                 data: {
                     action: 'save_diagnosis',
                     formData: this.formData,
-                    timestamp: new Date().toISOString()
+                    timestamp: new Date().toISOString(),
+                    user_lang: lang
                 },
                 success: function(response) {
                     console.log('Response:', response);

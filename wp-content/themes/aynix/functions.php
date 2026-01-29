@@ -247,6 +247,12 @@ function save_diagnosis_submission() {
     $form_data = isset($_POST['formData']) ? $_POST['formData'] : array();
     $timestamp = isset($_POST['timestamp']) ? sanitize_text_field($_POST['timestamp']) : current_time('mysql');
     $user_email = isset($form_data['email']) ? sanitize_email($form_data['email']) : '';
+    $user_lang = isset($_POST['user_lang']) ? sanitize_text_field($_POST['user_lang']) : 'it';
+    
+    // Valida idioma
+    if (!in_array($user_lang, array('it', 'en', 'es', 'pt'))) {
+        $user_lang = 'it';
+    }
     
     if (empty($user_email)) {
         wp_send_json_error(array('message' => 'Email richiesta'));
@@ -269,7 +275,9 @@ function save_diagnosis_submission() {
         return;
     }
     
-    // Salva metadati
+    // Salva metadati incluso idioma
+    update_post_meta($post_id, 'user_lang', $user_lang);
+    
     foreach ($form_data as $key => $value) {
         if (is_array($value)) {
             update_post_meta($post_id, $key, json_encode($value));
@@ -279,10 +287,10 @@ function save_diagnosis_submission() {
     }
     
     // PRIMA EMAIL: Invia SEMPRE email di conferma immediata (prima della risposta)
-    send_confirmation_email($user_email);
+    send_confirmation_email($user_email, $user_lang);
     
     // Schedula elaborazione AI e seconda email in background
-    wp_schedule_single_event(time() + 10, 'process_diagnosis_ai', array($post_id, $user_email, $form_data));
+    wp_schedule_single_event(time() + 10, 'process_diagnosis_ai', array($post_id, $user_email, $form_data, $user_lang));
     
     // RISPOSTA IMMEDIATA all'utente
     wp_send_json_success(array(
@@ -411,35 +419,90 @@ IMPORTANTE:
 /**
  * Invia email con proposta AI al cliente (SECONDA EMAIL - dopo analisi)
  */
-function send_proposal_email($to_email, $proposal, $form_data) {
-    $subject = 'La Tua Analisi Personalizzata - AYNIX';
+function send_proposal_email($to_email, $proposal, $form_data, $lang = 'it') {
+    $translations = array(
+        'it' => array(
+            'subject' => 'La Tua Analisi Personalizzata - AYNIX',
+            'title' => '🚀 Abbiamo Analizzato il Tuo Progetto',
+            'greeting' => 'Ciao!',
+            'intro' => 'Abbiamo completato l\'analisi del questionario che hai compilato. Ecco cosa abbiamo capito del tuo progetto:',
+            'interested_title' => '💡 Sei interessato a procedere?',
+            'interested_text' => 'Se vuoi discutere questa analisi e capire i prossimi passi concreti, clicca il pulsante qui sotto per richiedere un contatto:',
+            'cta_button' => '📞 Richiedi di Essere Contattato',
+            'cta_note' => 'Compila il form con i tuoi dati e ti contatteremo per fissare una call gratuita di 15-20 minuti.',
+            'closing' => 'A presto!',
+            'team' => 'Il Team AYNIX',
+            'email_title' => 'La Tua Analisi Personalizzata'
+        ),
+        'en' => array(
+            'subject' => 'Your Personalized Analysis - AYNIX',
+            'title' => '🚀 We Analyzed Your Project',
+            'greeting' => 'Hello!',
+            'intro' => 'We have completed the analysis of the questionnaire you filled out. Here\'s what we understood about your project:',
+            'interested_title' => '💡 Interested in proceeding?',
+            'interested_text' => 'If you want to discuss this analysis and understand the concrete next steps, click the button below to request contact:',
+            'cta_button' => '📞 Request to Be Contacted',
+            'cta_note' => 'Fill out the form with your details and we will contact you to schedule a free 15-20 minute call.',
+            'closing' => 'See you soon!',
+            'team' => 'The AYNIX Team',
+            'email_title' => 'Your Personalized Analysis'
+        ),
+        'es' => array(
+            'subject' => 'Tu Análisis Personalizado - AYNIX',
+            'title' => '🚀 Hemos Analizado Tu Proyecto',
+            'greeting' => '¡Hola!',
+            'intro' => 'Hemos completado el análisis del cuestionario que completaste. Esto es lo que entendimos de tu proyecto:',
+            'interested_title' => '💡 ¿Interesado en continuar?',
+            'interested_text' => 'Si quieres discutir este análisis y entender los próximos pasos concretos, haz clic en el botón de abajo para solicitar contacto:',
+            'cta_button' => '📞 Solicitar Ser Contactado',
+            'cta_note' => 'Completa el formulario con tus datos y te contactaremos para programar una llamada gratuita de 15-20 minutos.',
+            'closing' => '¡Hasta pronto!',
+            'team' => 'El Equipo AYNIX',
+            'email_title' => 'Tu Análisis Personalizado'
+        ),
+        'pt' => array(
+            'subject' => 'A Sua Análise Personalizada - AYNIX',
+            'title' => '🚀 Analisámos o Seu Projeto',
+            'greeting' => 'Olá!',
+            'intro' => 'Completámos a análise do questionário que preencheu. Aqui está o que entendemos sobre o seu projeto:',
+            'interested_title' => '💡 Interessado em prosseguir?',
+            'interested_text' => 'Se quer discutir esta análise e entender os próximos passos concretos, clique no botão abaixo para solicitar contacto:',
+            'cta_button' => '📞 Solicitar Ser Contactado',
+            'cta_note' => 'Preencha o formulário com os seus dados e contactá-lo-emos para agendar uma chamada gratuita de 15-20 minutos.',
+            'closing' => 'Até breve!',
+            'team' => 'A Equipa AYNIX',
+            'email_title' => 'A Sua Análise Personalizada'
+        )
+    );
+    
+    $t = $translations[$lang];
     
     // Genera parametro email per pre-compilare il form
     $email_param = urlencode($to_email);
     
     $content = '
-        <h1>🚀 Abbiamo Analizzato il Tuo Progetto</h1>
-        <p>Ciao!</p>
-        <p>Abbiamo completato l\'analisi del questionario che hai compilato. Ecco cosa abbiamo capito del tuo progetto:</p>
+        <h1>' . $t['title'] . '</h1>
+        <p>' . $t['greeting'] . '</p>
+        <p>' . $t['intro'] . '</p>
         
         <div class="info-box">
             ' . nl2br(esc_html($proposal)) . '
         </div>
         
-        <h2>💡 Sei interessato a procedere?</h2>
-        <p>Se vuoi discutere questa analisi e capire i prossimi passi concreti, clicca il pulsante qui sotto per richiedere un contatto:</p>
+        <h2>' . $t['interested_title'] . '</h2>
+        <p>' . $t['interested_text'] . '</p>
         
         <p style="text-align: center; margin: 30px 0;">
-            <a href="https://aynix.tech/richiesta-contatto?email=' . $email_param . '" class="cta-button" style="font-size: 18px; padding: 18px 40px;">📞 Richiedi di Essere Contattato</a>
+            <a href="https://aynix.tech/richiesta-contatto?email=' . $email_param . '" class="cta-button" style="font-size: 18px; padding: 18px 40px;">' . $t['cta_button'] . '</a>
         </p>
         
-        <p style="font-size: 14px; color: #666;">Compila il form con i tuoi dati e ti contatteremo per fissare una call gratuita di 15-20 minuti.</p>
+        <p style="font-size: 14px; color: #666;">' . $t['cta_note'] . '</p>
         
-        <p>A presto!</p>
-        <p><strong>Il Team AYNIX</strong></p>
+        <p>' . $t['closing'] . '</p>
+        <p><strong>' . $t['team'] . '</strong></p>
     ';
     
-    $html_message = aynix_email_template($content, 'La Tua Analisi Personalizzata');
+    $html_message = aynix_email_template($content, $t['email_title']);
     
     $headers = array(
         'From: AYNIX <info@aynix.tech>',
@@ -447,38 +510,109 @@ function send_proposal_email($to_email, $proposal, $form_data) {
         'Content-Type: text/html; charset=UTF-8'
     );
     
-    return wp_mail($to_email, $subject, $html_message, $headers);
+    return wp_mail($to_email, $t['subject'], $html_message, $headers);
 }
 
 /**
  * Invia email immediata di conferma ricezione questionario (PRIMA EMAIL)
  */
-function send_confirmation_email($to_email) {
-    $subject = 'Grazie per aver compilato il questionario - AYNIX';
+function send_confirmation_email($to_email, $lang = 'it') {
+    $translations = array(
+        'it' => array(
+            'subject' => 'Grazie per aver compilato il questionario - AYNIX',
+            'title' => '✅ Questionario Ricevuto',
+            'thanks' => 'Grazie per aver completato il nostro questionario!',
+            'received' => 'Abbiamo ricevuto le tue informazioni e le stiamo analizzando.',
+            'what_next' => '📋 Cosa succede ora?',
+            'step1' => 'Analizziamo le tue esigenze',
+            'step2' => 'Valutiamo se e come possiamo aiutarti',
+            'step3' => 'Ti ricontattiamo solo se c\'è valore reale',
+            'time_label' => 'Tempo stimato:',
+            'time_value' => '24-48 ore',
+            'note_label' => 'Nota importante:',
+            'note_text' => 'Non riceverai proposte commerciali automatiche. Ti contatteremo solo se riteniamo di poter davvero aiutarti.',
+            'closing' => 'A presto!',
+            'team' => 'Il Team AYNIX',
+            'email_title' => 'Questionario Ricevuto'
+        ),
+        'en' => array(
+            'subject' => 'Thank you for completing the questionnaire - AYNIX',
+            'title' => '✅ Questionnaire Received',
+            'thanks' => 'Thank you for completing our questionnaire!',
+            'received' => 'We have received your information and are analyzing it.',
+            'what_next' => '📋 What happens now?',
+            'step1' => 'We analyze your needs',
+            'step2' => 'We evaluate if and how we can help you',
+            'step3' => 'We contact you only if there is real value',
+            'time_label' => 'Estimated time:',
+            'time_value' => '24-48 hours',
+            'note_label' => 'Important note:',
+            'note_text' => 'You will not receive automatic sales proposals. We will contact you only if we believe we can really help you.',
+            'closing' => 'See you soon!',
+            'team' => 'The AYNIX Team',
+            'email_title' => 'Questionnaire Received'
+        ),
+        'es' => array(
+            'subject' => 'Gracias por completar el cuestionario - AYNIX',
+            'title' => '✅ Cuestionario Recibido',
+            'thanks' => '¡Gracias por completar nuestro cuestionario!',
+            'received' => 'Hemos recibido tu información y la estamos analizando.',
+            'what_next' => '📋 ¿Qué pasa ahora?',
+            'step1' => 'Analizamos tus necesidades',
+            'step2' => 'Evaluamos si y cómo podemos ayudarte',
+            'step3' => 'Te contactamos solo si hay valor real',
+            'time_label' => 'Tiempo estimado:',
+            'time_value' => '24-48 horas',
+            'note_label' => 'Nota importante:',
+            'note_text' => 'No recibirás propuestas comerciales automáticas. Te contactaremos solo si creemos que podemos ayudarte realmente.',
+            'closing' => '¡Hasta pronto!',
+            'team' => 'El Equipo AYNIX',
+            'email_title' => 'Cuestionario Recibido'
+        ),
+        'pt' => array(
+            'subject' => 'Obrigado por preencher o questionário - AYNIX',
+            'title' => '✅ Questionário Recebido',
+            'thanks' => 'Obrigado por preencher o nosso questionário!',
+            'received' => 'Recebemos as suas informações e estamos a analisá-las.',
+            'what_next' => '📋 O que acontece agora?',
+            'step1' => 'Analisamos as suas necessidades',
+            'step2' => 'Avaliamos se e como podemos ajudá-lo',
+            'step3' => 'Contactamos apenas se houver valor real',
+            'time_label' => 'Tempo estimado:',
+            'time_value' => '24-48 horas',
+            'note_label' => 'Nota importante:',
+            'note_text' => 'Não receberá propostas comerciais automáticas. Contactaremos apenas se acreditarmos que podemos realmente ajudá-lo.',
+            'closing' => 'Até breve!',
+            'team' => 'A Equipa AYNIX',
+            'email_title' => 'Questionário Recebido'
+        )
+    );
+    
+    $t = $translations[$lang];
     
     $content = '
-        <h1>✅ Questionario Ricevuto</h1>
-        <p>Grazie per aver completato il nostro questionario!</p>
-        <p>Abbiamo ricevuto le tue informazioni e le stiamo analizzando.</p>
+        <h1>' . $t['title'] . '</h1>
+        <p>' . $t['thanks'] . '</p>
+        <p>' . $t['received'] . '</p>
         
         <div class="info-box">
-            <p><strong>📋 Cosa succede ora?</strong></p>
+            <p><strong>' . $t['what_next'] . '</strong></p>
             <ul style="margin: 10px 0;">
-                <li>Analizziamo le tue esigenze</li>
-                <li>Valutiamo se e come possiamo aiutarti</li>
-                <li>Ti ricontattiamo solo se c\'è valore reale</li>
+                <li>' . $t['step1'] . '</li>
+                <li>' . $t['step2'] . '</li>
+                <li>' . $t['step3'] . '</li>
             </ul>
         </div>
         
-        <p><strong>Tempo stimato:</strong> 24-48 ore</p>
+        <p><strong>' . $t['time_label'] . '</strong> ' . $t['time_value'] . '</p>
         
-        <p><strong>Nota importante:</strong> Non riceverai proposte commerciali automatiche. Ti contatteremo solo se riteniamo di poter davvero aiutarti.</p>
+        <p><strong>' . $t['note_label'] . '</strong> ' . $t['note_text'] . '</p>
         
-        <p>A presto!</p>
-        <p><strong>Il Team AYNIX</strong></p>
+        <p>' . $t['closing'] . '</p>
+        <p><strong>' . $t['team'] . '</strong></p>
     ';
     
-    $html_message = aynix_email_template($content, 'Questionario Ricevuto');
+    $html_message = aynix_email_template($content, $t['email_title']);
     
     $headers = array(
         'From: AYNIX <info@aynix.tech>',
@@ -486,7 +620,7 @@ function send_confirmation_email($to_email) {
         'Content-Type: text/html; charset=UTF-8'
     );
     
-    return wp_mail($to_email, $subject, $html_message, $headers);
+    return wp_mail($to_email, $t['subject'], $html_message, $headers);
 }
 
 /**
@@ -751,6 +885,7 @@ function diagnosis_custom_columns($columns) {
     $new_columns['cb'] = $columns['cb'];
     $new_columns['title'] = 'Titolo';
     $new_columns['email'] = 'Email Cliente';
+    $new_columns['user_lang'] = 'Lingua';
     $new_columns['tipo_progetto'] = 'Tipo Progetto';
     $new_columns['budget'] = 'Budget';
     $new_columns['email_status'] = 'Email Status';
@@ -768,6 +903,12 @@ function diagnosis_custom_columns_content($column, $post_id) {
         case 'email':
             $email = get_post_meta($post_id, 'email', true);
             echo esc_html($email);
+            break;
+            
+        case 'user_lang':
+            $lang = get_post_meta($post_id, 'user_lang', true);
+            $lang_labels = array('it' => '🇮🇹 IT', 'en' => '🇬🇧 EN', 'es' => '🇪🇸 ES', 'pt' => '🇵🇹 PT');
+            echo isset($lang_labels[$lang]) ? $lang_labels[$lang] : '🇮🇹 IT';
             break;
             
         case 'tipo_progetto':
@@ -1180,7 +1321,7 @@ add_action('init', 'register_contact_request_post_type');
 /**
  * Elaborazione AI e invio email in background (schedulato)
  */
-function process_diagnosis_ai_background($post_id, $user_email, $form_data) {
+function process_diagnosis_ai_background($post_id, $user_email, $form_data, $user_lang = 'it') {
     // Genera proposta AI con OpenAI
     $ai_proposal = generate_ai_proposal($form_data);
     
@@ -1188,7 +1329,7 @@ function process_diagnosis_ai_background($post_id, $user_email, $form_data) {
         update_post_meta($post_id, 'ai_proposal', $ai_proposal);
         
         // SECONDA EMAIL: Invia email con proposta AI e CTA per richiesta contatto
-        send_proposal_email($user_email, $ai_proposal, $form_data);
+        send_proposal_email($user_email, $ai_proposal, $form_data, $user_lang);
         
         // Invia email all'admin con proposta e dati questionario
         send_admin_notification($user_email, $form_data, $ai_proposal, $post_id);
@@ -1199,5 +1340,5 @@ function process_diagnosis_ai_background($post_id, $user_email, $form_data) {
         update_post_meta($post_id, 'ai_proposal_error', 'OpenAI API non disponibile');
     }
 }
-add_action('process_diagnosis_ai', 'process_diagnosis_ai_background', 10, 3);
+add_action('process_diagnosis_ai', 'process_diagnosis_ai_background', 10, 4);
 ?>
