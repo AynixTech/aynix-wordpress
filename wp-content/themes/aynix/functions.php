@@ -445,6 +445,7 @@ IMPORTANTE:
  * Invia email con proposta AI al cliente (SECONDA EMAIL - dopo analisi)
  */
 function send_proposal_email($to_email, $proposal, $form_data, $lang = 'it', $post_id = null) {
+    error_log("AYNIX DEBUG: send_proposal_email chiamata - email={$to_email}, lang={$lang}, post_id={$post_id}");
     // Genera ID univoco per evitare thread email
     $email_id = $post_id ? 'PROP-' . $post_id : 'PROP-' . time();
     
@@ -538,13 +539,16 @@ function send_proposal_email($to_email, $proposal, $form_data, $lang = 'it', $po
         'Content-Type: text/html; charset=UTF-8'
     );
     
-    return wp_mail($to_email, $t['subject'], $html_message, $headers);
+    $result = wp_mail($to_email, $t['subject'], $html_message, $headers);
+    error_log("AYNIX DEBUG: send_confirmation_email risultato: " . ($result ? 'SUCCESS' : 'FAILED'));
+    return $result;
 }
 
 /**
  * Invia email immediata di conferma ricezione questionario (PRIMA EMAIL)
  */
 function send_confirmation_email($to_email, $lang = 'it', $post_id = null) {
+    error_log("AYNIX DEBUG: send_confirmation_email chiamata - email={$to_email}, lang={$lang}, post_id={$post_id}");
     // Genera ID univoco per evitare thread email
     $email_id = $post_id ? 'CONF-' . $post_id : 'CONF-' . time();
     
@@ -1353,18 +1357,23 @@ add_action('init', 'register_contact_request_post_type');
  * Elaborazione AI e invio email in background (schedulato)
  */
 function process_diagnosis_ai_background($post_id, $user_email, $form_data, $user_lang = 'it') {
+    error_log("AYNIX DEBUG: Iniziata elaborazione AI per post_id={$post_id}, email={$user_email}, lang={$user_lang}");
+    
     // Genera proposta AI con OpenAI nella lingua dell'utente
     $ai_proposal = generate_ai_proposal($form_data, $user_lang);
     
     if ($ai_proposal) {
+        error_log("AYNIX DEBUG: Proposta AI generata con successo");
         update_post_meta($post_id, 'ai_proposal', $ai_proposal);
         
         // SECONDA EMAIL: Invia email con proposta AI e CTA per richiesta contatto
-        send_proposal_email($user_email, $ai_proposal, $form_data, $user_lang, $post_id);
+        $email_sent = send_proposal_email($user_email, $ai_proposal, $form_data, $user_lang, $post_id);
+        error_log("AYNIX DEBUG: Email proposta inviata a {$user_email}: " . ($email_sent ? 'SUCCESS' : 'FAILED'));
         
         // Invia email all'admin con proposta e dati questionario
         send_admin_notification($user_email, $form_data, $ai_proposal, $post_id);
     } else {
+        error_log("AYNIX DEBUG: Generazione proposta AI FALLITA");
         // Se OpenAI fallisce, invia comunque notifica all'admin
         send_admin_notification($user_email, $form_data, null, $post_id);
         
