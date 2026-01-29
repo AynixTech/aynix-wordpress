@@ -361,6 +361,8 @@
             
             // Validate email
             const email = $('#user-email').val();
+            console.log('Email field value:', email);
+            
             if (!email || !this.validateEmail(email)) {
                 alert('Inserisci un indirizzo email valido');
                 return;
@@ -368,6 +370,7 @@
             
             // Salva email in formData
             this.formData.email = email;
+            console.log('FormData before submit:', this.formData);
             
             $('#submit-btn').prop('disabled', true).text('Invio in corso...');
             
