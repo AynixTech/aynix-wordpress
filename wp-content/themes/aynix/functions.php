@@ -127,6 +127,115 @@ function aynix_enqueue_fonts() {
 add_action('wp_enqueue_scripts', 'aynix_enqueue_fonts');
 
 /**
+ * Template email HTML con branding AYNIX
+ */
+function aynix_email_template($content, $title = '') {
+    $logo_url = get_template_directory_uri() . '/assets/images/logo.png';
+    
+    $html = '
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>' . esc_html($title) . '</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Inter", Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .email-wrapper {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+        }
+        .email-header {
+            background: linear-gradient(135deg, #438ef9 0%, #ff6331 100%);
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .email-logo {
+            max-width: 180px;
+            height: auto;
+        }
+        .email-body {
+            padding: 40px 30px;
+            color: #333333;
+            line-height: 1.6;
+        }
+        .email-body h1 {
+            color: #438ef9;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .email-body h2 {
+            color: #438ef9;
+            font-size: 20px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .email-body p {
+            margin-bottom: 15px;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #438ef9 0%, #ff6331 100%);
+            color: #ffffff !important;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+        .email-footer {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            padding: 30px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .email-footer a {
+            color: #438ef9;
+            text-decoration: none;
+        }
+        .info-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #438ef9;
+            padding: 15px 20px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-wrapper">
+        <div class="email-header">
+            <img src="' . esc_url($logo_url) . '" alt="AYNIX" class="email-logo">
+        </div>
+        <div class="email-body">
+            ' . $content . '
+        </div>
+        <div class="email-footer">
+            <p><strong>AYNIX Tech</strong></p>
+            <p>Sviluppiamo soluzioni software su misura</p>
+            <p>
+                <a href="https://aynix.tech">aynix.tech</a> | 
+                <a href="mailto:admin@aynix.tech">admin@aynix.tech</a>
+            </p>
+            <p style="font-size: 12px; color: #999; margin-top: 20px;">
+                Hai ricevuto questa email perché hai compilato il questionario sul nostro sito.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+    ';
+    
+    return $html;
+}
+
+/**
  * AJAX Handler per salvataggio diagnosi e generazione proposta AI
  */
 function save_diagnosis_submission() {
@@ -172,35 +281,18 @@ function save_diagnosis_submission() {
         
         // Invia email all'utente con proposta
         send_proposal_email($user_email, $ai_proposal, $form_data);
+        
+        // Invia email all'admin con proposta e dati questionario
+        send_admin_notification($user_email, $form_data, $ai_proposal, $post_id);
     } else {
         // Se OpenAI fallisce, invia comunque email base all'utente
-        $fallback_message = "Grazie per aver completato il questionario!\n\n";
-        $fallback_message .= "Abbiamo ricevuto le tue informazioni e il nostro team le sta analizzando.\n";
-        $fallback_message .= "Ti contatteremo a breve con una proposta personalizzata per il tuo progetto.\n\n";
-        $fallback_message .= "A presto,\nIl Team AYNIX";
+        send_fallback_email($user_email);
         
-        wp_mail($user_email, 'Questionario Ricevuto - AYNIX', $fallback_message, array(
-            'From: AYNIX <admin@aynix.tech>',
-            'Content-Type: text/plain; charset=UTF-8'
-        ));
+        // Invia email all'admin senza proposta AI
+        send_admin_notification($user_email, $form_data, null, $post_id);
         
         update_post_meta($post_id, 'ai_proposal_error', 'OpenAI API non disponibile');
     }
-    
-    // Notifica admin SEMPRE (anche se OpenAI fallisce)
-    $admin_email = get_option('admin_email');
-    $subject = 'Nuova Richiesta Progetto Software - AYNIX';
-    $message = "Nuova richiesta progetto software ricevuta.\n\n";
-    $message .= "Email cliente: $user_email\n";
-    $message .= "Post ID: $post_id\n\n";
-    $message .= "Tipo progetto: " . (isset($form_data['tipo_progetto']) ? $form_data['tipo_progetto'] : 'N/A') . "\n";
-    $message .= "Budget: " . (isset($form_data['budget']) ? $form_data['budget'] : 'N/A') . "\n";
-    
-    if (!$ai_proposal) {
-        $message .= "\nNOTA: Generazione proposta AI fallita. Verifica OpenAI API key.\n";
-    }
-    
-    wp_mail($admin_email, $subject, $message);
     
     // SEMPRE success se i dati sono stati salvati
     wp_send_json_success(array(
@@ -310,24 +402,164 @@ Scrivi in tono professionale ma accessibile, in italiano. Sii specifico e tecnic
 function send_proposal_email($to_email, $proposal, $form_data) {
     $subject = 'La Tua Proposta Personalizzata - AYNIX';
     
-    $message = "Ciao,\n\n";
-    $message .= "Grazie per aver completato il nostro questionario!\n\n";
-    $message .= "Abbiamo analizzato le tue risposte e preparato una proposta tecnica personalizzata per il tuo progetto:\n\n";
-    $message .= "═══════════════════════════════════════\n\n";
-    $message .= $proposal;
-    $message .= "\n\n═══════════════════════════════════════\n\n";
-    $message .= "Vuoi discutere questa proposta? Rispondi a questa email o prenota una call: https://aynix.tech/contatti\n\n";
-    $message .= "A presto,\n";
-    $message .= "Il Team AYNIX\n";
-    $message .= "https://aynix.tech\n";
+    $content = '
+        <h1>🚀 La Tua Proposta Personalizzata</h1>
+        <p>Ciao!</p>
+        <p>Grazie per aver completato il nostro questionario. Abbiamo analizzato le tue esigenze e preparato una proposta su misura per il tuo progetto.</p>
+        
+        <div class="info-box">
+            ' . nl2br(esc_html($proposal)) . '
+        </div>
+        
+        <p><strong>Prossimi Passi:</strong></p>
+        <ul>
+            <li>Rispondi a questa email con le tue domande</li>
+            <li>Prenota una call gratuita per discutere nel dettaglio</li>
+            <li>Riceverai un preventivo dettagliato entro 24 ore</li>
+        </ul>
+        
+        <p style="text-align: center;">
+            <a href="https://aynix.tech/contatti" class="cta-button">Prenota una Call Gratuita</a>
+        </p>
+        
+        <p>Non vediamo l\'ora di lavorare insieme!</p>
+        <p><strong>Il Team AYNIX</strong></p>
+    ';
+    
+    $html_message = aynix_email_template($content, 'La Tua Proposta Personalizzata');
     
     $headers = array(
         'From: AYNIX <admin@aynix.tech>',
         'Reply-To: admin@aynix.tech',
-        'Content-Type: text/plain; charset=UTF-8'
+        'Content-Type: text/html; charset=UTF-8'
     );
     
-    return wp_mail($to_email, $subject, $message, $headers);
+    return wp_mail($to_email, $subject, $html_message, $headers);
+}
+
+/**
+ * Invia email fallback se AI non disponibile
+ */
+function send_fallback_email($to_email) {
+    $subject = 'Questionario Ricevuto - AYNIX';
+    
+    $content = '
+        <h1>✅ Questionario Ricevuto!</h1>
+        <p>Grazie per aver completato il nostro questionario!</p>
+        <p>Abbiamo ricevuto le tue informazioni e il nostro team le sta analizzando attentamente.</p>
+        
+        <div class="info-box">
+            <p><strong>📋 Cosa succede ora?</strong></p>
+            <ul style="margin: 10px 0;">
+                <li>Analizzeremo le tue esigenze in dettaglio</li>
+                <li>Prepareremo una proposta personalizzata</li>
+                <li>Ti contatteremo entro 24 ore</li>
+            </ul>
+        </div>
+        
+        <p>Nel frattempo, se hai domande urgenti puoi contattarci direttamente:</p>
+        
+        <p style="text-align: center;">
+            <a href="https://aynix.tech/contatti" class="cta-button">Contattaci Ora</a>
+        </p>
+        
+        <p>A presto!</p>
+        <p><strong>Il Team AYNIX</strong></p>
+    ';
+    
+    $html_message = aynix_email_template($content, 'Questionario Ricevuto');
+    
+    $headers = array(
+        'From: AYNIX <admin@aynix.tech>',
+        'Reply-To: admin@aynix.tech',
+        'Content-Type: text/html; charset=UTF-8'
+    );
+    
+    return wp_mail($to_email, $subject, $html_message, $headers);
+}
+
+/**
+ * Invia notifica all'admin con dati questionario completi
+ */
+function send_admin_notification($user_email, $form_data, $ai_proposal = null, $post_id = 0) {
+    $admin_email = get_option('admin_email');
+    $subject = '🔔 Nuova Richiesta Progetto Software - AYNIX';
+    
+    // Costruisci riepilogo dati questionario
+    $form_summary = '<h2>📋 Dati Questionario</h2>';
+    $form_summary .= '<table>';
+    
+    $field_labels = array(
+        'tipo_progetto' => 'Tipo Progetto',
+        'obiettivo_principale' => 'Obiettivo Principale',
+        'funzionalita' => 'Funzionalità',
+        'utenti_target' => 'Utenti Target',
+        'numero_utenti' => 'Numero Utenti',
+        'stato_progetto' => 'Stato Progetto',
+        'complessita' => 'Complessità',
+        'tempistiche' => 'Tempistiche',
+        'budget' => 'Budget',
+        'dettagli_extra' => 'Dettagli Extra'
+    );
+    
+    foreach ($field_labels as $key => $label) {
+        if (isset($form_data[$key]) && !empty($form_data[$key])) {
+            $value = $form_data[$key];
+            if (is_array($value)) {
+                $value = implode(', ', $value);
+            }
+            $form_summary .= '<tr>';
+            $form_summary .= '<td>' . esc_html($label) . ':</td>';
+            $form_summary .= '<td>' . esc_html($value) . '</td>';
+            $form_summary .= '</tr>';
+        }
+    }
+    $form_summary .= '</table>';
+    
+    $content = '
+        <h1>🚀 Nuova Richiesta Progetto Software</h1>
+        
+        <div class="info-box">
+            <p><strong>📧 Email Cliente:</strong> ' . esc_html($user_email) . '</p>
+            <p><strong>🆔 Post ID:</strong> ' . esc_html($post_id) . '</p>
+            <p><strong>📅 Data:</strong> ' . date('d/m/Y H:i') . '</p>
+        </div>
+        
+        ' . $form_summary . '
+    ';
+    
+    if ($ai_proposal) {
+        $content .= '
+            <h2>🤖 Proposta AI Generata</h2>
+            <div class="info-box">
+                ' . nl2br(esc_html($ai_proposal)) . '
+            </div>
+            <p style="color: #28a745; font-weight: 600;">✅ Email con proposta inviata automaticamente al cliente</p>
+        ';
+    } else {
+        $content .= '
+            <div class="info-box" style="border-left-color: #ff6331;">
+                <p style="color: #ff6331; font-weight: 600;">⚠️ Generazione proposta AI fallita</p>
+                <p>Verifica la configurazione della OpenAI API key e contatta manualmente il cliente.</p>
+            </div>
+        ';
+    }
+    
+    $content .= '
+        <p style="text-align: center; margin-top: 30px;">
+            <a href="' . admin_url('post.php?post=' . $post_id . '&action=edit') . '" class="cta-button">Visualizza nel Pannello Admin</a>
+        </p>
+    ';
+    
+    $html_message = aynix_email_template($content, 'Nuova Richiesta Progetto');
+    
+    $headers = array(
+        'From: AYNIX Sistema <admin@aynix.tech>',
+        'Reply-To: ' . $user_email,
+        'Content-Type: text/html; charset=UTF-8'
+    );
+    
+    return wp_mail($admin_email, $subject, $html_message, $headers);
 }
 
 add_action('wp_ajax_save_diagnosis', 'save_diagnosis_submission');
