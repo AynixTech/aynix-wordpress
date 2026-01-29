@@ -278,36 +278,17 @@ function save_diagnosis_submission() {
         }
     }
     
-    // RISPOSTA IMMEDIATA all'utente (non aspettare email/AI)
+    // PRIMA EMAIL: Invia SEMPRE email di conferma immediata (prima della risposta)
+    send_confirmation_email($user_email);
+    
+    // Schedula elaborazione AI e seconda email in background
+    wp_schedule_single_event(time() + 10, 'process_diagnosis_ai', array($post_id, $user_email, $form_data));
+    
+    // RISPOSTA IMMEDIATA all'utente
     wp_send_json_success(array(
         'post_id' => $post_id,
         'message' => 'Questionario ricevuto con successo'
     ));
-    
-    // Continua elaborazione in background DOPO la risposta
-    // Chiude la connessione HTTP e continua a processare
-    fastcgi_finish_request();
-    
-    // PRIMA EMAIL: Invia email di conferma immediata
-    send_confirmation_email($user_email);
-    
-    // Genera proposta AI con OpenAI (ora in background, non blocca l'utente)
-    $ai_proposal = generate_ai_proposal($form_data);
-    
-    if ($ai_proposal) {
-        update_post_meta($post_id, 'ai_proposal', $ai_proposal);
-        
-        // SECONDA EMAIL: Invia email con proposta AI e CTA per richiesta contatto
-        send_proposal_email($user_email, $ai_proposal, $form_data);
-        
-        // Invia email all'admin con proposta e dati questionario
-        send_admin_notification($user_email, $form_data, $ai_proposal, $post_id);
-    } else {
-        // Se OpenAI fallisce, invia comunque notifica all'admin (cliente ha già ricevuto conferma)
-        send_admin_notification($user_email, $form_data, null, $post_id);
-        
-        update_post_meta($post_id, 'ai_proposal_error', 'OpenAI API non disponibile');
-    }
 }
 
 /**
@@ -757,4 +738,28 @@ function register_contact_request_post_type() {
     ));
 }
 add_action('init', 'register_contact_request_post_type');
+
+/**
+ * Elaborazione AI e invio email in background (schedulato)
+ */
+function process_diagnosis_ai_background($post_id, $user_email, $form_data) {
+    // Genera proposta AI con OpenAI
+    $ai_proposal = generate_ai_proposal($form_data);
+    
+    if ($ai_proposal) {
+        update_post_meta($post_id, 'ai_proposal', $ai_proposal);
+        
+        // SECONDA EMAIL: Invia email con proposta AI e CTA per richiesta contatto
+        send_proposal_email($user_email, $ai_proposal, $form_data);
+        
+        // Invia email all'admin con proposta e dati questionario
+        send_admin_notification($user_email, $form_data, $ai_proposal, $post_id);
+    } else {
+        // Se OpenAI fallisce, invia comunque notifica all'admin
+        send_admin_notification($user_email, $form_data, null, $post_id);
+        
+        update_post_meta($post_id, 'ai_proposal_error', 'OpenAI API non disponibile');
+    }
+}
+add_action('process_diagnosis_ai', 'process_diagnosis_ai_background', 10, 3);
 ?>
