@@ -897,6 +897,245 @@ function diagnosis_form_data_callback($post) {
 }
 
 /**
+ * Aggiungi colonne personalizzate alla tabella Richieste Contatto in admin
+ */
+function contact_request_custom_columns($columns) {
+    $new_columns = array();
+    $new_columns['cb'] = $columns['cb'];
+    $new_columns['title'] = 'Titolo';
+    $new_columns['contact_name'] = 'Nome';
+    $new_columns['email'] = 'Email';
+    $new_columns['telefono'] = 'Telefono';
+    $new_columns['azienda'] = 'Azienda';
+    $new_columns['diagnosis_link'] = 'Diagnosi Collegata';
+    $new_columns['google_meet'] = 'Google Meet';
+    $new_columns['date'] = 'Data';
+    return $new_columns;
+}
+add_filter('manage_contact_request_posts_columns', 'contact_request_custom_columns');
+
+/**
+ * Popola le colonne personalizzate con i dati
+ */
+function contact_request_custom_columns_content($column, $post_id) {
+    switch ($column) {
+        case 'contact_name':
+            $nome = get_post_meta($post_id, 'nome', true);
+            $cognome = get_post_meta($post_id, 'cognome', true);
+            echo '<strong>' . esc_html($nome . ' ' . $cognome) . '</strong>';
+            break;
+            
+        case 'email':
+            $email = get_post_meta($post_id, 'email', true);
+            echo '<a href="mailto:' . esc_attr($email) . '">' . esc_html($email) . '</a>';
+            break;
+            
+        case 'telefono':
+            $telefono = get_post_meta($post_id, 'telefono', true);
+            echo '<a href="tel:' . esc_attr($telefono) . '">' . esc_html($telefono) . '</a>';
+            break;
+            
+        case 'azienda':
+            $azienda = get_post_meta($post_id, 'azienda', true);
+            echo $azienda ? esc_html($azienda) : '<em>—</em>';
+            break;
+            
+        case 'diagnosis_link':
+            $email = get_post_meta($post_id, 'email', true);
+            
+            // Cerca diagnosi con questa email
+            $diagnosis_query = new WP_Query(array(
+                'post_type' => 'diagnosis',
+                'posts_per_page' => -1,
+                'meta_query' => array(
+                    array(
+                        'key' => 'email',
+                        'value' => $email,
+                        'compare' => '='
+                    )
+                )
+            ));
+            
+            if ($diagnosis_query->have_posts()) {
+                echo '<div style="display: flex; flex-direction: column; gap: 5px;">';
+                while ($diagnosis_query->have_posts()) {
+                    $diagnosis_query->the_post();
+                    $diagnosis_id = get_the_ID();
+                    $diagnosis_date = get_the_date('d/m/Y H:i');
+                    echo '<a href="' . admin_url('post.php?post=' . $diagnosis_id . '&action=edit') . '" class="button button-small">📋 Diagnosi del ' . esc_html($diagnosis_date) . '</a>';
+                }
+                echo '</div>';
+                wp_reset_postdata();
+            } else {
+                echo '<em style="color: #999;">Nessuna diagnosi trovata</em>';
+            }
+            break;
+            
+        case 'google_meet':
+            $nome = get_post_meta($post_id, 'nome', true);
+            $cognome = get_post_meta($post_id, 'cognome', true);
+            $email = get_post_meta($post_id, 'email', true);
+            
+            // Crea link Google Calendar con Meet
+            $event_title = 'Call Diagnosi - ' . $nome . ' ' . $cognome;
+            $event_details = 'Call di diagnosi con ' . $nome . ' ' . $cognome . '\nEmail: ' . $email;
+            
+            // Link Google Calendar (apre form per creare evento)
+            $google_calendar_url = 'https://calendar.google.com/calendar/render?action=TEMPLATE';
+            $google_calendar_url .= '&text=' . urlencode($event_title);
+            $google_calendar_url .= '&details=' . urlencode($event_details);
+            $google_calendar_url .= '&add=' . urlencode($email);
+            $google_calendar_url .= '&conf=1'; // Abilita Google Meet automaticamente
+            
+            echo '<a href="' . esc_url($google_calendar_url) . '" target="_blank" class="button button-primary button-small">📅 Crea Meet</a>';
+            break;
+    }
+}
+add_action('manage_contact_request_posts_custom_column', 'contact_request_custom_columns_content', 10, 2);
+
+/**
+ * Rendi le colonne ordinabili
+ */
+function contact_request_sortable_columns($columns) {
+    $columns['contact_name'] = 'nome';
+    $columns['email'] = 'email';
+    $columns['telefono'] = 'telefono';
+    $columns['azienda'] = 'azienda';
+    return $columns;
+}
+add_filter('manage_edit-contact_request_sortable_columns', 'contact_request_sortable_columns');
+
+/**
+ * Aggiungi meta box per richieste contatto
+ */
+function contact_request_add_meta_boxes() {
+    add_meta_box(
+        'contact_request_info',
+        'Informazioni Contatto',
+        'contact_request_info_callback',
+        'contact_request',
+        'normal',
+        'high'
+    );
+    
+    add_meta_box(
+        'contact_request_diagnosis',
+        'Diagnosi Correlate',
+        'contact_request_diagnosis_callback',
+        'contact_request',
+        'side',
+        'default'
+    );
+}
+add_action('add_meta_boxes', 'contact_request_add_meta_boxes');
+
+/**
+ * Callback per meta box informazioni contatto
+ */
+function contact_request_info_callback($post) {
+    $nome = get_post_meta($post->ID, 'nome', true);
+    $cognome = get_post_meta($post->ID, 'cognome', true);
+    $email = get_post_meta($post->ID, 'email', true);
+    $telefono = get_post_meta($post->ID, 'telefono', true);
+    $azienda = get_post_meta($post->ID, 'azienda', true);
+    $note = get_post_meta($post->ID, 'note', true);
+    
+    echo '<table class="form-table">';
+    
+    echo '<tr>';
+    echo '<th><strong>Nome Completo:</strong></th>';
+    echo '<td>' . esc_html($nome . ' ' . $cognome) . '</td>';
+    echo '</tr>';
+    
+    echo '<tr>';
+    echo '<th><strong>Email:</strong></th>';
+    echo '<td><a href="mailto:' . esc_attr($email) . '">' . esc_html($email) . '</a></td>';
+    echo '</tr>';
+    
+    echo '<tr>';
+    echo '<th><strong>Telefono:</strong></th>';
+    echo '<td><a href="tel:' . esc_attr($telefono) . '">' . esc_html($telefono) . '</a></td>';
+    echo '</tr>';
+    
+    if ($azienda) {
+        echo '<tr>';
+        echo '<th><strong>Azienda:</strong></th>';
+        echo '<td>' . esc_html($azienda) . '</td>';
+        echo '</tr>';
+    }
+    
+    echo '</table>';
+    
+    if ($note) {
+        echo '<h3>Note aggiuntive:</h3>';
+        echo '<div style="background: #f9f9f9; padding: 15px; border-left: 4px solid #438ef9; margin-top: 10px;">';
+        echo '<p style="white-space: pre-wrap;">' . esc_html($note) . '</p>';
+        echo '</div>';
+    }
+    
+    // Link Google Meet
+    $event_title = 'Call Diagnosi - ' . $nome . ' ' . $cognome;
+    $event_details = 'Call di diagnosi con ' . $nome . ' ' . $cognome . '\n\nEmail: ' . $email . '\nTelefono: ' . $telefono . ($azienda ? '\nAzienda: ' . $azienda : '');
+    
+    $google_calendar_url = 'https://calendar.google.com/calendar/render?action=TEMPLATE';
+    $google_calendar_url .= '&text=' . urlencode($event_title);
+    $google_calendar_url .= '&details=' . urlencode($event_details);
+    $google_calendar_url .= '&add=' . urlencode($email);
+    $google_calendar_url .= '&conf=1';
+    
+    echo '<div style="margin-top: 20px; padding: 15px; background: #e7f3ff; border-radius: 5px;">';
+    echo '<h3 style="margin-top: 0;">📅 Pianifica Call con Google Meet</h3>';
+    echo '<p>Crea un evento Google Calendar con Google Meet automaticamente incluso:</p>';
+    echo '<a href="' . esc_url($google_calendar_url) . '" target="_blank" class="button button-primary button-large">📞 Crea Evento Google Meet</a>';
+    echo '</div>';
+}
+
+/**
+ * Callback per meta box diagnosi correlate
+ */
+function contact_request_diagnosis_callback($post) {
+    $email = get_post_meta($post->ID, 'email', true);
+    
+    // Cerca diagnosi con questa email
+    $diagnosis_query = new WP_Query(array(
+        'post_type' => 'diagnosis',
+        'posts_per_page' => -1,
+        'meta_query' => array(
+            array(
+                'key' => 'email',
+                'value' => $email,
+                'compare' => '='
+            )
+        ),
+        'orderby' => 'date',
+        'order' => 'DESC'
+    ));
+    
+    if ($diagnosis_query->have_posts()) {
+        echo '<p><strong>Diagnosi trovate per ' . esc_html($email) . ':</strong></p>';
+        echo '<ul style="margin: 10px 0; padding-left: 20px;">';
+        
+        while ($diagnosis_query->have_posts()) {
+            $diagnosis_query->the_post();
+            $diagnosis_id = get_the_ID();
+            $diagnosis_date = get_the_date('d/m/Y H:i');
+            $tipo_progetto = get_post_meta($diagnosis_id, 'tipo_progetto', true);
+            
+            echo '<li style="margin-bottom: 10px;">';
+            echo '<strong>' . esc_html($diagnosis_date) . '</strong><br>';
+            echo '<em>' . esc_html($tipo_progetto) . '</em><br>';
+            echo '<a href="' . admin_url('post.php?post=' . $diagnosis_id . '&action=edit') . '" class="button button-small" style="margin-top: 5px;">Visualizza Diagnosi</a>';
+            echo '</li>';
+        }
+        
+        echo '</ul>';
+        wp_reset_postdata();
+    } else {
+        echo '<p><em>Nessuna diagnosi trovata per questa email.</em></p>';
+    }
+}
+
+/**
  * Registra Custom Post Type per Richieste Contatto
  */
 function register_contact_request_post_type() {
