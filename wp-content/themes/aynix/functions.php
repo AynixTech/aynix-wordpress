@@ -125,4 +125,65 @@ function aynix_enqueue_fonts() {
     wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css', [], '6.0.0', 'all');
 }
 add_action('wp_enqueue_scripts', 'aynix_enqueue_fonts');
+
+/**
+ * AJAX Handler per salvataggio diagnosi
+ */
+function save_diagnosis_submission() {
+    // Verifica nonce per sicurezza (opzionale, ma consigliato)
+    
+    $form_data = isset($_POST['formData']) ? $_POST['formData'] : array();
+    $timestamp = isset($_POST['timestamp']) ? sanitize_text_field($_POST['timestamp']) : current_time('mysql');
+    
+    // Salva i dati in un custom post type o in una tabella
+    $diagnosis_data = array(
+        'post_title'    => 'Diagnosi - ' . $timestamp,
+        'post_content'  => json_encode($form_data),
+        'post_status'   => 'private',
+        'post_type'     => 'diagnosis',
+        'post_author'   => 1,
+    );
+    
+    $post_id = wp_insert_post($diagnosis_data);
+    
+    if ($post_id) {
+        // Salva i metadati
+        foreach ($form_data as $key => $value) {
+            update_post_meta($post_id, $key, sanitize_text_field($value));
+        }
+        
+        // Invia email di notifica (opzionale)
+        $admin_email = get_option('admin_email');
+        $subject = 'Nuova Diagnosi Ricevuta - AYNIX';
+        $message = "Nuova diagnosi ricevuta.\n\n";
+        $message .= "Dati:\n" . print_r($form_data, true);
+        
+        wp_mail($admin_email, $subject, $message);
+        
+        wp_send_json_success(array('post_id' => $post_id));
+    } else {
+        wp_send_json_error(array('message' => 'Errore nel salvataggio'));
+    }
+}
+add_action('wp_ajax_save_diagnosis', 'save_diagnosis_submission');
+add_action('wp_ajax_nopriv_save_diagnosis', 'save_diagnosis_submission');
+
+/**
+ * Registra Custom Post Type per Diagnosi
+ */
+function register_diagnosis_post_type() {
+    register_post_type('diagnosis', array(
+        'labels' => array(
+            'name' => 'Diagnosi',
+            'singular_name' => 'Diagnosi'
+        ),
+        'public' => false,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'capability_type' => 'post',
+        'supports' => array('title', 'editor'),
+        'menu_icon' => 'dashicons-analytics'
+    ));
+}
+add_action('init', 'register_diagnosis_post_type');
 ?>

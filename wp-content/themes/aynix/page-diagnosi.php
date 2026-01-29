@@ -97,24 +97,21 @@ get_header();
                     
                     <!-- Questionario Diagnosi -->
                     <div class="diagnosi-form-container" id="diagnosi-form">
-                        <?php 
-                        // Qui verrà inserito il form - per ora link placeholder
-                        // Opzioni: Typeform embed, Tally, Contact Form 7, custom form
-                        ?>
-                        
-                        <!-- Placeholder per form -->
-                        <a href="#questionario" class="btn-primary btn-large" id="start-diagnosis-btn">
-                            <?php echo aynix_translate('diagnosi.cta.button'); ?>
-                        </a>
-                        
-                        <!-- Alternative: Typeform embed -->
-                        <!-- <div data-tf-widget="YOUR_FORM_ID" data-tf-opacity="100" style="width:100%;height:600px;"></div>
-                        <script src="//embed.typeform.com/next/embed.js"></script> -->
+                        <!-- Il questionario verrà caricato qui tramite JavaScript -->
                     </div>
                 </div>
             </section>
         </div>
     </div>
 </main>
+
+<script>
+// Load diagnosis form script
+document.addEventListener('DOMContentLoaded', function() {
+    const script = document.createElement('script');
+    script.src = '<?php echo get_template_directory_uri(); ?>/assets/js/diagnosis-form.js';
+    document.body.appendChild(script);
+});
+</script>
 
 <?php get_footer(); ?>
