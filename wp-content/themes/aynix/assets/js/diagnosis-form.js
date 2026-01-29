@@ -140,6 +140,130 @@
                     type: 'textarea',
                     placeholder: 'E.g., I want an app to manage my restaurant bookings with online payment...'
                 }
+            ],
+            es: [
+                {
+                    id: 'tipo_progetto',
+                    question: '¿Qué tipo de solución buscas?',
+                    type: 'radio',
+                    options: ['Aplicación Web', 'App Móvil (iOS/Android)', 'Software de Escritorio', 'Sistema de gestión personalizado', 'Automatización / Integración', 'No estoy seguro']
+                },
+                {
+                    id: 'obiettivo_principale',
+                    question: '¿Cuál es el objetivo principal del proyecto?',
+                    type: 'radio',
+                    options: ['Automatizar procesos internos', 'Vender online / E-commerce', 'Gestionar clientes y datos', 'Comunicar con clientes', 'Otro']
+                },
+                {
+                    id: 'funzionalita',
+                    question: '¿Qué funcionalidades principales necesitas?',
+                    type: 'checkbox',
+                    options: ['Gestión de usuarios / Login', 'Base de datos / Almacenamiento', 'Pagos online', 'Integraciones (CRM, email, etc)', 'Dashboard / Reportes', 'App móvil', 'API / Automatizaciones']
+                },
+                {
+                    id: 'utenti_target',
+                    question: '¿Quién usará principalmente esta solución?',
+                    type: 'radio',
+                    options: ['Solo mi equipo interno', 'Mis clientes', 'Equipo y clientes', 'Socios / Proveedores']
+                },
+                {
+                    id: 'numero_utenti',
+                    question: '¿Cuántos usuarios prevés?',
+                    type: 'radio',
+                    options: ['< 10', '10-50', '50-200', '200-1000', '> 1000']
+                },
+                {
+                    id: 'stato_progetto',
+                    question: '¿En qué punto está tu proyecto?',
+                    type: 'radio',
+                    options: ['Solo una idea inicial', 'Tengo especificaciones detalladas', 'Ya tengo un prototipo/MVP', 'Tengo algo que mejorar']
+                },
+                {
+                    id: 'complessita',
+                    question: 'Complejidad percibida del proyecto',
+                    type: 'radio',
+                    options: ['Simple (landing page, formularios)', 'Media (sistema de gestión básico)', 'Compleja (marketplace, plataforma)', 'Muy compleja (fintech, healthcare)']
+                },
+                {
+                    id: 'tempistiche',
+                    question: '¿En cuánto tiempo quieres lanzar?',
+                    type: 'radio',
+                    options: ['< 1 mes', '1-3 meses', '3-6 meses', '> 6 meses', 'Sin plazo']
+                },
+                {
+                    id: 'budget',
+                    question: '¿Cuál es tu presupuesto indicativo?',
+                    type: 'radio',
+                    options: ['< €5.000', '€5.000 - €15.000', '€15.000 - €50.000', '> €50.000', 'Por definir']
+                },
+                {
+                    id: 'dettagli_extra',
+                    question: 'Describe brevemente tu proyecto (opcional)',
+                    type: 'textarea',
+                    placeholder: 'Ej: Quiero una app para gestionar las reservas de mi restaurante con pago online...'
+                }
+            ],
+            pt: [
+                {
+                    id: 'tipo_progetto',
+                    question: 'Que tipo de solução procura?',
+                    type: 'radio',
+                    options: ['Aplicação Web', 'App Móvel (iOS/Android)', 'Software Desktop', 'Sistema de gestão personalizado', 'Automação / Integração', 'Não tenho certeza']
+                },
+                {
+                    id: 'obiettivo_principale',
+                    question: 'Qual é o objetivo principal do projeto?',
+                    type: 'radio',
+                    options: ['Automatizar processos internos', 'Vender online / E-commerce', 'Gerir clientes e dados', 'Comunicar com clientes', 'Outro']
+                },
+                {
+                    id: 'funzionalita',
+                    question: 'Quais funcionalidades principais precisa?',
+                    type: 'checkbox',
+                    options: ['Gestão de utilizadores / Login', 'Base de dados / Armazenamento', 'Pagamentos online', 'Integrações (CRM, email, etc)', 'Dashboard / Relatórios', 'App móvel', 'API / Automações']
+                },
+                {
+                    id: 'utenti_target',
+                    question: 'Quem usará principalmente esta solução?',
+                    type: 'radio',
+                    options: ['Apenas minha equipe interna', 'Meus clientes', 'Equipe e clientes', 'Parceiros / Fornecedores']
+                },
+                {
+                    id: 'numero_utenti',
+                    question: 'Quantos utilizadores prevê?',
+                    type: 'radio',
+                    options: ['< 10', '10-50', '50-200', '200-1000', '> 1000']
+                },
+                {
+                    id: 'stato_progetto',
+                    question: 'Em que ponto está o seu projeto?',
+                    type: 'radio',
+                    options: ['Apenas uma ideia inicial', 'Tenho especificações detalhadas', 'Já tenho um protótipo/MVP', 'Tenho algo a melhorar']
+                },
+                {
+                    id: 'complessita',
+                    question: 'Complexidade percebida do projeto',
+                    type: 'radio',
+                    options: ['Simples (landing page, formulários)', 'Média (sistema de gestão básico)', 'Complexa (marketplace, plataforma)', 'Muito complexa (fintech, healthcare)']
+                },
+                {
+                    id: 'tempistiche',
+                    question: 'Em quanto tempo quer lançar?',
+                    type: 'radio',
+                    options: ['< 1 mês', '1-3 meses', '3-6 meses', '> 6 meses', 'Sem prazo']
+                },
+                {
+                    id: 'budget',
+                    question: 'Qual é o seu orçamento indicativo?',
+                    type: 'radio',
+                    options: ['< €5.000', '€5.000 - €15.000', '€15.000 - €50.000', '> €50.000', 'A definir']
+                },
+                {
+                    id: 'dettagli_extra',
+                    question: 'Descreva brevemente o seu projeto (opcional)',
+                    type: 'textarea',
+                    placeholder: 'Ex: Quero uma app para gerir as reservas do meu restaurante com pagamento online...'
+                }
             ]
         },
 
@@ -148,7 +272,8 @@
             for (let cookie of cookies) {
                 const [name, value] = cookie.trim().split('=');
                 if (name === 'site_lang') {
-                    return value === 'it' ? 'it' : 'en';
+                    const lang = value.trim();
+                    return ['it', 'en', 'es', 'pt'].includes(lang) ? lang : 'it';
                 }
             }
             return 'it';
@@ -158,6 +283,13 @@
             const lang = this.getLanguage();
             const container = $('#diagnosi-form');
             
+            const labels = {
+                it: { prev: '« Indietro', next: 'Avanti »', submit: 'Invia Diagnosi' },
+                en: { prev: '« Back', next: 'Next »', submit: 'Submit Diagnosis' },
+                es: { prev: '« Atrás', next: 'Siguiente »', submit: 'Enviar Diagnóstico' },
+                pt: { prev: '« Voltar', next: 'Próximo »', submit: 'Enviar Diagnóstico' }
+            };
+            
             const html = `
                 <div id="diagnosis-questionnaire">
                     <div class="progress-bar">
@@ -165,9 +297,9 @@
                     </div>
                     <div class="question-container"></div>
                     <div class="form-navigation">
-                        <button type="button" class="btn-secondary" id="prev-btn" style="display:none;">« Indietro</button>
-                        <button type="button" class="btn-primary" id="next-btn">Avanti »</button>
-                        <button type="button" class="btn-primary btn-submit" id="submit-btn" style="display:none;">Invia Diagnosi</button>
+                        <button type="button" class="btn-secondary" id="prev-btn" style="display:none;">${labels[lang].prev}</button>
+                        <button type="button" class="btn-primary" id="next-btn">${labels[lang].next}</button>
+                        <button type="button" class="btn-primary btn-submit" id="submit-btn" style="display:none;">${labels[lang].submit}</button>
                     </div>
                 </div>
             `;
@@ -182,15 +314,35 @@
             
             // Step finale: richiesta email
             if (this.currentStep === this.totalSteps - 1) {
-                const emailLabel = lang === 'it' ? 'Inserisci la tua email per ricevere la proposta personalizzata' : 'Enter your email to receive the personalized proposal';
-                const emailPlaceholder = lang === 'it' ? 'tua@email.com' : 'your@email.com';
+                const emailLabels = {
+                    it: {
+                        label: 'Inserisci la tua email per ricevere la proposta personalizzata',
+                        placeholder: 'tua@email.com',
+                        step: 'Step'
+                    },
+                    en: {
+                        label: 'Enter your email to receive the personalized proposal',
+                        placeholder: 'your@email.com',
+                        step: 'Step'
+                    },
+                    es: {
+                        label: 'Ingresa tu email para recibir la propuesta personalizada',
+                        placeholder: 'tu@email.com',
+                        step: 'Paso'
+                    },
+                    pt: {
+                        label: 'Insira o seu email para receber a proposta personalizada',
+                        placeholder: 'seu@email.com',
+                        step: 'Passo'
+                    }
+                };
                 
                 const html = `
                     <div class="question-step" data-step="${this.currentStep}">
-                        <p class="step-indicator">Step ${this.currentStep + 1} di ${this.totalSteps}</p>
-                        <h3 class="question-title">${emailLabel}</h3>
+                        <p class="step-indicator">${emailLabels[lang].step} ${this.currentStep + 1} di ${this.totalSteps}</p>
+                        <h3 class="question-title">${emailLabels[lang].label}</h3>
                         <div class="options-container">
-                            <input type="email" id="user-email" class="email-input" placeholder="${emailPlaceholder}" value="${this.formData.email || ''}" required>
+                            <input type="email" id="user-email" class="email-input" placeholder="${emailLabels[lang].placeholder}" value="${this.formData.email || ''}" required>
                         </div>
                     </div>
                 `;
@@ -237,9 +389,16 @@
                 });
             }
             
+            const questionLabels = {
+                it: { question: 'Domanda', of: 'di' },
+                en: { question: 'Question', of: 'of' },
+                es: { question: 'Pregunta', of: 'de' },
+                pt: { question: 'Pergunta', of: 'de' }
+            };
+            
             const html = `
                 <div class="question-step" data-step="${this.currentStep}">
-                    <p class="step-indicator">Domanda ${this.currentStep + 1} di ${this.totalSteps - 1}</p>
+                    <p class="step-indicator">${questionLabels[lang].question} ${this.currentStep + 1} ${questionLabels[lang].of} ${this.totalSteps - 1}</p>
                     <h3 class="question-title">${question.question}</h3>
                     <div class="options-container">
                         ${optionsHtml}
@@ -327,10 +486,18 @@
             });
             
             $(document).on('click', '#submit-btn', function() {
+                const lang = self.getLanguage();
+                const errorMessages = {
+                    it: 'Inserisci un indirizzo email valido',
+                    en: 'Please enter a valid email address',
+                    es: 'Por favor ingresa un email válido',
+                    pt: 'Por favor insira um email válido'
+                };
+                
                 // Validate email
                 const email = $('#user-email').val();
                 if (!email || !self.validateEmail(email)) {
-                    alert('Inserisci un indirizzo email valido');
+                    alert(errorMessages[lang]);
                     return;
                 }
                 self.formData.email = email;
@@ -358,13 +525,49 @@
 
         submitForm: function() {
             const self = this;
+            const lang = this.getLanguage();
+            
+            const messages = {
+                it: {
+                    invalidEmail: 'Inserisci un indirizzo email valido',
+                    sending: 'Invio in corso...',
+                    submit: 'Invia Diagnosi',
+                    error: 'Errore: ',
+                    defaultError: 'Errore nell\'invio. Riprova.',
+                    connectionError: 'Errore di connessione: '
+                },
+                en: {
+                    invalidEmail: 'Please enter a valid email address',
+                    sending: 'Sending...',
+                    submit: 'Submit Diagnosis',
+                    error: 'Error: ',
+                    defaultError: 'Submission error. Please try again.',
+                    connectionError: 'Connection error: '
+                },
+                es: {
+                    invalidEmail: 'Por favor ingresa un email válido',
+                    sending: 'Enviando...',
+                    submit: 'Enviar Diagnóstico',
+                    error: 'Error: ',
+                    defaultError: 'Error al enviar. Inténtalo de nuevo.',
+                    connectionError: 'Error de conexión: '
+                },
+                pt: {
+                    invalidEmail: 'Por favor insira um email válido',
+                    sending: 'Enviando...',
+                    submit: 'Enviar Diagnóstico',
+                    error: 'Erro: ',
+                    defaultError: 'Erro ao enviar. Tente novamente.',
+                    connectionError: 'Erro de conexão: '
+                }
+            };
             
             // Validate email
             const email = $('#user-email').val();
             console.log('Email field value:', email);
             
             if (!email || !this.validateEmail(email)) {
-                alert('Inserisci un indirizzo email valido');
+                alert(messages[lang].invalidEmail);
                 return;
             }
             
@@ -372,7 +575,7 @@
             this.formData.email = email;
             console.log('FormData before submit:', this.formData);
             
-            $('#submit-btn').prop('disabled', true).text('Invio in corso...');
+            $('#submit-btn').prop('disabled', true).text(messages[lang].sending);
             
             $.ajax({
                 url: '/wp-admin/admin-ajax.php',
@@ -388,14 +591,14 @@
                         window.location.href = '/grazie-diagnosi';
                     } else {
                         console.error('Errore backend:', response.data);
-                        alert('Errore: ' + (response.data.message || 'Errore nell\'invio. Riprova.'));
-                        $('#submit-btn').prop('disabled', false).text('Invia Diagnosi');
+                        alert(messages[lang].error + (response.data.message || messages[lang].defaultError));
+                        $('#submit-btn').prop('disabled', false).text(messages[lang].submit);
                     }
                 },
                 error: function(xhr, status, error) {
                     console.error('Errore AJAX:', xhr.responseText, status, error);
-                    alert('Errore di connessione: ' + error);
-                    $('#submit-btn').prop('disabled', false).text('Invia Diagnosi');
+                    alert(messages[lang].connectionError + error);
+                    $('#submit-btn').prop('disabled', false).text(messages[lang].submit);
                 }
             });
         }
