@@ -169,6 +169,7 @@ $prefilled_email = isset($_GET['email']) ? sanitize_email($_GET['email']) : '';
     transition: all 0.3s ease;
     font-family: inherit;
     background: #fff;
+    box-sizing: border-box;
 }
 
 .contact-request-form input:focus,
