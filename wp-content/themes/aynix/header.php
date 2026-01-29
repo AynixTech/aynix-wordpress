@@ -92,12 +92,14 @@
     }
 </script>
 
-<!-- Sticky CTA Mobile -->
+<!-- Sticky CTA Mobile (solo homepage) -->
+<?php if (is_front_page()) : ?>
 <div id="sticky-cta-mobile" class="sticky-cta-mobile">
     <a href="<?php echo esc_url(home_url('/diagnosi')); ?>" class="btn-primary">
         <?php echo aynix_translate('cta.avvia_diagnosi'); ?>
     </a>
 </div>
+<?php endif; ?>
 
 <?php wp_footer(); ?>
 </body>
