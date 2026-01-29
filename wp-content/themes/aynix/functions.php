@@ -302,18 +302,44 @@ function save_diagnosis_submission() {
 /**
  * Genera proposta software personalizzata usando OpenAI
  */
-function generate_ai_proposal($form_data) {
+function generate_ai_proposal($form_data, $user_lang = 'it') {
     if (!defined('OPENAI_API_KEY')) {
         error_log('OpenAI API Key non configurata');
         return false;
     }
     
+    // Traduzioni per il prompt
+    $lang_instructions = array(
+        'it' => array(
+            'language' => 'ITALIANO',
+            'intro' => 'Sei un Project Manager di AYNIX, una software house specializzata in soluzioni custom. Devi creare una proposta commerciale convincente ma chiara.',
+            'analyze' => 'Analizza queste risposte del cliente e genera una proposta per il loro progetto software:',
+            'structure' => 'Genera una proposta strutturata in ITALIANO che includa:'
+        ),
+        'en' => array(
+            'language' => 'ENGLISH',
+            'intro' => 'You are a Project Manager at AYNIX, a software house specialized in custom solutions. You must create a convincing yet clear commercial proposal.',
+            'analyze' => 'Analyze these customer responses and generate a proposal for their software project:',
+            'structure' => 'Generate a structured proposal in ENGLISH that includes:'
+        ),
+        'es' => array(
+            'language' => 'ESPAÑOL',
+            'intro' => 'Eres un Project Manager de AYNIX, una empresa de software especializada en soluciones personalizadas. Debes crear una propuesta comercial convincente pero clara.',
+            'analyze' => 'Analiza estas respuestas del cliente y genera una propuesta para su proyecto de software:',
+            'structure' => 'Genera una propuesta estructurada en ESPAÑOL que incluya:'
+        ),
+        'pt' => array(
+            'language' => 'PORTUGUÊS',
+            'intro' => 'És um Project Manager da AYNIX, uma empresa de software especializada em soluções personalizadas. Deves criar uma proposta comercial convincente mas clara.',
+            'analyze' => 'Analisa estas respostas do cliente e gera uma proposta para o seu projeto de software:',
+            'structure' => 'Gera uma proposta estruturada em PORTUGUÊS que inclua:'
+        )
+    );
+    
+    $lang = isset($lang_instructions[$user_lang]) ? $lang_instructions[$user_lang] : $lang_instructions['it'];
+    
     // Costruisci prompt per OpenAI
-    $prompt = "Sei un Project Manager di AYNIX, una software house specializzata in soluzioni custom. Devi creare una proposta commerciale convincente ma chiara.
-
-Analizza queste risposte del cliente e genera una proposta per il loro progetto software:
-
-";
+    $prompt = $lang['intro'] . "\n\n" . $lang['analyze'] . "\n\n";
     
     foreach ($form_data as $key => $value) {
         if ($key !== 'email' && !empty($value)) {
@@ -326,32 +352,31 @@ Analizza queste risposte del cliente e genera una proposta per il loro progetto 
         }
     }
     
-    $prompt .= "\n
-Genera una proposta strutturata in ITALIANO che includa:
-
-1. **Cosa Abbiamo Capito del Tuo Progetto** (linguaggio semplice, orientato ai benefici di business)
+    $prompt .= "\n" . $lang['structure'] . "\n
+1. **Cosa Abbiamo Capito del Tuo Progetto** / **What We Understood** / **Lo Que Entendimos** / **O Que Entendemos** (linguaggio semplice, orientato ai benefici di business)
    - Riassumi gli obiettivi principali
    - Identifica i problemi che il software risolverà
    - Evidenzia l'impatto sul business
 
-2. **La Soluzione Che Proponiamo** (linguaggio accessibile, focus su cosa otterranno)
+2. **La Soluzione Che Proponiamo** / **The Solution We Propose** / **La Solución Que Proponemos** / **A Solução Que Propomos** (linguaggio accessibile, focus su cosa otterranno)
    - Descrivi la soluzione in termini di funzionalità e valore, non tecnologie
    - Spiega come migliorerà i processi attuali
    - Elenca i benefici principali (efficienza, risparmio tempo, automazione, etc.)
 
-3. **Dettagli Tecnici** (SOLO IN QUESTA SEZIONE usa linguaggio tecnico)
+3. **Dettagli Tecnici** / **Technical Details** / **Detalles Técnicos** / **Detalhes Técnicos** (SOLO IN QUESTA SEZIONE usa linguaggio tecnico)
    - Stack tecnologico consigliato: **prioritizza Angular (frontend), Node.js (backend), Flutter (mobile)** quando applicabile
    - Architettura del sistema (microservizi, monolite, cloud-native, etc.)
    - Database e infrastruttura consigliati
    - Integrazioni con sistemi esistenti
    - Scalabilità e performance
 
-4. **Prossimi Passi**
+4. **Prossimi Passi** / **Next Steps** / **Próximos Pasos** / **Próximos Passos**
    - Call di approfondimento gratuita per discutere tempistiche e aspetti economici
    - Cosa preparare per la call
    - Come procederemo insieme
 
 IMPORTANTE:
+- Scrivi COMPLETAMENTE in " . $lang['language'] . "
 - NON menzionare MAI prezzi, costi, budget, investimenti o tempistiche di sviluppo
 - Usa un tono professionale ma caldo e accessibile
 - Evita gergo tecnico nelle prime 2 sezioni
@@ -1322,8 +1347,8 @@ add_action('init', 'register_contact_request_post_type');
  * Elaborazione AI e invio email in background (schedulato)
  */
 function process_diagnosis_ai_background($post_id, $user_email, $form_data, $user_lang = 'it') {
-    // Genera proposta AI con OpenAI
-    $ai_proposal = generate_ai_proposal($form_data);
+    // Genera proposta AI con OpenAI nella lingua dell'utente
+    $ai_proposal = generate_ai_proposal($form_data, $user_lang);
     
     if ($ai_proposal) {
         update_post_meta($post_id, 'ai_proposal', $ai_proposal);
