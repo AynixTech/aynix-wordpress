@@ -130,7 +130,8 @@ add_action('wp_enqueue_scripts', 'aynix_enqueue_fonts');
  * Template email HTML con branding AYNIX
  */
 function aynix_email_template($content, $title = '') {
-    $logo_url = get_template_directory_uri() . '/assets/images/logo.png';
+    // URL assoluto del logo (necessario per client email)
+    $logo_url = 'https://aynix.tech/wp-content/themes/aynix/assets/images/logo-white.svg';
     
     $html = '
 <!DOCTYPE html>
@@ -159,6 +160,7 @@ function aynix_email_template($content, $title = '') {
         .email-logo {
             max-width: 180px;
             height: auto;
+            display: inline-block;
         }
         .email-body {
             padding: 40px 30px;
@@ -211,7 +213,10 @@ function aynix_email_template($content, $title = '') {
 <body>
     <div class="email-wrapper">
         <div class="email-header">
-            <img src="' . esc_url($logo_url) . '" alt="AYNIX" class="email-logo">
+            <img src="' . esc_url($logo_url) . '" alt="AYNIX" class="email-logo" style="max-width: 180px; height: auto; display: inline-block;">
+            <!--[if mso]>
+            <div style="font-family: \'Oxanium\', Arial, sans-serif; font-size: 36px; font-weight: 700; color: #ffffff; letter-spacing: 2px;">AYNIX</div>
+            <![endif]-->
         </div>
         <div class="email-body">
             ' . $content . '
