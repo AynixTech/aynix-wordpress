@@ -79,8 +79,9 @@ $table_prefix = 'wp_';
 
 /* Add any custom values between this line and the "stop editing" line. */
 
-// OpenAI API Key - IMPORTANTE: Aggiungi questa riga manualmente sul server:
-// define('OPENAI_API_KEY', 'your-openai-api-key-here');
+// OpenAI API Key (add your own key here - see .env.example)
+// define('OPENAI_API_KEY', 'your-api-key-here');
+
 
 
 /**

@@ -248,9 +248,11 @@ Genera una proposta che includa:
 Scrivi in tono professionale ma accessibile, in italiano. Sii specifico e tecnico dove necessario.";
     
     // Chiamata API OpenAI
+    $api_key = defined('OPENAI_API_KEY') ? OPENAI_API_KEY : '';
+    
     $response = wp_remote_post('https://api.openai.com/v1/chat/completions', array(
         'headers' => array(
-            'Authorization' => 'Bearer ' . OPENAI_API_KEY,
+            'Authorization' => 'Bearer ' . $api_key,
             'Content-Type' => 'application/json',
         ),
         'body' => json_encode(array(
