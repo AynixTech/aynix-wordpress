@@ -217,6 +217,51 @@
                 question.options.forEach((option, index) => {
                     const isChecked = selectedValues.includes(option) ? 'checked' : '';
                     optionsHtml += `
+                        <label class="checkbox-option ${isChecked}">
+                            <input type="checkbox" name="${question.id}" value="${option}" ${isChecked}>
+                            <span class="checkbox-label">${option}</span>
+                        </label>
+                    `;
+                });
+            }
+            // Radio
+            else {
+                question.options.forEach((option, index) => {
+                    const isChecked = this.formData[question.id] === option ? 'checked' : '';
+                    optionsHtml += `
+                        <label class="radio-option ${isChecked}">
+                            <input type="radio" name="${question.id}" value="${option}" ${isChecked}>
+                            <span class="radio-label">${option}</span>
+                        </label>
+                    `;
+                });
+            }
+            
+            const html = `
+                <div class="question-step" data-step="${this.currentStep}">
+                    <p class="step-indicator">Domanda ${this.currentStep + 1} di ${this.totalSteps - 1}</p>
+                    <h3 class="question-title">${question.question}</h3>
+                    <div class="options-container">
+                        ${optionsHtml}
+                    </div>
+                </div>
+            `;
+            
+            container.html(html);
+            this.updateNavigation();
+        },
+
+        updateNavigation: function() {
+            $('#prev-btn').toggle(this.currentStep > 0);
+            $('#next-btn').toggle(this.currentStep < this.totalSteps - 1);
+            $('#submit-btn').toggle(this.currentStep === this.totalSteps - 1);
+            
+            $('.progress-fill').css('width', `${((this.currentStep + 1) / this.totalSteps) * 100}%`);
+        },
+
+        bindEvents: function() {
+            const self = this;
+            
             // Radio click con auto-advance
             $(document).on('click', '.radio-option', function() {
                 const input = $(this).find('input');
