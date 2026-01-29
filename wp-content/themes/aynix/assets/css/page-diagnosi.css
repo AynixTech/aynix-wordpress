@@ -1,81 +1,71 @@
-/* Diagnosi Page Styles */
+/* Pagina Diagnosi - Styling */
 
 .diagnosi-page {
-    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    background: #f7fafc;
 }
 
-.hero-page {
-    background: linear-gradient(
-        20deg,
-        var(--aynix-primary-color),
-        var(--aynix-secondary-color),
-        var(--aynix-ternary-color)
-    );
+.diagnosi-hero {
+    background: linear-gradient(135deg, #438ef9 0%, #ff6331 100%);
     color: white;
-    padding: 80px 20px 60px;
+    padding: 4rem 1rem 3rem;
     text-align: center;
 }
 
-.hero-page h1 {
+.diagnosi-hero h1 {
     font-size: 2.8rem;
-    margin-bottom: 1rem;
     font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: white;
+    line-height: 1.2;
 }
 
-.hero-subtitle {
-    font-size: 1.3rem;
-    margin-bottom: 2rem;
+.hero-intro {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    max-width: 800px;
+    margin: 0 auto 2rem;
     opacity: 0.95;
 }
 
 .diagnosi-badges {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 2rem;
     flex-wrap: wrap;
+    margin-top: 2rem;
 }
 
-.badge {
+.diagnosi-badges .badge {
     background: rgba(255, 255, 255, 0.2);
-    padding: 10px 20px;
-    border-radius: 25px;
-    font-size: 1rem;
     backdrop-filter: blur(10px);
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
-.badge i {
-    margin-right: 8px;
+.diagnosi-badges .badge i {
+    margin-right: 0.5rem;
 }
 
-/* Section Titles */
-.diagnosi-page h2 {
-    font-size: 2.2rem;
-    text-align: center;
-    margin: 60px 0 40px;
-    color: #333;
+/* What section */
+.diagnosi-what {
+    margin: 3rem 0;
 }
 
-/* Grid Layouts */
 .diagnosi-grid-two {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin-bottom: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
 }
 
-.diagnosi-grid-three {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    margin-bottom: 40px;
-}
-
-/* Cards */
 .diagnosi-card {
     background: white;
-    border-radius: 15px;
-    padding: 30px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -85,30 +75,30 @@
 }
 
 .diagnosi-card--is {
-    border-left: 5px solid #28a745;
+    border-left: 4px solid #48bb78;
 }
 
 .diagnosi-card--isnot {
-    border-left: 5px solid #dc3545;
+    border-left: 4px solid #f56565;
 }
 
 .card-icon {
     font-size: 3rem;
-    margin-bottom: 20px;
+    margin-bottom: 1.5rem;
 }
 
 .card-icon--success {
-    color: #28a745;
+    color: #48bb78;
 }
 
 .card-icon--danger {
-    color: #dc3545;
+    color: #f56565;
 }
 
 .diagnosi-card h3 {
     font-size: 1.5rem;
-    margin-bottom: 20px;
-    color: #333;
+    margin-bottom: 1.5rem;
+    color: #2d3748;
 }
 
 .diagnosi-list {
@@ -117,170 +107,204 @@
 }
 
 .diagnosi-list li {
-    padding: 10px 0;
-    padding-left: 25px;
     position: relative;
+    padding-left: 2rem;
+    margin-bottom: 1rem;
+    color: #4a5568;
     line-height: 1.6;
 }
 
 .diagnosi-list li:before {
-    content: "•";
+    content: '•';
     position: absolute;
-    left: 0;
-    color: var(--aynix-primary-color);
+    left: 0.5rem;
     font-size: 1.5rem;
+    line-height: 1.3;
 }
 
-/* Steps */
+.diagnosi-card--is .diagnosi-list li:before {
+    color: #48bb78;
+}
+
+.diagnosi-card--isnot .diagnosi-list li:before {
+    color: #f56565;
+}
+
+/* How section */
+.diagnosi-how {
+    margin: 4rem 0;
+    text-align: center;
+}
+
+.diagnosi-how h2 {
+    font-size: 2.2rem;
+    margin-bottom: 3rem;
+    color: #2d3748;
+}
+
+.diagnosi-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
 .diagnosi-step {
     background: white;
-    border-radius: 15px;
-    padding: 30px;
-    text-align: center;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease;
-}
-
-.diagnosi-step:hover {
-    transform: translateY(-5px);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+    position: relative;
 }
 
 .step-number {
     width: 60px;
     height: 60px;
-    background: linear-gradient(
-        20deg,
-        var(--aynix-primary-color),
-        var(--aynix-secondary-color)
-    );
-    color: white;
     border-radius: 50%;
+    background: linear-gradient(135deg, #438ef9, #ff6331);
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin: 0 auto 20px;
-}
-
-.diagnosi-step h3 {
-    font-size: 1.3rem;
-    margin-bottom: 15px;
-    color: #333;
+    margin: 0 auto 1.5rem;
 }
 
 .diagnosi-step p {
-    color: #666;
+    color: #4a5568;
     line-height: 1.6;
+    font-size: 1.05rem;
 }
 
-/* Benefits */
-.diagnosi-benefit {
-    background: white;
-    border-radius: 15px;
-    padding: 40px;
+/* Benefits section */
+.diagnosi-benefits {
+    margin: 4rem 0;
     text-align: center;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
 }
 
-.diagnosi-benefit i {
-    font-size: 3.5rem;
-    color: var(--aynix-primary-color);
-    margin-bottom: 20px;
+.diagnosi-benefits h2 {
+    font-size: 2.2rem;
+    margin-bottom: 3rem;
+    color: #2d3748;
 }
 
-.diagnosi-benefit h3 {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-    color: #333;
+.benefits-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
-.diagnosi-benefit p {
-    color: #666;
+.benefit-item {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+}
+
+.benefit-item i {
+    font-size: 2.5rem;
+    color: #438ef9;
+    margin-bottom: 1rem;
+}
+
+.benefit-item p {
+    color: #4a5568;
     line-height: 1.6;
+    font-size: 1.05rem;
 }
 
-/* CTA Section */
+/* CTA section */
 .diagnosi-cta {
-    margin: 80px 0 60px;
+    margin: 5rem 0;
+    text-align: center;
 }
 
 .cta-box {
-    background: linear-gradient(
-        135deg,
-        var(--aynix-primary-color) 0%,
-        var(--aynix-secondary-color) 100%
-    );
-    border-radius: 20px;
-    padding: 60px 40px;
-    text-align: center;
+    background: linear-gradient(135deg, #438ef9 0%, #ff6331 100%);
     color: white;
+    padding: 4rem 2rem;
+    border-radius: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 10px 40px rgba(67, 142, 249, 0.3);
 }
 
 .cta-box h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
     color: white;
-    margin-top: 0;
-    margin-bottom: 15px;
 }
 
-.cta-box p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
+.cta-note {
+    font-size: 1.1rem;
+    margin-bottom: 2.5rem;
     opacity: 0.95;
 }
 
 .diagnosi-form-container {
-    margin: 40px 0;
+    margin: 2rem 0;
 }
 
 .btn-large {
-    font-size: 1.3rem;
-    padding: 18px 40px;
-    display: inline-block;
+    padding: 1.2rem 3rem;
+    font-size: 1.2rem;
+    font-weight: 700;
     background: white;
-    color: var(--aynix-primary-color);
+    color: #438ef9;
+    border: none;
     border-radius: 50px;
-    font-weight: 600;
+    cursor: pointer;
     transition: all 0.3s ease;
+    display: inline-block;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .btn-large:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    color: var(--aynix-primary-darker);
-}
-
-.cta-reminder {
-    font-size: 0.9rem;
-    margin-top: 20px;
-    opacity: 0.85;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-    .hero-page h1 {
+    .diagnosi-hero h1 {
         font-size: 2rem;
     }
     
-    .hero-subtitle {
-        font-size: 1.1rem;
+    .hero-intro {
+        font-size: 1.05rem;
     }
     
-    .diagnosi-page h2 {
-        font-size: 1.8rem;
+    .diagnosi-badges {
+        gap: 1rem;
     }
     
-    .diagnosi-grid-two,
-    .diagnosi-grid-three {
+    .diagnosi-badges .badge {
+        font-size: 0.9rem;
+        padding: 0.6rem 1.2rem;
+    }
+    
+    .diagnosi-grid-two {
+        grid-template-columns: 1fr;
+    }
+    
+    .diagnosi-steps {
+        grid-template-columns: 1fr;
+    }
+    
+    .benefits-list {
         grid-template-columns: 1fr;
     }
     
     .cta-box {
-        padding: 40px 20px;
+        padding: 3rem 1.5rem;
     }
     
-    .btn-large {
-        font-size: 1.1rem;
-        padding: 15px 30px;
+    .cta-box h2 {
+        font-size: 2rem;
     }
 }
