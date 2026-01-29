@@ -278,10 +278,20 @@ function save_diagnosis_submission() {
         }
     }
     
-    // PRIMA EMAIL: Invia SEMPRE email di conferma immediata
+    // RISPOSTA IMMEDIATA all'utente (non aspettare email/AI)
+    wp_send_json_success(array(
+        'post_id' => $post_id,
+        'message' => 'Questionario ricevuto con successo'
+    ));
+    
+    // Continua elaborazione in background DOPO la risposta
+    // Chiude la connessione HTTP e continua a processare
+    fastcgi_finish_request();
+    
+    // PRIMA EMAIL: Invia email di conferma immediata
     send_confirmation_email($user_email);
     
-    // Genera proposta AI con OpenAI (in background)
+    // Genera proposta AI con OpenAI (ora in background, non blocca l'utente)
     $ai_proposal = generate_ai_proposal($form_data);
     
     if ($ai_proposal) {
@@ -298,13 +308,6 @@ function save_diagnosis_submission() {
         
         update_post_meta($post_id, 'ai_proposal_error', 'OpenAI API non disponibile');
     }
-    
-    // SEMPRE success se i dati sono stati salvati
-    wp_send_json_success(array(
-        'post_id' => $post_id, 
-        'proposal_sent' => (bool)$ai_proposal,
-        'message' => $ai_proposal ? 'Proposta inviata via email' : 'Dati salvati, proposta manuale in arrivo'
-    ));
 }
 
 /**
