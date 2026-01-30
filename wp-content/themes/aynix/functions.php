@@ -312,27 +312,27 @@ function generate_ai_proposal($form_data, $user_lang = 'it') {
     $lang_instructions = array(
         'it' => array(
             'language' => 'ITALIANO',
-            'intro' => 'Sei un Project Manager di AYNIX, una software house specializzata in soluzioni custom. Devi creare una proposta commerciale convincente ma chiara.',
-            'analyze' => 'Analizza queste risposte del cliente e genera una proposta per il loro progetto software:',
-            'structure' => 'Genera una proposta strutturata in ITALIANO che includa:'
+            'intro' => 'Sei un consulente strategico di AYNIX che aiuta a comprendere e inquadrare problemi legati a software e processi digitali.',
+            'analyze' => 'Analizza queste risposte e identifica il problema principale che emerge:',
+            'structure' => 'Scrivi un\'analisi in ITALIANO strutturata così:'
         ),
         'en' => array(
             'language' => 'ENGLISH',
-            'intro' => 'You are a Project Manager at AYNIX, a software house specialized in custom solutions. You must create a convincing yet clear commercial proposal.',
-            'analyze' => 'Analyze these customer responses and generate a proposal for their software project:',
-            'structure' => 'Generate a structured proposal in ENGLISH that includes:'
+            'intro' => 'You are a strategic consultant at AYNIX who helps understand and frame problems related to software and digital processes.',
+            'analyze' => 'Analyze these responses and identify the main problem that emerges:',
+            'structure' => 'Write an analysis in ENGLISH structured as follows:'
         ),
         'es' => array(
             'language' => 'ESPAÑOL',
-            'intro' => 'Eres un Project Manager de AYNIX, una empresa de software especializada en soluciones personalizadas. Debes crear una propuesta comercial convincente pero clara.',
-            'analyze' => 'Analiza estas respuestas del cliente y genera una propuesta para su proyecto de software:',
-            'structure' => 'Genera una propuesta estructurada en ESPAÑOL que incluya:'
+            'intro' => 'Eres un consultor estratégico de AYNIX que ayuda a comprender y enmarcar problemas relacionados con software y procesos digitales.',
+            'analyze' => 'Analiza estas respuestas e identifica el problema principal que surge:',
+            'structure' => 'Escribe un análisis en ESPAÑOL estructurado así:'
         ),
         'pt' => array(
             'language' => 'PORTUGUÊS',
-            'intro' => 'És um Project Manager da AYNIX, uma empresa de software especializada em soluções personalizadas. Deves criar uma proposta comercial convincente mas clara.',
-            'analyze' => 'Analisa estas respostas do cliente e gera uma proposta para o seu projeto de software:',
-            'structure' => 'Gera uma proposta estruturada em PORTUGUÊS que inclua:'
+            'intro' => 'És um consultor estratégico da AYNIX que ajuda a compreender e enquadrar problemas relacionados com software e processos digitais.',
+            'analyze' => 'Analisa estas respostas e identifica o problema principal que emerge:',
+            'structure' => 'Escreve uma análise em PORTUGUÊS estruturada assim:'
         )
     );
     
@@ -353,36 +353,27 @@ function generate_ai_proposal($form_data, $user_lang = 'it') {
     }
     
     $prompt .= "\n" . $lang['structure'] . "\n
-1. **Cosa Abbiamo Capito del Tuo Progetto** / **What We Understood** / **Lo Que Entendimos** / **O Que Entendemos** (linguaggio semplice, orientato ai benefici di business)
-   - Riassumi gli obiettivi principali
-   - Identifica i problemi che il software risolverà
-   - Evidenzia l'impatto sul business
+1. **Il Nodo Principale**
+   - Identifica in 2-3 righe qual è il problema/vincolo centrale che emerge dalla diagnosi
+   - NON proporre soluzioni, solo comprensione del problema
 
-2. **La Soluzione Che Proponiamo** / **The Solution We Propose** / **La Solución Que Proponemos** / **A Solução Que Propomos** (linguaggio accessibile, focus su cosa otterranno)
-   - Descrivi la soluzione in termini di funzionalità e valore, non tecnologie
-   - Spiega come migliorerà i processi attuali
-   - Elenca i benefici principali (efficienza, risparmio tempo, automazione, etc.)
+2. **L'Impatto Oggi**
+   - Descrivi l'impatto qualitativo di questo problema in termini di:
+     * Tempo perso o inefficienza
+     * Mancanza di controllo o visibilità
+     * Complessità gestionale
+     * Difficoltà a scalare o crescere
+   - Usa linguaggio semplice e concreto, NO gergo tecnico
 
-3. **Dettagli Tecnici** / **Technical Details** / **Detalles Técnicos** / **Detalhes Técnicos** (SOLO IN QUESTA SEZIONE usa linguaggio tecnico)
-   - Stack tecnologico consigliato: **prioritizza Angular (frontend), Node.js (backend), Flutter (mobile)** quando applicabile
-   - Architettura del sistema (microservizi, monolite, cloud-native, etc.)
-   - Database e infrastruttura consigliati
-   - Integrazioni con sistemi esistenti
-   - Scalabilità e performance
-
-4. **Prossimi Passi** / **Next Steps** / **Próximos Pasos** / **Próximos Passos**
-   - Call di approfondimento gratuita per discutere tempistiche e aspetti economici
-   - Cosa preparare per la call
-   - Come procederemo insieme
-
-IMPORTANTE:
+REGOLE FERME:
 - Scrivi COMPLETAMENTE in " . $lang['language'] . "
-- NON menzionare MAI prezzi, costi, budget, investimenti o tempistiche di sviluppo
-- Usa un tono professionale ma caldo e accessibile
-- Evita gergo tecnico nelle prime 2 sezioni
-- Concentrati sui BENEFICI prima delle TECNOLOGIE
-- Nella sezione tecnica, privilegia Angular, Node.js e Flutter quando sensato
-- Lunghezza: circa 400-600 parole totali";
+- NON menzionare MAI: stack tecnologico, architetture, framework, database, linguaggi di programmazione
+- NON proporre soluzioni o \"la soluzione che proponiamo\"
+- NON parlare di \"prossimi passi\" o \"come procederemo\"
+- NON menzionare prezzi, costi, tempistiche
+- Focus esclusivo: PROBLEMA + IMPATTO
+- Tono: empatico, comprensivo, consulenziale
+- Lunghezza: massimo 200-250 parole";
     
     // Chiamata API OpenAI
     $api_key = defined('OPENAI_API_KEY') ? OPENAI_API_KEY : '';
@@ -403,7 +394,7 @@ IMPORTANTE:
             'messages' => array(
                 array(
                     'role' => 'system',
-                    'content' => 'Sei un Project Manager e consulente commerciale di AYNIX con forte competenza tecnica. Il tuo obiettivo è spiegare soluzioni software in modo chiaro e comprensibile, evidenziando i benefici di business prima dei dettagli tecnici. Privilegia l\'uso di tecnologie moderne come Angular per il frontend, Node.js per il backend e Flutter per le app mobile. Usa un tono professionale ma accessibile, evita eccessivo gergo tecnico nelle sezioni iniziali, ma includi sempre una sezione tecnica dettagliata per chi vuole approfondire.'
+                    'content' => 'Sei un consulente strategico di AYNIX specializzato nell\'analisi di problemi legati a software e processi digitali. Il tuo compito NON è proporre soluzioni, ma restituire comprensione del problema identificato. NON menzionare MAI tecnologie, stack, architetture o dettagli implementativi. Concentrati esclusivamente su: problema centrale + impatto qualitativo (tempo, controllo, complessità, scalabilità). Usa un tono empatico e consulenziale, linguaggio semplice e accessibile.'
                 ),
                 array(
                     'role' => 'user',
@@ -452,55 +443,55 @@ function send_proposal_email($to_email, $proposal, $form_data, $lang = 'it', $po
     $translations = array(
         'it' => array(
             'subject' => 'La Tua Analisi Personalizzata - AYNIX [#' . $email_id . ']',
-            'title' => '🚀 Abbiamo Analizzato il Tuo Progetto',
-            'greeting' => 'Ciao!',
-            'intro' => 'Abbiamo completato l\'analisi del questionario che hai compilato. Ecco cosa abbiamo capito del tuo progetto:',
-            'interested_title' => '💡 Sei interessato a procedere?',
-            'interested_text' => 'Se vuoi discutere questa analisi e capire i prossimi passi concreti, clicca il pulsante qui sotto per richiedere un contatto:',
+            'title' => '✅ Abbiamo Analizzato la Tua Diagnosi',
+            'greeting' => 'Ciao,',
+            'intro' => 'abbiamo completato l\'analisi del questionario. Da quanto emerge:',
+            'interested_title' => '',
+            'interested_text' => 'Se senti che questo problema è prioritario ora, possiamo parlarne con una call breve e mirata.',
             'cta_button' => '📞 Richiedi di Essere Contattato',
-            'cta_note' => 'Compila il form con i tuoi dati e ti contatteremo per fissare una call gratuita di 15-20 minuti.',
-            'closing' => 'A presto!',
+            'cta_note' => '',
+            'closing' => 'A presto,',
             'team' => 'Il Team AYNIX',
-            'email_title' => 'La Tua Analisi Personalizzata'
+            'email_title' => 'Risultato Diagnosi'
         ),
         'en' => array(
             'subject' => 'Your Personalized Analysis - AYNIX [#' . $email_id . ']',
-            'title' => '🚀 We Analyzed Your Project',
-            'greeting' => 'Hello!',
-            'intro' => 'We have completed the analysis of the questionnaire you filled out. Here\'s what we understood about your project:',
-            'interested_title' => '💡 Interested in proceeding?',
-            'interested_text' => 'If you want to discuss this analysis and understand the concrete next steps, click the button below to request contact:',
+            'title' => '✅ We Analyzed Your Diagnosis',
+            'greeting' => 'Hello,',
+            'intro' => 'we have completed the analysis of your questionnaire. From what emerges:',
+            'interested_title' => '',
+            'interested_text' => 'If you feel this problem is a priority now, we can discuss it with a brief, focused call.',
             'cta_button' => '📞 Request to Be Contacted',
-            'cta_note' => 'Fill out the form with your details and we will contact you to schedule a free 15-20 minute call.',
-            'closing' => 'See you soon!',
+            'cta_note' => '',
+            'closing' => 'See you soon,',
             'team' => 'The AYNIX Team',
-            'email_title' => 'Your Personalized Analysis'
+            'email_title' => 'Diagnosis Result'
         ),
         'es' => array(
             'subject' => 'Tu Análisis Personalizado - AYNIX [#' . $email_id . ']',
-            'title' => '🚀 Hemos Analizado Tu Proyecto',
-            'greeting' => '¡Hola!',
-            'intro' => 'Hemos completado el análisis del cuestionario que completaste. Esto es lo que entendimos de tu proyecto:',
-            'interested_title' => '💡 ¿Interesado en continuar?',
-            'interested_text' => 'Si quieres discutir este análisis y entender los próximos pasos concretos, haz clic en el botón de abajo para solicitar contacto:',
+            'title' => '✅ Hemos Analizado Tu Diagnóstico',
+            'greeting' => 'Hola,',
+            'intro' => 'hemos completado el análisis del cuestionario. De lo que surge:',
+            'interested_title' => '',
+            'interested_text' => 'Si sientes que este problema es prioritario ahora, podemos hablarlo con una llamada breve y específica.',
             'cta_button' => '📞 Solicitar Ser Contactado',
-            'cta_note' => 'Completa el formulario con tus datos y te contactaremos para programar una llamada gratuita de 15-20 minutos.',
+            'cta_note' => '',
             'closing' => '¡Hasta pronto!',
             'team' => 'El Equipo AYNIX',
-            'email_title' => 'Tu Análisis Personalizado'
+            'email_title' => 'Resultado Diagnóstico'
         ),
         'pt' => array(
             'subject' => 'A Sua Análise Personalizada - AYNIX [#' . $email_id . ']',
-            'title' => '🚀 Analisámos o Seu Projeto',
-            'greeting' => 'Olá!',
-            'intro' => 'Completámos a análise do questionário que preencheu. Aqui está o que entendemos sobre o seu projeto:',
-            'interested_title' => '💡 Interessado em prosseguir?',
-            'interested_text' => 'Se quer discutir esta análise e entender os próximos passos concretos, clique no botão abaixo para solicitar contacto:',
+            'title' => '✅ Analisámos o Seu Diagnóstico',
+            'greeting' => 'Olá,',
+            'intro' => 'completámos a análise do questionário. Do que emerge:',
+            'interested_title' => '',
+            'interested_text' => 'Se sente que este problema é prioritário agora, podemos falar sobre isso numa chamada breve e focada.',
             'cta_button' => '📞 Solicitar Ser Contactado',
-            'cta_note' => 'Preencha o formulário com os seus dados e contactá-lo-emos para agendar uma chamada gratuita de 15-20 minutos.',
-            'closing' => 'Até breve!',
+            'cta_note' => '',
+            'closing' => 'Até breve,',
             'team' => 'A Equipa AYNIX',
-            'email_title' => 'A Sua Análise Personalizada'
+            'email_title' => 'Resultado Diagnóstico'
         )
     );
     
@@ -518,14 +509,11 @@ function send_proposal_email($to_email, $proposal, $form_data, $lang = 'it', $po
             ' . nl2br(esc_html($proposal)) . '
         </div>
         
-        <h2>' . $t['interested_title'] . '</h2>
-        <p>' . $t['interested_text'] . '</p>
+        <p style="margin-top: 30px;">' . $t['interested_text'] . '</p>
         
         <p style="text-align: center; margin: 30px 0;">
             <a href="https://aynix.tech/richiesta-contatto?email=' . $email_param . '" class="cta-button" style="font-size: 18px; padding: 18px 40px;">' . $t['cta_button'] . '</a>
         </p>
-        
-        <p style="font-size: 14px; color: #666;">' . $t['cta_note'] . '</p>
         
         <p>' . $t['closing'] . '</p>
         <p><strong>' . $t['team'] . '</strong></p>
