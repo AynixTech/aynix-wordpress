@@ -72,42 +72,75 @@
             </section>
 
             <!-- Prodotti Experience -->
-            <section class="experience-products">
+            <section class="experience-products" itemscope itemtype="https://schema.org/ItemList">
                 <div class="section-title">
-                    <h2><?php echo aynix_translate('experience.title'); ?></h2>
-                    <p><?php echo aynix_translate('experience.subtitle'); ?></p>
+                    <h2 itemprop="name"><?php echo aynix_translate('experience.title'); ?></h2>
+                    <p itemprop="description"><?php echo aynix_translate('experience.subtitle'); ?></p>
                 </div>
                 <div class="products-grid">
-                    <div class="product-card">
-                        <div class="product-logo">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/safefleet-logo.png" alt="SafeFleet">
+                    <article class="product-card" itemscope itemtype="https://schema.org/SoftwareApplication" itemprop="itemListElement">
+                        <meta itemprop="position" content="1">
+                        <div class="product-logo" itemprop="image">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/safefleet-logo.png" 
+                                 alt="SafeFleet - Sistema di gestione flotte aziendali e attività team"
+                                 width="120" 
+                                 height="120"
+                                 loading="lazy">
                         </div>
-                        <h3>SafeFleet</h3>
-                        <p><?php echo aynix_translate('demo.safefleet.description'); ?></p>
-                        <a href="<?php echo home_url('/experience/safefleet'); ?>" class="cta-button">
+                        <h3 itemprop="name">SafeFleet</h3>
+                        <p itemprop="description"><?php echo aynix_translate('demo.safefleet.description'); ?></p>
+                        <a href="<?php echo home_url('/experience/safefleet'); ?>" 
+                           class="cta-button" 
+                           itemprop="url"
+                           title="Scopri il caso di studio SafeFleet - Gestione flotte aziendali"
+                           rel="noopener">
                             <?php echo aynix_translate('experience.view_project'); ?>
                         </a>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-logo">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/navenza-logo.svg" alt="Navenza">
+                        <meta itemprop="applicationCategory" content="BusinessApplication">
+                        <meta itemprop="operatingSystem" content="Web">
+                    </article>
+                    <article class="product-card" itemscope itemtype="https://schema.org/SoftwareApplication" itemprop="itemListElement">
+                        <meta itemprop="position" content="2">
+                        <div class="product-logo" itemprop="image">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/navenza-logo.svg" 
+                                 alt="Navenza - Piattaforma gestione spedizioni internazionali multi-corriere"
+                                 width="120" 
+                                 height="120"
+                                 loading="lazy">
                         </div>
-                        <h3>Navenza</h3>
-                        <p><?php echo aynix_translate('innovation_solutions.navenza'); ?></p>
-                        <a href="<?php echo home_url('/experience/navenza'); ?>" class="cta-button">
+                        <h3 itemprop="name">Navenza</h3>
+                        <p itemprop="description"><?php echo aynix_translate('innovation_solutions.navenza'); ?></p>
+                        <a href="<?php echo home_url('/experience/navenza'); ?>" 
+                           class="cta-button" 
+                           itemprop="url"
+                           title="Scopri il caso di studio Navenza - Gestione spedizioni internazionali"
+                           rel="noopener">
                             <?php echo aynix_translate('experience.view_project'); ?>
                         </a>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-logo">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/pinguito-logo.png" alt="Pinguito">
+                        <meta itemprop="applicationCategory" content="BusinessApplication">
+                        <meta itemprop="operatingSystem" content="Web">
+                    </article>
+                    <article class="product-card" itemscope itemtype="https://schema.org/SoftwareApplication" itemprop="itemListElement">
+                        <meta itemprop="position" content="3">
+                        <div class="product-logo" itemprop="image">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/pinguito-logo.png" 
+                                 alt="Pinguito - Piattaforma automazione marketing social media"
+                                 width="120" 
+                                 height="120"
+                                 loading="lazy">
                         </div>
-                        <h3>Pinguito</h3>
-                        <p><?php echo aynix_translate('innovation_solutions.pinguito'); ?></p>
-                        <a href="<?php echo home_url('/experience/pinguito'); ?>" class="cta-button">
+                        <h3 itemprop="name">Pinguito</h3>
+                        <p itemprop="description"><?php echo aynix_translate('innovation_solutions.pinguito'); ?></p>
+                        <a href="<?php echo home_url('/experience/pinguito'); ?>" 
+                           class="cta-button" 
+                           itemprop="url"
+                           title="Scopri il caso di studio Pinguito - Marketing automation social media"
+                           rel="noopener">
                             <?php echo aynix_translate('experience.view_project'); ?>
                         </a>
-                    </div>
+                        <meta itemprop="applicationCategory" content="BusinessApplication">
+                        <meta itemprop="operatingSystem" content="Web">
+                    </article>
                 </div>
             </section>
 
