@@ -50,3 +50,30 @@
     outline: none;
     border-radius: 5px;
 }
+
+.cta-button {
+    display: inline-block;
+    background: linear-gradient(135deg, #438ef9, #2c6edc);
+    color: white;
+    padding: 12px 28px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+.cta-button:hover {
+    background: linear-gradient(135deg, #2c6edc, #1a56c9);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(67, 142, 249, 0.3);
+    color: white;
+    text-decoration: none;
+}
+
+.cta-button:active {
+    transform: translateY(0);
+}
