@@ -71,6 +71,46 @@
                 </div>
             </section>
 
+            <!-- Prodotti Experience -->
+            <section class="experience-products">
+                <div class="section-title">
+                    <h2><?php echo aynix_translate('experience.title'); ?></h2>
+                    <p><?php echo aynix_translate('experience.subtitle'); ?></p>
+                </div>
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div class="product-logo">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/safefleet-logo.png" alt="SafeFleet">
+                        </div>
+                        <h3>SafeFleet</h3>
+                        <p><?php echo aynix_translate('demo.safefleet.description'); ?></p>
+                        <a href="<?php echo home_url('/experience/safefleet'); ?>" class="cta-button">
+                            <?php echo aynix_translate('experience.view_project'); ?>
+                        </a>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-logo">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/navenza-logo.svg" alt="Navenza">
+                        </div>
+                        <h3>Navenza</h3>
+                        <p><?php echo aynix_translate('innovation_solutions.navenza'); ?></p>
+                        <a href="<?php echo home_url('/experience/navenza'); ?>" class="cta-button">
+                            <?php echo aynix_translate('experience.view_project'); ?>
+                        </a>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-logo">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/pinguito-logo.png" alt="Pinguito">
+                        </div>
+                        <h3>Pinguito</h3>
+                        <p><?php echo aynix_translate('innovation_solutions.pinguito'); ?></p>
+                        <a href="<?php echo home_url('/experience/pinguito'); ?>" class="cta-button">
+                            <?php echo aynix_translate('experience.view_project'); ?>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
             <!-- Problemi che risolviamo -->
             <section class="problemi-home">
                 <div class="section-title">
