@@ -4,6 +4,27 @@
     background: #f8f9fa;
 }
 
+/* Hero Section */
+.hero-page {
+    background: linear-gradient(135deg, var(--aynix-primary-color), var(--aynix-secondary-color));
+    color: white;
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.hero-page h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.hero-page .hero-subtitle {
+    font-size: 1.3rem;
+    font-weight: 400;
+    opacity: 0.95;
+}
+
 /* Intro Section */
 .esperienza-intro {
     padding: 40px 0;
@@ -124,6 +145,18 @@
 
 /* Responsive */
 @media (max-width: 992px) {
+    .hero-page {
+        padding: 60px 20px;
+    }
+    
+    .hero-page h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-page .hero-subtitle {
+        font-size: 1.2rem;
+    }
+    
     .case-content {
         grid-template-columns: 1fr;
         gap: 30px;
@@ -150,6 +183,19 @@
 }
 
 @media (max-width: 768px) {
+    .hero-page {
+        padding: 50px 20px;
+    }
+    
+    .hero-page h1 {
+        font-size: 2rem;
+        margin-bottom: 12px;
+    }
+    
+    .hero-page .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
     .esperienza-intro {
         padding: 30px 20px;
     }
@@ -209,6 +255,19 @@
 }
 
 @media (max-width: 480px) {
+    .hero-page {
+        padding: 40px 15px;
+    }
+    
+    .hero-page h1 {
+        font-size: 1.6rem;
+        margin-bottom: 10px;
+    }
+    
+    .hero-page .hero-subtitle {
+        font-size: 1rem;
+    }
+    
     .esperienza-intro {
         padding: 20px 15px;
     }
