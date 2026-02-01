@@ -84,8 +84,12 @@ add_action('wp_enqueue_scripts', 'enqueue_swiper_scripts');
 /**
  * Traduzioni tramite file JSON
  */
+function aynix_get_current_language() {
+    return $_COOKIE['site_lang'] ?? 'it';
+}
+
 function aynix_load_translation() {
-    $lang = $_COOKIE['site_lang'] ?? 'en';
+    $lang = aynix_get_current_language();
     $lang_file = get_template_directory() . "/languages/$lang.json";
 
     return file_exists($lang_file) ? json_decode(file_get_contents($lang_file), true) : [];
