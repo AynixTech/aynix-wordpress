@@ -28,7 +28,6 @@ get_header();
                 <div class="case-card">
                     <div class="case-label">
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/safefleet-logo.png" alt="SafeFleet" class="case-logo">
-                        <span>SafeFleet</span>
                     </div>
                     <div class="case-content">
                         <div class="case-section">
@@ -65,7 +64,6 @@ get_header();
                 <div class="case-card">
                     <div class="case-label">
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/navenza-logo.svg" alt="Navenza" class="case-logo">
-                        <span>Navenza</span>
                     </div>
                     <div class="case-content">
                         <div class="case-section">
@@ -102,7 +100,6 @@ get_header();
                 <div class="case-card">
                     <div class="case-label">
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/pinguito-logo.png" alt="Pinguito" class="case-logo">
-                        <span>Pinguito</span>
                     </div>
                     <div class="case-content">
                         <div class="case-section">
