@@ -47,6 +47,17 @@
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.case-logo {
+    height: 28px;
+    width: auto;
+    max-width: 80px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
 }
 
 .case-content {
