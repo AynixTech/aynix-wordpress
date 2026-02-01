@@ -136,9 +136,47 @@
     .case-card {
         padding: 30px 20px;
     }
+    
+    .case-label {
+        left: 20px;
+        padding: 6px 16px;
+        font-size: 0.85rem;
+    }
+    
+    .case-logo {
+        height: 24px;
+        max-width: 70px;
+    }
 }
 
 @media (max-width: 768px) {
+    .esperienza-intro {
+        padding: 30px 20px;
+    }
+    
+    .case-studies {
+        padding: 30px 0;
+    }
+    
+    .case-card {
+        padding: 30px 15px;
+        margin-bottom: 30px;
+        border-radius: 12px;
+    }
+    
+    .case-label {
+        top: -12px;
+        left: 15px;
+        padding: 6px 14px;
+        font-size: 0.8rem;
+        border-radius: 15px;
+    }
+    
+    .case-logo {
+        height: 22px;
+        max-width: 60px;
+    }
+    
     .case-section h3 {
         font-size: 1rem;
     }
@@ -154,5 +192,77 @@
     
     .case-icon i {
         font-size: 1.5rem;
+    }
+    
+    .case-content {
+        gap: 25px;
+        margin-top: 15px;
+    }
+    
+    .case-arrow {
+        font-size: 1.3rem;
+    }
+    
+    .esperienza-cta {
+        padding: 40px 0 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .esperienza-intro {
+        padding: 20px 15px;
+    }
+    
+    .esperienza-intro .lead-text {
+        font-size: 0.95rem;
+    }
+    
+    .case-card {
+        padding: 25px 12px;
+        margin-bottom: 25px;
+    }
+    
+    .case-label {
+        top: -10px;
+        left: 12px;
+        padding: 5px 12px;
+        font-size: 0.75rem;
+    }
+    
+    .case-logo {
+        height: 20px;
+        max-width: 50px;
+    }
+    
+    .case-section h3 {
+        font-size: 0.95rem;
+        margin-bottom: 8px;
+    }
+    
+    .case-section p {
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+    
+    .case-icon {
+        width: 45px;
+        height: 45px;
+        margin-bottom: 12px;
+    }
+    
+    .case-icon i {
+        font-size: 1.3rem;
+    }
+    
+    .case-content {
+        gap: 20px;
+    }
+    
+    .case-arrow {
+        font-size: 1.2rem;
+    }
+    
+    .esperienza-cta {
+        padding: 30px 0 50px;
     }
 }
