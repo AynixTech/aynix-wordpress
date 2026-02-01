@@ -577,7 +577,8 @@
 @media (max-width: 768px) {
     .hero {
         min-height: auto;
-        padding: 3rem 0 5rem 0;
+        padding: 6rem 0 5rem 0; /* Aumentato padding-top per header fisso */
+        margin-top: 0;
     }
 
     .hero .container {
@@ -867,7 +868,7 @@
 /* Extra Small Mobile Styles */
 @media (max-width: 480px) {
     .hero {
-        padding: 2rem 0 4rem 0;
+        padding: 5rem 0 4rem 0; /* Padding-top per header fisso anche su schermi piccoli */
     }
 
     .hero .container {
