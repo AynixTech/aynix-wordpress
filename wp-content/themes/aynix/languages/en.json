@@ -327,6 +327,26 @@
   "esperienza.hero.title": "Experience: Real Cases",
   "esperienza.hero.subtitle": "Problem → Solution → Result",
   
+  "esperienza.named.title": "Named Experiences",
+  "esperienza.named.subtitle": "Systems we designed and built starting from real diagnostic processes.",
+  "esperienza.named.subtitle2": "Custom paths shaped by real problems and real operational constraints.",
+  "esperienza.named.intro": "Below are some concrete systems and platforms we have designed and built in real contexts. Each experience reflects a specific starting point, a clear problem, and a tailored approach.",
+  
+  "esperienza.named.safefleet.title": "SafeFleet",
+  "esperienza.named.safefleet.tags": "Fleet • Operations • Compliance",
+  "esperienza.named.safefleet.description": "A custom system developed to address concrete challenges in fleet operations, document control, and regulatory compliance, where visibility and reliability were critical requirements.",
+  
+  "esperienza.named.navenza.title": "Navenza",
+  "esperienza.named.navenza.tags": "Internal Tools • Data • Process Control",
+  "esperienza.named.navenza.description": "An internal management platform designed to bring structure and clarity to complex operational processes, improving control over data, workflows, and day-to-day activities.",
+  
+  "esperienza.named.pinguito.title": "Pinguito",
+  "esperienza.named.pinguito.tags": "Automation • Platforms • Scalability",
+  "esperienza.named.pinguito.description": "A custom platform created to automate fragmented processes and support scalable operations, starting from the need to reduce manual work and operational friction.",
+  
+  "esperienza.named.method_note": "Each experience is the result of a diagnostic process applied to a specific context and set of needs.",
+  "esperienza.named.cta": "Start Diagnosis",
+  
   "esperienza.intro.text": "These are real examples (anonymized) of problems we've solved. Your situation is unique, but the patterns are often similar.",
   
   "esperienza.case_label": "Case",

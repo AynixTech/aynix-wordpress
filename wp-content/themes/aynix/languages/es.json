@@ -325,6 +325,26 @@
   "esperienza.hero.title": "Experiencia: Casos Reales",
   "esperienza.hero.subtitle": "Problema → Solución → Resultado",
   
+  "esperienza.named.title": "Named Experiences",
+  "esperienza.named.subtitle": "Sistemas que diseñamos y construimos partiendo de procesos de diagnóstico reales.",
+  "esperienza.named.subtitle2": "Caminos personalizados moldeados por problemas reales y restricciones operativas concretas.",
+  "esperienza.named.intro": "A continuación, algunos sistemas y plataformas concretas que hemos diseñado y construido en contextos reales. Cada experiencia refleja un punto de partida específico, un problema claro y un enfoque a medida.",
+  
+  "esperienza.named.safefleet.title": "SafeFleet",
+  "esperienza.named.safefleet.tags": "Fleet • Operations • Compliance",
+  "esperienza.named.safefleet.description": "Un sistema personalizado desarrollado para abordar desafíos concretos en operaciones de flota, control documental y cumplimiento normativo, donde la visibilidad y confiabilidad eran requisitos críticos.",
+  
+  "esperienza.named.navenza.title": "Navenza",
+  "esperienza.named.navenza.tags": "Internal Tools • Data • Process Control",
+  "esperienza.named.navenza.description": "Una plataforma de gestión interna diseñada para aportar estructura y claridad a procesos operativos complejos, mejorando el control sobre datos, flujos de trabajo y actividades diarias.",
+  
+  "esperienza.named.pinguito.title": "Pinguito",
+  "esperienza.named.pinguito.tags": "Automation • Platforms • Scalability",
+  "esperienza.named.pinguito.description": "Una plataforma personalizada creada para automatizar procesos fragmentados y soportar operaciones escalables, partiendo de la necesidad de reducir el trabajo manual y la fricción operativa.",
+  
+  "esperienza.named.method_note": "Cada experiencia es el resultado de un proceso de diagnóstico aplicado a un contexto y conjunto de necesidades específicas.",
+  "esperienza.named.cta": "Iniciar Diagnóstico",
+  
   "esperienza.intro.text": "Estos son ejemplos reales (anonimizados) de problemas que hemos resuelto. Tu situación es única, pero los patrones suelen ser similares.",
   
   "esperienza.case_label": "Caso",

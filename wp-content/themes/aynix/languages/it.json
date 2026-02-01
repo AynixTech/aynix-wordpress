@@ -327,6 +327,26 @@
   "esperienza.hero.title": "Esperienza: Casi Reali",
   "esperienza.hero.subtitle": "Problema → Soluzione → Risultato",
   
+  "esperienza.named.title": "Named Experiences",
+  "esperienza.named.subtitle": "Sistemi che abbiamo progettato e realizzato partendo da processi diagnostici reali.",
+  "esperienza.named.subtitle2": "Percorsi su misura, plasmati da problemi reali e vincoli operativi concreti.",
+  "esperienza.named.intro": "Di seguito alcuni sistemi e piattaforme concrete che abbiamo progettato e costruito in contesti reali. Ogni esperienza riflette un punto di partenza specifico, un problema chiaro e un approccio su misura.",
+  
+  "esperienza.named.safefleet.title": "SafeFleet",
+  "esperienza.named.safefleet.tags": "Fleet • Operations • Compliance",
+  "esperienza.named.safefleet.description": "Un sistema personalizzato sviluppato per affrontare sfide concrete nella gestione della flotta, controllo documentale e conformità normativa, dove visibilità e affidabilità erano requisiti critici.",
+  
+  "esperienza.named.navenza.title": "Navenza",
+  "esperienza.named.navenza.tags": "Internal Tools • Data • Process Control",
+  "esperienza.named.navenza.description": "Una piattaforma di gestione interna progettata per portare struttura e chiarezza a processi operativi complessi, migliorando il controllo su dati, flussi di lavoro e attività quotidiane.",
+  
+  "esperienza.named.pinguito.title": "Pinguito",
+  "esperienza.named.pinguito.tags": "Automation • Platforms • Scalability",
+  "esperienza.named.pinguito.description": "Una piattaforma personalizzata creata per automatizzare processi frammentati e supportare operazioni scalabili, partendo dalla necessità di ridurre il lavoro manuale e l'attrito operativo.",
+  
+  "esperienza.named.method_note": "Ogni esperienza è il risultato di un processo diagnostico applicato a un contesto e a una serie di esigenze specifiche.",
+  "esperienza.named.cta": "Avvia Diagnosi",
+  
   "esperienza.intro.text": "Questi sono esempi reali (anonimizzati) di problemi che abbiamo risolto. La tua situazione è unica, ma i pattern sono spesso simili.",
   
   "esperienza.case_label": "Caso",

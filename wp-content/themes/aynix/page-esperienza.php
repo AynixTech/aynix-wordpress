@@ -17,6 +17,48 @@ get_header();
         </section>
 
         <div class="container">
+            <!-- Named Experiences Section -->
+            <section class="named-experiences">
+                <div class="named-header">
+                    <h2><?php echo aynix_translate('esperienza.named.title'); ?></h2>
+                    <p class="named-subtitle"><strong><?php echo aynix_translate('esperienza.named.subtitle'); ?></strong><br>
+                    <?php echo aynix_translate('esperienza.named.subtitle2'); ?></p>
+                </div>
+                
+                <p class="named-intro"><?php echo aynix_translate('esperienza.named.intro'); ?></p>
+                
+                <div class="named-experiences-grid">
+                    <!-- SafeFleet -->
+                    <div class="named-card">
+                        <h3><?php echo aynix_translate('esperienza.named.safefleet.title'); ?></h3>
+                        <p class="named-tags"><em><?php echo aynix_translate('esperienza.named.safefleet.tags'); ?></em></p>
+                        <p><?php echo aynix_translate('esperienza.named.safefleet.description'); ?></p>
+                    </div>
+                    
+                    <!-- Navenza -->
+                    <div class="named-card">
+                        <h3><?php echo aynix_translate('esperienza.named.navenza.title'); ?></h3>
+                        <p class="named-tags"><em><?php echo aynix_translate('esperienza.named.navenza.tags'); ?></em></p>
+                        <p><?php echo aynix_translate('esperienza.named.navenza.description'); ?></p>
+                    </div>
+                    
+                    <!-- Pinguito -->
+                    <div class="named-card">
+                        <h3><?php echo aynix_translate('esperienza.named.pinguito.title'); ?></h3>
+                        <p class="named-tags"><em><?php echo aynix_translate('esperienza.named.pinguito.tags'); ?></em></p>
+                        <p><?php echo aynix_translate('esperienza.named.pinguito.description'); ?></p>
+                    </div>
+                </div>
+                
+                <p class="named-method-note"><em><?php echo aynix_translate('esperienza.named.method_note'); ?></em></p>
+                
+                <div class="named-cta">
+                    <a href="<?php echo esc_url(home_url('/diagnosi')); ?>" class="btn-primary btn-large">
+                        👉 <?php echo aynix_translate('esperienza.named.cta'); ?>
+                    </a>
+                </div>
+            </section>
+
             <!-- Intro -->
             <section class="esperienza-intro">
                 <p class="lead-text"><?php echo aynix_translate('esperienza.intro.text'); ?></p>
