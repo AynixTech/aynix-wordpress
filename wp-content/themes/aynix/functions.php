@@ -447,54 +447,106 @@ function send_proposal_email($to_email, $proposal, $form_data, $lang = 'it', $po
     $translations = array(
         'it' => array(
             'subject' => 'La Tua Analisi Personalizzata - AYNIX [#' . $email_id . ']',
-            'title' => '✅ Abbiamo Analizzato la Tua Diagnosi',
-            'greeting' => 'Ciao,',
-            'intro' => 'abbiamo completato l\'analisi del questionario. Da quanto emerge:',
-            'interested_title' => '',
-            'interested_text' => 'Se senti che questo problema è prioritario ora, possiamo parlarne con una call breve e mirata.',
-            'cta_button' => '📞 Richiedi di Essere Contattato',
-            'cta_note' => '',
-            'closing' => 'A presto,',
-            'team' => 'Il Team AYNIX',
+            'greeting' => 'Ciao ' . ($form_data['nome'] ?? '') . ',',
+            'intro' => 'abbiamo analizzato le informazioni che hai condiviso nella diagnosi.<br>Sulla base di quanto emerge, ti restituiamo una prima lettura tecnico-operativa ad alto livello.',
+            'section1_title' => 'Quadro attuale',
+            'section1_text' => 'L\'operatività risulta sostenuta da attività manuali, passaggi informali e coordinamento diretto tra persone.<br>Questo approccio funziona, ma rende difficile:<br><br>• misurare in modo oggettivo cosa sta accadendo<br>• replicare i flussi quando il volume aumenta<br>• intervenire in modo strutturale sulle inefficienze',
+            'section2_title' => 'Ipotesi di architettura operativa',
+            'section2_intro' => 'In contesti simili, un percorso efficace tende a svilupparsi su tre livelli:',
+            'section2_point1_title' => '1. Mappatura dei processi critici',
+            'section2_point1_text' => 'Individuare i flussi che generano più carico operativo o più errori, distinguendo tra decisioni di valore e attività ripetitive.',
+            'section2_point2_title' => '2. Standardizzazione e regole operative',
+            'section2_point2_text' => 'Trasformare attività ricorrenti in flussi chiari, con stati, responsabilità e criteri di completamento espliciti.',
+            'section2_point3_title' => '3. Automazioni mirate e tracciabili',
+            'section2_point3_text' => 'Introdurre automazioni solo dove riducono davvero attrito, errori o tempi morti, mantenendo piena visibilità e controllo.',
+            'section2_objective' => 'L\'obiettivo non è la tecnologia in sé, ma rendere il sistema leggibile, governabile e scalabile.',
+            'section3_title' => 'Risultato atteso',
+            'section3_text' => 'Quando questo approccio è ben calibrato, tende a portare:<br><br>• maggiore controllo sui processi<br>• riduzione delle eccezioni gestite "a mano"<br>• migliore allineamento tra operatività e crescita',
+            'section4_title' => 'Nota importante',
+            'section4_text' => 'Questa non è una proposta né una soluzione definitiva.<br>È una ipotesi tecnica iniziale, basata esclusivamente sulle informazioni disponibili oggi.<br><br>Prima di formalizzare qualsiasi intervento, è necessario validare:<br><br>• l\'aderenza al tuo contesto reale<br>• le priorità operative<br>• i vincoli di tempo e risorse',
+            'section5_title' => 'Prossimo passo',
+            'section5_text' => 'Se vuoi, possiamo fare una call breve (15–20 minuti) per:<br><br>• verificare se questa architettura è sensata per te<br>• capire quali processi toccare per primi<br>• valutare se evolvere verso una proposta strutturata',
+            'cta_button' => '👉 Richiedi di essere contattato',
+            'closing' => 'Un saluto,',
+            'team' => 'Team AYNIX',
             'email_title' => 'Risultato Diagnosi'
         ),
         'en' => array(
             'subject' => 'Your Personalized Analysis - AYNIX [#' . $email_id . ']',
-            'title' => '✅ We Analyzed Your Diagnosis',
-            'greeting' => 'Hello,',
-            'intro' => 'we have completed the analysis of your questionnaire. From what emerges:',
-            'interested_title' => '',
-            'interested_text' => 'If you feel this problem is a priority now, we can discuss it with a brief, focused call.',
-            'cta_button' => '📞 Request to Be Contacted',
-            'cta_note' => '',
-            'closing' => 'See you soon,',
-            'team' => 'The AYNIX Team',
+            'greeting' => 'Hello ' . ($form_data['nome'] ?? '') . ',',
+            'intro' => 'we have analyzed the information you shared in the diagnosis.<br>Based on what emerges, we provide you with an initial high-level technical-operational reading.',
+            'section1_title' => 'Current Situation',
+            'section1_text' => 'Operations are sustained by manual activities, informal steps, and direct coordination between people.<br>This approach works, but makes it difficult to:<br><br>• objectively measure what is happening<br>• replicate flows when volume increases<br>• intervene structurally on inefficiencies',
+            'section2_title' => 'Operational Architecture Hypothesis',
+            'section2_intro' => 'In similar contexts, an effective path tends to develop on three levels:',
+            'section2_point1_title' => '1. Mapping critical processes',
+            'section2_point1_text' => 'Identify flows that generate more operational load or errors, distinguishing between value decisions and repetitive activities.',
+            'section2_point2_title' => '2. Standardization and operational rules',
+            'section2_point2_text' => 'Transform recurring activities into clear flows, with explicit states, responsibilities, and completion criteria.',
+            'section2_point3_title' => '3. Targeted and traceable automation',
+            'section2_point3_text' => 'Introduce automation only where it truly reduces friction, errors, or downtime, while maintaining full visibility and control.',
+            'section2_objective' => 'The goal is not technology itself, but making the system readable, governable, and scalable.',
+            'section3_title' => 'Expected Result',
+            'section3_text' => 'When this approach is well calibrated, it tends to bring:<br><br>• greater process control<br>• reduction of exceptions handled "manually"<br>• better alignment between operations and growth',
+            'section4_title' => 'Important Note',
+            'section4_text' => 'This is neither a proposal nor a definitive solution.<br>It is an initial technical hypothesis, based exclusively on the information available today.<br><br>Before formalizing any intervention, it is necessary to validate:<br><br>• adherence to your real context<br>• operational priorities<br>• time and resource constraints',
+            'section5_title' => 'Next Step',
+            'section5_text' => 'If you wish, we can have a brief call (15–20 minutes) to:<br><br>• verify if this architecture makes sense for you<br>• understand which processes to address first<br>• evaluate whether to evolve toward a structured proposal',
+            'cta_button' => '👉 Request to be contacted',
+            'closing' => 'Best regards,',
+            'team' => 'AYNIX Team',
             'email_title' => 'Diagnosis Result'
         ),
         'es' => array(
             'subject' => 'Tu Análisis Personalizado - AYNIX [#' . $email_id . ']',
-            'title' => '✅ Hemos Analizado Tu Diagnóstico',
-            'greeting' => 'Hola,',
-            'intro' => 'hemos completado el análisis del cuestionario. De lo que surge:',
-            'interested_title' => '',
-            'interested_text' => 'Si sientes que este problema es prioritario ahora, podemos hablarlo con una llamada breve y específica.',
-            'cta_button' => '📞 Solicitar Ser Contactado',
-            'cta_note' => '',
-            'closing' => '¡Hasta pronto!',
-            'team' => 'El Equipo AYNIX',
+            'greeting' => 'Hola ' . ($form_data['nome'] ?? '') . ',',
+            'intro' => 'hemos analizado la información que compartiste en el diagnóstico.<br>Según lo que surge, te devolvemos una primera lectura técnico-operativa de alto nivel.',
+            'section1_title' => 'Situación Actual',
+            'section1_text' => 'La operativa está sostenida por actividades manuales, pasos informales y coordinación directa entre personas.<br>Este enfoque funciona, pero dificulta:<br><br>• medir objetivamente lo que está sucediendo<br>• replicar los flujos cuando el volumen aumenta<br>• intervenir estructuralmente en las ineficiencias',
+            'section2_title' => 'Hipótesis de Arquitectura Operativa',
+            'section2_intro' => 'En contextos similares, un camino eficaz tiende a desarrollarse en tres niveles:',
+            'section2_point1_title' => '1. Mapeo de procesos críticos',
+            'section2_point1_text' => 'Identificar los flujos que generan más carga operativa o más errores, distinguiendo entre decisiones de valor y actividades repetitivas.',
+            'section2_point2_title' => '2. Estandarización y reglas operativas',
+            'section2_point2_text' => 'Transformar actividades recurrentes en flujos claros, con estados, responsabilidades y criterios de finalización explícitos.',
+            'section2_point3_title' => '3. Automatizaciones específicas y rastreables',
+            'section2_point3_text' => 'Introducir automatizaciones solo donde realmente reducen fricción, errores o tiempos muertos, manteniendo plena visibilidad y control.',
+            'section2_objective' => 'El objetivo no es la tecnología en sí, sino hacer el sistema legible, gobernable y escalable.',
+            'section3_title' => 'Resultado Esperado',
+            'section3_text' => 'Cuando este enfoque está bien calibrado, tiende a aportar:<br><br>• mayor control de los procesos<br>• reducción de excepciones gestionadas "a mano"<br>• mejor alineación entre operativa y crecimiento',
+            'section4_title' => 'Nota Importante',
+            'section4_text' => 'Esto no es una propuesta ni una solución definitiva.<br>Es una hipótesis técnica inicial, basada exclusivamente en la información disponible hoy.<br><br>Antes de formalizar cualquier intervención, es necesario validar:<br><br>• la adherencia a tu contexto real<br>• las prioridades operativas<br>• las restricciones de tiempo y recursos',
+            'section5_title' => 'Próximo Paso',
+            'section5_text' => 'Si quieres, podemos hacer una llamada breve (15–20 minutos) para:<br><br>• verificar si esta arquitectura tiene sentido para ti<br>• entender qué procesos abordar primero<br>• evaluar si evolucionar hacia una propuesta estructurada',
+            'cta_button' => '👉 Solicitar ser contactado',
+            'closing' => 'Un saludo,',
+            'team' => 'Equipo AYNIX',
             'email_title' => 'Resultado Diagnóstico'
         ),
         'pt' => array(
             'subject' => 'A Sua Análise Personalizada - AYNIX [#' . $email_id . ']',
-            'title' => '✅ Analisámos o Seu Diagnóstico',
-            'greeting' => 'Olá,',
-            'intro' => 'completámos a análise do questionário. Do que emerge:',
-            'interested_title' => '',
-            'interested_text' => 'Se sente que este problema é prioritário agora, podemos falar sobre isso numa chamada breve e focada.',
-            'cta_button' => '📞 Solicitar Ser Contactado',
-            'cta_note' => '',
-            'closing' => 'Até breve,',
-            'team' => 'A Equipa AYNIX',
+            'greeting' => 'Olá ' . ($form_data['nome'] ?? '') . ',',
+            'intro' => 'analisámos as informações que partilhou no diagnóstico.<br>Com base no que emerge, devolvemos uma primeira leitura técnico-operacional de alto nível.',
+            'section1_title' => 'Situação Atual',
+            'section1_text' => 'A operação é sustentada por atividades manuais, passos informais e coordenação direta entre pessoas.<br>Esta abordagem funciona, mas torna difícil:<br><br>• medir objetivamente o que está a acontecer<br>• replicar os fluxos quando o volume aumenta<br>• intervir estruturalmente nas ineficiências',
+            'section2_title' => 'Hipótese de Arquitetura Operacional',
+            'section2_intro' => 'Em contextos semelhantes, um caminho eficaz tende a desenvolver-se em três níveis:',
+            'section2_point1_title' => '1. Mapeamento de processos críticos',
+            'section2_point1_text' => 'Identificar os fluxos que geram mais carga operacional ou mais erros, distinguindo entre decisões de valor e atividades repetitivas.',
+            'section2_point2_title' => '2. Padronização e regras operacionais',
+            'section2_point2_text' => 'Transformar atividades recorrentes em fluxos claros, com estados, responsabilidades e critérios de conclusão explícitos.',
+            'section2_point3_title' => '3. Automações direcionadas e rastreáveis',
+            'section2_point3_text' => 'Introduzir automações apenas onde realmente reduzem atrito, erros ou tempos mortos, mantendo plena visibilidade e controlo.',
+            'section2_objective' => 'O objetivo não é a tecnologia em si, mas tornar o sistema legível, governável e escalável.',
+            'section3_title' => 'Resultado Esperado',
+            'section3_text' => 'Quando esta abordagem está bem calibrada, tende a trazer:<br><br>• maior controlo dos processos<br>• redução de exceções geridas "manualmente"<br>• melhor alinhamento entre operação e crescimento',
+            'section4_title' => 'Nota Importante',
+            'section4_text' => 'Isto não é uma proposta nem uma solução definitiva.<br>É uma hipótese técnica inicial, baseada exclusivamente nas informações disponíveis hoje.<br><br>Antes de formalizar qualquer intervenção, é necessário validar:<br><br>• a aderência ao seu contexto real<br>• as prioridades operacionais<br>• as restrições de tempo e recursos',
+            'section5_title' => 'Próximo Passo',
+            'section5_text' => 'Se quiser, podemos fazer uma chamada breve (15–20 minutos) para:<br><br>• verificar se esta arquitetura faz sentido para si<br>• perceber quais processos abordar primeiro<br>• avaliar se evoluir para uma proposta estruturada',
+            'cta_button' => '👉 Solicitar ser contactado',
+            'closing' => 'Cumprimentos,',
+            'team' => 'Equipa AYNIX',
             'email_title' => 'Resultado Diagnóstico'
         )
     );
@@ -505,15 +557,31 @@ function send_proposal_email($to_email, $proposal, $form_data, $lang = 'it', $po
     $email_param = urlencode($to_email);
     
     $content = '
-        <h1>' . $t['title'] . '</h1>
         <p>' . $t['greeting'] . '</p>
         <p>' . $t['intro'] . '</p>
         
-        <div class="info-box">
-            ' . nl2br(esc_html($proposal)) . '
+        <h2 style="margin-top: 30px; margin-bottom: 15px; font-size: 18px; font-weight: bold;">' . $t['section1_title'] . '</h2>
+        <p>' . $t['section1_text'] . '</p>
+        
+        <h2 style="margin-top: 30px; margin-bottom: 15px; font-size: 18px; font-weight: bold;">' . $t['section2_title'] . '</h2>
+        <p>' . $t['section2_intro'] . '</p>
+        
+        <div style="margin: 20px 0;">
+            <p style="margin-bottom: 10px;"><strong>' . $t['section2_point1_title'] . '</strong><br>' . $t['section2_point1_text'] . '</p>
+            <p style="margin-bottom: 10px;"><strong>' . $t['section2_point2_title'] . '</strong><br>' . $t['section2_point2_text'] . '</p>
+            <p style="margin-bottom: 10px;"><strong>' . $t['section2_point3_title'] . '</strong><br>' . $t['section2_point3_text'] . '</p>
         </div>
         
-        <p style="margin-top: 30px;">' . $t['interested_text'] . '</p>
+        <p>' . $t['section2_objective'] . '</p>
+        
+        <h2 style="margin-top: 30px; margin-bottom: 15px; font-size: 18px; font-weight: bold;">' . $t['section3_title'] . '</h2>
+        <p>' . $t['section3_text'] . '</p>
+        
+        <h2 style="margin-top: 30px; margin-bottom: 15px; font-size: 18px; font-weight: bold;">' . $t['section4_title'] . '</h2>
+        <p>' . $t['section4_text'] . '</p>
+        
+        <h2 style="margin-top: 30px; margin-bottom: 15px; font-size: 18px; font-weight: bold;">' . $t['section5_title'] . '</h2>
+        <p>' . $t['section5_text'] . '</p>
         
         <p style="text-align: center; margin: 30px 0;">
             <a href="https://aynix.tech/richiesta-contatto?email=' . $email_param . '" class="cta-button" style="font-size: 18px; padding: 18px 40px;">' . $t['cta_button'] . '</a>
