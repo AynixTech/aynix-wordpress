@@ -17,48 +17,6 @@ get_header();
         </section>
 
         <div class="container">
-            <!-- Named Experiences Section -->
-            <section class="named-experiences">
-                <div class="named-header">
-                    <h2><?php echo aynix_translate('esperienza.named.title'); ?></h2>
-                    <p class="named-subtitle"><strong><?php echo aynix_translate('esperienza.named.subtitle'); ?></strong><br>
-                    <?php echo aynix_translate('esperienza.named.subtitle2'); ?></p>
-                </div>
-                
-                <p class="named-intro"><?php echo aynix_translate('esperienza.named.intro'); ?></p>
-                
-                <div class="named-experiences-grid">
-                    <!-- SafeFleet -->
-                    <div class="named-card">
-                        <h3><?php echo aynix_translate('esperienza.named.safefleet.title'); ?></h3>
-                        <p class="named-tags"><em><?php echo aynix_translate('esperienza.named.safefleet.tags'); ?></em></p>
-                        <p><?php echo aynix_translate('esperienza.named.safefleet.description'); ?></p>
-                    </div>
-                    
-                    <!-- Navenza -->
-                    <div class="named-card">
-                        <h3><?php echo aynix_translate('esperienza.named.navenza.title'); ?></h3>
-                        <p class="named-tags"><em><?php echo aynix_translate('esperienza.named.navenza.tags'); ?></em></p>
-                        <p><?php echo aynix_translate('esperienza.named.navenza.description'); ?></p>
-                    </div>
-                    
-                    <!-- Pinguito -->
-                    <div class="named-card">
-                        <h3><?php echo aynix_translate('esperienza.named.pinguito.title'); ?></h3>
-                        <p class="named-tags"><em><?php echo aynix_translate('esperienza.named.pinguito.tags'); ?></em></p>
-                        <p><?php echo aynix_translate('esperienza.named.pinguito.description'); ?></p>
-                    </div>
-                </div>
-                
-                <p class="named-method-note"><em><?php echo aynix_translate('esperienza.named.method_note'); ?></em></p>
-                
-                <div class="named-cta">
-                    <a href="<?php echo esc_url(home_url('/diagnosi')); ?>" class="btn-primary btn-large">
-                        👉 <?php echo aynix_translate('esperienza.named.cta'); ?>
-                    </a>
-                </div>
-            </section>
-
             <!-- Intro -->
             <section class="esperienza-intro">
                 <p class="lead-text"><?php echo aynix_translate('esperienza.intro.text'); ?></p>
@@ -66,6 +24,108 @@ get_header();
 
             <!-- Case Studies -->
             <section class="case-studies">
+                <!-- SafeFleet -->
+                <div class="case-card">
+                    <div class="case-label">SafeFleet</div>
+                    <div class="case-content">
+                        <div class="case-section">
+                            <div class="case-icon problema-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <h3><?php echo aynix_translate('esperienza.safefleet.problema_title'); ?></h3>
+                            <p><?php echo aynix_translate('esperienza.safefleet.problema'); ?></p>
+                        </div>
+                        <div class="case-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div class="case-section">
+                            <div class="case-icon soluzione-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <h3><?php echo aynix_translate('esperienza.safefleet.soluzione_title'); ?></h3>
+                            <p><?php echo aynix_translate('esperienza.safefleet.soluzione'); ?></p>
+                        </div>
+                        <div class="case-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div class="case-section">
+                            <div class="case-icon risultato-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3><?php echo aynix_translate('esperienza.safefleet.risultato_title'); ?></h3>
+                            <p><?php echo aynix_translate('esperienza.safefleet.risultato'); ?></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navenza -->
+                <div class="case-card">
+                    <div class="case-label">Navenza</div>
+                    <div class="case-content">
+                        <div class="case-section">
+                            <div class="case-icon problema-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <h3><?php echo aynix_translate('esperienza.navenza.problema_title'); ?></h3>
+                            <p><?php echo aynix_translate('esperienza.navenza.problema'); ?></p>
+                        </div>
+                        <div class="case-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div class="case-section">
+                            <div class="case-icon soluzione-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <h3><?php echo aynix_translate('esperienza.navenza.soluzione_title'); ?></h3>
+                            <p><?php echo aynix_translate('esperienza.navenza.soluzione'); ?></p>
+                        </div>
+                        <div class="case-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div class="case-section">
+                            <div class="case-icon risultato-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3><?php echo aynix_translate('esperienza.navenza.risultato_title'); ?></h3>
+                            <p><?php echo aynix_translate('esperienza.navenza.risultato'); ?></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pinguito -->
+                <div class="case-card">
+                    <div class="case-label">Pinguito</div>
+                    <div class="case-content">
+                        <div class="case-section">
+                            <div class="case-icon problema-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <h3><?php echo aynix_translate('esperienza.pinguito.problema_title'); ?></h3>
+                            <p><?php echo aynix_translate('esperienza.pinguito.problema'); ?></p>
+                        </div>
+                        <div class="case-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div class="case-section">
+                            <div class="case-icon soluzione-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <h3><?php echo aynix_translate('esperienza.pinguito.soluzione_title'); ?></h3>
+                            <p><?php echo aynix_translate('esperienza.pinguito.soluzione'); ?></p>
+                        </div>
+                        <div class="case-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div class="case-section">
+                            <div class="case-icon risultato-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3><?php echo aynix_translate('esperienza.pinguito.risultato_title'); ?></h3>
+                            <p><?php echo aynix_translate('esperienza.pinguito.risultato'); ?></p>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Case 1 -->
                 <div class="case-card">
                     <div class="case-label"><?php echo aynix_translate('esperienza.case_label'); ?> 1</div>

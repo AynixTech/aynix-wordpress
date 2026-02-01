@@ -349,6 +349,27 @@
   
   "esperienza.case_label": "Caso",
   
+  "esperienza.safefleet.problema_title": "Problema",
+  "esperienza.safefleet.problema": "Operaciones de flota con control documental fragmentado y brechas en cumplimiento normativo, donde la visibilidad y confiabilidad eran requisitos críticos.",
+  "esperienza.safefleet.soluzione_title": "Solución",
+  "esperienza.safefleet.soluzione": "Sistema personalizado de gestión de flotas con control documental centralizado, seguimiento automático de cumplimiento y visibilidad operativa en tiempo real.",
+  "esperienza.safefleet.risultato_title": "Resultado",
+  "esperienza.safefleet.risultato": "Cumplimiento normativo completo, 80% de reducción en tiempo de gestión de documentos, trazabilidad operativa completa.",
+  
+  "esperienza.navenza.problema_title": "Problema",
+  "esperienza.navenza.problema": "Procesos operativos complejos sin estructura ni claridad, dificultando el control de datos, flujos de trabajo y actividades diarias.",
+  "esperienza.navenza.soluzione_title": "Solución",
+  "esperienza.navenza.soluzione": "Plataforma de gestión interna diseñada para aportar estructura y claridad a los procesos, con control centralizado de datos y visibilidad de flujos de trabajo.",
+  "esperienza.navenza.risultato_title": "Resultado",
+  "esperienza.navenza.risultato": "Procesos estructurados, mejor control de datos, mejor gestión de flujos de trabajo y mayor eficiencia operativa diaria.",
+  
+  "esperienza.pinguito.problema_title": "Problema",
+  "esperienza.pinguito.problema": "Procesos fragmentados que requerían trabajo manual excesivo, creando fricción operativa y limitando la escalabilidad.",
+  "esperienza.pinguito.soluzione_title": "Solución",
+  "esperienza.pinguito.soluzione": "Plataforma de automatización personalizada construida para agilizar procesos fragmentados y soportar operaciones escalables con reducida intervención manual.",
+  "esperienza.pinguito.risultato_title": "Resultado",
+  "esperienza.pinguito.risultato": "Reducción significativa del trabajo manual, operaciones optimizadas, mejor escalabilidad y menor fricción operativa.",
+  
   "esperienza.case1.problema_title": "Problema",
   "esperienza.case1.problema": "Empresa de e-commerce con 3 sistemas diferentes (tienda, almacén, contabilidad) que no se comunicaban",
   "esperienza.case1.soluzione_title": "Solución",

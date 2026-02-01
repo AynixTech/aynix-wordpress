@@ -351,6 +351,27 @@
   
   "esperienza.case_label": "Case",
   
+  "esperienza.safefleet.problema_title": "Problem",
+  "esperienza.safefleet.problema": "Fleet operations with fragmented document control and regulatory compliance gaps, where visibility and reliability were critical requirements.",
+  "esperienza.safefleet.soluzione_title": "Solution",
+  "esperienza.safefleet.soluzione": "Custom fleet management system with centralized document control, automated compliance tracking, and real-time operational visibility.",
+  "esperienza.safefleet.risultato_title": "Result",
+  "esperienza.safefleet.risultato": "Full regulatory compliance, 80% reduction in document management time, complete operational traceability.",
+  
+  "esperienza.navenza.problema_title": "Problem",
+  "esperienza.navenza.problema": "Complex operational processes without structure or clarity, making it difficult to control data, workflows, and day-to-day activities.",
+  "esperienza.navenza.soluzione_title": "Solution",
+  "esperienza.navenza.soluzione": "Internal management platform designed to bring structure and clarity to processes, with centralized data control and workflow visibility.",
+  "esperienza.navenza.risultato_title": "Result",
+  "esperienza.navenza.risultato": "Structured processes, improved data control, better workflow management, and enhanced day-to-day operational efficiency.",
+  
+  "esperienza.pinguito.problema_title": "Problem",
+  "esperienza.pinguito.problema": "Fragmented processes requiring excessive manual work, creating operational friction and limiting scalability.",
+  "esperienza.pinguito.soluzione_title": "Solution",
+  "esperienza.pinguito.soluzione": "Custom automation platform built to streamline fragmented processes and support scalable operations with reduced manual intervention.",
+  "esperienza.pinguito.risultato_title": "Result",
+  "esperienza.pinguito.risultato": "Significant reduction in manual work, streamlined operations, improved scalability, and decreased operational friction.",
+  
   "esperienza.case1.problema_title": "Problem",
   "esperienza.case1.problema": "E-commerce company with 3 different systems (shop, warehouse, accounting) that didn't communicate",
   "esperienza.case1.soluzione_title": "Solution",
