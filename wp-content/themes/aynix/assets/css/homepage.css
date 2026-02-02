@@ -123,6 +123,9 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1rem;
+    overflow-x: clip;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* Reset for all sections */
