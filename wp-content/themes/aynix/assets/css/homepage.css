@@ -641,6 +641,30 @@
         gap: 1.5rem;
     }
 
+    .metodo-home {
+        padding: 3rem 1rem;
+        margin: 2rem 0;
+    }
+
+    .fase-home {
+        padding: 1.5rem 1.25rem;
+    }
+
+    .fase-number {
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .fase-home h3 {
+        font-size: 1.15rem;
+    }
+
+    .fase-home p {
+        font-size: 0.95rem;
+    }
+
     .problemi-home {
         margin: 0 -1rem;
         padding-left: 1rem;
@@ -899,6 +923,32 @@
     
     .hero-left .hero-microcopy {
         font-size: 0.8rem;
+    }
+
+    .metodo-home {
+        padding: 2.5rem 0.75rem;
+        margin: 1.5rem 0;
+    }
+
+    .fase-home {
+        padding: 1.25rem 1rem;
+    }
+
+    .fase-number {
+        width: 36px;
+        height: 36px;
+        font-size: 1.3rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .fase-home h3 {
+        font-size: 1.05rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .fase-home p {
+        font-size: 0.9rem;
+        line-height: 1.5;
     }
 }
 
