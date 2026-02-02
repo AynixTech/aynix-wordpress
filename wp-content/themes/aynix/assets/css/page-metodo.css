@@ -2,6 +2,8 @@
 
 .metodo-page {
     background: #f8f9fa;
+    overflow-x: clip;
+    width: 100%;
 }
 
 /* Principio Section */
@@ -43,6 +45,10 @@
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: auto;
+    height: auto;
 }
 
 .fase-card:before {
@@ -94,6 +100,8 @@
     color: #666;
     line-height: 1.7;
     margin-bottom: 20px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .fase-list {
@@ -146,6 +154,8 @@
     background: #f8f9fa;
     border-radius: 10px;
     transition: all 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .reason-item:hover {
@@ -222,10 +232,33 @@
     
     .fasi-grid {
         grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .fase-card {
+        padding: 30px 25px;
+    }
+    
+    .fase-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .fase-icon i {
+        font-size: 2rem;
+    }
+    
+    .fase-content h3 {
+        font-size: 1.4rem;
+    }
+    
+    .fase-content p {
+        font-size: 0.95rem;
     }
     
     .no-pacchetti-reasons {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
     
     .tecnologia-box {
@@ -238,5 +271,94 @@
     
     .tecnologia-box p {
         font-size: 1rem;
+    }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 480px) {
+    .metodo-principio,
+    .metodo-fasi,
+    .metodo-no-pacchetti,
+    .metodo-tecnologia,
+    .metodo-cta {
+        padding: 40px 0.75rem;
+    }
+    
+    .lead-text {
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+    
+    .fasi-grid {
+        gap: 20px;
+    }
+    
+    .fase-card {
+        padding: 25px 20px;
+    }
+    
+    .fase-icon {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .fase-icon i {
+        font-size: 1.6rem;
+    }
+    
+    .fase-content h3 {
+        font-size: 1.2rem;
+        margin-bottom: 12px;
+    }
+    
+    .fase-content p {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+    
+    .fase-list li {
+        font-size: 0.9rem;
+        padding: 6px 0;
+    }
+    
+    .no-pacchetti-reasons {
+        gap: 15px;
+    }
+    
+    .reason-item {
+        padding: 15px;
+    }
+    
+    .reason-item i {
+        font-size: 1.3rem;
+    }
+    
+    .reason-item p {
+        font-size: 0.9rem;
+    }
+    
+    .tecnologia-box {
+        padding: 25px 15px;
+    }
+    
+    .tecnologia-box i {
+        font-size: 3rem;
+    }
+    
+    .tecnologia-box h3 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+    }
+    
+    .tecnologia-box p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+    
+    /* Forza single column e max-width */
+    .fasi-grid,
+    .no-pacchetti-reasons {
+        grid-template-columns: 1fr !important;
+        max-width: 100%;
     }
 }
