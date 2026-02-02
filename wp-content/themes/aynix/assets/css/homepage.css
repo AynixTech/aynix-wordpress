@@ -166,10 +166,11 @@
 
 .metodo-fasi-home {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.25rem;
     margin-top: 2rem;
     margin-bottom: 1rem;
+    max-width: 100%;
 }
 
 .fase-home {
@@ -224,9 +225,10 @@
 
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
+    max-width: 100%;
 }
 
 .product-card {
@@ -293,10 +295,11 @@
 
 .problemi-grid-home {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 1.25rem;
     margin-top: 2rem;
     margin-bottom: 1rem;
+    max-width: 100%;
 }
 
 .problema-home {
@@ -361,10 +364,11 @@
 
 .perche-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.25rem;
     margin-top: 2rem;
     margin-bottom: 1rem;
+    max-width: 100%;
 }
 
 .perche-item {
@@ -949,6 +953,29 @@
     .fase-home p {
         font-size: 0.9rem;
         line-height: 1.5;
+    }
+
+    /* Forza single column e previeni overflow */
+    .metodo-fasi-home,
+    .products-grid,
+    .problemi-grid-home,
+    .perche-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem;
+    }
+
+    .container {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .hero .container,
+    .metodo-home,
+    .experience-products,
+    .problemi-home,
+    .perche-aynix {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
     }
 }
 
