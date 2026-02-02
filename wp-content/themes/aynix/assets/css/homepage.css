@@ -181,6 +181,8 @@
     transition: all 0.3s ease;
     position: relative;
     margin: 0;
+    min-height: auto;
+    height: auto;
 }
 
 .fase-home:hover {
@@ -215,6 +217,8 @@
     line-height: 1.6;
     font-size: 1rem;
     margin: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 /* Experience Products Section */
@@ -962,11 +966,19 @@
     .perche-grid {
         grid-template-columns: 1fr !important;
         gap: 1rem;
+        max-width: 100%;
     }
 
     .container {
         max-width: 100%;
-        overflow-x: hidden;
+    }
+
+    .fase-home,
+    .product-card,
+    .problema-home,
+    .perche-item {
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .hero .container,
