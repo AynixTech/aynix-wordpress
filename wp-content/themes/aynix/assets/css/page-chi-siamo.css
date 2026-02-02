@@ -2,14 +2,17 @@
 
 .chi-siamo-page {
     background: #f8f9fa;
+    overflow-x: clip;
+    width: 100%;
 }
 
 /* Visione/Missione Section */
 .chi-siamo-visione {
-    padding: 60px 0;
+    padding: 60px 1rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 40px;
+    max-width: 100%;
 }
 
 .visione-content,
@@ -18,6 +21,10 @@
     padding: 40px;
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    box-sizing: border-box;
+    min-height: auto;
+    height: auto;
 }
 
 .visione-content h2,
@@ -26,11 +33,13 @@
     font-size: 1.8rem;
     margin-bottom: 20px;
     margin-top: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 /* Team Section */
 .chi-siamo-team {
-    padding: 60px 0;
+    padding: 60px 1rem;
 }
 
 .team-intro {
@@ -40,12 +49,15 @@
     color: #666;
     font-size: 1.1rem;
     line-height: 1.7;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .team-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 35px;
+    max-width: 100%;
 }
 
 .team-member {
@@ -55,6 +67,10 @@
     text-align: center;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: auto;
+    height: auto;
 }
 
 .team-member:hover {
@@ -81,6 +97,8 @@
     font-size: 1.4rem;
     color: #333;
     margin-bottom: 8px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .member-role {
@@ -96,11 +114,13 @@
     color: #666;
     font-size: 0.95rem;
     line-height: 1.6;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 /* Metodo Box */
 .chi-siamo-metodo {
-    padding: 60px 0;
+    padding: 60px 1rem;
 }
 
 .metodo-box {
@@ -113,6 +133,8 @@
     padding: 60px 40px;
     text-align: center;
     color: white;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .metodo-box i {
@@ -147,7 +169,7 @@
 
 /* Valori Section */
 .chi-siamo-valori {
-    padding: 60px 0;
+    padding: 60px 1rem;
 }
 
 .chi-siamo-valori h2 {
@@ -159,6 +181,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 30px;
+    max-width: 100%;
 }
 
 .valore-card {
@@ -168,6 +191,10 @@
     text-align: center;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: auto;
+    height: auto;
 }
 
 .valore-card:hover {
@@ -185,12 +212,16 @@
     font-size: 1.3rem;
     color: #333;
     margin-bottom: 15px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .valore-card p {
     color: #666;
     line-height: 1.6;
     font-size: 0.95rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 /* CTA Section */
@@ -202,6 +233,8 @@
 @media (max-width: 768px) {
     .chi-siamo-visione {
         grid-template-columns: 1fr;
+        padding: 40px 1rem;
+        gap: 30px;
     }
     
     .visione-content,
@@ -209,12 +242,44 @@
         padding: 30px 20px;
     }
     
+    .visione-content h2,
+    .missione-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .chi-siamo-team {
+        padding: 40px 1rem;
+    }
+    
+    .team-intro {
+        font-size: 1rem;
+        margin-bottom: 40px;
+    }
+    
     .team-grid {
         grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .member-photo {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .member-info h3 {
+        font-size: 1.2rem;
+    }
+    
+    .chi-siamo-metodo {
+        padding: 40px 1rem;
     }
     
     .metodo-box {
         padding: 40px 20px;
+    }
+    
+    .metodo-box i {
+        font-size: 3rem;
     }
     
     .metodo-box h2 {
@@ -225,7 +290,150 @@
         font-size: 1rem;
     }
     
+    .chi-siamo-valori {
+        padding: 40px 1rem;
+    }
+    
     .valori-grid {
         grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .valore-card {
+        padding: 30px 20px;
+    }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 480px) {
+    .chi-siamo-visione {
+        padding: 30px 0.75rem;
+        gap: 20px;
+    }
+    
+    .visione-content,
+    .missione-content {
+        padding: 25px 15px;
+    }
+    
+    .visione-content h2,
+    .missione-content h2 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+    }
+    
+    .visione-content p,
+    .missione-content p {
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+    
+    .chi-siamo-team {
+        padding: 30px 0.75rem;
+    }
+    
+    .team-intro {
+        font-size: 0.95rem;
+        margin-bottom: 30px;
+        line-height: 1.6;
+    }
+    
+    .team-grid {
+        gap: 20px;
+    }
+    
+    .team-member {
+        padding: 25px 20px;
+    }
+    
+    .member-photo {
+        width: 90px;
+        height: 90px;
+        border-width: 3px;
+        margin-bottom: 15px;
+    }
+    
+    .member-info h3 {
+        font-size: 1.1rem;
+        margin-bottom: 6px;
+    }
+    
+    .member-role {
+        font-size: 0.85rem;
+        margin-bottom: 12px;
+    }
+    
+    .member-bio {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+    
+    .chi-siamo-metodo {
+        padding: 30px 0.75rem;
+    }
+    
+    .metodo-box {
+        padding: 30px 15px;
+        border-radius: 15px;
+    }
+    
+    .metodo-box i {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+    }
+    
+    .metodo-box h2 {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+    }
+    
+    .metodo-box p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 25px;
+    }
+    
+    .chi-siamo-valori {
+        padding: 30px 0.75rem;
+    }
+    
+    .chi-siamo-valori h2 {
+        margin-bottom: 30px;
+        font-size: 1.6rem;
+    }
+    
+    .valori-grid {
+        gap: 20px;
+    }
+    
+    .valore-card {
+        padding: 25px 15px;
+    }
+    
+    .valore-card i {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+    }
+    
+    .valore-card h3 {
+        font-size: 1.15rem;
+        margin-bottom: 12px;
+    }
+    
+    .valore-card p {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+    
+    .chi-siamo-cta {
+        padding: 40px 0.75rem 60px;
+    }
+    
+    /* Forza single column e max-width */
+    .chi-siamo-visione,
+    .team-grid,
+    .valori-grid {
+        grid-template-columns: 1fr !important;
+        max-width: 100%;
     }
 }
