@@ -2,19 +2,23 @@
 
 .soluzioni-page {
     background: #f8f9fa;
+    overflow-x: clip;
+    width: 100%;
 }
 
 /* Intro Section */
 .soluzioni-intro {
-    padding: 40px 0;
+    padding: 40px 1rem;
     text-align: center;
     max-width: 800px;
     margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* Soluzioni Cards */
 .soluzioni-cards {
-    padding: 40px 0;
+    padding: 40px 1rem;
 }
 
 .soluzioni-grid {
@@ -30,6 +34,10 @@
     padding: 40px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: auto;
+    height: auto;
 }
 
 .soluzione-card:hover {
@@ -65,6 +73,8 @@
     font-size: 1.6rem;
     color: #333;
     margin: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .soluzione-desc {
@@ -72,6 +82,8 @@
     line-height: 1.7;
     margin-bottom: 25px;
     font-size: 1.05rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .soluzione-examples h4 {
@@ -105,7 +117,7 @@
 
 /* Processo Timeline */
 .soluzioni-processo {
-    padding: 80px 0;
+    padding: 80px 1rem;
     background: white;
     margin: 60px 0;
     border-radius: 15px;
@@ -172,7 +184,7 @@
 
 /* Differenza Section */
 .soluzioni-differenza {
-    padding: 60px 0;
+    padding: 60px 1rem;
 }
 
 .differenza-box {
@@ -197,6 +209,8 @@
     padding: 30px;
     border-radius: 15px;
     border: 2px solid #e9ecef;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .differenza-item--aynix {
@@ -272,19 +286,199 @@
 }
 
 @media (max-width: 768px) {
+    .soluzioni-intro {
+        padding: 30px 1rem;
+    }
+    
+    .soluzioni-cards {
+        padding: 30px 1rem;
+    }
+    
     .soluzioni-grid {
         grid-template-columns: 1fr;
+        gap: 25px;
     }
     
     .soluzione-card {
         padding: 30px;
     }
     
+    .soluzione-icon {
+        width: 65px;
+        height: 65px;
+    }
+    
+    .soluzione-icon i {
+        font-size: 2rem;
+    }
+    
+    .soluzione-card h3 {
+        font-size: 1.4rem;
+    }
+    
+    .soluzione-desc {
+        font-size: 0.95rem;
+    }
+    
+    .soluzioni-processo {
+        padding: 60px 1rem;
+        margin: 40px 0;
+    }
+    
+    .timeline-number {
+        width: 60px;
+        height: 60px;
+        font-size: 1.6rem;
+    }
+    
+    .timeline-content h3 {
+        font-size: 1.2rem;
+    }
+    
+    .soluzioni-differenza {
+        padding: 40px 1rem;
+    }
+    
     .differenza-grid {
         grid-template-columns: 1fr;
+        gap: 25px;
     }
     
     .differenza-box {
         padding: 30px 20px;
+    }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 480px) {
+    .soluzioni-intro {
+        padding: 25px 0.75rem;
+    }
+    
+    .soluzioni-cards {
+        padding: 25px 0.75rem;
+    }
+    
+    .soluzioni-grid {
+        gap: 20px;
+        margin-bottom: 40px;
+    }
+    
+    .soluzione-card {
+        padding: 25px 20px;
+    }
+    
+    .soluzione-icon {
+        width: 55px;
+        height: 55px;
+        border-radius: 15px;
+    }
+    
+    .soluzione-icon i {
+        font-size: 1.8rem;
+    }
+    
+    .soluzione-card h3 {
+        font-size: 1.2rem;
+    }
+    
+    .soluzione-desc {
+        font-size: 0.9rem;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+    
+    .soluzione-examples h4 {
+        font-size: 0.9rem;
+        margin-bottom: 12px;
+    }
+    
+    .soluzione-examples li {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        padding: 6px 0;
+    }
+    
+    .soluzioni-processo {
+        padding: 40px 0.75rem;
+        margin: 30px 0;
+    }
+    
+    .soluzioni-processo h2 {
+        margin-bottom: 40px;
+        font-size: 1.6rem;
+    }
+    
+    .processo-timeline {
+        gap: 30px;
+    }
+    
+    .timeline-number {
+        width: 50px;
+        height: 50px;
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+    }
+    
+    .timeline-content h3 {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+    }
+    
+    .timeline-content p {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+    
+    .timeline-connector {
+        height: 30px;
+    }
+    
+    .soluzioni-differenza {
+        padding: 30px 0.75rem;
+    }
+    
+    .differenza-box {
+        padding: 25px 15px;
+    }
+    
+    .differenza-box h2 {
+        margin-bottom: 30px;
+        font-size: 1.6rem;
+    }
+    
+    .differenza-grid {
+        gap: 20px;
+    }
+    
+    .differenza-item {
+        padding: 20px;
+    }
+    
+    .differenza-item i {
+        font-size: 2.5rem;
+        margin-bottom: 12px;
+    }
+    
+    .differenza-item h4 {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+    
+    .differenza-item ul li {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        padding: 6px 0;
+    }
+    
+    .soluzioni-cta {
+        padding: 40px 0.75rem 60px;
+    }
+    
+    /* Forza single column e max-width */
+    .soluzioni-grid,
+    .differenza-grid {
+        grid-template-columns: 1fr !important;
+        max-width: 100%;
     }
 }
