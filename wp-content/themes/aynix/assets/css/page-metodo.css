@@ -8,13 +8,17 @@
 
 /* Principio Section */
 .metodo-principio {
-    padding: 60px 0;
+    padding: 60px 1rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .principio-content {
     max-width: 800px;
     margin: 0 auto;
     text-align: center;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .lead-text {
@@ -22,6 +26,8 @@
     line-height: 1.8;
     color: #333;
     font-weight: 300;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 /* Fasi Section */
