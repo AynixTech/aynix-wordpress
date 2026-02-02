@@ -431,20 +431,28 @@
   "chi_siamo.team.intro": "We're engineers, analysts, and designers. But above all, we're people who listen and understand before building.",
   
   "chi_siamo.team.member1_name": "Lizandro Vivanco",
-  "chi_siamo.team.member1_role": "CEO & Process Analyst",
-  "chi_siamo.team.member1_bio": "Management Engineer with MBA and ISO certifications. Specialized in operational diagnosis and process optimization.",
+  "chi_siamo.team.member1_role": "Chief Executive Officer",
+  "chi_siamo.team.member1_bio": "Management Engineer / MBA / SEO Specialist / Bureau Veritas Certified Auditor ISO 9001:2015 - ISO 14001:2015 - OHSAS 18001:2007.",
   
   "chi_siamo.team.member2_name": "Maria Paula Vega",
-  "chi_siamo.team.member2_role": "CRO & Client Relations",
-  "chi_siamo.team.member2_bio": "International Business specialist. Bridges business needs and technical solutions.",
+  "chi_siamo.team.member2_role": "Chief Revenue Officer",
+  "chi_siamo.team.member2_bio": "Multilingual degree in Business and International Relations / Master in International Business / Software Product Management Specialist / Multilingual professional in technology and B2B sales.",
   
   "chi_siamo.team.member3_name": "Anthony Avila",
-  "chi_siamo.team.member3_role": "CTO & Solution Architect",
-  "chi_siamo.team.member3_bio": "Senior developer and project manager. Builds scalable and secure systems.",
+  "chi_siamo.team.member3_role": "Chief Technology Officer",
+  "chi_siamo.team.member3_bio": "Project Manager and Senior Web Developer specialized in scalable, secure and user-oriented digital systems.",
   
-  "chi_siamo.team.member4_name": "Team Member",
-  "chi_siamo.team.member4_role": "Role",
-  "chi_siamo.team.member4_bio": "Description of the team member's expertise and contribution.",
+  "chi_siamo.team.member4_name": "Daniel Vega",
+  "chi_siamo.team.member4_role": "Graphic Designer & Community Manager",
+  "chi_siamo.team.member4_bio": "Professional Photographer / Community Manager with a creative approach to visual communication and brand engagement.",
+  
+  "chi_siamo.team.member5_name": "Tasso Cortez",
+  "chi_siamo.team.member5_role": "B2B Sales Specialist",
+  "chi_siamo.team.member5_bio": "B2B sales professional specialized in Enterprise Asset Management (EAM), strategic prospecting, pipeline development and complex enterprise sales for large accounts.",
+  
+  "chi_siamo.team.member6_name": "Samanta Gomez",
+  "chi_siamo.team.member6_role": "Head of Growth & Innovation",
+  "chi_siamo.team.member6_bio": "Focus on digital strategies, sustainable growth and innovation driven by data, creativity and cross-team collaboration.",
   
   "chi_siamo.metodo.title": "Our Method: Diagnosis First",
   "chi_siamo.metodo.text": "We don't start by offering solutions. We start by understanding. Every project begins with a diagnosis to ensure we're solving the right problem.",

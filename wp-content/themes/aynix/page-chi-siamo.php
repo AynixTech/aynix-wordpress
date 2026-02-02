@@ -71,7 +71,7 @@ get_header();
                         </div>
                     </div>
 
-                    <!-- Team Member 4 (optional) -->
+                    <!-- Team Member 4 -->
                     <div class="team-member">
                         <div class="member-photo">
                             <img src="<?php echo get_template_directory_uri(); ?>/assets/images/team1.png" alt="<?php echo aynix_translate('chi_siamo.team.member4_name'); ?>">
@@ -80,6 +80,30 @@ get_header();
                             <h3><?php echo aynix_translate('chi_siamo.team.member4_name'); ?></h3>
                             <p class="member-role"><?php echo aynix_translate('chi_siamo.team.member4_role'); ?></p>
                             <p class="member-bio"><?php echo aynix_translate('chi_siamo.team.member4_bio'); ?></p>
+                        </div>
+                    </div>
+
+                    <!-- Team Member 5 -->
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/team2.png" alt="<?php echo aynix_translate('chi_siamo.team.member5_name'); ?>">
+                        </div>
+                        <div class="member-info">
+                            <h3><?php echo aynix_translate('chi_siamo.team.member5_name'); ?></h3>
+                            <p class="member-role"><?php echo aynix_translate('chi_siamo.team.member5_role'); ?></p>
+                            <p class="member-bio"><?php echo aynix_translate('chi_siamo.team.member5_bio'); ?></p>
+                        </div>
+                    </div>
+
+                    <!-- Team Member 6 -->
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/team3.png" alt="<?php echo aynix_translate('chi_siamo.team.member6_name'); ?>">
+                        </div>
+                        <div class="member-info">
+                            <h3><?php echo aynix_translate('chi_siamo.team.member6_name'); ?></h3>
+                            <p class="member-role"><?php echo aynix_translate('chi_siamo.team.member6_role'); ?></p>
+                            <p class="member-bio"><?php echo aynix_translate('chi_siamo.team.member6_bio'); ?></p>
                         </div>
                     </div>
                 </div>

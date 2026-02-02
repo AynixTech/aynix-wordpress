@@ -431,21 +431,28 @@
   "chi_siamo.team.intro": "Siamo ingegneri, analisti e designer. Ma soprattutto siamo persone che ascoltano e capiscono prima di costruire.",
   
   "chi_siamo.team.member1_name": "Lizandro Vivanco",
-  "chi_siamo.team.member1_role": "CEO & Analista di Processo",
-  "chi_siamo.team.member1_bio": "Ingegnere Gestionale con MBA e certificazioni ISO. Specializzato in diagnosi operativa e ottimizzazione processi.",
-  
+  "chi_siamo.team.member1_role": "Chief Executive Officer",
+  "chi_siamo.team.member1_bio": "Ingegnere Gestionale / MBA / Specialista SEO / Auditor Certificato Bureau Veritas ISO 9001:2015 - ISO 14001:2015 - OHSAS 18001:2007.",
+
   "chi_siamo.team.member2_name": "Maria Paula Vega",
-  "chi_siamo.team.member2_role": "CRO & Relazioni Clienti",
-  "chi_siamo.team.member2_bio": "Specialista in Business Internazionale. Fa da ponte tra esigenze aziendali e soluzioni tecniche.",
-  
+  "chi_siamo.team.member2_role": "Chief Revenue Officer",
+  "chi_siamo.team.member2_bio": "Laurea multilingue in Business e Relazioni Internazionali / Master in Business Internazionale / Specialista in Product Management Software / Professionista multilingue in tecnologia e vendite B2B.",
+
   "chi_siamo.team.member3_name": "Anthony Avila",
-  "chi_siamo.team.member3_role": "CTO & Solution Architect",
-  "chi_siamo.team.member3_bio": "Sviluppatore senior e project manager. Costruisce sistemi scalabili e sicuri.",
-  
-  "chi_siamo.team.member4_name": "Membro del Team",
-  "chi_siamo.team.member4_role": "Ruolo",
-  "chi_siamo.team.member4_bio": "Descrizione dell'esperienza e del contributo del membro del team.",
-  
+  "chi_siamo.team.member3_role": "Chief Technology Officer",
+  "chi_siamo.team.member3_bio": "Project Manager e Senior Web Developer specializzato in sistemi digitali scalabili, sicuri e orientati all'utente.",
+
+  "chi_siamo.team.member4_name": "Daniel Vega",
+  "chi_siamo.team.member4_role": "Graphic Designer & Community Manager",
+  "chi_siamo.team.member4_bio": "Fotografo Professionista / Community Manager con un approccio creativo alla comunicazione visiva e al coinvolgimento del brand.",
+
+  "chi_siamo.team.member5_name": "Tasso Cortez",
+  "chi_siamo.team.member5_role": "B2B Sales Specialist",
+  "chi_siamo.team.member5_bio": "Professionista vendite B2B specializzato in Enterprise Asset Management (EAM), prospezione strategica, sviluppo pipeline e vendite enterprise complesse per grandi account.",
+
+  "chi_siamo.team.member6_name": "Samanta Gomez",
+  "chi_siamo.team.member6_role": "Head of Growth & Innovation",
+  "chi_siamo.team.member6_bio": "Focus su strategie digitali, crescita sostenibile e innovazione guidata da dati, creatività e collaborazione cross-team.",
   "chi_siamo.metodo.title": "Il Nostro Metodo: Prima la Diagnosi",
   "chi_siamo.metodo.text": "Non iniziamo offrendo soluzioni. Iniziamo capendo. Ogni progetto parte da una diagnosi per assicurarci di risolvere il problema giusto.",
   "chi_siamo.metodo.button": "Scopri il Metodo",
