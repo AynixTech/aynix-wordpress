@@ -95,7 +95,7 @@
                         </div>
                         <h3 itemprop="name" class="sr-only">SafeFleet</h3>
                         <p itemprop="description"><?php echo aynix_translate('demo.safefleet.description'); ?></p>
-                        <a href="<?php echo home_url('/experience/safefleet'); ?>" 
+                        <a href="<?php echo home_url('/safe-fleet'); ?>" 
                            class="cta-button" 
                            itemprop="url"
                            title="Scopri il caso di studio SafeFleet - Gestione flotte aziendali"
@@ -116,7 +116,7 @@
                         </div>
                         <h3 itemprop="name" class="sr-only">Navenza</h3>
                         <p itemprop="description"><?php echo aynix_translate('innovation_solutions.navenza'); ?></p>
-                        <a href="<?php echo home_url('/experience/navenza'); ?>" 
+                        <a href="<?php echo home_url('/navenza'); ?>" 
                            class="cta-button" 
                            itemprop="url"
                            title="Scopri il caso di studio Navenza - Gestione spedizioni internazionali"
@@ -137,7 +137,7 @@
                         </div>
                         <h3 itemprop="name" class="sr-only">Pinguito</h3>
                         <p itemprop="description"><?php echo aynix_translate('innovation_solutions.pinguito'); ?></p>
-                        <a href="<?php echo home_url('/experience/pinguito'); ?>" 
+                        <a href="<?php echo home_url('/pinguito'); ?>" 
                            class="cta-button" 
                            itemprop="url"
                            title="Scopri il caso di studio Pinguito - Marketing automation social media"
