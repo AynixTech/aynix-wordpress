@@ -13,7 +13,7 @@ get_header();
             <div class="container">
                 <div class="hero-content">
                     <div class="safefleet-logo">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/safefleet-logo.png" alt="SafeFleet">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/safefleet/safefleet-logo.png" alt="SafeFleet">
                     </div>
                     <h1><?php echo aynix_translate('safefleet.hero.title'); ?></h1>
                     <p class="hero-subtitle"><?php echo aynix_translate('safefleet.hero.subtitle'); ?></p>
@@ -102,19 +102,19 @@ get_header();
                 <h2><?php echo aynix_translate('safefleet.screenshots.title'); ?></h2>
                 <div class="screenshots-grid">
                     <div class="screenshot-item">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/safefleet-screenshot-1.png" alt="SafeFleet Dashboard">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/safefleet/safefleet-screenshot-1.png" alt="SafeFleet Dashboard">
                         <p><?php echo aynix_translate('safefleet.screenshots.caption1'); ?></p>
                     </div>
                     <div class="screenshot-item">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/safefleet-screenshot-2.png" alt="SafeFleet Driver Management">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/safefleet/safefleet-screenshot-2.png" alt="SafeFleet Driver Management">
                         <p><?php echo aynix_translate('safefleet.screenshots.caption2'); ?></p>
                     </div>
                     <div class="screenshot-item">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/safefleet-screenshot-3.png" alt="SafeFleet Tire Management">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/safefleet/safefleet-screenshot-3.png" alt="SafeFleet Tire Management">
                         <p><?php echo aynix_translate('safefleet.screenshots.caption3'); ?></p>
                     </div>
                     <div class="screenshot-item">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/safefleet-screenshot-4.png" alt="SafeFleet Vehicle Control">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/safefleet/safefleet-screenshot-4.png" alt="SafeFleet Vehicle Control">
                         <p><?php echo aynix_translate('safefleet.screenshots.caption4'); ?></p>
                     </div>
                 </div>
