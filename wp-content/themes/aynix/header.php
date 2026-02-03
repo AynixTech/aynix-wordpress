@@ -54,6 +54,7 @@
             <li><a href="<?php echo esc_url(home_url('/soluzioni')); ?>"><?php echo aynix_translate('nav.soluzioni'); ?></a></li>
             <li><a href="<?php echo esc_url(home_url('/esperienza')); ?>"><?php echo aynix_translate('nav.esperienza'); ?></a></li>
             <li><a href="<?php echo esc_url(home_url('/chi-siamo')); ?>"><?php echo aynix_translate('nav.chi_siamo'); ?></a></li>
+            <li><a href="<?php echo esc_url(home_url('/contattaci')); ?>"><?php echo aynix_translate('nav.contattaci'); ?></a></li>
         </ul>
     </nav>
     <div class="header__contact">
@@ -79,6 +80,7 @@
             <li><a href="<?php echo esc_url(home_url('/soluzioni')); ?>"><?php echo aynix_translate('nav.soluzioni'); ?></a></li>
             <li><a href="<?php echo esc_url(home_url('/esperienza')); ?>"><?php echo aynix_translate('nav.esperienza'); ?></a></li>
             <li><a href="<?php echo esc_url(home_url('/chi-siamo')); ?>"><?php echo aynix_translate('nav.chi_siamo'); ?></a></li>
+            <li><a href="<?php echo esc_url(home_url('/contattaci')); ?>"><?php echo aynix_translate('nav.contattaci'); ?></a></li>
             <li><a href="<?php echo esc_url(home_url('/diagnosi')); ?>" class="menu-cta-link"><?php echo aynix_translate('cta.avvia_diagnosi'); ?></a></li>
         </ul>
     </nav>
