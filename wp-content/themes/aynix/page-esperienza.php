@@ -22,14 +22,21 @@ get_header();
                 <p class="lead-text"><?php echo aynix_translate('esperienza.intro.text'); ?></p>
             </section>
 
-            <!-- Case Studies -->
-            <section class="case-studies">
-                <!-- SafeFleet -->
-                <div class="case-card">
-                    <div class="case-label">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/safefleet-logo.png" alt="SafeFleet" class="case-logo">
-                    </div>
-                    <div class="case-content">
+            <!-- SEZIONE 1: Named Experiences -->
+            <section class="named-experiences">
+                <h2><?php echo aynix_translate('esperienza.named_experiences.title'); ?></h2>
+                <p class="section-subtitle"><?php echo aynix_translate('esperienza.named_experiences.subtitle'); ?></p>
+                <p class="section-intro"><?php echo aynix_translate('esperienza.named_experiences.intro'); ?></p>
+
+                <div class="case-studies">
+                    <!-- SafeFleet -->
+                    <div class="case-card experience-card">
+                        <div class="case-badge">Experience</div>
+                        <div class="case-label">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/safefleet-logo.png" alt="SafeFleet" class="case-logo">
+                        </div>
+                        <p class="experience-intro"><?php echo aynix_translate('esperienza.named_experiences.case_intro'); ?></p>
+                        <div class="case-content">
                         <div class="case-section">
                             <div class="case-icon problema-icon">
                                 <i class="fas fa-exclamation-triangle"></i>
@@ -61,10 +68,12 @@ get_header();
                 </div>
 
                 <!-- Navenza -->
-                <div class="case-card">
+                <div class="case-card experience-card">
+                    <div class="case-badge">Experience</div>
                     <div class="case-label">
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/navenza-logo.svg" alt="Navenza" class="case-logo">
                     </div>
+                    <p class="experience-intro"><?php echo aynix_translate('esperienza.named_experiences.case_intro'); ?></p>
                     <div class="case-content">
                         <div class="case-section">
                             <div class="case-icon problema-icon">
@@ -97,10 +106,12 @@ get_header();
                 </div>
 
                 <!-- Pinguito -->
-                <div class="case-card">
+                <div class="case-card experience-card">
+                    <div class="case-badge">Experience</div>
                     <div class="case-label">
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/pinguito-logo.png" alt="Pinguito" class="case-logo">
                     </div>
+                    <p class="experience-intro"><?php echo aynix_translate('esperienza.named_experiences.case_intro'); ?></p>
                     <div class="case-content">
                         <div class="case-section">
                             <div class="case-icon problema-icon">
@@ -131,11 +142,21 @@ get_header();
                         </div>
                     </div>
                 </div>
+            </div>
+            </section>
 
-                <!-- Case 1 -->
-                <div class="case-card">
-                    <div class="case-label"><?php echo aynix_translate('esperienza.case_label'); ?> 1</div>
-                    <div class="case-content">
+            <!-- SEZIONE 2: Casi risolti con diagnosi -->
+            <section class="diagnosed-cases">
+                <h2><?php echo aynix_translate('esperienza.diagnosed_cases.title'); ?></h2>
+                <p class="section-subtitle"><?php echo aynix_translate('esperienza.diagnosed_cases.subtitle'); ?></p>
+                <p class="section-intro"><?php echo aynix_translate('esperienza.diagnosed_cases.intro'); ?></p>
+                <p class="section-key-phrase"><?php echo aynix_translate('esperienza.diagnosed_cases.key_phrase'); ?></p>
+
+                <div class="case-studies">
+                    <!-- Case 1 -->
+                    <div class="case-card">
+                        <div class="case-label"><?php echo aynix_translate('esperienza.case_label'); ?> 1</div>
+                        <div class="case-content">
                         <div class="case-section">
                             <div class="case-icon problema-icon">
                                 <i class="fas fa-exclamation-triangle"></i>
@@ -335,6 +356,7 @@ get_header();
                         </div>
                     </div>
                 </div>
+            </div>
             </section>
 
             <!-- CTA finale -->

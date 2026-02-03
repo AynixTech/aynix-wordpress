@@ -6,6 +6,44 @@
     width: 100%;
 }
 
+.esperienza-page h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: var(--aynix-primary-color);
+}
+
+.esperienza-page .section-subtitle {
+    text-align: center;
+    font-size: 1.3rem;
+    color: #666;
+    margin-bottom: 20px;
+    font-weight: 400;
+}
+
+.esperienza-page .section-intro {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto 40px;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #555;
+}
+
+.esperienza-page .section-key-phrase {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 50px;
+    font-size: 1.15rem;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--aynix-primary-color);
+    padding: 25px 30px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-left: 4px solid var(--aynix-primary-color);
+    border-radius: 8px;
+}
+
 /* Hero Section */
 .hero-page {
     background: linear-gradient(135deg, var(--aynix-primary-color), var(--aynix-secondary-color));
@@ -44,6 +82,54 @@
 /* Case Studies */
 .case-studies {
     padding: 40px 1rem;
+}
+
+/* Named Experiences Section */
+.named-experiences {
+    padding: 60px 1rem;
+    background: linear-gradient(135deg, #f0f4f8 0%, #ffffff 100%);
+    margin-bottom: 60px;
+}
+
+/* Diagnosed Cases Section */
+.diagnosed-cases {
+    padding: 60px 1rem;
+}
+
+/* Experience Badge for Named Experiences */
+.case-badge {
+    position: absolute;
+    top: -15px;
+    right: 30px;
+    background: linear-gradient(90deg, #28a745, #20c997);
+    color: white;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.experience-intro {
+    text-align: center;
+    font-size: 0.95rem;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 25px;
+    padding: 0 20px;
+}
+
+/* Experience Card Styling */
+.experience-card {
+    border: 2px solid #e3f2fd;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fcff 100%);
+}
+
+.experience-card:hover {
+    box-shadow: 0 15px 50px rgba(40, 167, 69, 0.15);
+    transform: translateY(-5px);
 }
 
 .case-card {
@@ -181,6 +267,18 @@
         font-size: 1.2rem;
     }
     
+    .esperienza-page h2 {
+        font-size: 2rem;
+    }
+    
+    .esperienza-page .section-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .esperienza-page .section-intro {
+        font-size: 1rem;
+    }
+    
     .case-content {
         grid-template-columns: 1fr;
         gap: 30px;
@@ -220,12 +318,35 @@
         font-size: 1.1rem;
     }
     
+    .esperienza-page h2 {
+        font-size: 1.8rem;
+    }
+    
+    .esperienza-page .section-subtitle {
+        font-size: 1rem;
+    }
+    
+    .esperienza-page .section-intro {
+        font-size: 0.95rem;
+        padding: 0 10px;
+    }
+    
+    .esperienza-page .section-key-phrase {
+        font-size: 1rem;
+        padding: 20px 15px;
+    }
+    
     .esperienza-intro {
         padding: 30px 1rem;
     }
     
+    .named-experiences,
+    .diagnosed-cases {
+        padding: 40px 0.75rem;
+    }
+    
     .case-studies {
-        padding: 30px 1rem;
+        padding: 30px 0.75rem;
     }
     
     .case-card {

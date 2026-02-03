@@ -349,6 +349,16 @@
   
   "esperienza.intro.text": "Questi sono esempi reali (anonimizzati) di problemi che abbiamo risolto. La tua situazione è unica, ma i pattern sono spesso simili.",
   
+  "esperienza.named_experiences.title": "Named Experiences",
+  "esperienza.named_experiences.subtitle": "Sistemi costruiti a partire da percorsi diagnostici reali.",
+  "esperienza.named_experiences.intro": "Queste esperienze rappresentano progetti che, partendo da problemi concreti e ben diagnosticati, si sono trasformati in sistemi strutturati e riutilizzabili in contesti simili.",
+  "esperienza.named_experiences.case_intro": "Esperienza sviluppata in un contesto reale, a seguito di una diagnosi approfondita delle esigenze operative.",
+  
+  "esperienza.diagnosed_cases.title": "Casi risolti con diagnosi",
+  "esperienza.diagnosed_cases.subtitle": "Problemi chiariti e affrontati grazie a un corretto processo di analisi, prima di decidere come intervenire.",
+  "esperienza.diagnosed_cases.intro": "Ogni caso rappresenta una situazione reale in cui il valore principale è stato fare chiarezza: identificare il vero problema, definire le priorità e scegliere la direzione giusta. La tua situazione è unica, ma i pattern che emergono sono spesso ricorrenti.",
+  "esperienza.diagnosed_cases.key_phrase": "Non tutti i casi diventano un'esperienza con nome. Ma ogni esperienza con nome nasce da un caso ben diagnosticato.",
+  
   "esperienza.case_label": "Caso",
   
   "esperienza.safefleet.problema_title": "Problema",
