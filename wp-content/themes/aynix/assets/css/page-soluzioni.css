@@ -119,8 +119,8 @@
 }
 
 .soluzione-examples li {
-    padding: 8px 0;
-    padding-left: 30px;
+    padding: 10px 0;
+    padding-left: 35px;
     position: relative;
     color: #666;
     line-height: 1.6;
@@ -129,10 +129,11 @@
 .soluzione-examples li:before {
     content: "→";
     position: absolute;
-    left: 5px;
-    top: 8px;
+    left: 8px;
+    top: 10px;
     color: var(--aynix-secondary-color);
     font-weight: bold;
+    font-size: 1rem;
 }
 
 /* Processo Timeline */
