@@ -6,6 +6,10 @@
     width: 100%;
 }
 
+.chi-siamo-page h2 {
+    text-align: center;
+}
+
 /* Visione/Missione Section */
 .chi-siamo-visione {
     padding: 60px 1rem;
