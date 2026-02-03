@@ -6,14 +6,33 @@
     width: 100%;
 }
 
+.soluzioni-page h2 {
+    text-align: center;
+}
+
 /* Intro Section */
 .soluzioni-intro {
-    padding: 40px 1rem;
+    padding: 80px 1rem;
     text-align: center;
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
     width: 100%;
     box-sizing: border-box;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.soluzioni-intro .lead-text {
+    font-size: 1.5rem;
+    line-height: 1.9;
+    color: #444;
+    font-weight: 400;
+    background: white;
+    padding: 50px 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    margin: 0;
 }
 
 /* Soluzioni Cards */
