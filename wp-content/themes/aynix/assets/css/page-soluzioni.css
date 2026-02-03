@@ -120,7 +120,7 @@
 
 .soluzione-examples li {
     padding: 8px 0;
-    padding-left: 25px;
+    padding-left: 30px;
     position: relative;
     color: #666;
     line-height: 1.6;
@@ -129,7 +129,8 @@
 .soluzione-examples li:before {
     content: "→";
     position: absolute;
-    left: 0;
+    left: 5px;
+    top: 8px;
     color: var(--aynix-secondary-color);
     font-weight: bold;
 }
