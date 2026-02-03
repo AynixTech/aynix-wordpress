@@ -13,7 +13,7 @@ get_header();
             <div class="container">
                 <h1><?php echo aynix_translate('metodo.hero.title'); ?></h1>
                 <p class="hero-subtitle"><?php echo aynix_translate('metodo.hero.subtitle'); ?></p>
-                <a href="<?php echo esc_url(home_url('/diagnosi')); ?>" class="btn-primary">
+                <a href="<?php echo esc_url(home_url('/diagnosi')); ?>" class="btn-primary btn-large">
                     <?php echo aynix_translate('metodo.hero.cta'); ?>
                 </a>
             </div>
