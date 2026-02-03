@@ -113,6 +113,10 @@ get_header();
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/safefleet-screenshot-3.png" alt="SafeFleet Tire Management">
                         <p><?php echo aynix_translate('safefleet.screenshots.caption3'); ?></p>
                     </div>
+                    <div class="screenshot-item">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/safefleet-screenshot-4.png" alt="SafeFleet Vehicle Control">
+                        <p><?php echo aynix_translate('safefleet.screenshots.caption4'); ?></p>
+                    </div>
                 </div>
             </section>
 
