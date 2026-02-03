@@ -6,6 +6,10 @@
     width: 100%;
 }
 
+.metodo-page h2 {
+    text-align: center;
+}
+
 /* Principio Section */
 .metodo-principio {
     padding: 60px 1rem;
