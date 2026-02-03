@@ -93,7 +93,7 @@
                                  height="120"
                                  loading="lazy">
                         </div>
-                        <h3 itemprop="name">SafeFleet</h3>
+                        <h3 itemprop="name" class="sr-only">SafeFleet</h3>
                         <p itemprop="description"><?php echo aynix_translate('demo.safefleet.description'); ?></p>
                         <a href="<?php echo home_url('/experience/safefleet'); ?>" 
                            class="cta-button" 
@@ -114,7 +114,7 @@
                                  height="120"
                                  loading="lazy">
                         </div>
-                        <h3 itemprop="name">Navenza</h3>
+                        <h3 itemprop="name" class="sr-only">Navenza</h3>
                         <p itemprop="description"><?php echo aynix_translate('innovation_solutions.navenza'); ?></p>
                         <a href="<?php echo home_url('/experience/navenza'); ?>" 
                            class="cta-button" 
@@ -135,7 +135,7 @@
                                  height="120"
                                  loading="lazy">
                         </div>
-                        <h3 itemprop="name">Pinguito</h3>
+                        <h3 itemprop="name" class="sr-only">Pinguito</h3>
                         <p itemprop="description"><?php echo aynix_translate('innovation_solutions.pinguito'); ?></p>
                         <a href="<?php echo home_url('/experience/pinguito'); ?>" 
                            class="cta-button" 
