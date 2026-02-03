@@ -253,6 +253,10 @@
     padding: 60px 0 80px;
 }
 
+.esperienza-cta h2 {
+    color: white;
+}
+
 /* Responsive */
 @media (max-width: 992px) {
     .hero-page {
