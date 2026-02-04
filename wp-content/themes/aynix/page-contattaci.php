@@ -145,7 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form_submit']
         <section class="contact-info-footer">
             <p>
                 <strong>AYNIX SRL</strong><br>
-                Via Populonia, 8 – 20159 Milano (MI)<br>
+                Via Populonia, 8 – 20159 Milano (MI), Italia<br>
                 Email: <a href="mailto:info@aynix.tech">info@aynix.tech</a><br><br>
                 <strong><?php echo aynix_translate('contact.phone_label_europe'); ?>:</strong> <a href="tel:<?php echo str_replace(' ', '', aynix_translate('contact.phone_europe')); ?>"><?php echo aynix_translate('contact.phone_europe'); ?></a><br>
                 <strong><?php echo aynix_translate('contact.phone_label_latam'); ?>:</strong> <a href="tel:<?php echo str_replace(' ', '', aynix_translate('contact.phone_latin_america')); ?>"><?php echo aynix_translate('contact.phone_latin_america'); ?></a>
