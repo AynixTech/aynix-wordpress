@@ -60,6 +60,7 @@
                 <li><a href="<?php echo esc_url(home_url('/soluzioni')); ?>"><?php echo aynix_translate('nav.soluzioni'); ?></a></li>
                 <li><a href="<?php echo esc_url(home_url('/esperienza')); ?>"><?php echo aynix_translate('nav.esperienza'); ?></a></li>
                 <li><a href="<?php echo esc_url(home_url('/chi-siamo')); ?>"><?php echo aynix_translate('nav.chi_siamo'); ?></a></li>
+                <li><a href="<?php echo esc_url(home_url('/contattaci')); ?>"><?php echo aynix_translate('nav.contattaci'); ?></a></li>
             </ul>
             <div class="footer-cta" style="margin-top: 20px;">
                 <a href="<?php echo esc_url(home_url('/diagnosi')); ?>" class="btn-primary" style="display: inline-block; padding: 12px 24px; border-radius: 8px;">
