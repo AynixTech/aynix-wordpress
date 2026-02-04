@@ -441,7 +441,7 @@ function generate_ai_proposal($form_data, $user_lang = 'it') {
 
 REGOLE FERME:
 - Scrivi COMPLETAMENTE in " . $lang['language'] . "
-- NON menzionare MAI: stack tecnologico, architetture, framework, database, linguaggi di programmazione
+- MENZIONA in modo tecnico SOLO per descrivere i modelli (Utente, Funzionalità, Flusso, etc.) ma NON tecnologie, stack, architetture
 - NON proporre soluzioni o \"la soluzione che proponiamo\"
 - NON parlare di \"prossimi passi\" o \"come procederemo\"
 - NON menzionare prezzi, costi, tempistiche
