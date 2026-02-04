@@ -290,6 +290,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form_submit']
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
+    margin-bottom: 25px;
+}
+
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
 }
 
 .success-message,
@@ -433,10 +440,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form_submit']
     
     .contact-hero .hero-subtitle {
         font-size: 1.05em;
-    }
-
-    .form-row {
-        grid-template-columns: 1fr;
     }
 
     .orientation-block,
