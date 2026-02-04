@@ -427,31 +427,35 @@ function generate_ai_proposal($form_data, $user_lang = 'it') {
     }
     
     $prompt .= "\n" . $lang['structure'] . "\n
-1. **Il Nodo Principale**
-   - Identifica in 2-3 righe qual è il problema/vincolo centrale che emerge dalla diagnosi
-   - UTILIZZA SEMPRE le informazioni dalla \"Descrizione dettagliata del progetto\" come base principale dell'analisi
-   - Se il cliente ha descritto funzionalità specifiche (es: API esterne, checkout, pagamenti, reportistica), INCLUDILE nell'analisi
-   - NON proporre soluzioni, solo comprensione del problema e delle esigenze espresse
+1. **Situazione Attuale** (2-4 righe)
+   - PRIORITÀ ASSOLUTA: Parti SEMPRE dalla \"Descrizione dettagliata del progetto\" fornita dal cliente
+   - Se il cliente ha menzionato funzionalità specifiche (es: marketplace, piattaforma eSIM, gestione pagamenti, API, checkout, reportistica, dashboard), CITALE ESPLICITAMENTE dimostrando di averle comprese
+   - Esempio: \"Vuoi costruire una piattaforma marketplace per eSIM con gestione pagamenti e API per rivenditori\"
+   - Descrivi il contesto operativo attuale e il problema/vincolo che emerge
+   - NON inventare dettagli non forniti, ma USA TUTTO ciò che il cliente ha scritto
 
-2. **L'Impatto Oggi**
-   - Descrivi l'impatto qualitativo di questo problema in termini di:
-     * Tempo perso o inefficienza
-     * Mancanza di controllo o visibilità
-     * Complessità gestionale
-     * Difficoltà a scalare o crescere
-   - Usa linguaggio semplice e concreto, NO gergo tecnico
+2. **Ipotesi di Architettura Operativa** (3-4 righe)
+   - Descrivi un approccio metodologico generale per affrontare questo tipo di sfida
+   - Parla di fasi logiche (mappatura, standardizzazione, automazione) senza entrare in tecnologie
+   - Mantieni un livello alto, orientato ai processi e ai risultati
+   
+3. **Risultato Atteso** (2-3 righe)
+   - Descrivi gli outcome qualitativi che questo tipo di approccio tende a generare
+   - Focus su: controllo, efficienza, scalabilità, riduzione errori
+   - NO promesse specifiche, solo benefici generali e misurabili
 
 REGOLE FERME:
 - Scrivi COMPLETAMENTE in " . $lang['language'] . "
-- PRIORITÀ ASSOLUTA: se il cliente ha fornito dettagli nel campo descrizione (API, checkout, pagamenti, ecc), MENZIONALI nell'analisi
-- Puoi menzionare funzionalità richieste (es: \"sistema di checkout\", \"integrazione API\", \"reportistica\") senza scendere in dettagli tecnici
-- NON menzionare tecnologie specifiche (React, Node.js, MySQL, etc.)
-- NON proporre soluzioni o \"la soluzione che proponiamo\"
-- NON parlare di \"prossimi passi\" o \"come procederemo\"
-- NON menzionare prezzi, costi, tempistiche
-- Focus: PROBLEMA + ESIGENZE SPECIFICHE + IMPATTO
-- Tono: empatico, comprensivo, consulenziale
-- Lunghezza: massimo 250-300 parole";
+- OBBLIGO: Se nella descrizione dettagliata il cliente ha menzionato un prodotto/servizio specifico (es: \"piattaforma eSIM\", \"marketplace\", \"sistema booking\"), DEVI riportarlo testualmente nella Sezione 1
+- OBBLIGO: Se il cliente ha elencato funzionalità (pagamenti, API, dashboard, etc.), CITALE nella Sezione 1 per dimostrare comprensione
+- Puoi menzionare funzionalità richieste dal cliente (es: \"gestione ordini\", \"integrazione API terze parti\", \"reportistica avanzata\")
+- NON menzionare MAI tecnologie specifiche (NO: React, Node.js, Python, MySQL, AWS, Docker, Kubernetes, etc.)
+- NON proporre \"la soluzione AYNIX\" o \"come risolveremo\"
+- NON parlare di \"prossimi passi operativi\" - quello è nel template email
+- NON menzionare prezzi, costi, o tempistiche specifiche
+- Tono: consulenziale, empatico, tecnico ma accessibile
+- Focus: COMPRENDERE ciò che il cliente vuole + RESTITUIRE VALORE tramite inquadramento strategico
+- Lunghezza: 300-400 parole massimo";
     
     // Chiamata API OpenAI
     $api_key = defined('OPENAI_API_KEY') ? OPENAI_API_KEY : '';
@@ -472,7 +476,29 @@ REGOLE FERME:
             'messages' => array(
                 array(
                     'role' => 'system',
-                    'content' => 'Sei un consulente strategico di AYNIX specializzato nell\'analisi di problemi legati a software e processi digitali. Il tuo compito NON è proporre soluzioni, ma restituire comprensione del problema identificato e delle esigenze specifiche espresse dal cliente. IMPORTANTE: Se il cliente ha fornito una descrizione dettagliata del progetto con funzionalità specifiche (es: API, checkout, pagamenti, reportistica, ecc.), DEVI includerle nell\'analisi per dimostrare che hai compreso le sue esigenze. Puoi menzionare le funzionalità richieste (es: "sistema di pagamento online", "integrazione con API esterne", "dashboard di reportistica") MA NON tecnologie specifiche (NO: React, Node.js, MySQL, PostgreSQL, AWS, etc.). Concentrati su: problema centrale + esigenze funzionali specifiche + impatto qualitativo (tempo, controllo, complessità, scalabilità). Usa un tono empatico e consulenziale, linguaggio semplice e accessibile.'
+                    'content' => 'Sei un consulente strategico di AYNIX specializzato nell\'analisi di problemi legati a software e processi digitali.
+
+COMPITO PRINCIPALE: Restituire comprensione profonda di ciò che il cliente vuole costruire/risolvere, dimostrando che hai letto attentamente la sua descrizione.
+
+OBBLIGHI ASSOLUTI:
+1. Leggi TUTTO il campo "Descrizione dettagliata del progetto" (dettagli_extra)
+2. Se il cliente ha menzionato un prodotto/servizio specifico (es: "piattaforma eSIM", "marketplace per rivenditori", "sistema di booking"), DEVI riportarlo ESPLICITAMENTE nella tua risposta
+3. Se ha elencato funzionalità (pagamenti online, API, dashboard, reportistica, checkout), DEVI citarle per dimostrare comprensione
+4. La sezione "Situazione Attuale" deve iniziare riassumendo ciò che il cliente vuole (es: "Vuoi costruire una piattaforma marketplace per eSIM con...")
+
+COSA PUOI MENZIONARE:
+✅ Prodotti/servizi descritti dal cliente (marketplace, piattaforma booking, app mobile, ecc)
+✅ Funzionalità richieste (pagamenti, API esterne, reportistica, gestione utenti, dashboard)
+✅ Processi operativi (automazione vendite, gestione ordini, coordinamento team)
+✅ Outcome desiderati (scalabilità, efficienza, controllo, visibilità)
+
+COSA NON DEVI MAI MENZIONARE:
+❌ Tecnologie specifiche (React, Node.js, Python, MySQL, AWS, Docker, Kubernetes)
+❌ "La soluzione AYNIX" o "come risolveremo noi"
+❌ Prezzi, costi, tempistiche specifiche
+❌ Dettagli implementativi o architetturali
+
+TONO: Consulenziale, empatico, tecnico ma accessibile. Dimostra che hai capito il progetto del cliente citando esplicitamente ciò che ha scritto.'
                 ),
                 array(
                     'role' => 'user',
@@ -630,26 +656,16 @@ function send_proposal_email($to_email, $proposal, $form_data, $lang = 'it', $po
     // Genera parametro email per pre-compilare il form
     $email_param = urlencode($to_email);
     
+    // Formatta il contenuto AI con le sezioni standard
+    $ai_content = nl2br(esc_html($proposal));
+    
     $content = '
         <p>' . $t['greeting'] . '</p>
         <p>' . $t['intro'] . '</p>
         
-        <h2 style="margin-top: 30px; margin-bottom: 15px; font-size: 18px; font-weight: bold;">' . $t['section1_title'] . '</h2>
-        <p>' . $t['section1_text'] . '</p>
-        
-        <h2 style="margin-top: 30px; margin-bottom: 15px; font-size: 18px; font-weight: bold;">' . $t['section2_title'] . '</h2>
-        <p>' . $t['section2_intro'] . '</p>
-        
-        <div style="margin: 20px 0;">
-            <p style="margin-bottom: 10px;"><strong>' . $t['section2_point1_title'] . '</strong><br>' . $t['section2_point1_text'] . '</p>
-            <p style="margin-bottom: 10px;"><strong>' . $t['section2_point2_title'] . '</strong><br>' . $t['section2_point2_text'] . '</p>
-            <p style="margin-bottom: 10px;"><strong>' . $t['section2_point3_title'] . '</strong><br>' . $t['section2_point3_text'] . '</p>
+        <div style="background: #f8f9fa; padding: 25px; border-left: 4px solid #0066cc; margin: 30px 0; border-radius: 4px;">
+            ' . $ai_content . '
         </div>
-        
-        <p>' . $t['section2_objective'] . '</p>
-        
-        <h2 style="margin-top: 30px; margin-bottom: 15px; font-size: 18px; font-weight: bold;">' . $t['section3_title'] . '</h2>
-        <p>' . $t['section3_text'] . '</p>
         
         <h2 style="margin-top: 30px; margin-bottom: 15px; font-size: 18px; font-weight: bold;">' . $t['section4_title'] . '</h2>
         <p>' . $t['section4_text'] . '</p>
