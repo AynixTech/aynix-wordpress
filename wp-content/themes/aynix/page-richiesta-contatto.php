@@ -69,7 +69,7 @@ $prefilled_email = isset($_GET['email']) ? sanitize_email($_GET['email']) : '';
                     <div class="info-box">
                         <h3>📋 Cosa aspettarti</h3>
                         <ul>
-                            <li>Ti contatteremo entro 24-48 ore</li>
+                            <li>Ti contatteremo entro 24 ore</li>
                             <li>Call gratuita di 15-20 minuti</li>
                             <li>Nessun impegno o vendita forzata</li>
                             <li>Discussione concreta sul tuo progetto</li>

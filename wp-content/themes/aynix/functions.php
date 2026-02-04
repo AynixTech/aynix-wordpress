@@ -697,7 +697,7 @@ function send_confirmation_email($to_email, $lang = 'it', $post_id = null) {
             'step2' => 'Valutiamo se e come possiamo aiutarti',
             'step3' => 'Ti ricontattiamo solo se c\'è valore reale',
             'time_label' => 'Tempo stimato:',
-            'time_value' => '24-48 ore',
+            'time_value' => 'massimo 24 ore',
             'note_label' => 'Nota importante:',
             'note_text' => 'Non riceverai proposte commerciali automatiche. Ti contatteremo solo se riteniamo di poter davvero aiutarti.',
             'closing' => 'A presto!',
@@ -714,7 +714,7 @@ function send_confirmation_email($to_email, $lang = 'it', $post_id = null) {
             'step2' => 'We evaluate if and how we can help you',
             'step3' => 'We contact you only if there is real value',
             'time_label' => 'Estimated time:',
-            'time_value' => '24-48 hours',
+            'time_value' => 'max 24 hours',
             'note_label' => 'Important note:',
             'note_text' => 'You will not receive automatic sales proposals. We will contact you only if we believe we can really help you.',
             'closing' => 'See you soon!',
@@ -731,7 +731,7 @@ function send_confirmation_email($to_email, $lang = 'it', $post_id = null) {
             'step2' => 'Evaluamos si y cómo podemos ayudarte',
             'step3' => 'Te contactamos solo si hay valor real',
             'time_label' => 'Tiempo estimado:',
-            'time_value' => '24-48 horas',
+            'time_value' => 'máximo 24 horas',
             'note_label' => 'Nota importante:',
             'note_text' => 'No recibirás propuestas comerciales automáticas. Te contactaremos solo si creemos que podemos ayudarte realmente.',
             'closing' => '¡Hasta pronto!',
@@ -748,7 +748,7 @@ function send_confirmation_email($to_email, $lang = 'it', $post_id = null) {
             'step2' => 'Avaliamos se e como podemos ajudá-lo',
             'step3' => 'Contactamos apenas se houver valor real',
             'time_label' => 'Tempo estimado:',
-            'time_value' => '24-48 horas',
+            'time_value' => 'máximo 24 horas',
             'note_label' => 'Nota importante:',
             'note_text' => 'Não receberá propostas comerciais automáticas. Contactaremos apenas se acreditarmos que podemos realmente ajudá-lo.',
             'closing' => 'Até breve!',
@@ -971,7 +971,7 @@ function send_contact_request_notification($nome, $cognome, $email, $telefono, $
             <a href="' . admin_url('post.php?post=' . $post_id . '&action=edit') . '" class="cta-button">Visualizza nel Pannello Admin</a>
         </p>
         
-        <p><strong>⚡ Azione richiesta:</strong> Contatta il cliente entro 24-48 ore per fissare la call.</p>
+        <p><strong>⚡ Azione richiesta:</strong> Contatta il cliente entro 24 ore per fissare la call.</p>
     ';
     
     $html_message = aynix_email_template($content, 'Nuova Richiesta di Contatto');
@@ -999,7 +999,7 @@ function send_contact_request_confirmation($email, $nome) {
         <div class="info-box">
             <p><strong>📞 Cosa succede ora?</strong></p>
             <ul style="margin: 10px 0;">
-                <li>Ti contatteremo entro 24-48 ore</li>
+                <li>Ti contatteremo entro 24 ore</li>
                 <li>Fisseremo una call gratuita di 15-20 minuti</li>
                 <li>Discuteremo il tuo progetto in dettaglio</li>
             </ul>

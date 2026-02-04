@@ -14,7 +14,7 @@ get_header();
                     <i class="fas fa-check-circle"></i>
                 </div>
                 <h1>✅ Richiesta Inviata con Successo</h1>
-                <p class="thankyou-subtitle">Ti contatteremo entro 24-48 ore per fissare la call</p>
+                <p class="thankyou-subtitle">Ti contatteremo entro 24 ore per fissare la call</p>
             </div>
         </section>
 
@@ -34,7 +34,7 @@ get_header();
                             <i class="fas fa-phone-alt"></i>
                         </div>
                         <h3>2. Ti Contattiamo</h3>
-                        <p>Entro 24-48 ore ti chiamiamo o scriviamo</p>
+                        <p>Entro 24 ore ti chiamiamo o scriviamo</p>
                     </div>
                     <div class="step-item">
                         <div class="step-icon">
