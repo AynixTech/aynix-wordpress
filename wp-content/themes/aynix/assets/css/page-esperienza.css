@@ -30,6 +30,17 @@
     color: #555;
 }
 
+.esperienza-page .section-key-phrase-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: var(--aynix-primary-color);
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 700;
+}
+
 .esperienza-page .section-key-phrase {
     text-align: center;
     max-width: 800px;

@@ -147,10 +147,10 @@ get_header();
 
             <!-- SEZIONE 2: Casi risolti con diagnosi -->
             <section class="diagnosed-cases">
+                 <p class="section-key-phrase"><?php echo aynix_translate('esperienza.diagnosed_cases.key_phrase'); ?></p>
                 <h2><?php echo aynix_translate('esperienza.diagnosed_cases.title'); ?></h2>
                 <p class="section-subtitle"><?php echo aynix_translate('esperienza.diagnosed_cases.subtitle'); ?></p>
                 <p class="section-intro"><?php echo aynix_translate('esperienza.diagnosed_cases.intro'); ?></p>
-                <p class="section-key-phrase"><?php echo aynix_translate('esperienza.diagnosed_cases.key_phrase'); ?></p>
 
                 <div class="case-studies">
                     <!-- Case 1 -->
