@@ -312,46 +312,116 @@ function generate_ai_proposal($form_data, $user_lang = 'it') {
         return false;
     }
     
+    // Mappa delle domande del questionario per contesto completo
+    $question_labels = array(
+        'it' => array(
+            'tipo_progetto' => 'Che tipo di soluzione stai cercando?',
+            'obiettivo_principale' => 'Qual è l\'obiettivo principale del progetto?',
+            'funzionalita' => 'Quali funzionalità principali ti servono?',
+            'utenti_target' => 'Chi userà principalmente questa soluzione?',
+            'numero_utenti' => 'Quanti utenti prevedi?',
+            'stato_progetto' => 'A che punto sei con il progetto?',
+            'complessita' => 'Complessità percepita del progetto',
+            'tempistiche' => 'In quanto tempo vorresti lanciare?',
+            'budget' => 'Qual è il tuo budget indicativo?',
+            'dettagli_extra' => 'Descrizione dettagliata del progetto'
+        ),
+        'en' => array(
+            'tipo_progetto' => 'What type of solution are you looking for?',
+            'obiettivo_principale' => 'What is the main goal of the project?',
+            'funzionalita' => 'Which main features do you need?',
+            'utenti_target' => 'Who will primarily use this solution?',
+            'numero_utenti' => 'How many users do you expect?',
+            'stato_progetto' => 'What stage is your project at?',
+            'complessita' => 'Perceived project complexity',
+            'tempistiche' => 'When would you like to launch?',
+            'budget' => 'What is your indicative budget?',
+            'dettagli_extra' => 'Detailed project description'
+        ),
+        'es' => array(
+            'tipo_progetto' => '¿Qué tipo de solución buscas?',
+            'obiettivo_principale' => '¿Cuál es el objetivo principal del proyecto?',
+            'funzionalita' => '¿Qué funcionalidades principales necesitas?',
+            'utenti_target' => '¿Quién usará principalmente esta solución?',
+            'numero_utenti' => '¿Cuántos usuarios esperas?',
+            'stato_progetto' => '¿En qué etapa está tu proyecto?',
+            'complessita' => 'Complejidad percibida del proyecto',
+            'tempistiche' => '¿Cuándo te gustaría lanzar?',
+            'budget' => '¿Cuál es tu presupuesto indicativo?',
+            'dettagli_extra' => 'Descripción detallada del proyecto'
+        ),
+        'pt' => array(
+            'tipo_progetto' => 'Que tipo de solução procuras?',
+            'obiettivo_principale' => 'Qual é o objetivo principal do projeto?',
+            'funzionalita' => 'Que funcionalidades principais precisas?',
+            'utenti_target' => 'Quem irá usar principalmente esta solução?',
+            'numero_utenti' => 'Quantos utilizadores esperas?',
+            'stato_progetto' => 'Em que fase está o teu projeto?',
+            'complessita' => 'Complexidade percebida do projeto',
+            'tempistiche' => 'Quando gostarias de lançar?',
+            'budget' => 'Qual é o teu orçamento indicativo?',
+            'dettagli_extra' => 'Descrição detalhada do projeto'
+        )
+    );
+    
     // Traduzioni per il prompt
     $lang_instructions = array(
         'it' => array(
             'language' => 'ITALIANO',
             'intro' => 'Sei un consulente strategico di AYNIX che aiuta a comprendere e inquadrare problemi legati a software e processi digitali.',
-            'analyze' => 'Analizza queste risposte e identifica il problema principale che emerge:',
+            'analyze' => 'Analizza queste risposte del questionario diagnostico e identifica il problema principale che emerge:',
             'structure' => 'Scrivi un\'analisi in ITALIANO strutturata così:'
         ),
         'en' => array(
             'language' => 'ENGLISH',
             'intro' => 'You are a strategic consultant at AYNIX who helps understand and frame problems related to software and digital processes.',
-            'analyze' => 'Analyze these responses and identify the main problem that emerges:',
+            'analyze' => 'Analyze these diagnostic questionnaire responses and identify the main problem that emerges:',
             'structure' => 'Write an analysis in ENGLISH structured as follows:'
         ),
         'es' => array(
             'language' => 'ESPAÑOL',
             'intro' => 'Eres un consultor estratégico de AYNIX que ayuda a comprender y enmarcar problemas relacionados con software y procesos digitales.',
-            'analyze' => 'Analiza estas respuestas e identifica el problema principal que surge:',
+            'analyze' => 'Analiza estas respuestas del cuestionario diagnóstico e identifica el problema principal que surge:',
             'structure' => 'Escribe un análisis en ESPAÑOL estructurado así:'
         ),
         'pt' => array(
             'language' => 'PORTUGUÊS',
             'intro' => 'És um consultor estratégico da AYNIX que ajuda a compreender e enquadrar problemas relacionados com software e processos digitais.',
-            'analyze' => 'Analisa estas respostas e identifica o problema principal que emerge:',
+            'analyze' => 'Analisa estas respostas do questionário diagnóstico e identifica o problema principal que emerge:',
             'structure' => 'Escreve uma análise em PORTUGUÊS estruturada assim:'
         )
     );
     
     $lang = isset($lang_instructions[$user_lang]) ? $lang_instructions[$user_lang] : $lang_instructions['it'];
+    $labels = isset($question_labels[$user_lang]) ? $question_labels[$user_lang] : $question_labels['it'];
     
-    // Costruisci prompt per OpenAI
+    // Costruisci prompt per OpenAI con domande e risposte complete
     $prompt = $lang['intro'] . "\n\n" . $lang['analyze'] . "\n\n";
     
-    foreach ($form_data as $key => $value) {
-        if ($key !== 'email' && !empty($value)) {
-            $label = ucfirst(str_replace('_', ' ', $key));
+    // Ordine preferenziale delle domande per dare contesto migliore all'AI
+    $question_order = ['tipo_progetto', 'obiettivo_principale', 'dettagli_extra', 'funzionalita', 'stato_progetto', 'complessita', 'utenti_target', 'numero_utenti', 'tempistiche', 'budget'];
+    
+    foreach ($question_order as $key) {
+        if (isset($form_data[$key]) && !empty($form_data[$key]) && $key !== 'email') {
+            $question_text = isset($labels[$key]) ? $labels[$key] : ucfirst(str_replace('_', ' ', $key));
+            $value = $form_data[$key];
+            
             if (is_array($value)) {
-                $prompt .= "$label: " . implode(', ', $value) . "\n";
+                $prompt .= "**{$question_text}**\n→ " . implode(', ', $value) . "\n\n";
             } else {
-                $prompt .= "$label: $value\n";
+                $prompt .= "**{$question_text}**\n→ {$value}\n\n";
+            }
+        }
+    }
+    
+    // Aggiungi eventuali campi extra non nell'ordine predefinito
+    foreach ($form_data as $key => $value) {
+        if (!in_array($key, $question_order) && $key !== 'email' && !empty($value)) {
+            $question_text = isset($labels[$key]) ? $labels[$key] : ucfirst(str_replace('_', ' ', $key));
+            if (is_array($value)) {
+                $prompt .= "**{$question_text}**\n→ " . implode(', ', $value) . "\n\n";
+            } else {
+                $prompt .= "**{$question_text}**\n→ {$value}\n\n";
             }
         }
     }
