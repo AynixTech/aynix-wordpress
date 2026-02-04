@@ -1,5 +1,5 @@
 <?php
-/* Template Name: Contact Us */
+/* Template Name: Contattaci */
 get_header();
 
 // Handle form submission
