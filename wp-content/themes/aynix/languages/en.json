@@ -97,6 +97,8 @@
   "contact.form.reason_option4": "Other",
   "contact.form.message_placeholder": "Briefly describe the context of your request and what you expect from the contact.",
   "contact.method_note": "We do not respond with standard solutions or proposals. Every discussion always starts from understanding the context.",
+  "contact.phone_label_europe": "Italy / Europe",
+  "contact.phone_label_latam": "Latin America",
   "contact.form_title": "Contact Form 1",
   "contact.heading": "Contact Us",
   "contact.address_label": "Address",

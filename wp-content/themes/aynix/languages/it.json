@@ -97,6 +97,8 @@
   "contact.form.reason_option4": "Altro",
   "contact.form.message_placeholder": "Descrivi brevemente il contesto della richiesta e cosa ti aspetti dal contatto.",
   "contact.method_note": "Non rispondiamo con soluzioni o proposte standard. Ogni confronto parte sempre dalla comprensione del contesto.",
+  "contact.phone_label_europe": "Italia / Europa",
+  "contact.phone_label_latam": "America Latina",
   "contact.form_title": "Modulo di contatto 1",
   "contact.heading": "Contattaci",
   "contact.address_label": "Indirizzo",
