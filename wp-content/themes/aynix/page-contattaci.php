@@ -159,6 +159,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form_submit']
     padding: 50px 20px;
 }
 
+.contact-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+}
+
 .contact-hero {
     text-align: center;
     margin-bottom: 60px;
