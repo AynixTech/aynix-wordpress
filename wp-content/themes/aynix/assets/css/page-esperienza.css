@@ -165,12 +165,9 @@
     position: absolute;
     top: -15px;
     left: 30px;
-    background: linear-gradient(
-        90deg,
-        var(--aynix-primary-color),
-        var(--aynix-secondary-color)
-    );
+    background: white;
     color: white;
+    border: 1px solid #a2e2f4;
     padding: 8px 20px;
     border-radius: 20px;
     font-weight: 600;
