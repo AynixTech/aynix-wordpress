@@ -429,7 +429,9 @@ function generate_ai_proposal($form_data, $user_lang = 'it') {
     $prompt .= "\n" . $lang['structure'] . "\n
 1. **Il Nodo Principale**
    - Identifica in 2-3 righe qual è il problema/vincolo centrale che emerge dalla diagnosi
-   - NON proporre soluzioni, solo comprensione del problema
+   - UTILIZZA SEMPRE le informazioni dalla \"Descrizione dettagliata del progetto\" come base principale dell'analisi
+   - Se il cliente ha descritto funzionalità specifiche (es: API esterne, checkout, pagamenti, reportistica), INCLUDILE nell'analisi
+   - NON proporre soluzioni, solo comprensione del problema e delle esigenze espresse
 
 2. **L'Impatto Oggi**
    - Descrivi l'impatto qualitativo di questo problema in termini di:
@@ -441,13 +443,15 @@ function generate_ai_proposal($form_data, $user_lang = 'it') {
 
 REGOLE FERME:
 - Scrivi COMPLETAMENTE in " . $lang['language'] . "
-- MENZIONA in modo tecnico SOLO per descrivere i modelli (Utente, Funzionalità, Flusso, etc.) ma NON tecnologie, stack, architetture
+- PRIORITÀ ASSOLUTA: se il cliente ha fornito dettagli nel campo descrizione (API, checkout, pagamenti, ecc), MENZIONALI nell'analisi
+- Puoi menzionare funzionalità richieste (es: \"sistema di checkout\", \"integrazione API\", \"reportistica\") senza scendere in dettagli tecnici
+- NON menzionare tecnologie specifiche (React, Node.js, MySQL, etc.)
 - NON proporre soluzioni o \"la soluzione che proponiamo\"
 - NON parlare di \"prossimi passi\" o \"come procederemo\"
 - NON menzionare prezzi, costi, tempistiche
-- Focus esclusivo: PROBLEMA + IMPATTO
+- Focus: PROBLEMA + ESIGENZE SPECIFICHE + IMPATTO
 - Tono: empatico, comprensivo, consulenziale
-- Lunghezza: massimo 200-250 parole";
+- Lunghezza: massimo 250-300 parole";
     
     // Chiamata API OpenAI
     $api_key = defined('OPENAI_API_KEY') ? OPENAI_API_KEY : '';
@@ -468,7 +472,7 @@ REGOLE FERME:
             'messages' => array(
                 array(
                     'role' => 'system',
-                    'content' => 'Sei un consulente strategico di AYNIX specializzato nell\'analisi di problemi legati a software e processi digitali. Il tuo compito NON è proporre soluzioni, ma restituire comprensione del problema identificato. NON menzionare MAI tecnologie, stack, architetture o dettagli implementativi. Concentrati esclusivamente su: problema centrale + impatto qualitativo (tempo, controllo, complessità, scalabilità). Usa un tono empatico e consulenziale, linguaggio semplice e accessibile.'
+                    'content' => 'Sei un consulente strategico di AYNIX specializzato nell\'analisi di problemi legati a software e processi digitali. Il tuo compito NON è proporre soluzioni, ma restituire comprensione del problema identificato e delle esigenze specifiche espresse dal cliente. IMPORTANTE: Se il cliente ha fornito una descrizione dettagliata del progetto con funzionalità specifiche (es: API, checkout, pagamenti, reportistica, ecc.), DEVI includerle nell\'analisi per dimostrare che hai compreso le sue esigenze. Puoi menzionare le funzionalità richieste (es: "sistema di pagamento online", "integrazione con API esterne", "dashboard di reportistica") MA NON tecnologie specifiche (NO: React, Node.js, MySQL, PostgreSQL, AWS, etc.). Concentrati su: problema centrale + esigenze funzionali specifiche + impatto qualitativo (tempo, controllo, complessità, scalabilità). Usa un tono empatico e consulenziale, linguaggio semplice e accessibile.'
                 ),
                 array(
                     'role' => 'user',
