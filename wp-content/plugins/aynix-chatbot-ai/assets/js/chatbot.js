@@ -16,6 +16,23 @@
         },
         
         cacheDom: function() {
+            // Verificar si hay duplicados
+            const allToggles = document.querySelectorAll('#aynix-chatbot-toggle');
+            const allWidgets = document.querySelectorAll('#aynix-chatbot-widget');
+            
+            console.log('⚠️ Number of toggle buttons found:', allToggles.length);
+            console.log('⚠️ Number of widgets found:', allWidgets.length);
+            
+            if (allToggles.length > 1) {
+                console.error('❌ DUPLICATE TOGGLE BUTTONS FOUND!');
+                allToggles.forEach((el, i) => console.log(`Toggle ${i}:`, el));
+            }
+            
+            if (allWidgets.length > 1) {
+                console.error('❌ DUPLICATE WIDGETS FOUND!');
+                allWidgets.forEach((el, i) => console.log(`Widget ${i}:`, el));
+            }
+            
             this.toggle = document.getElementById('aynix-chatbot-toggle');
             this.widget = document.getElementById('aynix-chatbot-widget');
             this.messages = document.getElementById('aynix-chatbot-messages');
@@ -25,6 +42,13 @@
             
             console.log('Toggle button found:', this.toggle ? 'Yes' : 'No');
             console.log('Widget found:', this.widget ? 'Yes' : 'No');
+            
+            // Verificar integridad del widget
+            if (this.widget) {
+                console.log('Widget ID:', this.widget.id);
+                console.log('Widget classList value:', this.widget.classList.value);
+                console.log('Widget className:', this.widget.className);
+            }
         },
         
         bindEvents: function() {
