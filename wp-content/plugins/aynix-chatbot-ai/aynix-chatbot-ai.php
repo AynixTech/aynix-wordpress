@@ -83,15 +83,51 @@ class AYNIX_Chatbot_AI {
         ));
     }
     
+    private function normalize_lang($lang) {
+        if (!$lang) {
+            return 'it';
+        }
+        $normalized = strtolower((string) $lang);
+        if (strpos($normalized, '-') !== false) {
+            $parts = explode('-', $normalized);
+            $normalized = $parts[0];
+        }
+        if (strpos($normalized, '_') !== false) {
+            $parts = explode('_', $normalized);
+            $normalized = $parts[0];
+        }
+        if (strlen($normalized) > 2) {
+            $normalized = substr($normalized, 0, 2);
+        }
+        $allowed = array('it', 'en', 'es', 'pt');
+        if (!in_array($normalized, $allowed, true)) {
+            return 'it';
+        }
+        return $normalized;
+    }
+
     private function detect_language() {
         // Cerca parametro URL lang
-        if (isset($_GET['lang']) && in_array($_GET['lang'], array('it', 'en', 'es', 'pt'))) {
-            return sanitize_text_field($_GET['lang']);
+        if (isset($_GET['lang'])) {
+            $url_lang = $this->normalize_lang(sanitize_text_field($_GET['lang']));
+            if ($url_lang) {
+                return $url_lang;
+            }
         }
         
         // Cerca cookie o session
-        if (isset($_COOKIE['aynix_lang']) && in_array($_COOKIE['aynix_lang'], array('it', 'en', 'es', 'pt'))) {
-            return sanitize_text_field($_COOKIE['aynix_lang']);
+        if (isset($_COOKIE['aynix_lang'])) {
+            $cookie_lang = $this->normalize_lang(sanitize_text_field($_COOKIE['aynix_lang']));
+            if ($cookie_lang) {
+                return $cookie_lang;
+            }
+        }
+
+        // Locale del sito/utente
+        $locale = function_exists('determine_locale') ? determine_locale() : get_locale();
+        $locale_lang = $this->normalize_lang($locale);
+        if ($locale_lang) {
+            return $locale_lang;
         }
         
         // Default italiano

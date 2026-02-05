@@ -6,12 +6,40 @@
     'use strict';
     
     const AynixChatbot = {
+        normalizeLang: function(lang) {
+            if (!lang) {
+                return 'it';
+            }
+            let normalized = String(lang).toLowerCase();
+            if (normalized.includes('-')) {
+                normalized = normalized.split('-')[0];
+            }
+            if (normalized.includes('_')) {
+                normalized = normalized.split('_')[0];
+            }
+            if (normalized.length > 2) {
+                normalized = normalized.slice(0, 2);
+            }
+            const allowed = ['it', 'en', 'es', 'pt'];
+            if (!allowed.includes(normalized)) {
+                return 'it';
+            }
+            return normalized;
+        },
         
         init: function() {
             console.log('AYNIX Chatbot: Initializing...');
             console.log('aynixChatbot object:', typeof aynixChatbot !== 'undefined' ? aynixChatbot : 'NOT FOUND');
             
             if (typeof aynixChatbot !== 'undefined') {
+                const normalizedLang = this.normalizeLang(aynixChatbot.lang);
+                if (normalizedLang !== aynixChatbot.lang) {
+                    console.log('Normalizing initial language:', aynixChatbot.lang, '=>', normalizedLang);
+                    aynixChatbot.lang = normalizedLang;
+                    if (aynixChatbot.allTranslations && aynixChatbot.allTranslations[normalizedLang]) {
+                        aynixChatbot.translations = aynixChatbot.allTranslations[normalizedLang];
+                    }
+                }
                 console.log('Current language:', aynixChatbot.lang);
                 console.log('Translations available:', aynixChatbot.translations);
                 console.log('All translations available:', aynixChatbot.allTranslations ? 'YES' : 'NO');
@@ -82,9 +110,10 @@
             if (this.languageSwitcher) {
                 console.log('Language switcher listener attached');
                 this.languageSwitcher.addEventListener('change', function(e) {
-                    const newLang = e.target.value;
+                    const rawLang = e.target.value;
+                    const newLang = self.normalizeLang(rawLang);
                     console.log('=== LANGUAGE CHANGE DETECTED ===');
-                    console.log('New language:', newLang);
+                    console.log('Raw language:', rawLang, '=> normalized:', newLang);
                     console.log('aynixChatbot exists:', typeof aynixChatbot !== 'undefined');
                     console.log('allTranslations exists:', typeof aynixChatbot !== 'undefined' && aynixChatbot.allTranslations ? 'YES' : 'NO');
                     
@@ -265,21 +294,22 @@
         
         changeLanguage: function(newLang) {
             console.log('=== changeLanguage() called ===');
-            console.log('New language:', newLang);
+            const normalizedLang = this.normalizeLang(newLang);
+            console.log('New language:', newLang, '=> normalized:', normalizedLang);
             console.log('aynixChatbot.allTranslations:', aynixChatbot.allTranslations);
             
             // Verificar que existan las traducciones para el nuevo idioma
-            if (!aynixChatbot.allTranslations || !aynixChatbot.allTranslations[newLang]) {
-                console.error('Translations not found for language:', newLang);
+            if (!aynixChatbot.allTranslations || !aynixChatbot.allTranslations[normalizedLang]) {
+                console.error('Translations not found for language:', normalizedLang);
                 console.log('Available languages:', aynixChatbot.allTranslations ? Object.keys(aynixChatbot.allTranslations) : 'NONE');
                 return;
             }
             
-            console.log('Translations found for', newLang, ':', aynixChatbot.allTranslations[newLang]);
+            console.log('Translations found for', normalizedLang, ':', aynixChatbot.allTranslations[normalizedLang]);
             
             // Actualizar idioma actual
-            aynixChatbot.lang = newLang;
-            aynixChatbot.translations = aynixChatbot.allTranslations[newLang];
+            aynixChatbot.lang = normalizedLang;
+            aynixChatbot.translations = aynixChatbot.allTranslations[normalizedLang];
             
             console.log('Updated aynixChatbot.lang to:', aynixChatbot.lang);
             console.log('Updated aynixChatbot.translations:', aynixChatbot.translations);
@@ -287,7 +317,7 @@
             // Actualizar textos del chatbot
             this.updateChatbotTexts();
             
-            console.log('Chatbot language updated successfully to:', newLang);
+            console.log('Chatbot language updated successfully to:', normalizedLang);
         },
         
         updateChatbotTexts: function() {
