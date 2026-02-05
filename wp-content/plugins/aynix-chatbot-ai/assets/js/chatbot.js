@@ -65,7 +65,14 @@
                 this.languageSwitcher.addEventListener('change', function(e) {
                     const newLang = e.target.value;
                     console.log('Language changed to:', newLang);
-                    self.changeLanguage(newLang);
+                    // Solo cambiar idioma si tenemos todas las traducciones disponibles
+                    if (typeof aynixChatbot !== 'undefined' && aynixChatbot.allTranslations) {
+                        self.changeLanguage(newLang);
+                    } else {
+                        // Recargar la página con el nuevo idioma
+                        console.log('Reloading page with new language');
+                        window.location.href = window.location.pathname + '?lang=' + newLang;
+                    }
                 });
             }
         },

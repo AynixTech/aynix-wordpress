@@ -58,7 +58,7 @@ class AYNIX_Chatbot_AI {
             'aynix-chatbot-js',
             plugin_dir_url(__FILE__) . 'assets/js/chatbot.js',
             array(), // Sin dependencias
-            '2.2.0',
+            '2.2.1',
             true
         );
         
@@ -67,10 +67,17 @@ class AYNIX_Chatbot_AI {
         // Localize script con traduzioni e AJAX URL
         $current_lang = $this->detect_language();
         
+        // Pasar TODAS las traducciones para permitir cambio dinámico de idioma
         wp_localize_script('aynix-chatbot-js', 'aynixChatbot', array(
             'ajaxUrl' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('aynix_chatbot_nonce'),
             'lang' => $current_lang,
+            'allTranslations' => array(
+                'it' => $this->get_translations('it'),
+                'en' => $this->get_translations('en'),
+                'es' => $this->get_translations('es'),
+                'pt' => $this->get_translations('pt')
+            ),
             'translations' => $this->get_translations($current_lang)
         ));
     }
