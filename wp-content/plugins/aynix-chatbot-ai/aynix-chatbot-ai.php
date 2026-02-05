@@ -58,7 +58,7 @@ class AYNIX_Chatbot_AI {
             'aynix-chatbot-js',
             plugin_dir_url(__FILE__) . 'assets/js/chatbot.js',
             array(), // Sin dependencias
-            '2.0.2',
+            '2.0.3',
             true
         );
         
@@ -134,6 +134,16 @@ class AYNIX_Chatbot_AI {
     }
     
     public function render_chatbot() {
+        // Evitar renderizar dos veces
+        static $rendered = false;
+        
+        if ($rendered) {
+            error_log('AYNIX Chatbot: Already rendered, skipping duplicate render');
+            return;
+        }
+        
+        $rendered = true;
+        
         error_log('AYNIX Chatbot: render_chatbot() called');
         
         $lang = $this->detect_language();
