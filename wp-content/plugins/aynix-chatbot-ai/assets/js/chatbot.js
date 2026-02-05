@@ -29,20 +29,31 @@
         
         bindEvents: function() {
             console.log('AYNIX Chatbot: Binding events...');
+            console.log('Toggle button element:', this.toggle);
+            console.log('Widget element:', this.widget);
             
             const self = this;
             
             if (this.toggle) {
+                console.log('Adding click listener to toggle button...');
                 this.toggle.addEventListener('click', function(e) {
-                    console.log('=== CLICK DETECTED ===');
+                    console.log('🎯 === CLICK DETECTED ON TOGGLE BUTTON ===');
+                    console.log('Event:', e);
+                    console.log('Event target:', e.target);
+                    console.log('Current target:', e.currentTarget);
                     e.preventDefault();
                     e.stopPropagation();
+                    console.log('Calling toggleChat()...');
                     self.toggleChat();
-                });
+                }, false);
+                console.log('Click listener added to toggle button');
+            } else {
+                console.error('❌ Toggle button not found!');
             }
             
             if (this.minimize) {
                 this.minimize.addEventListener('click', function(e) {
+                    console.log('Minimize clicked');
                     e.preventDefault();
                     self.closeChat();
                 });
@@ -50,6 +61,7 @@
             
             if (this.sendBtn) {
                 this.sendBtn.addEventListener('click', function(e) {
+                    console.log('Send button clicked');
                     e.preventDefault();
                     self.sendMessage();
                 });
@@ -64,6 +76,21 @@
                 });
             }
             
+            // Test manual después de 1 segundo
+            setTimeout(function() {
+                console.log('=== DIAGNOSTIC TEST ===');
+                console.log('Toggle button exists:', !!self.toggle);
+                console.log('Toggle button visible:', self.toggle ? window.getComputedStyle(self.toggle).display !== 'none' : false);
+                console.log('Toggle button z-index:', self.toggle ? window.getComputedStyle(self.toggle).zIndex : 'N/A');
+                console.log('Toggle button pointer-events:', self.toggle ? window.getComputedStyle(self.toggle).pointerEvents : 'N/A');
+                
+                // Test click programático
+                console.log('Testing programmatic click...');
+                if (self.toggle) {
+                    self.toggle.click();
+                }
+            }, 2000);
+            
             console.log('AYNIX Chatbot: Events bound successfully');
         },
         
@@ -74,25 +101,41 @@
         },
         
         toggleChat: function() {
-            console.log('=== TOGGLE CHAT METHOD CALLED ===');
+            console.log('🔄 === TOGGLE CHAT METHOD CALLED ===');
+            console.log('Widget element:', this.widget);
+            console.log('Widget classList:', this.widget.classList);
+            
             const isActive = this.widget.classList.contains('active');
             console.log('Widget has active class:', isActive);
+            console.log('Widget display style:', this.widget.style.display);
+            console.log('Widget computed display:', window.getComputedStyle(this.widget).display);
             
             if (isActive) {
-                console.log('Closing chat...');
+                console.log('➡️ Closing chat...');
                 this.closeChat();
             } else {
-                console.log('Opening chat...');
+                console.log('➡️ Opening chat...');
                 this.openChat();
             }
         },
         
         openChat: function() {
-            console.log('=== OPEN CHAT CALLED ===');
+            console.log('✅ === OPEN CHAT CALLED ===');
+            console.log('Widget before changes:', {
+                hasActive: this.widget.classList.contains('active'),
+                display: this.widget.style.display,
+                computedDisplay: window.getComputedStyle(this.widget).display
+            });
             
             this.widget.classList.add('active');
             this.toggle.classList.add('active');
             this.widget.style.display = 'flex';
+            
+            console.log('Widget after changes:', {
+                hasActive: this.widget.classList.contains('active'),
+                display: this.widget.style.display,
+                computedDisplay: window.getComputedStyle(this.widget).display
+            });
             
             if (this.input) {
                 this.input.focus();
@@ -101,7 +144,7 @@
             localStorage.setItem('aynix_chatbot_open', 'true');
             this.scrollToBottom();
             
-            console.log('Chat opened');
+            console.log('✅ Chat opened successfully');
         },
         
         closeChat: function() {

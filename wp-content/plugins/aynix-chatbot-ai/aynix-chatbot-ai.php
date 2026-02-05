@@ -58,7 +58,7 @@ class AYNIX_Chatbot_AI {
             'aynix-chatbot-js',
             plugin_dir_url(__FILE__) . 'assets/js/chatbot.js',
             array(), // Sin dependencias
-            '2.0.0',
+            '2.0.1',
             true
         );
         
