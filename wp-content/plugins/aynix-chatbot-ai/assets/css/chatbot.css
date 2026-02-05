@@ -3,7 +3,7 @@
 #aynix-chatbot-container {
     position: fixed;
     bottom: 20px;
-    right: 20px;
+    left: 20px;
     z-index: 9999;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
@@ -45,7 +45,7 @@
 #aynix-chatbot-widget {
     position: absolute;
     bottom: 80px;
-    right: 0;
+    left: 0;
     width: 380px;
     height: 550px;
     background: white;

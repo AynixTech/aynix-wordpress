@@ -37,6 +37,9 @@
         },
         
         toggleChat: function() {
+            console.log('Toggle chat clicked');
+            console.log('Widget has active class:', this.$widget.hasClass('active'));
+            
             if (this.$widget.hasClass('active')) {
                 this.closeChat();
             } else {
@@ -185,7 +188,14 @@
     
     // Initialize on document ready
     $(document).ready(function() {
+        console.log('AYNIX Chatbot: Initializing...');
+        console.log('jQuery version:', $.fn.jquery);
+        console.log('Toggle button found:', $('#aynix-chatbot-toggle').length);
+        console.log('Widget found:', $('#aynix-chatbot-widget').length);
+        
         AynixChatbot.init();
+        
+        console.log('AYNIX Chatbot: Initialized successfully');
     });
     
 })(jQuery);
