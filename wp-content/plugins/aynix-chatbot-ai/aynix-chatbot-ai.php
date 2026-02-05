@@ -50,7 +50,7 @@ class AYNIX_Chatbot_AI {
             'aynix-chatbot-css',
             plugin_dir_url(__FILE__) . 'assets/css/chatbot.css',
             array(),
-            '1.0.3'
+            '1.0.4'
         );
         
         // JavaScript con dependencia jQuery
