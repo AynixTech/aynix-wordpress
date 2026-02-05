@@ -77,8 +77,23 @@
         },
         
         openChat: function() {
+            console.log('=== OPEN CHAT CALLED ===');
+            console.log('Widget before:', {
+                display: this.$widget.css('display'),
+                hasActive: this.$widget.hasClass('active')
+            });
+            
             this.$widget.addClass('active');
             this.$toggle.addClass('active');
+            
+            // Forzar display inline como fallback
+            this.$widget.css('display', 'flex');
+            
+            console.log('Widget after:', {
+                display: this.$widget.css('display'),
+                hasActive: this.$widget.hasClass('active')
+            });
+            
             this.$input.focus();
             localStorage.setItem('aynix_chatbot_open', 'true');
             
@@ -87,9 +102,12 @@
         },
         
         closeChat: function() {
+            console.log('=== CLOSE CHAT CALLED ===');
             this.$widget.removeClass('active');
             this.$toggle.removeClass('active');
+            this.$widget.css('display', 'none');
             localStorage.setItem('aynix_chatbot_open', 'false');
+            console.log('Widget closed, display:', this.$widget.css('display'));
         },
         
         handleKeypress: function(e) {

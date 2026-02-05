@@ -60,7 +60,7 @@ class AYNIX_Chatbot_AI {
             'aynix-chatbot-js',
             plugin_dir_url(__FILE__) . 'assets/js/chatbot.js',
             array('jquery'),
-            '1.0.4',
+            '1.0.5',
             true
         );
         
