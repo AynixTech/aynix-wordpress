@@ -62,7 +62,6 @@
                 return;
             }
             let preferredLang = null;
-            const switcherLang = this.languageSwitcher ? this.normalizeLang(this.languageSwitcher.value) : null;
             const htmlLang = this.normalizeLang(document.documentElement.lang);
             let storedLang = null;
             try {
@@ -70,10 +69,9 @@
             } catch (e) {
                 storedLang = null;
             }
-            preferredLang = switcherLang || htmlLang || storedLang || this.normalizeLang(aynixChatbot.lang);
+            preferredLang = htmlLang || storedLang || this.normalizeLang(aynixChatbot.lang);
             if (preferredLang && preferredLang !== aynixChatbot.lang) {
                 console.log('Syncing chatbot language from page:', {
-                    switcherLang,
                     htmlLang,
                     storedLang,
                     initialLang: aynixChatbot.lang,
@@ -84,6 +82,13 @@
                     document.cookie = 'aynix_lang=' + preferredLang + '; path=/; max-age=' + (60*60*24*30);
                 } else {
                     console.warn('Preferred language not available in translations:', preferredLang);
+                }
+            }
+            if (this.languageSwitcher) {
+                const normalizedCurrent = this.normalizeLang(aynixChatbot.lang);
+                if (this.languageSwitcher.value !== normalizedCurrent) {
+                    console.log('Syncing selector to chatbot language:', normalizedCurrent);
+                    this.languageSwitcher.value = normalizedCurrent;
                 }
             }
         },
