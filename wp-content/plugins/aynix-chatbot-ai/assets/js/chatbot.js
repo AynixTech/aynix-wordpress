@@ -88,16 +88,22 @@
                     console.log('aynixChatbot exists:', typeof aynixChatbot !== 'undefined');
                     console.log('allTranslations exists:', typeof aynixChatbot !== 'undefined' && aynixChatbot.allTranslations ? 'YES' : 'NO');
                     
+                    // Guardar el idioma en una cookie para que persista
+                    document.cookie = 'aynix_lang=' + newLang + '; path=/; max-age=' + (60*60*24*30);
+                    console.log('Cookie aynix_lang set to:', newLang);
+                    
                     // Solo cambiar idioma si tenemos todas las traducciones disponibles
                     if (typeof aynixChatbot !== 'undefined' && aynixChatbot.allTranslations) {
                         console.log('Calling changeLanguage method...');
                         self.changeLanguage(newLang);
+                        // NO prevenir el evento porque el sitio necesita cambiar también
+                        // La cookie asegura que el chatbot mantenga el idioma después del reload
                     } else {
                         // Recargar la página con el nuevo idioma
                         console.log('Translations not available, reloading page with lang parameter');
                         window.location.href = window.location.pathname + '?lang=' + newLang;
                     }
-                });
+                }, true); // true = capture phase, ejecuta ANTES que otros listeners
             } else {
                 console.warn('Language switcher NOT FOUND - dynamic language change disabled');
             }
