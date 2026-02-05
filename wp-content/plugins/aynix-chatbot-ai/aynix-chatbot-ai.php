@@ -67,6 +67,7 @@ class AYNIX_Chatbot_AI {
         
         // Localize script con traduzioni e AJAX URL
         $current_lang = $this->detect_language();
+        error_log('AYNIX Chatbot: Detected language in enqueue_assets: ' . $current_lang);
         
         // Pasar TODAS las traducciones para permitir cambio dinámico de idioma
         wp_localize_script('aynix-chatbot-js', 'aynixChatbot', array(
@@ -81,6 +82,7 @@ class AYNIX_Chatbot_AI {
             ),
             'translations' => $this->get_translations($current_lang)
         ));
+        error_log('AYNIX Chatbot: wp_localize_script completed. lang=' . $current_lang);
     }
     
     private function normalize_lang($lang) {
@@ -111,6 +113,7 @@ class AYNIX_Chatbot_AI {
         if (isset($_GET['lang'])) {
             $url_lang = $this->normalize_lang(sanitize_text_field($_GET['lang']));
             if ($url_lang) {
+                error_log('AYNIX Chatbot: Language detected from URL: ' . $url_lang);
                 return $url_lang;
             }
         }
@@ -119,6 +122,7 @@ class AYNIX_Chatbot_AI {
         if (isset($_COOKIE['aynix_lang'])) {
             $cookie_lang = $this->normalize_lang(sanitize_text_field($_COOKIE['aynix_lang']));
             if ($cookie_lang) {
+                error_log('AYNIX Chatbot: Language detected from cookie: ' . $cookie_lang);
                 return $cookie_lang;
             }
         }
@@ -127,14 +131,18 @@ class AYNIX_Chatbot_AI {
         $locale = function_exists('determine_locale') ? determine_locale() : get_locale();
         $locale_lang = $this->normalize_lang($locale);
         if ($locale_lang) {
+            error_log('AYNIX Chatbot: Language detected from locale: ' . $locale . ' => ' . $locale_lang);
             return $locale_lang;
         }
         
         // Default italiano
+        error_log('AYNIX Chatbot: Language defaulted to it');
         return 'it';
     }
     
     private function get_translations($lang) {
+        $lang = $this->normalize_lang($lang);
+        error_log('AYNIX Chatbot: get_translations for lang=' . $lang);
         $translations = array(
             'it' => array(
                 'chatTitle' => 'Assistente AYNIX',
@@ -261,6 +269,8 @@ class AYNIX_Chatbot_AI {
         
         $user_message = isset($_POST['message']) ? sanitize_text_field($_POST['message']) : '';
         $user_lang = isset($_POST['lang']) ? sanitize_text_field($_POST['lang']) : 'it';
+        $user_lang = $this->normalize_lang($user_lang);
+        error_log('AYNIX Chatbot: handle_chat_message - lang=' . $user_lang . ' message_len=' . strlen($user_message));
         
         if (empty($user_message)) {
             wp_send_json_error(array('message' => 'Message is required'));
@@ -278,6 +288,8 @@ class AYNIX_Chatbot_AI {
     }
     
     private function generate_ai_response($user_message, $lang) {
+        $lang = $this->normalize_lang($lang);
+        error_log('AYNIX Chatbot: generate_ai_response - lang=' . $lang);
         // Usa la stessa API key del tema
         if (!defined('OPENAI_API_KEY')) {
             error_log('AYNIX Chatbot: OpenAI API Key non configurata');
@@ -290,6 +302,7 @@ class AYNIX_Chatbot_AI {
         $site_context = $this->get_site_context($lang);
         
         $system_message = $this->get_system_message($lang, $site_context);
+        error_log('AYNIX Chatbot: System message built for lang=' . $lang);
         
         $response = wp_remote_post('https://api.openai.com/v1/chat/completions', array(
             'headers' => array(
@@ -322,13 +335,17 @@ class AYNIX_Chatbot_AI {
         $body = json_decode(wp_remote_retrieve_body($response), true);
         
         if (isset($body['choices'][0]['message']['content'])) {
+            error_log('AYNIX Chatbot: OpenAI response received for lang=' . $lang);
             return $body['choices'][0]['message']['content'];
         }
+        error_log('AYNIX Chatbot: OpenAI response missing content for lang=' . $lang);
         
         return false;
     }
     
     private function get_site_context($lang) {
+        $lang = $this->normalize_lang($lang);
+        error_log('AYNIX Chatbot: get_site_context for lang=' . $lang);
         $contexts = array(
             'it' => array(
                 'company' => 'AYNIX è un\'azienda che sviluppa soluzioni software personalizzate',
@@ -392,6 +409,8 @@ class AYNIX_Chatbot_AI {
     }
     
     private function get_system_message($lang, $context) {
+        $lang = $this->normalize_lang($lang);
+        error_log('AYNIX Chatbot: get_system_message for lang=' . $lang);
         $messages = array(
             'it' => "Sei l'assistente virtuale del sito AYNIX, un'azienda di sviluppo software.
 
