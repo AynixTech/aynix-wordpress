@@ -109,6 +109,11 @@ class AYNIX_Chatbot_AI {
     }
 
     private function detect_language() {
+        $request_uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+        error_log('AYNIX Chatbot: detect_language() - request_uri=' . $request_uri);
+        error_log('AYNIX Chatbot: detect_language() - raw GET lang=' . (isset($_GET['lang']) ? $_GET['lang'] : '')); 
+        error_log('AYNIX Chatbot: detect_language() - raw cookie aynix_lang=' . (isset($_COOKIE['aynix_lang']) ? $_COOKIE['aynix_lang'] : ''));
+
         // Cerca parametro URL lang
         if (isset($_GET['lang'])) {
             $url_lang = $this->normalize_lang(sanitize_text_field($_GET['lang']));
@@ -124,6 +129,20 @@ class AYNIX_Chatbot_AI {
             if ($cookie_lang) {
                 error_log('AYNIX Chatbot: Language detected from cookie: ' . $cookie_lang);
                 return $cookie_lang;
+            }
+        }
+
+        // Cerca idioma en el path (/it/, /en/, /es/, /pt/)
+        if (!empty($request_uri)) {
+            $path = parse_url($request_uri, PHP_URL_PATH);
+            if ($path) {
+                if (preg_match('~/(it|en|es|pt)(/|$)~i', $path, $matches)) {
+                    $path_lang = $this->normalize_lang($matches[1]);
+                    if ($path_lang) {
+                        error_log('AYNIX Chatbot: Language detected from path: ' . $path_lang);
+                        return $path_lang;
+                    }
+                }
             }
         }
 

@@ -51,9 +51,41 @@
             }
             
             this.cacheDom();
+            this.syncLanguageFromPage();
             this.bindEvents();
             this.initializeChat();
             console.log('AYNIX Chatbot: Initialized successfully');
+        },
+        
+        syncLanguageFromPage: function() {
+            if (typeof aynixChatbot === 'undefined') {
+                return;
+            }
+            let preferredLang = null;
+            const switcherLang = this.languageSwitcher ? this.normalizeLang(this.languageSwitcher.value) : null;
+            const htmlLang = this.normalizeLang(document.documentElement.lang);
+            let storedLang = null;
+            try {
+                storedLang = this.normalizeLang(localStorage.getItem('aynix_chatbot_lang'));
+            } catch (e) {
+                storedLang = null;
+            }
+            preferredLang = switcherLang || htmlLang || storedLang || this.normalizeLang(aynixChatbot.lang);
+            if (preferredLang && preferredLang !== aynixChatbot.lang) {
+                console.log('Syncing chatbot language from page:', {
+                    switcherLang,
+                    htmlLang,
+                    storedLang,
+                    initialLang: aynixChatbot.lang,
+                    preferredLang
+                });
+                if (aynixChatbot.allTranslations && aynixChatbot.allTranslations[preferredLang]) {
+                    this.changeLanguage(preferredLang);
+                    document.cookie = 'aynix_lang=' + preferredLang + '; path=/; max-age=' + (60*60*24*30);
+                } else {
+                    console.warn('Preferred language not available in translations:', preferredLang);
+                }
+            }
         },
         
         cacheDom: function() {
@@ -313,6 +345,11 @@
             
             console.log('Updated aynixChatbot.lang to:', aynixChatbot.lang);
             console.log('Updated aynixChatbot.translations:', aynixChatbot.translations);
+            try {
+                localStorage.setItem('aynix_chatbot_lang', normalizedLang);
+            } catch (e) {
+                console.warn('LocalStorage not available to persist language');
+            }
             
             // Actualizar textos del chatbot
             this.updateChatbotTexts();
