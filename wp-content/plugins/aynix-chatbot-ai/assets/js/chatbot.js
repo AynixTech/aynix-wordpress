@@ -23,10 +23,27 @@
         },
         
         bindEvents: function() {
-            this.$toggle.on('click', this.toggleChat.bind(this));
+            console.log('AYNIX Chatbot: Binding events...');
+            console.log('Toggle element:', this.$toggle[0]);
+            
+            var self = this;
+            
+            // Método directo de binding con debugging
+            this.$toggle.off('click').on('click', function(e) {
+                console.log('=== CLICK DETECTED ON TOGGLE ===');
+                console.log('Event:', e);
+                console.log('Target:', e.target);
+                e.preventDefault();
+                e.stopPropagation();
+                self.toggleChat();
+                return false;
+            });
+            
             this.$minimize.on('click', this.closeChat.bind(this));
             this.$sendBtn.on('click', this.sendMessage.bind(this));
             this.$input.on('keypress', this.handleKeypress.bind(this));
+            
+            console.log('AYNIX Chatbot: Events bound successfully');
         },
         
         initializeChat: function() {
@@ -37,12 +54,14 @@
         },
         
         toggleChat: function() {
-            console.log('Toggle chat clicked');
+            console.log('=== TOGGLE CHAT METHOD CALLED ===');
             console.log('Widget has active class:', this.$widget.hasClass('active'));
             
             if (this.$widget.hasClass('active')) {
+                console.log('Closing chat...');
                 this.closeChat();
             } else {
+                console.log('Opening chat...');
                 this.openChat();
             }
         },
