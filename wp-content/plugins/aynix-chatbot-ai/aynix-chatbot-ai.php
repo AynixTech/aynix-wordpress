@@ -26,6 +26,8 @@ class AYNIX_Chatbot_AI {
     }
     
     private function __construct() {
+        error_log('AYNIX Chatbot: Constructor called');
+        
         // Enqueue scripts and styles
         add_action('wp_enqueue_scripts', array($this, 'enqueue_assets'));
         
@@ -35,25 +37,34 @@ class AYNIX_Chatbot_AI {
         // AJAX handlers
         add_action('wp_ajax_aynix_chatbot_message', array($this, 'handle_chat_message'));
         add_action('wp_ajax_nopriv_aynix_chatbot_message', array($this, 'handle_chat_message'));
+        
+        error_log('AYNIX Chatbot: All hooks registered');
     }
     
     public function enqueue_assets() {
+        // Debug log
+        error_log('AYNIX Chatbot: enqueue_assets called');
+        
         // CSS
         wp_enqueue_style(
             'aynix-chatbot-css',
             plugin_dir_url(__FILE__) . 'assets/css/chatbot.css',
             array(),
-            '1.0.0'
+            '1.0.1'
         );
         
-        // JavaScript
+        // JavaScript con dependencia jQuery
+        wp_enqueue_script('jquery'); // Asegurar que jQuery esté cargado
+        
         wp_enqueue_script(
             'aynix-chatbot-js',
             plugin_dir_url(__FILE__) . 'assets/js/chatbot.js',
             array('jquery'),
-            '1.0.0',
+            '1.0.1',
             true
         );
+        
+        error_log('AYNIX Chatbot: Scripts enqueued - CSS and JS');
         
         // Localize script con traduzioni e AJAX URL
         $current_lang = $this->detect_language();
@@ -125,9 +136,18 @@ class AYNIX_Chatbot_AI {
     }
     
     public function render_chatbot() {
+        error_log('AYNIX Chatbot: render_chatbot() called');
+        
         $lang = $this->detect_language();
         $t = $this->get_translations($lang);
+        
+        error_log('AYNIX Chatbot: Rendering HTML for language: ' . $lang);
         ?>
+        <!-- AYNIX Chatbot Start -->
+        <script>
+            console.log('AYNIX Chatbot: HTML rendered in footer');
+            console.log('AYNIX Chatbot: jQuery loaded?', typeof jQuery !== 'undefined');
+        </script>
         <div id="aynix-chatbot-container">
             <!-- Pulsante floating -->
             <button id="aynix-chatbot-toggle" aria-label="<?php echo esc_attr($t['chatTitle']); ?>">
@@ -179,7 +199,9 @@ class AYNIX_Chatbot_AI {
                 </div>
             </div>
         </div>
+        <!-- AYNIX Chatbot End -->
         <?php
+        error_log('AYNIX Chatbot: HTML rendered successfully');
     }
     
     public function handle_chat_message() {
