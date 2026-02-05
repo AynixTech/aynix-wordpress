@@ -189,20 +189,32 @@
         sendToServer: function(message) {
             const self = this;
             
+            console.log('=== sendToServer() called ===');
+            console.log('Message:', message);
+            console.log('Current aynixChatbot.lang:', aynixChatbot.lang);
+            console.log('Sending request to:', aynixChatbot.ajaxUrl);
+            
+            const requestData = {
+                action: 'aynix_chatbot_message',
+                nonce: aynixChatbot.nonce,
+                message: message,
+                lang: aynixChatbot.lang
+            };
+            
+            console.log('Request data:', requestData);
+            
             fetch(aynixChatbot.ajaxUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: new URLSearchParams({
-                    action: 'aynix_chatbot_message',
-                    nonce: aynixChatbot.nonce,
-                    message: message,
-                    lang: aynixChatbot.lang
-                })
+                body: new URLSearchParams(requestData)
             })
             .then(response => response.json())
             .then(data => {
+                console.log('Server response:', data);
+                console.log('Response language should be:', aynixChatbot.lang);
+                
                 self.hideTypingIndicator();
                 
                 if (data.success && data.data.response) {
