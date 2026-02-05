@@ -32,6 +32,10 @@
     box-shadow: 0 6px 16px rgba(0, 102, 204, 0.5);
 }
 
+#aynix-chatbot-toggle svg {
+    pointer-events: none;
+}
+
 #aynix-chatbot-toggle .close-icon {
     display: none;
 }
