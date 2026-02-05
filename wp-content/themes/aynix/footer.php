@@ -26,26 +26,36 @@
 
 
             <script>
+    function normalizeLang(lang) {
+        if (!lang) return 'it';
+        var normalized = String(lang).toLowerCase();
+        if (normalized.indexOf('-') !== -1) normalized = normalized.split('-')[0];
+        if (normalized.indexOf('_') !== -1) normalized = normalized.split('_')[0];
+        if (normalized.length > 2) normalized = normalized.slice(0, 2);
+        return ['it', 'en', 'es', 'pt'].indexOf(normalized) !== -1 ? normalized : 'it';
+    }
+
+    function getCookieValue(name) {
+        var match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+        return match ? decodeURIComponent(match[1]) : null;
+    }
+
     function changeLanguage(lang) {
-        // Imposta un cookie con la lingua selezionata, che durerà per 30 giorni
-        document.cookie = "site_lang=" + lang + "; path=/; max-age=" + (60 * 60 * 24 * 30);
+        var normalized = normalizeLang(lang);
+        // Imposta cookie lingua per sito e chatbot (30 giorni)
+        document.cookie = "site_lang=" + normalized + "; path=/; max-age=" + (60 * 60 * 24 * 30);
+        document.cookie = "aynix_lang=" + normalized + "; path=/; max-age=" + (60 * 60 * 24 * 30);
         
         // Ricarica la pagina per applicare la lingua
         location.reload();
     }
 
-    // Imposta la lingua iniziale del selettore, se un cookie esiste
+    // Imposta la lingua iniziale del selettore senza forzare EN
     document.addEventListener('DOMContentLoaded', function() {
-        var cookies = document.cookie.split(';');
-        var lang = 'en'; // Imposta 'en' come lingua predefinita
-        cookies.forEach(function(cookie) {
-            if (cookie.trim().startsWith('site_lang=')) {
-                lang = cookie.split('=')[1]; // Prende il valore del cookie 'site_lang'
-            }
-        });
-        
-        // Imposta la lingua iniziale nel selettore
-        document.getElementById('languageSwitcher').value = lang;
+        var cookieLang = normalizeLang(getCookieValue('site_lang') || getCookieValue('aynix_lang'));
+        var htmlLang = normalizeLang(document.documentElement.lang);
+        var initialLang = cookieLang || htmlLang || 'it';
+        document.getElementById('languageSwitcher').value = initialLang;
     });
 </script>
 
