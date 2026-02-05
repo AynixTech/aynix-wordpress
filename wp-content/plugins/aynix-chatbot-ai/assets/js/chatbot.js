@@ -28,16 +28,26 @@
             
             var self = this;
             
-            // Método directo de binding con debugging
+            // Método 1: jQuery con debugging
             this.$toggle.off('click').on('click', function(e) {
-                console.log('=== CLICK DETECTED ON TOGGLE ===');
+                console.log('=== JQUERY CLICK DETECTED ===');
                 console.log('Event:', e);
-                console.log('Target:', e.target);
                 e.preventDefault();
                 e.stopPropagation();
                 self.toggleChat();
                 return false;
             });
+            
+            // Método 2: Vanilla JavaScript como fallback
+            if (this.$toggle[0]) {
+                this.$toggle[0].addEventListener('click', function(e) {
+                    console.log('=== VANILLA JS CLICK DETECTED ===');
+                    console.log('Event:', e);
+                    e.preventDefault();
+                    e.stopPropagation();
+                    self.toggleChat();
+                }, true); // useCapture = true
+            }
             
             this.$minimize.on('click', this.closeChat.bind(this));
             this.$sendBtn.on('click', this.sendMessage.bind(this));
@@ -215,6 +225,16 @@
         AynixChatbot.init();
         
         console.log('AYNIX Chatbot: Initialized successfully');
+        
+        // Test directo del elemento
+        setTimeout(function() {
+            var btn = document.getElementById('aynix-chatbot-toggle');
+            console.log('Button test:', btn);
+            console.log('Button style:', window.getComputedStyle(btn));
+            console.log('Button pointer-events:', window.getComputedStyle(btn).pointerEvents);
+            console.log('Button z-index:', window.getComputedStyle(btn).zIndex);
+            console.log('Button position:', window.getComputedStyle(btn).position);
+        }, 500);
     });
     
 })(jQuery);

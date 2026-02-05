@@ -10,6 +10,7 @@
 
 /* Toggle Button */
 #aynix-chatbot-toggle {
+    position: relative;
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -22,6 +23,8 @@
     box-shadow: 0 4px 12px rgba(0, 102, 204, 0.4);
     transition: all 0.3s ease;
     color: white;
+    z-index: 10000;
+    pointer-events: auto;
 }
 
 #aynix-chatbot-toggle:hover {
