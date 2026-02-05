@@ -3,7 +3,7 @@
  * Plugin Name: AYNIX Chatbot AI
  * Plugin URI: https://aynix.tech
  * Description: Chatbot AI multilingua per assistenza e navigazione sul sito AYNIX
- * Version: 2.2.2
+ * Version: 2.2.3
  * Author: AYNIX Tech
  * Author URI: https://aynix.tech
  * Text Domain: aynix-chatbot-ai
