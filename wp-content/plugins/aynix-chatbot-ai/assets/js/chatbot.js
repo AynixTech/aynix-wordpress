@@ -22,6 +22,8 @@
             this.input = document.getElementById('aynix-chatbot-input');
             this.sendBtn = document.getElementById('aynix-chatbot-send');
             this.minimize = document.querySelector('.chatbot-minimize');
+            this.chatTitle = document.querySelector('.chatbot-title span');
+            this.languageSwitcher = document.getElementById('languageSwitcher');
         },
         
         bindEvents: function() {
@@ -55,6 +57,15 @@
                         e.preventDefault();
                         self.sendMessage();
                     }
+                });
+            }
+            
+            // Escuchar cambios de idioma del sitio
+            if (this.languageSwitcher) {
+                this.languageSwitcher.addEventListener('change', function(e) {
+                    const newLang = e.target.value;
+                    console.log('Language changed to:', newLang);
+                    self.changeLanguage(newLang);
                 });
             }
         },
@@ -199,6 +210,53 @@
             return escaped.replace(urlRegex, function(url) {
                 return '<a href="' + url + '" target="_blank" rel="noopener noreferrer">' + url + '</a>';
             });
+        },
+        
+        changeLanguage: function(newLang) {
+            // Verificar que existan las traducciones para el nuevo idioma
+            if (!aynixChatbot.allTranslations || !aynixChatbot.allTranslations[newLang]) {
+                console.error('Translations not found for language:', newLang);
+                return;
+            }
+            
+            // Actualizar idioma actual
+            aynixChatbot.lang = newLang;
+            aynixChatbot.translations = aynixChatbot.allTranslations[newLang];
+            
+            // Actualizar textos del chatbot
+            this.updateChatbotTexts();
+            
+            console.log('Chatbot language updated to:', newLang);
+        },
+        
+        updateChatbotTexts: function() {
+            const t = aynixChatbot.translations;
+            
+            // Actualizar título del chat
+            if (this.chatTitle) {
+                this.chatTitle.textContent = t.chatTitle;
+            }
+            
+            // Actualizar placeholder del input
+            if (this.input) {
+                this.input.placeholder = t.placeholder;
+            }
+            
+            // Actualizar aria-label del botón toggle
+            if (this.toggle) {
+                this.toggle.setAttribute('aria-label', t.chatTitle);
+            }
+            
+            // Actualizar aria-label del botón minimize
+            if (this.minimize) {
+                this.minimize.setAttribute('aria-label', t.closeChat);
+            }
+            
+            // Actualizar mensaje de bienvenida (solo si está visible y es el primer mensaje)
+            const firstMessage = this.messages.querySelector('.bot-message .message-content');
+            if (firstMessage && this.messages.children.length === 1) {
+                firstMessage.textContent = t.welcomeMessage;
+            }
         }
     };
     
