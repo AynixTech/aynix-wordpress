@@ -9,6 +9,19 @@
         
         init: function() {
             console.log('AYNIX Chatbot: Initializing...');
+            console.log('aynixChatbot object:', typeof aynixChatbot !== 'undefined' ? aynixChatbot : 'NOT FOUND');
+            
+            if (typeof aynixChatbot !== 'undefined') {
+                console.log('Current language:', aynixChatbot.lang);
+                console.log('Translations available:', aynixChatbot.translations);
+                console.log('All translations available:', aynixChatbot.allTranslations ? 'YES' : 'NO');
+                if (aynixChatbot.allTranslations) {
+                    console.log('Languages loaded:', Object.keys(aynixChatbot.allTranslations));
+                }
+            } else {
+                console.error('aynixChatbot object NOT FOUND - translations will not work!');
+            }
+            
             this.cacheDom();
             this.bindEvents();
             this.initializeChat();
@@ -24,6 +37,11 @@
             this.minimize = document.querySelector('.chatbot-minimize');
             this.chatTitle = document.querySelector('.chatbot-title span');
             this.languageSwitcher = document.getElementById('languageSwitcher');
+            
+            console.log('DOM Elements cached:');
+            console.log('- Language switcher:', this.languageSwitcher ? 'FOUND' : 'NOT FOUND');
+            console.log('- Chat title:', this.chatTitle ? 'FOUND' : 'NOT FOUND');
+            console.log('- Input:', this.input ? 'FOUND' : 'NOT FOUND');
         },
         
         bindEvents: function() {
@@ -62,18 +80,26 @@
             
             // Escuchar cambios de idioma del sitio
             if (this.languageSwitcher) {
+                console.log('Language switcher listener attached');
                 this.languageSwitcher.addEventListener('change', function(e) {
                     const newLang = e.target.value;
-                    console.log('Language changed to:', newLang);
+                    console.log('=== LANGUAGE CHANGE DETECTED ===');
+                    console.log('New language:', newLang);
+                    console.log('aynixChatbot exists:', typeof aynixChatbot !== 'undefined');
+                    console.log('allTranslations exists:', typeof aynixChatbot !== 'undefined' && aynixChatbot.allTranslations ? 'YES' : 'NO');
+                    
                     // Solo cambiar idioma si tenemos todas las traducciones disponibles
                     if (typeof aynixChatbot !== 'undefined' && aynixChatbot.allTranslations) {
+                        console.log('Calling changeLanguage method...');
                         self.changeLanguage(newLang);
                     } else {
                         // Recargar la página con el nuevo idioma
-                        console.log('Reloading page with new language');
+                        console.log('Translations not available, reloading page with lang parameter');
                         window.location.href = window.location.pathname + '?lang=' + newLang;
                     }
                 });
+            } else {
+                console.warn('Language switcher NOT FOUND - dynamic language change disabled');
             }
         },
         
@@ -220,50 +246,75 @@
         },
         
         changeLanguage: function(newLang) {
+            console.log('=== changeLanguage() called ===');
+            console.log('New language:', newLang);
+            console.log('aynixChatbot.allTranslations:', aynixChatbot.allTranslations);
+            
             // Verificar que existan las traducciones para el nuevo idioma
             if (!aynixChatbot.allTranslations || !aynixChatbot.allTranslations[newLang]) {
                 console.error('Translations not found for language:', newLang);
+                console.log('Available languages:', aynixChatbot.allTranslations ? Object.keys(aynixChatbot.allTranslations) : 'NONE');
                 return;
             }
+            
+            console.log('Translations found for', newLang, ':', aynixChatbot.allTranslations[newLang]);
             
             // Actualizar idioma actual
             aynixChatbot.lang = newLang;
             aynixChatbot.translations = aynixChatbot.allTranslations[newLang];
             
+            console.log('Updated aynixChatbot.lang to:', aynixChatbot.lang);
+            console.log('Updated aynixChatbot.translations:', aynixChatbot.translations);
+            
             // Actualizar textos del chatbot
             this.updateChatbotTexts();
             
-            console.log('Chatbot language updated to:', newLang);
+            console.log('Chatbot language updated successfully to:', newLang);
         },
         
         updateChatbotTexts: function() {
+            console.log('=== updateChatbotTexts() called ===');
             const t = aynixChatbot.translations;
+            console.log('Using translations:', t);
             
             // Actualizar título del chat
             if (this.chatTitle) {
+                console.log('Updating chat title from "' + this.chatTitle.textContent + '" to "' + t.chatTitle + '"');
                 this.chatTitle.textContent = t.chatTitle;
+            } else {
+                console.warn('Chat title element not found');
             }
             
             // Actualizar placeholder del input
             if (this.input) {
+                console.log('Updating input placeholder from "' + this.input.placeholder + '" to "' + t.placeholder + '"');
                 this.input.placeholder = t.placeholder;
+            } else {
+                console.warn('Input element not found');
             }
             
             // Actualizar aria-label del botón toggle
             if (this.toggle) {
                 this.toggle.setAttribute('aria-label', t.chatTitle);
+                console.log('Updated toggle aria-label to:', t.chatTitle);
             }
             
             // Actualizar aria-label del botón minimize
             if (this.minimize) {
                 this.minimize.setAttribute('aria-label', t.closeChat);
+                console.log('Updated minimize aria-label to:', t.closeChat);
             }
             
             // Actualizar mensaje de bienvenida (solo si está visible y es el primer mensaje)
             const firstMessage = this.messages.querySelector('.bot-message .message-content');
             if (firstMessage && this.messages.children.length === 1) {
+                console.log('Updating welcome message from "' + firstMessage.textContent + '" to "' + t.welcomeMessage + '"');
                 firstMessage.textContent = t.welcomeMessage;
+            } else {
+                console.log('Welcome message not updated (conversation in progress or not found)');
             }
+            
+            console.log('=== Texts updated successfully ===');
         }
     };
     
