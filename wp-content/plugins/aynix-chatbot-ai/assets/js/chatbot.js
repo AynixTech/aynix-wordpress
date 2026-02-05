@@ -69,9 +69,17 @@
             } catch (e) {
                 storedLang = null;
             }
-            preferredLang = htmlLang || storedLang || this.normalizeLang(aynixChatbot.lang);
+            let cookieLang = null;
+            try {
+                const match = document.cookie.match(/(?:^|; )aynix_lang=([^;]*)/);
+                cookieLang = match ? this.normalizeLang(decodeURIComponent(match[1])) : null;
+            } catch (e) {
+                cookieLang = null;
+            }
+            preferredLang = cookieLang || storedLang || this.normalizeLang(aynixChatbot.lang) || htmlLang;
             if (preferredLang && preferredLang !== aynixChatbot.lang) {
                 console.log('Syncing chatbot language from page:', {
+                    cookieLang,
                     htmlLang,
                     storedLang,
                     initialLang: aynixChatbot.lang,
