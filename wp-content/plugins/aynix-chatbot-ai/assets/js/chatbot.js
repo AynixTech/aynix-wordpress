@@ -229,11 +229,30 @@
         // Test directo del elemento
         setTimeout(function() {
             var btn = document.getElementById('aynix-chatbot-toggle');
-            console.log('Button test:', btn);
-            console.log('Button style:', window.getComputedStyle(btn));
-            console.log('Button pointer-events:', window.getComputedStyle(btn).pointerEvents);
-            console.log('Button z-index:', window.getComputedStyle(btn).zIndex);
-            console.log('Button position:', window.getComputedStyle(btn).position);
+            var rect = btn.getBoundingClientRect();
+            var centerX = rect.left + rect.width / 2;
+            var centerY = rect.top + rect.height / 2;
+            
+            console.log('Button position:', {
+                top: rect.top,
+                left: rect.left,
+                width: rect.width,
+                height: rect.height
+            });
+            
+            console.log('Button center point:', { x: centerX, y: centerY });
+            
+            // ¿Qué elemento está en el centro del botón?
+            var elementAtPoint = document.elementFromPoint(centerX, centerY);
+            console.log('Element at button center:', elementAtPoint);
+            console.log('Is it the button?', elementAtPoint === btn);
+            
+            if (elementAtPoint !== btn) {
+                console.error('🚨 PROBLEMA: Otro elemento está bloqueando los clicks!');
+                console.log('Elemento bloqueante:', elementAtPoint);
+                console.log('Elemento bloqueante z-index:', window.getComputedStyle(elementAtPoint).zIndex);
+                console.log('Elemento bloqueante position:', window.getComputedStyle(elementAtPoint).position);
+            }
         }, 500);
     });
     
