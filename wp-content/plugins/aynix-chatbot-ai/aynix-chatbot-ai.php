@@ -229,9 +229,7 @@ class AYNIX_Chatbot_AI {
         <div id="aynix-chatbot-container">
             <!-- Pulsante floating -->
             <button id="aynix-chatbot-toggle" aria-label="<?php echo esc_attr($t['chatTitle']); ?>">
-                <svg class="chat-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
-                    <path d="M9 2h6v2h3a2 2 0 0 1 2 2v8a4 4 0 0 1-4 4h-2.5l-2 2-2-2H8a4 4 0 0 1-4-4V6a2 2 0 0 1 2-2h3V2zm-1 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm8 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
-                </svg>
+                <img class="chat-icon" src="<?php echo esc_url(plugin_dir_url(__FILE__) . 'assets/images/machine-learning.png'); ?>" alt="AI Chat" width="28" height="28" />
                 <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
                     <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
                 </svg>
