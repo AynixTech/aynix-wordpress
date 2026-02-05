@@ -53,18 +53,16 @@ class AYNIX_Chatbot_AI {
             '1.0.5'
         );
         
-        // JavaScript con dependencia jQuery
-        wp_enqueue_script('jquery'); // Asegurar que jQuery esté cargado
-        
+        // JavaScript sin dependencia de jQuery
         wp_enqueue_script(
             'aynix-chatbot-js',
             plugin_dir_url(__FILE__) . 'assets/js/chatbot.js',
-            array('jquery'),
-            '1.0.5',
+            array(), // Sin dependencias
+            '2.0.0',
             true
         );
         
-        error_log('AYNIX Chatbot: Scripts enqueued - CSS and JS');
+        error_log('AYNIX Chatbot: Scripts enqueued - CSS and JS (Vanilla JavaScript)');
         
         // Localize script con traduzioni e AJAX URL
         $current_lang = $this->detect_language();

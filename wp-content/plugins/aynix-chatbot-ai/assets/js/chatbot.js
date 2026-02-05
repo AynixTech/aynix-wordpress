@@ -1,63 +1,73 @@
 /**
- * AYNIX Chatbot AI - JavaScript
+ * AYNIX Chatbot AI - Vanilla JavaScript (Sin jQuery)
  */
 
-(function($) {
+(function() {
     'use strict';
     
     const AynixChatbot = {
         
         init: function() {
+            console.log('AYNIX Chatbot: Initializing...');
             this.cacheDom();
             this.bindEvents();
             this.initializeChat();
+            console.log('AYNIX Chatbot: Initialized successfully');
         },
         
         cacheDom: function() {
-            this.$toggle = $('#aynix-chatbot-toggle');
-            this.$widget = $('#aynix-chatbot-widget');
-            this.$messages = $('#aynix-chatbot-messages');
-            this.$input = $('#aynix-chatbot-input');
-            this.$sendBtn = $('#aynix-chatbot-send');
-            this.$minimize = $('.chatbot-minimize');
+            this.toggle = document.getElementById('aynix-chatbot-toggle');
+            this.widget = document.getElementById('aynix-chatbot-widget');
+            this.messages = document.getElementById('aynix-chatbot-messages');
+            this.input = document.getElementById('aynix-chatbot-input');
+            this.sendBtn = document.getElementById('aynix-chatbot-send');
+            this.minimize = document.querySelector('.chatbot-minimize');
+            
+            console.log('Toggle button found:', this.toggle ? 'Yes' : 'No');
+            console.log('Widget found:', this.widget ? 'Yes' : 'No');
         },
         
         bindEvents: function() {
             console.log('AYNIX Chatbot: Binding events...');
-            console.log('Toggle element:', this.$toggle[0]);
             
-            var self = this;
+            const self = this;
             
-            // Método 1: jQuery con debugging
-            this.$toggle.off('click').on('click', function(e) {
-                console.log('=== JQUERY CLICK DETECTED ===');
-                console.log('Event:', e);
-                e.preventDefault();
-                e.stopPropagation();
-                self.toggleChat();
-                return false;
-            });
-            
-            // Método 2: Vanilla JavaScript como fallback
-            if (this.$toggle[0]) {
-                this.$toggle[0].addEventListener('click', function(e) {
-                    console.log('=== VANILLA JS CLICK DETECTED ===');
-                    console.log('Event:', e);
+            if (this.toggle) {
+                this.toggle.addEventListener('click', function(e) {
+                    console.log('=== CLICK DETECTED ===');
                     e.preventDefault();
                     e.stopPropagation();
                     self.toggleChat();
-                }, true); // useCapture = true
+                });
             }
             
-            this.$minimize.on('click', this.closeChat.bind(this));
-            this.$sendBtn.on('click', this.sendMessage.bind(this));
-            this.$input.on('keypress', this.handleKeypress.bind(this));
+            if (this.minimize) {
+                this.minimize.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    self.closeChat();
+                });
+            }
+            
+            if (this.sendBtn) {
+                this.sendBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    self.sendMessage();
+                });
+            }
+            
+            if (this.input) {
+                this.input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        self.sendMessage();
+                    }
+                });
+            }
             
             console.log('AYNIX Chatbot: Events bound successfully');
         },
         
         initializeChat: function() {
-            // Riapri chat se era aperta prima
             if (localStorage.getItem('aynix_chatbot_open') === 'true') {
                 this.openChat();
             }
@@ -65,9 +75,10 @@
         
         toggleChat: function() {
             console.log('=== TOGGLE CHAT METHOD CALLED ===');
-            console.log('Widget has active class:', this.$widget.hasClass('active'));
+            const isActive = this.widget.classList.contains('active');
+            console.log('Widget has active class:', isActive);
             
-            if (this.$widget.hasClass('active')) {
+            if (isActive) {
                 console.log('Closing chat...');
                 this.closeChat();
             } else {
@@ -78,154 +89,133 @@
         
         openChat: function() {
             console.log('=== OPEN CHAT CALLED ===');
-            console.log('Widget before:', {
-                display: this.$widget.css('display'),
-                hasActive: this.$widget.hasClass('active')
-            });
             
-            this.$widget.addClass('active');
-            this.$toggle.addClass('active');
+            this.widget.classList.add('active');
+            this.toggle.classList.add('active');
+            this.widget.style.display = 'flex';
             
-            // Forzar display inline como fallback
-            this.$widget.css('display', 'flex');
+            if (this.input) {
+                this.input.focus();
+            }
             
-            console.log('Widget after:', {
-                display: this.$widget.css('display'),
-                hasActive: this.$widget.hasClass('active')
-            });
-            
-            this.$input.focus();
             localStorage.setItem('aynix_chatbot_open', 'true');
-            
-            // Scroll to bottom
             this.scrollToBottom();
+            
+            console.log('Chat opened');
         },
         
         closeChat: function() {
             console.log('=== CLOSE CHAT CALLED ===');
-            this.$widget.removeClass('active');
-            this.$toggle.removeClass('active');
-            this.$widget.css('display', 'none');
+            
+            this.widget.classList.remove('active');
+            this.toggle.classList.remove('active');
+            this.widget.style.display = 'none';
+            
             localStorage.setItem('aynix_chatbot_open', 'false');
-            console.log('Widget closed, display:', this.$widget.css('display'));
-        },
-        
-        handleKeypress: function(e) {
-            if (e.which === 13 && !e.shiftKey) { // Enter key
-                e.preventDefault();
-                this.sendMessage();
-            }
+            console.log('Chat closed');
         },
         
         sendMessage: function() {
-            const message = this.$input.val().trim();
+            const message = this.input.value.trim();
             
             if (message === '') {
                 return;
             }
             
-            // Aggiungi messaggio utente alla UI
             this.addMessage(message, 'user');
-            
-            // Pulisci input
-            this.$input.val('');
-            
-            // Disabilita input durante l'elaborazione
+            this.input.value = '';
             this.setLoading(true);
-            
-            // Mostra typing indicator
             this.showTypingIndicator();
-            
-            // Invia messaggio al server
             this.sendToServer(message);
         },
         
         addMessage: function(text, type) {
             const messageClass = type === 'user' ? 'user-message' : 'bot-message';
-            
-            // Converti URL in link cliccabili
             const formattedText = this.linkify(text);
             
-            const messageHtml = `
-                <div class="message ${messageClass}">
-                    <div class="message-content">${formattedText}</div>
-                </div>
-            `;
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${messageClass}`;
+            messageDiv.innerHTML = `<div class="message-content">${formattedText}</div>`;
             
-            this.$messages.append(messageHtml);
+            this.messages.appendChild(messageDiv);
             this.scrollToBottom();
         },
         
         showTypingIndicator: function() {
-            const typingHtml = `
-                <div class="message bot-message typing-indicator-wrapper">
-                    <div class="message-content typing-indicator">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message bot-message typing-indicator-wrapper';
+            typingDiv.innerHTML = `
+                <div class="message-content typing-indicator">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
             `;
             
-            this.$messages.append(typingHtml);
+            this.messages.appendChild(typingDiv);
             this.scrollToBottom();
         },
         
         hideTypingIndicator: function() {
-            this.$messages.find('.typing-indicator-wrapper').remove();
+            const typing = this.messages.querySelector('.typing-indicator-wrapper');
+            if (typing) {
+                typing.remove();
+            }
         },
         
         sendToServer: function(message) {
             const self = this;
             
-            $.ajax({
-                url: aynixChatbot.ajaxUrl,
-                type: 'POST',
-                data: {
+            fetch(aynixChatbot.ajaxUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
                     action: 'aynix_chatbot_message',
                     nonce: aynixChatbot.nonce,
                     message: message,
                     lang: aynixChatbot.lang
-                },
-                success: function(response) {
-                    self.hideTypingIndicator();
-                    
-                    if (response.success && response.data.response) {
-                        self.addMessage(response.data.response, 'bot');
-                    } else {
-                        self.addMessage(aynixChatbot.translations.errorMessage, 'bot');
-                    }
-                    
-                    self.setLoading(false);
-                },
-                error: function() {
-                    self.hideTypingIndicator();
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                self.hideTypingIndicator();
+                
+                if (data.success && data.data.response) {
+                    self.addMessage(data.data.response, 'bot');
+                } else {
                     self.addMessage(aynixChatbot.translations.errorMessage, 'bot');
-                    self.setLoading(false);
                 }
+                
+                self.setLoading(false);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                self.hideTypingIndicator();
+                self.addMessage(aynixChatbot.translations.errorMessage, 'bot');
+                self.setLoading(false);
             });
         },
         
         setLoading: function(loading) {
-            this.$input.prop('disabled', loading);
-            this.$sendBtn.prop('disabled', loading);
+            this.input.disabled = loading;
+            this.sendBtn.disabled = loading;
             
             if (!loading) {
-                this.$input.focus();
+                this.input.focus();
             }
         },
         
         scrollToBottom: function() {
-            this.$messages.animate({
-                scrollTop: this.$messages[0].scrollHeight
-            }, 300);
+            this.messages.scrollTop = this.messages.scrollHeight;
         },
         
         linkify: function(text) {
-            // Escape HTML
-            const escaped = $('<div>').text(text).html();
+            const div = document.createElement('div');
+            div.textContent = text;
+            const escaped = div.innerHTML;
             
-            // Convert URLs to links
             const urlRegex = /(https?:\/\/[^\s]+)/g;
             return escaped.replace(urlRegex, function(url) {
                 return '<a href="' + url + '" target="_blank" rel="noopener noreferrer">' + url + '</a>';
@@ -233,45 +223,13 @@
         }
     };
     
-    // Initialize on document ready
-    $(document).ready(function() {
-        console.log('AYNIX Chatbot: Initializing...');
-        console.log('jQuery version:', $.fn.jquery);
-        console.log('Toggle button found:', $('#aynix-chatbot-toggle').length);
-        console.log('Widget found:', $('#aynix-chatbot-widget').length);
-        
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            AynixChatbot.init();
+        });
+    } else {
         AynixChatbot.init();
-        
-        console.log('AYNIX Chatbot: Initialized successfully');
-        
-        // Test directo del elemento
-        setTimeout(function() {
-            var btn = document.getElementById('aynix-chatbot-toggle');
-            var rect = btn.getBoundingClientRect();
-            var centerX = rect.left + rect.width / 2;
-            var centerY = rect.top + rect.height / 2;
-            
-            console.log('Button position:', {
-                top: rect.top,
-                left: rect.left,
-                width: rect.width,
-                height: rect.height
-            });
-            
-            console.log('Button center point:', { x: centerX, y: centerY });
-            
-            // ¿Qué elemento está en el centro del botón?
-            var elementAtPoint = document.elementFromPoint(centerX, centerY);
-            console.log('Element at button center:', elementAtPoint);
-            console.log('Is it the button?', elementAtPoint === btn);
-            
-            if (elementAtPoint !== btn) {
-                console.error('🚨 PROBLEMA: Otro elemento está bloqueando los clicks!');
-                console.log('Elemento bloqueante:', elementAtPoint);
-                console.log('Elemento bloqueante z-index:', window.getComputedStyle(elementAtPoint).zIndex);
-                console.log('Elemento bloqueante position:', window.getComputedStyle(elementAtPoint).position);
-            }
-        }, 500);
-    });
+    }
     
-})(jQuery);
+})();
