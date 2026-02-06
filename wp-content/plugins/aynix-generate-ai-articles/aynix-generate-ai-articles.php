@@ -607,7 +607,11 @@ class AYNIX_Generate_AI_Articles {
         check_admin_referer('aynix_ai_articles_test');
 
         $this->log_status('test_queued');
-        wp_schedule_single_event(time() + 5, self::CRON_TEST_HOOK);
+        if (!wp_next_scheduled(self::CRON_TEST_HOOK)) {
+            wp_schedule_single_event(time() + 5, self::CRON_TEST_HOOK);
+        } else {
+            $this->write_log('TEST_QUEUE_SKIPPED: already_scheduled');
+        }
 
         $redirect = add_query_arg('aynix_ai_articles_test', '1', admin_url('admin.php?page=aynix-ai-articles-settings'));
         wp_safe_redirect($redirect);
@@ -627,6 +631,7 @@ class AYNIX_Generate_AI_Articles {
         }
 
         $base_lang = $langs[0];
+        $this->write_log('OPENAI_LANG_SELECTED: base=' . $base_lang . ' all=' . implode(',', $langs));
         $base = $this->generate_article($base_lang, $status);
         if (!is_array($base) || empty($base['title']) || empty($base['content'])) {
             $this->write_log('ARTICLE_SET_FAIL: base_missing lang=' . $base_lang);
@@ -637,18 +642,22 @@ class AYNIX_Generate_AI_Articles {
             if ($lang === $base_lang) {
                 continue;
             }
+            $this->write_log('OPENAI_TRANSLATE_START: ' . $base_lang . '->' . $lang);
             $translated = $this->translate_article($base['title'], $base['content'], $base_lang, $lang);
             if (!is_array($translated) || empty($translated['title']) || empty($translated['content'])) {
                 $this->write_log('ARTICLE_SET_FAIL: translation_missing lang=' . $lang);
+                $this->write_log('OPENAI_TRANSLATE_FAIL: ' . $base_lang . '->' . $lang);
                 continue;
             }
             $this->insert_article_post($translated['title'], $translated['content'], $lang, $status);
+            $this->write_log('OPENAI_TRANSLATE_DONE: ' . $base_lang . '->' . $lang);
         }
     }
 
     private function generate_article($lang, $status) {
         $settings = $this->get_settings();
         $prompt = $this->build_prompt($lang, $settings, array($lang));
+        $this->write_log('OPENAI_LANG_REQUEST: ' . $lang);
         $response = $this->call_openai($prompt, $lang, array($lang));
 
         if (!$response) {
@@ -1282,17 +1291,21 @@ class AYNIX_Generate_AI_Articles {
     }
 
     private function translate_article($title, $content, $source_lang, $target_lang) {
+        $this->write_log('OPENAI_TRANSLATE_REQUEST: ' . $source_lang . '->' . $target_lang);
         $prompt = $this->build_translation_prompt($title, $content, $target_lang, $source_lang);
         $translated = $this->call_openai($prompt, $target_lang, array($target_lang));
         if (!is_array($translated)) {
+            $this->write_log('OPENAI_TRANSLATE_RESPONSE: empty');
             return null;
         }
         $translated = $this->unwrap_single_language_response($translated, $target_lang);
         $out_title = $translated['title'] ?? null;
         $out_content = $translated['content'] ?? null;
         if (!$out_title || !$out_content) {
+            $this->write_log('OPENAI_TRANSLATE_RESPONSE: missing_title_or_content');
             return null;
         }
+        $this->write_log('OPENAI_TRANSLATE_RESPONSE: ok');
         return array('title' => $out_title, 'content' => $out_content);
     }
 
