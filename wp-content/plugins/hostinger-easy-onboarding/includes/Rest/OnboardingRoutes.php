@@ -22,7 +22,7 @@ class OnboardingRoutes {
         $this->helper       = $helper;
         $this->config       = new Config();
         $this->proxy_client = new Client(
-            $this->config->getConfigValue( 'base_proxy_rest_uri', HOSTINGER_EASY_ONBOARDING_REST_URI ),
+            $this->config->getConfigValue( 'base_proxy_rest_uri', HOSTINGER_EASY_ONBOARDING_PROXY_URI ),
             array(
                 Config::TOKEN_HEADER  => $this->helper->getApiToken(),
                 Config::DOMAIN_HEADER => $this->helper->getHostInfo(),

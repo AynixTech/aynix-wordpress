@@ -22,11 +22,13 @@ class Cli {
      */
     private function hooks(): void {
         if ( class_exists( '\WP_CLI' ) && class_exists( OnboardingStatus::class ) ) {
-            WP_CLI::add_hook( 'after_wp_load', array(
-                OnboardingStatus::class,
-                'define_command'
-            ) );
+            WP_CLI::add_hook(
+                'after_wp_load',
+                array(
+                    OnboardingStatus::class,
+                    'define_command',
+                )
+            );
         }
     }
-
 }

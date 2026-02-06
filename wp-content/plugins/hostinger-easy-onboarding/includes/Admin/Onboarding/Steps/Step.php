@@ -51,20 +51,19 @@ class Step {
      * @param string $description
      * @param string $image_url
      */
-    public function __construct(string $id, string $title = '', string $description = '', string $image_url = '') {
-        $this->id = $id;
-        $this->title = $title;
-        $this->description = $description;
-        $this->image_url = $image_url;
-        $this->primary_button = new Button( '' );
+    public function __construct( string $id, string $title = '', string $description = '', string $image_url = '' ) {
+        $this->id               = $id;
+        $this->title            = $title;
+        $this->description      = $description;
+        $this->image_url        = $image_url;
+        $this->primary_button   = new Button( '' );
         $this->secondary_button = new Button( '' );
     }
 
     /**
      * @return string
      */
-    public function get_id(): string
-    {
+    public function get_id(): string {
         return $this->id;
     }
 
@@ -73,16 +72,14 @@ class Step {
      *
      * @return void
      */
-    public function set_id(string $id): void
-    {
+    public function set_id( string $id ): void {
         $this->id = $id;
     }
 
     /**
      * @return bool
      */
-    public function get_is_completed(): bool
-    {
+    public function get_is_completed(): bool {
         return $this->is_completed;
     }
 
@@ -91,16 +88,14 @@ class Step {
      *
      * @return void
      */
-    public function set_is_completed(bool $is_completed): void
-    {
+    public function set_is_completed( bool $is_completed ): void {
         $this->is_completed = $is_completed;
     }
 
     /**
      * @return string
      */
-    public function get_title(): string
-    {
+    public function get_title(): string {
         return $this->title;
     }
 
@@ -109,16 +104,14 @@ class Step {
      *
      * @return void
      */
-    public function set_title(string $title): void
-    {
+    public function set_title( string $title ): void {
         $this->title = $title;
     }
 
     /**
      * @return string
      */
-    public function get_description(): string
-    {
+    public function get_description(): string {
         return $this->description;
     }
 
@@ -127,16 +120,14 @@ class Step {
      *
      * @return void
      */
-    public function set_description(string $description): void
-    {
+    public function set_description( string $description ): void {
         $this->description = $description;
     }
 
     /**
      * @return string
      */
-    public function get_image_url(): string
-    {
+    public function get_image_url(): string {
         return $this->image_url;
     }
 
@@ -145,16 +136,14 @@ class Step {
      *
      * @return void
      */
-    public function set_image_url(string $image_url): void
-    {
+    public function set_image_url( string $image_url ): void {
         $this->image_url = $image_url;
     }
 
     /**
      * @return Button
      */
-    public function get_primary_button(): Button
-    {
+    public function get_primary_button(): Button {
         return $this->primary_button;
     }
 
@@ -163,16 +152,14 @@ class Step {
      *
      * @return void
      */
-    public function set_primary_button(Button $primary_button): void
-    {
+    public function set_primary_button( Button $primary_button ): void {
         $this->primary_button = $primary_button;
     }
 
     /**
      * @return Button
      */
-    public function get_secondary_button(): Button
-    {
+    public function get_secondary_button(): Button {
         return $this->secondary_button;
     }
 
@@ -181,8 +168,7 @@ class Step {
      *
      * @return void
      */
-    public function set_secondary_button(Button $secondary_button): void
-    {
+    public function set_secondary_button( Button $secondary_button ): void {
         $this->secondary_button = $secondary_button;
     }
 
@@ -205,10 +191,9 @@ class Step {
     /**
      * @return array
      */
-    public function to_array(): array
-    {
-        $primary_button = !empty($this->get_primary_button()) ? $this->get_primary_button()->to_array() : [];
-        $secondary_button = !empty($this->get_secondary_button()) ? $this->get_secondary_button()->to_array() : [];
+    public function to_array(): array {
+        $primary_button   = ! empty( $this->get_primary_button() ) ? $this->get_primary_button()->to_array() : array();
+        $secondary_button = ! empty( $this->get_secondary_button() ) ? $this->get_secondary_button()->to_array() : array();
 
         return array(
             'id'               => $this->get_id(),

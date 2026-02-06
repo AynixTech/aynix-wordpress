@@ -7,26 +7,27 @@ use Hostinger\WpHelper\Utils;
 defined( 'ABSPATH' ) || exit;
 
 class Menu {
-    public const WEBSITE_LIST_URL = 'https://hpanel.hostinger.com/websites';
-    public const HPANEL_HOME = 'https://hpanel.hostinger.com';
+    public const WEBSITE_LIST_URL     = 'https://hpanel.hostinger.com/websites';
+    public const HPANEL_HOME          = 'https://hpanel.hostinger.com';
     public const WEBSITE_BILLINGS_URL = 'https://hpanel.hostinger.com/billing/subscriptions';
 
-	public function __construct() {
-		add_filter( 'hostinger_menu_subpages', [ $this, 'add_menu_sub_pages' ] );
-        add_filter( 'hostinger_admin_menu_bar_items', [ $this, 'add_admin_bar_items' ] );
-        add_filter( 'hostinger_admin_menu_bar_items', [ $this, 'add_hpanel_bar_items' ], 999 );
-	}
+    public function __construct() {
+        add_filter( 'hostinger_menu_subpages', array( $this, 'add_menu_sub_pages' ) );
+        add_filter( 'hostinger_admin_menu_bar_items', array( $this, 'add_admin_bar_items' ) );
+        add_filter( 'hostinger_admin_menu_bar_items', array( $this, 'add_hpanel_bar_items' ), 999 );
+        add_action( 'admin_menu', array( $this, 'register_hidden_full_screen_page' ) );
+    }
 
     /**
      * @param array $menu_items
      *
      * @return array
      */
-    public function add_admin_bar_items(array $menu_items): array {
+    public function add_admin_bar_items( array $menu_items ): array {
         $menu_items[] = array(
-            'id'     => 'hostinger-easy-onboarding-admin-bar-onboarding',
-            'title'  => esc_html__( 'Onboarding', 'hostinger-easy-onboarding' ),
-            'href'  => admin_url( 'admin.php?page=hostinger-get-onboarding' )
+            'id'    => 'hostinger-easy-onboarding-admin-bar-onboarding',
+            'title' => esc_html__( 'Onboarding', 'hostinger-easy-onboarding' ),
+            'href'  => admin_url( 'admin.php?page=hostinger-get-onboarding' ),
         );
 
         return $menu_items;
@@ -37,8 +38,8 @@ class Menu {
      *
      * @return array
      */
-    public function add_hpanel_bar_items(array $menu_items): array {
-        if (empty(Utils::getApiToken())) {
+    public function add_hpanel_bar_items( array $menu_items ): array {
+        if ( empty( Utils::getApiToken() ) ) {
             return $menu_items;
         }
 
@@ -47,30 +48,30 @@ class Menu {
 		</svg>';
 
         $menu_items[] = array(
-            'id'     => 'hostinger_hpanel_home_admin_bar',
-            'title'  => esc_html__( 'hPanel - Home', 'hostinger-easy-onboarding' ) . $external_icon,
+            'id'    => 'hostinger_hpanel_home_admin_bar',
+            'title' => esc_html__( 'hPanel - Home', 'hostinger-easy-onboarding' ) . $external_icon,
             'href'  => self::HPANEL_HOME,
-            'meta'   => array(
+            'meta'  => array(
                 'target' => '_blank',
-            )
+            ),
         );
 
         $menu_items[] = array(
-            'id'     => 'hostinger_website_list_admin_bar',
-            'title'  => esc_html__( 'hPanel - Websites', 'hostinger-easy-onboarding' ) . $external_icon,
+            'id'    => 'hostinger_website_list_admin_bar',
+            'title' => esc_html__( 'hPanel - Websites', 'hostinger-easy-onboarding' ) . $external_icon,
             'href'  => self::WEBSITE_LIST_URL,
-            'meta'   => array(
+            'meta'  => array(
                 'target' => '_blank',
-            )
+            ),
         );
 
         $menu_items[] = array(
-            'id'     => 'hostinger_billings_admin_bar',
-            'title'  => esc_html__( 'hPanel - Billing', 'hostinger-easy-onboarding' ) . $external_icon,
+            'id'    => 'hostinger_billings_admin_bar',
+            'title' => esc_html__( 'hPanel - Billing', 'hostinger-easy-onboarding' ) . $external_icon,
             'href'  => self::WEBSITE_BILLINGS_URL,
-            'meta'   => array(
+            'meta'  => array(
                 'target' => '_blank',
-            )
+            ),
         );
 
         return $menu_items;
@@ -81,24 +82,39 @@ class Menu {
      *
      * @return array
      */
-	public function add_menu_sub_pages( array $submenus ): array {
-		$submenus[] = array(
-			'page_title' => __( 'Onboarding', 'hostinger-easy-onboarding' ),
-			'menu_title' => __( 'Onboarding', 'hostinger-easy-onboarding' ),
-			'capability' => 'manage_options',
-			'menu_slug'  => 'hostinger-get-onboarding',
-			'callback'   => array( $this, 'renderOnboarding' ),
+    public function add_menu_sub_pages( array $submenus ): array {
+        $submenus[] = array(
+            'page_title'      => __( 'Onboarding', 'hostinger-easy-onboarding' ),
+            'menu_title'      => __( 'Onboarding', 'hostinger-easy-onboarding' ),
+            'capability'      => 'manage_options',
+            'menu_slug'       => 'hostinger-get-onboarding',
+            'callback'        => array( $this, 'render_onboarding' ),
             'menu_identifier' => 'home',
-			'menu_order' => 10
-		);
+            'menu_order'      => 10,
+        );
 
-		return $submenus;
-	}
+        return $submenus;
+    }
 
     /**
      * @return void
      */
-	public function renderOnboarding(): void {
-		include_once __DIR__ . '/Views/Onboarding.php';
-	}
+    public function render_onboarding(): void {
+        include_once __DIR__ . '/Views/Onboarding.php';
+    }
+
+    public function register_hidden_full_screen_page(): void {
+        add_submenu_page(
+            'hts',
+            __( 'Full Screen Onboarding', 'hostinger-easy-onboarding' ),
+            __( 'Full Screen Onboarding', 'hostinger-easy-onboarding' ),
+            'manage_options',
+            'hostinger-full-screen-onboarding',
+            array( $this, 'render_full_screen_onboarding' )
+        );
+    }
+
+    public function render_full_screen_onboarding(): void {
+        include_once __DIR__ . '/Views/FullScreenOnboarding.php';
+    }
 }

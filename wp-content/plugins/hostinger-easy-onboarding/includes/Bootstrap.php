@@ -26,60 +26,70 @@ use Hostinger\EasyOnboarding\Cli;
 defined( 'ABSPATH' ) || exit;
 
 class Bootstrap {
-	protected Loader $loader;
+    protected Loader $loader;
 
-	public function __construct() {
-		$this->loader = new Loader();
-	}
+    public function __construct() {
+        $this->loader = new Loader();
+    }
 
-	public function run(): void {
-		$this->load_dependencies();
-		$this->set_locale();
-		$this->loader->run();
-	}
+    public function run(): void {
+        $this->load_dependencies();
+        $this->set_locale();
+        $this->loader->run();
+    }
 
-	private function load_dependencies(): void {
-		$this->load_onboarding_dependencies();
-		$this->load_public_dependencies();
+    private function load_dependencies(): void {
+        $this->load_onboarding_dependencies();
+        $this->load_public_dependencies();
 
-
-		if ( is_admin() ) {
-			$this->load_admin_dependencies();
-		}
+        if ( is_admin() ) {
+            $this->load_admin_dependencies();
+        }
 
         if ( defined( 'WP_CLI' ) && WP_CLI ) {
             new Cli();
         }
-	}
+    }
 
-	private function set_locale() {
-		$plugin_i18n = new I18n();
-		$this->loader->add_action( 'init', $plugin_i18n, 'load_plugin_textdomain' );
-	}
+    private function set_locale() {
+        $plugin_i18n = new I18n();
+        $this->loader->add_action( 'init', $plugin_i18n, 'load_plugin_textdomain' );
+    }
 
-	private function surveys(): void
-	{
-		$helper = new Helper();
-		$config = new Config();
-		$client = new Client(
-			$config->getConfigValue( 'base_rest_uri', Constants::HOSTINGER_REST_URI ),
-			[
-				Config::TOKEN_HEADER  => $helper->getApiToken(),
-				Config::DOMAIN_HEADER => $helper->getHostInfo(),
-			]
-		);
+    private function create_client(): Client {
+        $helper = new Helper();
+        $config = new Config();
 
-		if ( class_exists( SurveyManager::class ) ) {
-			$surveysRest   = new SurveysRest( $client );
-			$surveyManager = new SurveyManager( $helper, $config, $surveysRest );
-			$surveys       = new Surveys( $surveyManager );
-			$surveys->init();
-		}
-	}
+        return new Client(
+            $config->getConfigValue( 'base_rest_uri', Constants::HOSTINGER_REST_URI ),
+            array(
+                Config::TOKEN_HEADER  => $helper->getApiToken(),
+                Config::DOMAIN_HEADER => $helper->getHostInfo(),
+            )
+        );
+    }
 
-	private function load_admin_dependencies(): void
-    {
-		$this->surveys();
+    private function get_helper(): Helper {
+        return new Helper();
+    }
+
+    private function surveys(): void {
+        if ( ! class_exists( SurveyManager::class ) ) {
+            return;
+        }
+
+        $helper = $this->get_helper();
+        $config = new Config();
+        $client = $this->create_client();
+
+        $surveys_rest   = new SurveysRest( $client );
+        $survey_manager = new SurveyManager( $helper, $config, $surveys_rest );
+        $surveys        = new Surveys( $survey_manager );
+        $surveys->init();
+    }
+
+    private function load_admin_dependencies(): void {
+        $this->surveys();
         new AdminAssets();
         new AdminHooks();
         new AdminMenu();
@@ -92,16 +102,15 @@ class Bootstrap {
         new Hooks();
         new Updates();
 
-        $welcome_routes  = new WelcomeRoutes();
-        $step_routes     = new StepRoutes();
-        $woo_routes      = new WooRoutes();
-        $tutorial_routes = new TutorialRoutes();
+        $helper = $this->get_helper();
+        $client = $this->create_client();
 
-        $routes = new Routes( $welcome_routes, $step_routes, $woo_routes, $tutorial_routes );
+        $routes = new Routes( new WelcomeRoutes(), new StepRoutes(), new WooRoutes(), new TutorialRoutes(), $client, $helper );
+
         $routes->init();
     }
 
-	private function load_onboarding_dependencies(): void {
+    private function load_onboarding_dependencies(): void {
         new AutocompleteSteps();
-	}
+    }
 }

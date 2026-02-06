@@ -2,7 +2,7 @@
 
 namespace Hostinger\EasyOnboarding\AmplitudeEvents;
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
 use Hostinger\Amplitude\AmplitudeManager;
 use Hostinger\EasyOnboarding\AmplitudeEvents\Actions as AmplitudeActions;
@@ -11,8 +11,8 @@ use Hostinger\WpHelper\Requests\Client;
 use Hostinger\WpHelper\Config;
 use Hostinger\WpHelper\Constants;
 
-class Amplitude
-{
+class Amplitude {
+
     public const WEBSITE_BUILDER_TYPE = 'ai';
     /**
      * @var Helper
@@ -27,26 +27,24 @@ class Amplitude
     /**
      * @var Config
      */
-    private Config $configHandler;
+    private Config $config_handler;
 
-    private array $options = [];
+    private array $options = array();
 
-    public function __construct()
-    {
-        $this->helper        = new Helper();
-        $this->configHandler = new Config();
-        $this->client        = new Client(
-            $this->configHandler->getConfigValue('base_rest_uri', Constants::HOSTINGER_REST_URI), [
+    public function __construct() {
+        $this->helper                     = new Helper();
+        $this->config_handler             = new Config();
+        $this->client                     = new Client(
+            $this->config_handler->getConfigValue( 'base_rest_uri', Constants::HOSTINGER_REST_URI ),
+            array(
                 Config::TOKEN_HEADER  => Helper::getApiToken(),
                 Config::DOMAIN_HEADER => $this->helper->getHostInfo(),
-            ]
+            )
         );
-        $this->options['builder_type']        = get_option('hostinger_builder_type', '');
-        $this->options['website_id']          = get_option('hostinger_website_id', '');
-        $this->options['subscription_id']     = get_option('hostinger_subscription_id', '');
-        $this->options['event_data']          = get_option('hostinger_amplitude_event_data', []);
-        $this->options['edit_count']          = get_option('hostinger_amplitude_edit_count', 0);
-        $this->options['ai_version']          = get_option('hostinger_ai_version', '');
+        $this->options['builder_type']    = get_option( 'hostinger_builder_type', '' );
+        $this->options['website_id']      = get_option( 'hostinger_website_id', '' );
+        $this->options['subscription_id'] = get_option( 'hostinger_subscription_id', '' );
+        $this->options['ai_version']      = get_option( 'hostinger_ai_version', '' );
     }
 
     /**
@@ -54,70 +52,34 @@ class Amplitude
      *
      * @return array
      */
-    public function send_event(array $params): array
-    {
-        $amplitudeManager = new AmplitudeManager($this->helper, $this->configHandler, $this->client);
+    public function send_event( array $params ): array {
+        $amplitude_manager = new AmplitudeManager( $this->helper, $this->config_handler, $this->client );
 
-        return $amplitudeManager->sendRequest($amplitudeManager::AMPLITUDE_ENDPOINT, $params);
+        return $amplitude_manager->sendRequest( $amplitude_manager::AMPLITUDE_ENDPOINT, $params );
     }
 
-    public function sendEditAmplitudeEvent(): void
-    {
-        $edit_count = $this->incrementAmplitudeEditEventCount();
-
-        $params = [
+    public function send_edit_amplitude_event(): void {
+        $params = array(
             'action'          => AmplitudeActions::WP_EDIT,
             'wp_builder_type' => $this->options['builder_type'],
             'website_id'      => $this->options['website_id'],
             'subscription_id' => $this->options['subscription_id'],
-            'edit_count'      => $edit_count,
-        ];
+        );
 
-        $this->send_event($params);
+        $this->send_event( $params );
     }
 
-    public function canSendEditAmplitudeEvent(): bool
-    {
-        $today               = date('Y-m-d');
-        $event_data          = $this->options['event_data'];
-        $isAiWebsiteNotGenerated = !$this->options['ai_version'];
+    public function can_send_edit_amplitude_event(): bool {
+        $is_ai_website_not_generated = ! $this->options['ai_version'];
 
-        if (!$this->options['builder_type'] || !$this->options['website_id'] || !$this->options['subscription_id']) {
+        if ( ! $this->options['builder_type'] || ! $this->options['website_id'] || ! $this->options['subscription_id'] ) {
             return false;
         }
 
-        if ($this->options['builder_type'] == self::WEBSITE_BUILDER_TYPE && $isAiWebsiteNotGenerated) {
+        if ( $this->options['builder_type'] === self::WEBSITE_BUILDER_TYPE && $is_ai_website_not_generated ) {
             return false;
         }
 
-        if (!is_array($event_data)) {
-            $event_data = [];
-        }
-
-        // Check if we already have data for today
-        $today_event = $event_data[$today] ?? ['count' => 0, 'last_reset' => 0];
-
-        // Only update if the event count is less than 3
-        if ($today_event['count'] < 3) {
-            $today_event['count'] += 1;
-            $event_data[$today] = $today_event;
-
-            update_option('hostinger_amplitude_event_data', $event_data);
-            wp_cache_delete('hostinger_amplitude_event_data', 'options');
-
-            return true;
-        }
-
-        return false;
-    }
-
-    public function incrementAmplitudeEditEventCount(): int
-    {
-        $edit_count = (int) $this->options['edit_count'] + 1;
-
-        update_option('hostinger_amplitude_edit_count', $edit_count);
-        wp_cache_delete('hostinger_amplitude_event_data', 'options');
-
-        return $edit_count;
+        return true;
     }
 }

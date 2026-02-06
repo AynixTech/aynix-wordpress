@@ -3,8 +3,8 @@ Contributors: tareq1988, nizamuddinbabu, wedevs, wemail
 Donate link: https://getwemail.io
 Tags: email marketing, newsletter, subscription, smtp, optins
 Requires at least: 5.6
-Tested up to: 6.7.2
-Stable tag: 1.14.14
+Tested up to: 6.8.3
+Stable tag: 2.0.9
 Requires PHP: 7.4
 License: GPLv2 or later
 License URL: https://www.gnu.org/licenses/gpl-2.0.html
@@ -259,6 +259,10 @@ These forms are fully customizable optins. It will allow you to match your brand
 weMail doesn't require any pre-requisite. But we do advise you first look through the options & documentation provided by the email sending API service providers. You will need these services to send
 emails.
 
+= Where do I report security bugs found in this plugin? =
+
+Please report security bugs found in the source code of the weMail plugin through the [Patchstack Vulnerability Disclosure  Program](https://patchstack.com/database/vdp/9e5fb987-a20f-469f-bb16-9d9b4916acf1). The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this
+
 =  =
 
 == Screenshots ==
@@ -273,6 +277,49 @@ emails.
 
 
 == Changelog ==
+v2.0.9 - (16th Feb, 2026) =
+* Fixed issue for csv import
+
+v2.0.8 - (19th Jan, 2026) =
+* Refactor permission callbacks for form and CSV handling
+* Fix Wordfence security scan issues
+
+v2.0.7 - (19th Dec, 2025) =
+* Handle API calls when the API key is missing
+* Update plugin uri
+
+v2.0.6 - (18th Nov, 2025) =
+* Improve handling of WP_Error on remote calls
+
+= v2.0.5 - (12th Nov, 2025) =
+* Fixed permisison checking to access rest api
+
+= v2.0.4 - (6th Nov, 2025) =
+* Prevents disconnection after updating the plugin
+
+= v2.0.3 - (20th Oct, 2025) =
+* Improved mail deliverability
+* Email tracking using wp site domain
+* Prevent disconnection after updating the plugin
+
+= v2.0.2 - (15th Oct, 2025) =
+* Fixed RSS campaign issue
+
+= v2.0.1 - (17th June, 2025) =
+* Fixed permission checking for remote calling
+
+= v2.0.0 - (11th Sept, 2025) =
+* Introduced yearly subscription plans.
+* Added one-click onboarding setup
+* Free and Pro plans now support unlimited subscribers
+* Redesigned onboarding system for a smoother user experience.
+* Enhanced API security by implementing a proxy layer.
+
+= v1.14.16 - (27th June, 2025) =
+* **Fix** Resolved the issue with CSV importing for remote media URLs
+
+= v1.14.15 - (23rd June, 2025) =
+* **Fix** Resolved CSV import issues on PHP 8.1 and 8.2.
 
 = v1.14.14 - (25th Apr, 2025) =
 * **Fix** Fix vulnerability issue for access admin user

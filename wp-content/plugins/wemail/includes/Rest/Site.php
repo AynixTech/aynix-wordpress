@@ -14,7 +14,8 @@ class Site extends RestController {
     public function register_routes() {
         $this->post( '/settings', 'save_settings', 'can_manage_settings' );
         $this->post( '/settings/save-options', 'save_options', 'manage_options' );
-        $this->delete( '', 'delete_site', 'can_manage_settings' );
+        $this->delete( '', 'delete_site', 'check_delete_permission' );
+        $this->get( '/authentication', 'check_after_update', 'manage_options' );
     }
 
     /**
@@ -83,6 +84,8 @@ class Site extends RestController {
             'wemail_is_edd_synced',
             'wemail_woocommerce_integrated',
             'wemail_is_woocommerce_synced',
+            'wemail_api_key',
+            'wemail_site_connection_notice',
         );
 
         foreach ( $wemail_options as $option ) {
@@ -124,5 +127,58 @@ class Site extends RestController {
         $setting->update( $settings );
 
         return;
+    }
+
+    public function check_after_update() {
+        $api_key = get_option( 'wemail_api_key' );
+
+        if ( empty( $api_key ) ) {
+            // Get user meta API key for header
+            $user_api_key = get_user_meta( get_current_user_id(), 'wemail_api_key', true );
+
+            // Set the API key in the API instance for proper header inclusion
+            if ( ! empty( $user_api_key ) ) {
+                wemail()->api->set_api_key( $user_api_key );
+            }
+
+            $response = wemail()->api->site()->authentication()->send_json()->post( array( 'site_url' => get_site_url() ) );
+            if ( is_wp_error( $response ) && empty( $response['key'] ) ) {
+                return rest_ensure_response(
+                    array(
+                        'success' => false,
+                        'redirect_url' => admin_url( 'admin.php?page=wemail' ),
+                        'message' => $response->get_error_message(),
+                    )
+                );
+            }
+            update_option( 'wemail_api_key', $response['key'] );
+            wemail()->api->set_api_key( $response['key'] );
+
+            return rest_ensure_response(
+                array(
+					'success' => true,
+					'redirect_url' => admin_url( 'admin.php?page=wemail' ),
+					'message' => __( 'Site connected successfully!', 'wemail' ),
+				)
+            );
+		}
+	}
+
+    /**
+     * Check delete site permission
+     *
+     * @since 2.0.4
+     *
+     * @param \WP_REST_Request $request
+     *
+     * @return bool
+     */
+    public function check_delete_permission( $request ) {
+        $api_key = $request->get_header( 'x-wemail-key' );
+        $wp_api_key = get_option( 'wemail_api_key' );
+        if ( $api_key !== $wp_api_key ) {
+            return false;
+        }
+        return true;
     }
 }

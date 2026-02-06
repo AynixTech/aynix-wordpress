@@ -24,22 +24,19 @@ class Button {
 
     private bool $is_astra_needed = false;
 
-    /**
-     * @param string $title
-     * @param bool $is_skippable
-     * @param string $url
-     */
-    public function __construct( string $title = '', bool $is_skippable = false, string $url = '' ) {
-        $this->title = $title;
-        $this->is_skippable = $is_skippable;
-        $this->url = $url;
+    private bool $is_completable = true;
+
+    public function __construct( string $title = '', bool $is_skippable = false, string $url = '', bool $is_completable = true ) {
+        $this->title          = $title;
+        $this->is_skippable   = $is_skippable;
+        $this->url            = $url;
+        $this->is_completable = $is_completable;
     }
 
     /**
      * @return string
      */
-    public function get_title(): string
-    {
+    public function get_title(): string {
         return $this->title;
     }
 
@@ -48,16 +45,14 @@ class Button {
      *
      * @return void
      */
-    public function set_title( string $title ): void
-    {
+    public function set_title( string $title ): void {
         $this->title = $title;
     }
 
     /**
      * @return bool
      */
-    public function get_is_skippable(): bool
-    {
+    public function get_is_skippable(): bool {
         return $this->is_skippable;
     }
 
@@ -66,16 +61,14 @@ class Button {
      *
      * @return void
      */
-    public function set_is_skippable( bool $is_skippable ): void
-    {
+    public function set_is_skippable( bool $is_skippable ): void {
         $this->is_skippable = $is_skippable;
     }
 
     /**
      * @return string
      */
-    public function get_url(): string
-    {
+    public function get_url(): string {
         return $this->url;
     }
 
@@ -84,8 +77,7 @@ class Button {
      *
      * @return void
      */
-    public function set_url(string $url): void
-    {
+    public function set_url( string $url ): void {
         $this->url = $url;
     }
 
@@ -105,17 +97,25 @@ class Button {
         $this->is_astra_needed = $is_astra_needed;
     }
 
+    public function get_is_completable(): bool {
+        return $this->is_completable;
+    }
+
+    public function set_is_completable( bool $is_completable ): void {
+        $this->is_completable = $is_completable;
+    }
+
     /**
      * @return array
      */
-    public function to_array(): array
-    {
+    public function to_array(): array {
         return array(
-            'title'     => $this->get_title(),
-            'is_skippable' => $this->get_is_skippable(),
+            'title'           => $this->get_title(),
+            'is_skippable'    => $this->get_is_skippable(),
             'is_astra_needed' => $this->get_is_astra_needed(),
-            'url' => $this->get_url(),
-            'modal_name' => $this->get_modal_name(),
+            'url'             => $this->get_url(),
+            'modal_name'      => $this->get_modal_name(),
+            'is_completable'  => $this->get_is_completable(),
         );
     }
 }

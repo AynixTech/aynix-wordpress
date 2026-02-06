@@ -5,7 +5,7 @@ use Hostinger\EasyOnboarding\Config;
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+    exit;
 }
 
 class Updates {
@@ -21,11 +21,11 @@ class Updates {
      * @return string
      */
     private function get_plugin_update_uri(): string {
-        if ( isset( $_SERVER['H_STAGING'] ) && $_SERVER['H_STAGING'] === true ) {
+        if ( isset( $_SERVER['H_STAGING'] ) && filter_var( $_SERVER['H_STAGING'], FILTER_VALIDATE_BOOLEAN ) === true ) {
             return self::STAGING_PLUGIN_UPDATE_URI;
         }
 
-        if ( isset( $_SERVER['H_CANARY'] ) && $_SERVER['H_CANARY'] === true ) {
+        if ( isset( $_SERVER['H_CANARY'] ) && filter_var( $_SERVER['H_CANARY'], FILTER_VALIDATE_BOOLEAN ) === true ) {
             return self::CANARY_PLUGIN_UPDATE_URI;
         }
 

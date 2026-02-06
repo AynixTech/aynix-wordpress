@@ -23,7 +23,7 @@ class HostingRoutes {
         $this->helper = $helper;
         $this->config = new Config();
         $this->client = new Client(
-            $this->config->getConfigValue( 'base_proxy_rest_uri', HOSTINGER_EASY_ONBOARDING_REST_URI ),
+            $this->config->getConfigValue( 'base_rest_uri', HOSTINGER_EASY_ONBOARDING_REST_URI ),
             array(
                 Config::TOKEN_HEADER  => $this->helper->getApiToken(),
                 Config::DOMAIN_HEADER => $this->helper->getHostInfo(),

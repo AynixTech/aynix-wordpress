@@ -16,5 +16,4 @@ interface CLICommand {
      * @return void
      */
     public static function define_command(): void;
-
 }

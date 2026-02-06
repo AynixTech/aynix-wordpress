@@ -1,9 +1,6 @@
 <?php
 namespace Hostinger\EasyOnboarding\Rest;
 
-/**
- * Avoid possibility to get file accessed directly
- */
 if ( ! defined( 'ABSPATH' ) ) {
     die;
 }
@@ -14,13 +11,13 @@ class TutorialRoutes {
 
         $locale = sanitize_text_field( $parameters['locale'] );
 
-        $user_locale = !empty( $locale ) ? substr( $locale, 0, 2) : 'en';
+        $user_locale = ! empty( $locale ) ? substr( $locale, 0, 2 ) : 'en';
 
         $tutorials = array(
             'en' => array(
                 array(
                     'id'       => 'F_53_baJe6Q',
-                    'title'    => 'How to Make a Website (' . date('Y') . '): Simple, Quick, & Easy Tutorial',
+                    'title'    => 'How to Make a Website (' . wp_date( 'Y' ) . '): Simple, Quick, & Easy Tutorial',
                     'duration' => '17:47',
                 ),
                 array(
@@ -30,7 +27,7 @@ class TutorialRoutes {
                 ),
                 array(
                     'id'       => 'SU_DOsu9Llk',
-                    'title'    => 'How to EASILY Manage Google Tools with Google Site Kit - Beginners Guide ' . date('Y'),
+                    'title'    => 'How to EASILY Manage Google Tools with Google Site Kit - Beginners Guide ' . wp_date( 'Y' ),
                     'duration' => '12:28',
                 ),
                 array(
@@ -74,12 +71,12 @@ class TutorialRoutes {
             'es' => array(
                 array(
                     'id'       => 'FKp0dvhEN8o',
-                    'title'    => 'Cómo Personalizar WordPress (' . date('Y') . ')',
+                    'title'    => 'Cómo Personalizar WordPress (' . wp_date( 'Y' ) . ')',
                     'duration' => '9:02',
                 ),
                 array(
                     'id'       => 'QQQ3BcIb7Uo',
-                    'title'    => 'Guía Completa de Gutenberg en WordPress (' . date('Y') . ')',
+                    'title'    => 'Guía Completa de Gutenberg en WordPress (' . wp_date( 'Y' ) . ')',
                     'duration' => '12:30',
                 ),
                 array(
@@ -106,7 +103,7 @@ class TutorialRoutes {
                 ),
                 array(
                     'id'       => 'fZbe4JgCuPg',
-                    'title'    => 'Tuto - GUTENBERG WORDPRESS : Apprendre à Utiliser Gutenberg (' . date('Y') . ')',
+                    'title'    => 'Tuto - GUTENBERG WORDPRESS : Apprendre à Utiliser Gutenberg (' . wp_date( 'Y' ) . ')',
                     'duration' => '13:20',
                 ),
                 array(
@@ -121,12 +118,12 @@ class TutorialRoutes {
                 ),
                 array(
                     'id'       => 'Te3fM7VuQKg',
-                    'title'    => 'Installer un Thème WordPress (' . date('Y') . ') | Rapide et Facile',
+                    'title'    => 'Installer un Thème WordPress (' . wp_date( 'Y' ) . ') | Rapide et Facile',
                     'duration' => '2:58',
                 ),
                 array(
                     'id'       => '2rPq1CiogDk',
-                    'title'    => 'Google Analytics sur WordPress FACILEMENT avec Google Site Kit : Guide Complet (' . date('Y') . ')',
+                    'title'    => 'Google Analytics sur WordPress FACILEMENT avec Google Site Kit : Guide Complet (' . wp_date( 'Y' ) . ')',
                     'duration' => '7:19',
                 ),
             ),
@@ -186,14 +183,14 @@ class TutorialRoutes {
             ),
         );
 
-        if ( empty( $tutorials[$user_locale] ) ) {
+        if ( empty( $tutorials[ $user_locale ] ) ) {
             $user_locale = 'en';
         }
 
         $data = array(
             'data' => array(
-                'tutorials'  => $tutorials[$user_locale],
-            )
+                'tutorials' => $tutorials[ $user_locale ],
+            ),
         );
 
         $response = new \WP_REST_Response( $data );
@@ -204,5 +201,4 @@ class TutorialRoutes {
 
         return $response;
     }
-
 }

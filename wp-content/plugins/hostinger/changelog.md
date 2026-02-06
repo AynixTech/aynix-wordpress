@@ -500,3 +500,13 @@ Changelog
 - Feature: Bump up WP Tested up to Flag
 - Dev: Add code automation workflow
 - Dev: Bump up package versions
+
+3.0.56 (2025-12-09)
+
+- Feature: Add CTA to copy Web2Agent URL to clipboard
+
+3.0.57 (2026-01-06)
+
+- Tweak: Implement PHP Compat WP
+- Feature: Remove MCP settings
+- Fix: LLMS file overwrite

@@ -139,11 +139,13 @@ class Scripts {
             'user'                 => array(
                 'hash'             => $user->hash,
                 'role'             => $user->role,
-                'permissions'      => $user->permissions,
+                'allowed'          => $user->allowed,
+                // 'permissions'      => $user->permissions,
             ),
             'currentUser' => $current_user ? array(
                 'name' => $current_user->display_name,
                 'email' => $current_user->user_email,
+                'api_key'  => (bool) get_user_meta( $current_user->ID, 'wemail_api_key', true ),
             ) : null,
 
             // Vue related data

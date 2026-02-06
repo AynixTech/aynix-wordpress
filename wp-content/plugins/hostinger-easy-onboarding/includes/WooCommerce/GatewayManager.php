@@ -24,7 +24,7 @@ class GatewayManager {
     /**
      * @return bool
      */
-    public function isAnyGatewayActive(): bool {
+    public function is_any_gateway_active(): bool {
         $payment_gateways = $this->payment_gateways->payment_gateways();
 
         if ( empty( $payment_gateways ) ) {
@@ -33,7 +33,7 @@ class GatewayManager {
 
         foreach ( $payment_gateways as $gateway ) {
             // Does not have enabled property.
-            if( $gateway->id === self::STRIPE_DYNAMIC_GATEWAY_ID ) {
+            if ( $gateway->id === self::STRIPE_DYNAMIC_GATEWAY_ID ) {
                 continue;
             }
 

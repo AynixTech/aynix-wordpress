@@ -2,10 +2,12 @@
 namespace Hostinger\EasyOnboarding\Rest;
 
 use Hostinger\EasyOnboarding\Admin\Onboarding\WelcomeCards;
+use Hostinger\EasyOnboarding\Helper;
+use WP_Error;
+use WP_Http;
+use WP_REST_Request;
+use WP_REST_Response;
 
-/**
- * Avoid possibility to get file accessed directly
- */
 if ( ! defined( 'ABSPATH' ) ) {
     die;
 }
@@ -19,52 +21,51 @@ class WelcomeRoutes {
      *
      * @param WP_REST_Request $request WordPress rest request.
      *
-     * @return \WP_REST_Response
+     * @return WP_REST_Response
      */
-    public function get_welcome_status( \WP_REST_Request $request ): \WP_REST_Response {
+    public function get_welcome_status( WP_REST_Request $request ): WP_REST_Response {
         $parameters = $request->get_params();
 
-        $locale = !empty($parameters['locale']) ? sanitize_text_field($parameters['locale']) : '';
+        $locale              = ! empty( $parameters['locale'] ) ? sanitize_text_field( $parameters['locale'] ) : '';
         $available_languages = get_available_languages();
 
-        if (!empty($locale) && in_array($locale, $available_languages)) {
-            switch_to_locale($locale);
+        if ( ! empty( $locale ) && in_array( $locale, $available_languages, true ) ) {
+            switch_to_locale( $locale );
         }
 
-        $welcome_card = new WelcomeCards();
+        $welcome_card  = new WelcomeCards();
         $welcome_cards = $welcome_card->get_welcome_cards();
 
         $data = array(
             'data' => array(
-                'welcome_cards'  => $welcome_cards,
-                'welcome_choice_done' => get_option( 'hostinger_onboarding_choice_done', false )
-            )
+                'welcome_cards'       => $welcome_cards,
+                'welcome_choice_done' => get_option( 'hostinger_onboarding_choice_done', false ),
+            ),
         );
 
-        $response = new \WP_REST_Response( $data );
+        $response = new WP_REST_Response( $data );
 
         $response->set_headers( array( 'Cache-Control' => 'no-cache' ) );
 
-        $response->set_status( \WP_Http::OK );
+        $response->set_status( WP_Http::OK );
 
         return $response;
     }
 
     /**
-     * @param \WP_REST_Request $request
+     * @param WP_REST_Request $request
      *
-     * @return \WP_Error|\WP_REST_Response
+     * @return WP_Error|WP_REST_Response
      */
-    public function update_welcome_status( \WP_REST_Request $request )
-    {
+    public function update_welcome_status( WP_REST_Request $request ) {
         $parameters = $request->get_params();
 
-        if( empty( $parameters['choice'] ) ) {
-            return new \WP_Error(
+        if ( empty( $parameters['choice'] ) ) {
+            return new WP_Error(
                 'data_invalid',
                 __( 'Choice parameter missing or empty', 'hostinger-easy-onboarding' ),
                 array(
-                    'status' => \WP_Http::BAD_REQUEST
+                    'status' => WP_Http::BAD_REQUEST,
                 )
             );
         }
@@ -77,36 +78,52 @@ class WelcomeRoutes {
             do_action( 'litespeed_purge_all' );
         }
 
-        $response = new \WP_REST_Response( array( 'data' => array() ) );
+        $response = new WP_REST_Response( array( 'data' => array() ) );
 
-        $response->set_headers(array('Cache-Control' => 'no-cache'));
+        $response->set_headers( array( 'Cache-Control' => 'no-cache' ) );
 
-        $response->set_status( \WP_Http::OK );
+        $response->set_status( WP_Http::OK );
 
         return $response;
     }
 
     /**
-     * @param \WP_REST_Request $request
+     * @param WP_REST_Request $request
      *
-     * @return \WP_Error|\WP_REST_Response
+     * @return WP_Error|WP_REST_Response
      */
-    public function update_addons_banner_status( \WP_REST_Request $request ) {
+    public function update_addons_banner_status( WP_REST_Request $request ) {
         $parameters = $request->get_params();
 
-        // Validate if 'choice' parameter exists and is boolean
         if ( ! isset( $parameters['choice'] ) || ! is_bool( $parameters['choice'] ) ) {
-            return new \WP_Error( 'data_invalid', __( 'Choice parameter missing or invalid', 'hostinger-easy-onboarding' ), array( 'status' => \WP_Http::BAD_REQUEST ) );
+            return new WP_Error( 'data_invalid', __( 'Choice parameter missing or invalid', 'hostinger-easy-onboarding' ), array( 'status' => WP_Http::BAD_REQUEST ) );
         }
 
-        $choice = (bool) $parameters['choice'] ? 0 : 1;
+        $choice = $parameters['choice'] ? 0 : 1;
 
-        set_transient( 'hostinger_hide_addons_banner', $choice, YEAR_IN_SECONDS );
+        set_transient( Helper::HIDE_ADDONS_BANNER, $choice, YEAR_IN_SECONDS );
 
-        // Prepare response
-        $response = new \WP_REST_Response( array( 'data' => array() ) );
+        $response = new WP_REST_Response( array( 'data' => array() ) );
         $response->set_headers( array( 'Cache-Control' => 'no-cache' ) );
-        $response->set_status( \WP_Http::OK );
+        $response->set_status( WP_Http::OK );
+
+        return $response;
+    }
+
+    public function update_reach_banner_status( WP_REST_Request $request ) {
+        $parameters = $request->get_params();
+
+        if ( ! isset( $parameters['choice'] ) || ! is_bool( $parameters['choice'] ) ) {
+            return new WP_Error( 'data_invalid', __( 'Choice parameter missing or invalid', 'hostinger-easy-onboarding' ), array( 'status' => WP_Http::BAD_REQUEST ) );
+        }
+
+        $choice = $parameters['choice'] ? 0 : 1;
+
+        set_transient( Helper::HIDE_REACH_BANNER, $choice, YEAR_IN_SECONDS );
+
+        $response = new WP_REST_Response( array( 'data' => array() ) );
+        $response->set_headers( array( 'Cache-Control' => 'no-cache' ) );
+        $response->set_status( WP_Http::OK );
 
         return $response;
     }

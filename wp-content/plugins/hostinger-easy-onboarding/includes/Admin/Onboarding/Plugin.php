@@ -71,211 +71,187 @@ class Plugin {
      * @param        $description
      * @param        $type
      * @param        $locale_supported
-     * @param        $global
+     * @param        $is_global
      * @param bool   $is_config_url
      * @param string $config_url
      */
-    public function __construct($icon_url, $name, $slug, $description, $type, $locale_supported, $global, $is_config_url = false, $config_url = '') {
-        $this->icon_url = $icon_url;
-        $this->name = $name;
-        $this->slug = $slug;
-        $this->description = $description;
-        $this->type = $type;
+    public function __construct( $icon_url, $name, $slug, $description, $type, $locale_supported, $is_global, $is_config_url = false, $config_url = '' ) {
+        $this->icon_url         = $icon_url;
+        $this->name             = $name;
+        $this->slug             = $slug;
+        $this->description      = $description;
+        $this->type             = $type;
         $this->locale_supported = $locale_supported;
-        $this->global = $global;
-        $this->is_config_url = $is_config_url;
-        $this->config_url = $config_url;
+        $this->is_global        = $is_global;
+        $this->is_config_url    = $is_config_url;
+        $this->config_url       = $config_url;
     }
 
     /**
      * @return string
      */
-    public function get_icon_url(): string
-    {
+    public function get_icon_url(): string {
         return $this->icon_url;
     }
 
     /**
      * @param string $icon_url
      */
-    public function set_icon_url(string $icon_url): void
-    {
+    public function set_icon_url( string $icon_url ): void {
         $this->icon_url = $icon_url;
     }
 
     /**
      * @return string
      */
-    public function get_name(): string
-    {
+    public function get_name(): string {
         return $this->name;
     }
 
     /**
      * @param string $name
      */
-    public function set_name(string $name): void
-    {
+    public function set_name( string $name ): void {
         $this->name = $name;
     }
 
     /**
      * @return string
      */
-    public function get_slug(): string
-    {
+    public function get_slug(): string {
         return $this->slug;
     }
 
     /**
      * @param string $slug
      */
-    public function set_slug(string $slug): void
-    {
+    public function set_slug( string $slug ): void {
         $this->slug = $slug;
     }
 
     /**
      * @return string
      */
-    public function get_description(): string
-    {
+    public function get_description(): string {
         return $this->description;
     }
 
     /**
      * @param string $description
      */
-    public function set_description(string $description): void
-    {
+    public function set_description( string $description ): void {
         $this->description = $description;
     }
 
     /**
      * @return array
      */
-    public function get_locale_supported(): array
-    {
+    public function get_locale_supported(): array {
         return $this->locale_supported;
     }
 
     /**
      * @param array $locale_supported
      */
-    public function set_locale_supported(array $locale_supported): void
-    {
+    public function set_locale_supported( array $locale_supported ): void {
         $this->locale_supported = $locale_supported;
     }
 
     /**
      * @return bool
      */
-    public function get_global(): bool
-    {
-        return $this->global;
+    public function get_is_global(): bool {
+        return $this->is_global;
     }
 
     /**
-     * @param bool $global
+     * @param bool $is_global
      */
-    public function set_global(bool $global): void
-    {
-        $this->global = $global;
+    public function set_is_global( bool $is_global ): void {
+        $this->is_global = $is_global;
     }
 
     /**
      * @return string
      */
-    public function get_type(): string
-    {
+    public function get_type(): string {
         return $this->type;
     }
 
     /**
      * @param string $type
      */
-    public function set_type(string $type): void
-    {
+    public function set_type( string $type ): void {
         $this->type = $type;
     }
 
     /**
      * @return bool
      */
-    public function get_is_active(): bool
-    {
+    public function get_is_active(): bool {
         return $this->is_active;
     }
 
     /**
      * @param bool $is_active
      */
-    public function set_is_active(bool $is_active): void
-    {
+    public function set_is_active( bool $is_active ): void {
         $this->is_active = $is_active;
     }
 
     /**
      * @return bool
      */
-    public function get_is_recommended(): bool
-    {
+    public function get_is_recommended(): bool {
         return $this->is_recommended;
     }
 
     /**
      * @param bool $is_recommended
      */
-    public function set_is_recommended(bool $is_recommended): void
-    {
+    public function set_is_recommended( bool $is_recommended ): void {
         $this->is_recommended = $is_recommended;
     }
 
     /**
      * @return bool
      */
-    public function get_is_installed(): bool
-    {
+    public function get_is_installed(): bool {
         return $this->is_installed;
     }
 
     /**
      * @param bool $is_installed
      */
-    public function set_is_installed(bool $is_installed): void
-    {
+    public function set_is_installed( bool $is_installed ): void {
         $this->is_installed = $is_installed;
     }
 
     /**
      * @return bool
      */
-    public function get_is_config_url(): bool
-    {
+    public function get_is_config_url(): bool {
         return $this->is_config_url;
     }
 
     /**
      * @param bool $is_config_url
      */
-    public function set_is_config_url(bool $is_config_url): void
-    {
+    public function set_is_config_url( bool $is_config_url ): void {
         $this->is_config_url = $is_config_url;
     }
 
     /**
      * @return string
      */
-    public function get_config_url(): string
-    {
+    public function get_config_url(): string {
         return $this->config_url;
     }
 
     /**
      * @param string $config_url
      */
-    public function set_config_url(string $config_url): void
-    {
+    public function set_config_url( string $config_url ): void {
         $this->config_url = $config_url;
     }
 
@@ -284,18 +260,18 @@ class Plugin {
      */
     public function to_array(): array {
         return array(
-            'icon_url' => $this->get_icon_url(),
-            'name' => $this->get_name(),
-            'slug' => $this->get_slug(),
-            'description' => $this->get_description(),
+            'icon_url'         => $this->get_icon_url(),
+            'name'             => $this->get_name(),
+            'slug'             => $this->get_slug(),
+            'description'      => $this->get_description(),
             'locale_supported' => $this->get_locale_supported(),
-            'global' => $this->get_global(),
-            'type' => $this->get_type(),
-            'is_recommended' => $this->get_is_recommended(),
-            'is_active' => $this->get_is_active(),
-            'is_installed' => $this->get_is_installed(),
-            'is_config_url' => $this->get_is_config_url(),
-            'config_url' => $this->get_config_url()
+            'global'           => $this->get_is_global(),
+            'type'             => $this->get_type(),
+            'is_recommended'   => $this->get_is_recommended(),
+            'is_active'        => $this->get_is_active(),
+            'is_installed'     => $this->get_is_installed(),
+            'is_config_url'    => $this->get_is_config_url(),
+            'config_url'       => $this->get_config_url(),
         );
     }
 }

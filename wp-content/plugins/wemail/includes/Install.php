@@ -21,21 +21,24 @@ class Install {
         update_option( 'wemail_version', WEMAIL_VERSION );
 
         // let the API know we are active again
-        $api_key    = get_user_meta( get_current_user_id(), 'wemail_api_key', true );
-        $api        = apply_filters( 'wemail_api_url', 'https://api.getwemail.io/v1' );
-        $wemail_api = untrailingslashit( $api );
+        $api_key    = get_option( 'wemail_api_key' );
 
-        wp_remote_post(
-            $wemail_api . '/site/update-activation-status',
-            array(
-                'headers' => array(
-                    'x-api-key' => $api_key,
-                ),
-                'body'    => array(
-                    'deactivated' => false,
-                ),
-            )
-        );
+        if ($api_key) {
+            $wemail_api = wemail()->wemail_api;
+            $user = wp_get_current_user();
+            wp_remote_post(
+                $wemail_api . '/site/update-activation-status',
+                array(
+                    'headers' => array(
+                        'x-api-key' => $api_key,
+                        'x-wemail-user' => $user->user_email,
+                    ),
+                    'body'    => array(
+                        'deactivated' => false,
+                    ),
+                )
+            );
+        }
 
         // set the redirection to setup wizard
         set_transient( 'wemail_activation_redirect', true, 30 );

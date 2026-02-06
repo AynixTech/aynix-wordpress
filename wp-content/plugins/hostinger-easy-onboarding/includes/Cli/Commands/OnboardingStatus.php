@@ -25,26 +25,25 @@ class OnboardingStatus implements CLICommand {
             WP_CLI::add_command(
                 'hostinger onboarding',
                 self::class,
-                [
+                array(
                     'shortdesc' => 'Check the status of Hostinger Easy Onboarding',
                     'longdesc'  => 'This command allows you to check the status of Hostinger Easy Onboarding Progress for the WooCommerce store.' . "\n\n" .
                         '## EXAMPLES' . "\n\n" .
                         '  wp hostinger onboarding woocommerce_status' . "\n" .
                         '  Returns whether Hostinger Easy Onboarding for WooCommerce Store setup is completed or is ready to sell in JSON.',
-                ]
+                )
             );
         }
     }
 
-    public function woocommerce_status(): void
-    {
+    public function woocommerce_status(): void {
         $helper = new Helper();
 
-        $onboarding = [
+        $onboarding = array(
             'woocommerce_onboarding_ready_to_sell' => $helper->is_woocommerce_store_ready(),
-            'woocommerce_onboarding_status' => $helper->is_woocommerce_onboarding_completed(),
-        ];
+            'woocommerce_onboarding_status'        => $helper->is_woocommerce_onboarding_completed(),
+        );
 
-        WP_CLI::line(wp_json_encode($onboarding));
+        WP_CLI::line( wp_json_encode( $onboarding ) );
     }
 }

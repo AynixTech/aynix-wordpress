@@ -20,12 +20,12 @@
             'dev_requirement' => false,
         ),
         'league/csv' => array(
-            'pretty_version' => '7.2.0',
-            'version' => '7.2.0.0',
+            'pretty_version' => '9.8.0',
+            'version' => '9.8.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../league/csv',
             'aliases' => array(),
-            'reference' => '69bafa6ff924fbf9effe4275d6eb16be81a853ef',
+            'reference' => '9d2e0265c5d90f5dd601bc65ff717e05cec19b47',
             'dev_requirement' => false,
         ),
         'wemail/wemail' => array(
