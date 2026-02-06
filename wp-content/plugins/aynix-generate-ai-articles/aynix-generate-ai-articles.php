@@ -746,10 +746,23 @@ class AYNIX_Generate_AI_Articles {
             return null;
         }
 
-        $data = json_decode(wp_remote_retrieve_body($response), true);
+        $status_code = wp_remote_retrieve_response_code($response);
+        $request_id = wp_remote_retrieve_header($response, 'x-request-id');
+        if (is_array($request_id)) {
+            $request_id = reset($request_id);
+        }
+        $request_id = is_string($request_id) ? $request_id : '';
+        $body_raw = wp_remote_retrieve_body($response);
+        $this->write_log('OPENAI_HTTP_STATUS: ' . $status_code . ($request_id ? (' REQUEST_ID: ' . $request_id) : ''));
+        if ($status_code < 200 || $status_code >= 300) {
+            $this->write_log('OPENAI_HTTP_ERROR_BODY: ' . $this->truncate_log($body_raw));
+        }
+
+        $data = json_decode($body_raw, true);
         if (!isset($data['choices'][0]['message']['content'])) {
             error_log('AYNIX AI Articles: Invalid OpenAI response');
             $this->log_error('Invalid OpenAI response');
+            $this->write_log('OPENAI_RAW_RESPONSE: ' . $this->truncate_log($body_raw));
             return null;
         }
 
