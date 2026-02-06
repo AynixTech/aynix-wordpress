@@ -799,34 +799,47 @@ class AYNIX_Generate_AI_Articles {
 
         $json_flags = defined('JSON_INVALID_UTF8_SUBSTITUTE') ? JSON_INVALID_UTF8_SUBSTITUTE : 0;
         $sanitized = $this->sanitize_json_text($raw_content);
+        if ($sanitized !== $raw_content) {
+            $this->write_log('OPENAI_SANITIZE_CHANGED: yes');
+            $this->write_log('OPENAI_SANITIZE_DELTA_LEN: ' . (strlen($sanitized) - strlen($raw_content)));
+        } else {
+            $this->write_log('OPENAI_SANITIZE_CHANGED: no');
+        }
         $content = json_decode($sanitized, true, 512, $json_flags);
         if (is_string($content)) {
             $content = json_decode($content, true, 512, $json_flags);
         }
         if (!is_array($content)) {
+            $this->write_log('OPENAI_JSON_DECODE_STAGE: primary_failed');
             if (function_exists('iconv')) {
                 $converted = @iconv('UTF-8', 'UTF-8//IGNORE', $sanitized);
                 if ($converted && $converted !== $raw_content) {
+                    $this->write_log('OPENAI_JSON_DECODE_STAGE: iconv_attempt');
                     $content = json_decode($converted, true, 512, $json_flags);
                 }
             }
         }
         if (!is_array($content)) {
+            $this->write_log('OPENAI_JSON_DECODE_STAGE: iconv_failed');
             if (function_exists('utf8_encode')) {
                 $converted = utf8_encode($sanitized);
                 if ($converted && $converted !== $raw_content) {
+                    $this->write_log('OPENAI_JSON_DECODE_STAGE: utf8_encode_attempt');
                     $content = json_decode($converted, true, 512, $json_flags);
                 }
             }
         }
         if (!is_array($content)) {
+            $this->write_log('OPENAI_JSON_DECODE_STAGE: utf8_encode_failed');
             $extracted = $this->extract_json_object($sanitized);
             if ($extracted) {
+                $this->write_log('OPENAI_JSON_DECODE_STAGE: extracted_object_attempt');
                 $content = json_decode($extracted, true, 512, $json_flags);
             }
         }
 
         if (!is_array($content)) {
+            $this->write_log('OPENAI_JSON_DECODE_STAGE: extracted_object_failed');
             $content = $this->fallback_parse_json_like($raw_content, $langs);
             if (is_array($content)) {
                 $this->write_log('OPENAI_JSON_FALLBACK: used regex parser');
@@ -1063,10 +1076,13 @@ class AYNIX_Generate_AI_Articles {
 
     private function fallback_parse_json_like($text, $langs) {
         $langs = is_array($langs) ? $langs : array();
+        $this->write_log('OPENAI_FALLBACK_LANGS: ' . implode(',', $langs));
         $multilang = $this->fallback_parse_multilang($text, $langs);
         if (is_array($multilang) && !empty($multilang)) {
             return $multilang;
         }
+
+        $this->write_log('OPENAI_FALLBACK_MODE: single');
 
         if (!preg_match('/"title"\s*:\s*"((?:\\\\.|[^\"])*)"/s', $text, $title_match)) {
             return null;
@@ -1098,12 +1114,14 @@ class AYNIX_Generate_AI_Articles {
             $lang_key = '"' . $code . '"';
             $lang_pos = strpos($text, $lang_key);
             if ($lang_pos === false) {
+                $this->write_log('OPENAI_FALLBACK_LANG_MISSING: ' . $code);
                 continue;
             }
 
             $title = $this->extract_json_string_value($text, 'title', $lang_pos);
             $content = $this->extract_json_string_value($text, 'content', $lang_pos);
             if ($title === null || $content === null) {
+                $this->write_log('OPENAI_FALLBACK_LANG_INCOMPLETE: ' . $code);
                 continue;
             }
 
@@ -1119,10 +1137,12 @@ class AYNIX_Generate_AI_Articles {
     private function extract_json_string_value($text, $key, $offset) {
         $key_pos = strpos($text, '"' . $key . '"', $offset);
         if ($key_pos === false) {
+            $this->write_log('OPENAI_FALLBACK_KEY_MISSING: ' . $key);
             return null;
         }
         $colon_pos = strpos($text, ':', $key_pos);
         if ($colon_pos === false) {
+            $this->write_log('OPENAI_FALLBACK_COLON_MISSING: ' . $key);
             return null;
         }
 
@@ -1132,6 +1152,7 @@ class AYNIX_Generate_AI_Articles {
             $i++;
         }
         if ($i >= $len || $text[$i] !== '"') {
+            $this->write_log('OPENAI_FALLBACK_QUOTE_MISSING: ' . $key);
             return null;
         }
         $i++;
