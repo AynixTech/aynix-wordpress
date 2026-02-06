@@ -754,17 +754,27 @@ class AYNIX_Generate_AI_Articles {
         }
 
         $raw_content = $data['choices'][0]['message']['content'];
-        $content = json_decode($raw_content, true);
+        $raw_content = trim($raw_content);
+        $raw_content = preg_replace('/^```(?:json)?\s*/i', '', $raw_content);
+        $raw_content = preg_replace('/\s*```$/', '', $raw_content);
+        $raw_content = wp_check_invalid_utf8($raw_content, true);
+        $raw_content = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F]/u', '', $raw_content);
+
+        $content = json_decode($raw_content, true, 512, JSON_INVALID_UTF8_SUBSTITUTE);
+        if (is_string($content)) {
+            $content = json_decode($content, true, 512, JSON_INVALID_UTF8_SUBSTITUTE);
+        }
         if (!is_array($content)) {
             $extracted = $this->extract_json_object($raw_content);
             if ($extracted) {
-                $content = json_decode($extracted, true);
+                $content = json_decode($extracted, true, 512, JSON_INVALID_UTF8_SUBSTITUTE);
             }
         }
 
         if (!is_array($content)) {
-            error_log('AYNIX AI Articles: Invalid JSON content');
-            $this->log_error('Invalid JSON content');
+            $json_error = function_exists('json_last_error_msg') ? json_last_error_msg() : 'unknown json error';
+            error_log('AYNIX AI Articles: Invalid JSON content - ' . $json_error);
+            $this->log_error('Invalid JSON content - ' . $json_error);
             $this->write_log('RAW_OPENAI_CONTENT: ' . $this->truncate_log($raw_content));
             return null;
         }
