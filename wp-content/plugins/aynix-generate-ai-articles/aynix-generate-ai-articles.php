@@ -804,6 +804,13 @@ class AYNIX_Generate_AI_Articles {
         }
 
         if (!is_array($content)) {
+            $content = $this->fallback_parse_json_like($raw_content);
+            if (is_array($content)) {
+                $this->write_log('OPENAI_JSON_FALLBACK: used regex parser');
+            }
+        }
+
+        if (!is_array($content)) {
             $json_error = function_exists('json_last_error_msg') ? json_last_error_msg() : 'unknown json error';
             error_log('AYNIX AI Articles: Invalid JSON content - ' . $json_error);
             $this->log_error('Invalid JSON content - ' . $json_error);
@@ -978,6 +985,30 @@ class AYNIX_Generate_AI_Articles {
             return null;
         }
         return substr($text, $start, $end - $start + 1);
+    }
+
+    private function fallback_parse_json_like($text) {
+        $pattern = '/"title"\s*:\s*"(.*?)"\s*,\s*"content"\s*:\s*"(.*)"\s*\}?\s*$/s';
+        if (!preg_match($pattern, $text, $matches)) {
+            return null;
+        }
+
+        $title = $this->unescape_json_like($matches[1]);
+        $content = $this->unescape_json_like($matches[2]);
+
+        if ($title === '' || $content === '') {
+            return null;
+        }
+
+        return array(
+            'title' => $title,
+            'content' => $content,
+        );
+    }
+
+    private function unescape_json_like($value) {
+        $value = str_replace(array('\\"', '\\n', '\\r', '\\t'), array('"', "\n", "\r", "\t"), $value);
+        return $value;
     }
 
     private function truncate_log($text, $limit = 2000) {
