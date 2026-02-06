@@ -23,6 +23,9 @@ class AYNIX_Generate_AI_Articles {
         add_action(self::CRON_HOOK, array($this, 'run_generation'));
         add_action('admin_post_aynix_ai_articles_test', array($this, 'handle_test_generation'));
 
+        add_filter('manage_posts_columns', array($this, 'add_lang_column'));
+        add_action('manage_posts_custom_column', array($this, 'render_lang_column'), 10, 2);
+
         register_activation_hook(__FILE__, array($this, 'on_activate'));
         register_deactivation_hook(__FILE__, array($this, 'on_deactivate'));
     }
@@ -1315,6 +1318,25 @@ class AYNIX_Generate_AI_Articles {
             'message' => $message,
         ));
         return array_slice($history, 0, 50);
+    }
+
+    public function add_lang_column($columns) {
+        if (!is_admin()) {
+            return $columns;
+        }
+        $columns['aynix_lang'] = 'Lang';
+        return $columns;
+    }
+
+    public function render_lang_column($column, $post_id) {
+        if ($column !== 'aynix_lang') {
+            return;
+        }
+        $lang = get_post_meta($post_id, 'lang', true);
+        if (!$lang) {
+            $lang = get_post_meta($post_id, '_aynix_ai_lang', true);
+        }
+        echo esc_html($lang ?: '-');
     }
 }
 
