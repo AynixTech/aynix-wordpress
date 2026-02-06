@@ -719,7 +719,7 @@ class AYNIX_Generate_AI_Articles {
             'messages' => array(
                 array(
                     'role' => 'system',
-                    'content' => 'You are a professional blog writer. Provide a JSON response with keys "title" and "content". Content should be in HTML with headings and paragraphs.'
+                    'content' => "You are a professional blog writer. Respond ONLY with valid JSON and no extra text. Do not add comments or notes. Required JSON format: {\"title\":\"...\",\"content\":\"...\"}. Content should be in HTML with headings and paragraphs."
                 ),
                 array(
                     'role' => 'user',
@@ -772,18 +772,18 @@ class AYNIX_Generate_AI_Articles {
         $raw_content = preg_replace('/\s*```$/', '', $raw_content);
         $raw_content = wp_check_invalid_utf8($raw_content, true);
         $raw_content = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F]/u', '', $raw_content);
-        $raw_content = str_replace(array("\r\n", "\r", "\n", "\t"), array('\\n', '\\n', '\\n', '\\t'), $raw_content);
         $is_utf8 = function_exists('mb_check_encoding') ? mb_check_encoding($raw_content, 'UTF-8') : true;
         $this->write_log('OPENAI_CONTENT_META: len=' . strlen($raw_content) . ' utf8=' . ($is_utf8 ? 'yes' : 'no'));
 
         $json_flags = defined('JSON_INVALID_UTF8_SUBSTITUTE') ? JSON_INVALID_UTF8_SUBSTITUTE : 0;
-        $content = json_decode($raw_content, true, 512, $json_flags);
+        $sanitized = $this->sanitize_json_text($raw_content);
+        $content = json_decode($sanitized, true, 512, $json_flags);
         if (is_string($content)) {
             $content = json_decode($content, true, 512, $json_flags);
         }
         if (!is_array($content)) {
             if (function_exists('iconv')) {
-                $converted = @iconv('UTF-8', 'UTF-8//IGNORE', $raw_content);
+                $converted = @iconv('UTF-8', 'UTF-8//IGNORE', $sanitized);
                 if ($converted && $converted !== $raw_content) {
                     $content = json_decode($converted, true, 512, $json_flags);
                 }
@@ -791,14 +791,14 @@ class AYNIX_Generate_AI_Articles {
         }
         if (!is_array($content)) {
             if (function_exists('utf8_encode')) {
-                $converted = utf8_encode($raw_content);
+                $converted = utf8_encode($sanitized);
                 if ($converted && $converted !== $raw_content) {
                     $content = json_decode($converted, true, 512, $json_flags);
                 }
             }
         }
         if (!is_array($content)) {
-            $extracted = $this->extract_json_object($raw_content);
+            $extracted = $this->extract_json_object($sanitized);
             if ($extracted) {
                 $content = json_decode($extracted, true, 512, $json_flags);
             }
@@ -1015,6 +1015,60 @@ class AYNIX_Generate_AI_Articles {
             return $decoded;
         }
         return stripslashes($value);
+    }
+
+    private function sanitize_json_text($text) {
+        $result = '';
+        $in_string = false;
+        $escaped = false;
+        $length = strlen($text);
+
+        for ($i = 0; $i < $length; $i++) {
+            $ch = $text[$i];
+
+            if ($in_string) {
+                if ($escaped) {
+                    $result .= $ch;
+                    $escaped = false;
+                    continue;
+                }
+                if ($ch === '\\') {
+                    $result .= $ch;
+                    $escaped = true;
+                    continue;
+                }
+                if ($ch === "\"" ) {
+                    $in_string = false;
+                    $result .= $ch;
+                    continue;
+                }
+                if ($ch === "\n" || $ch === "\r" || $ch === "\t") {
+                    $result .= '\\n';
+                    continue;
+                }
+                $result .= $ch;
+                continue;
+            }
+
+            if ($ch === "\"") {
+                $in_string = true;
+                $result .= $ch;
+                continue;
+            }
+
+            if ($ch === '\\' && $i + 1 < $length) {
+                $next = $text[$i + 1];
+                if ($next === 'n' || $next === 'r' || $next === 't') {
+                    $result .= "\n";
+                    $i++;
+                    continue;
+                }
+            }
+
+            $result .= $ch;
+        }
+
+        return $result;
     }
 
     private function truncate_log($text, $limit = 2000) {
