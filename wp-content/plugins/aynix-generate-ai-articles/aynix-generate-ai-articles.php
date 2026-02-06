@@ -92,6 +92,14 @@ class AYNIX_Generate_AI_Articles {
         );
 
         add_settings_field(
+            'publish_time',
+            'Publish time (daily)',
+            array($this, 'field_publish_time'),
+            'aynix-ai-articles-settings',
+            'aynix_ai_articles_main'
+        );
+
+        add_settings_field(
             'languages',
             'Languages',
             array($this, 'field_languages'),
@@ -180,6 +188,9 @@ class AYNIX_Generate_AI_Articles {
         $frequency = $input['frequency'] ?? 'daily';
         $output['frequency'] = in_array($frequency, $allowed_frequencies, true) ? $frequency : 'daily';
 
+        $time = isset($input['publish_time']) ? sanitize_text_field($input['publish_time']) : '09:00';
+        $output['publish_time'] = preg_match('/^([01]\d|2[0-3]):([0-5]\d)$/', $time) ? $time : '09:00';
+
         $allowed_languages = array('it', 'en', 'es', 'pt');
         $langs = isset($input['languages']) && is_array($input['languages']) ? $input['languages'] : array('it');
         $langs = array_values(array_intersect($allowed_languages, $langs));
@@ -209,7 +220,7 @@ class AYNIX_Generate_AI_Articles {
         $author = isset($input['author']) ? intval($input['author']) : 0;
         $output['author'] = $author > 0 ? $author : 0;
 
-        $this->reschedule_event($output['frequency']);
+        $this->reschedule_event($output['frequency'], $output['publish_time']);
 
         return $output;
     }
@@ -382,6 +393,13 @@ class AYNIX_Generate_AI_Articles {
         echo '</select>';
     }
 
+    public function field_publish_time() {
+        $options = $this->get_settings();
+        $value = $options['publish_time'];
+        echo '<input type="time" name="' . esc_attr(self::OPTION_KEY) . '[publish_time]" value="' . esc_attr($value) . '" />';
+        echo '<p class="description">Used only for Daily frequency.</p>';
+    }
+
     public function field_languages() {
         $options = $this->get_settings();
         $selected = $options['languages'];
@@ -498,6 +516,7 @@ class AYNIX_Generate_AI_Articles {
         $defaults = array(
             'articles_per_run' => 1,
             'frequency' => 'daily',
+            'publish_time' => '09:00',
             'languages' => array('it'),
             'post_status' => 'draft',
             'categories' => array(),
@@ -515,7 +534,7 @@ class AYNIX_Generate_AI_Articles {
 
     public function on_activate() {
         $settings = $this->get_settings();
-        $this->reschedule_event($settings['frequency']);
+        $this->reschedule_event($settings['frequency'], $settings['publish_time']);
     }
 
     public function on_deactivate() {
@@ -525,14 +544,35 @@ class AYNIX_Generate_AI_Articles {
         }
     }
 
-    private function reschedule_event($frequency) {
+    private function reschedule_event($frequency, $publish_time = '09:00') {
         $timestamp = wp_next_scheduled(self::CRON_HOOK);
         if ($timestamp) {
             wp_unschedule_event($timestamp, self::CRON_HOOK);
         }
         if (!wp_next_scheduled(self::CRON_HOOK)) {
-            wp_schedule_event(time() + 300, $frequency, self::CRON_HOOK);
+            $next = $this->get_next_timestamp($frequency, $publish_time);
+            wp_schedule_event($next, $frequency, self::CRON_HOOK);
         }
+    }
+
+    private function get_next_timestamp($frequency, $publish_time) {
+        if ($frequency !== 'daily') {
+            return time() + 300;
+        }
+
+        $timezone = wp_timezone();
+        $now = new DateTime('now', $timezone);
+        $parts = explode(':', $publish_time);
+        $hour = intval($parts[0] ?? 9);
+        $minute = intval($parts[1] ?? 0);
+
+        $next = clone $now;
+        $next->setTime($hour, $minute, 0);
+        if ($next <= $now) {
+            $next->modify('+1 day');
+        }
+
+        return $next->getTimestamp();
     }
 
     public function run_generation() {
