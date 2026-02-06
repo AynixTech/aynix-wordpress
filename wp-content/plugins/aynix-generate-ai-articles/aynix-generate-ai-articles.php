@@ -489,7 +489,7 @@ class AYNIX_Generate_AI_Articles {
 
         $this->generate_article($lang, $settings['post_status']);
 
-        $redirect = add_query_arg('aynix_ai_articles_test', '1', admin_url('options-general.php?page=aynix-generate-ai-articles'));
+        $redirect = add_query_arg('aynix_ai_articles_test', '1', admin_url('admin.php?page=aynix-ai-articles-settings'));
         wp_safe_redirect($redirect);
         exit;
     }
