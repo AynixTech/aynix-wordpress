@@ -15,12 +15,14 @@ class AYNIX_Generate_AI_Articles {
     const LOG_OPTION_KEY = 'aynix_generate_ai_articles_log';
     const LOG_FILE = 'aynix-ai-articles.log';
     const CRON_HOOK = 'aynix_generate_ai_articles_cron';
+    const CRON_TEST_HOOK = 'aynix_generate_ai_articles_test_cron';
 
     public function __construct() {
         add_action('admin_menu', array($this, 'register_menu'));
         add_action('admin_init', array($this, 'register_settings'));
 
         add_action(self::CRON_HOOK, array($this, 'run_generation'));
+        add_action(self::CRON_TEST_HOOK, array($this, 'run_generation_test'));
         add_action('admin_post_aynix_ai_articles_test', array($this, 'handle_test_generation'));
 
         add_filter('manage_posts_columns', array($this, 'add_lang_column'));
@@ -604,16 +606,18 @@ class AYNIX_Generate_AI_Articles {
         }
         check_admin_referer('aynix_ai_articles_test');
 
-        $this->log_status('test_started');
-        $settings = $this->get_settings();
-        $langs = $settings['languages'];
-        $this->generate_article_set($langs, $settings['post_status']);
-
-        $this->log_status('test_completed');
+        $this->log_status('test_queued');
+        wp_schedule_single_event(time() + 5, self::CRON_TEST_HOOK);
 
         $redirect = add_query_arg('aynix_ai_articles_test', '1', admin_url('admin.php?page=aynix-ai-articles-settings'));
         wp_safe_redirect($redirect);
         exit;
+    }
+
+    public function run_generation_test() {
+        $this->log_status('test_started');
+        $this->run_generation();
+        $this->log_status('test_completed');
     }
 
     private function generate_article_set($langs, $status) {
