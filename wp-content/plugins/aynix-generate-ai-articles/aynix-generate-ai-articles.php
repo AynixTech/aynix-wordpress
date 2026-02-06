@@ -621,7 +621,7 @@ class AYNIX_Generate_AI_Articles {
         }
         $primary_lang = $langs[0] ?? 'it';
         $prompt = $this->build_prompt($primary_lang, $settings, $langs);
-        $response = $this->call_openai($prompt, $primary_lang);
+        $response = $this->call_openai($prompt, $primary_lang, $langs);
 
         if (!$response) {
             $this->log_error('OpenAI response empty');
@@ -728,7 +728,7 @@ class AYNIX_Generate_AI_Articles {
         return $prompt;
     }
 
-    private function call_openai($prompt, $lang) {
+    private function call_openai($prompt, $lang, $langs = array()) {
         if (!defined('OPENAI_API_KEY') || !OPENAI_API_KEY) {
             error_log('AYNIX AI Articles: OPENAI_API_KEY not configured');
             $this->log_error('OPENAI_API_KEY not configured');
@@ -994,7 +994,7 @@ class AYNIX_Generate_AI_Articles {
             'size' => '1024x1024'
         );
 
-        $response = wp_remote_post('https://api.openai.com/v1/images', array(
+        $response = wp_remote_post('https://api.openai.com/v1/images/generations', array(
             'headers' => array(
                 'Authorization' => 'Bearer ' . $api_key,
                 'Content-Type' => 'application/json',
