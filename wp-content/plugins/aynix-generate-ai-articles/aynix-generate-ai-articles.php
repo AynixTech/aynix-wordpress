@@ -772,6 +772,7 @@ class AYNIX_Generate_AI_Articles {
         $raw_content = preg_replace('/\s*```$/', '', $raw_content);
         $raw_content = wp_check_invalid_utf8($raw_content, true);
         $raw_content = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F]/u', '', $raw_content);
+        $raw_content = str_replace(array("\r\n", "\r", "\n", "\t"), array('\\n', '\\n', '\\n', '\\t'), $raw_content);
         $is_utf8 = function_exists('mb_check_encoding') ? mb_check_encoding($raw_content, 'UTF-8') : true;
         $this->write_log('OPENAI_CONTENT_META: len=' . strlen($raw_content) . ' utf8=' . ($is_utf8 ? 'yes' : 'no'));
 
