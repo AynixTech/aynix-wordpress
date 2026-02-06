@@ -1,0 +1,590 @@
+<?php
+/**
+ * Plugin Name: AYNIX Generate AI Articles
+ * Description: Generates AI articles on a schedule using the configured OpenAI API key.
+ * Version: 1.0.0
+ * Author: AYNIX Tech
+ */
+
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+class AYNIX_Generate_AI_Articles {
+    const OPTION_KEY = 'aynix_generate_ai_articles_settings';
+    const CRON_HOOK = 'aynix_generate_ai_articles_cron';
+
+    public function __construct() {
+        add_action('admin_menu', array($this, 'register_menu'));
+        add_action('admin_init', array($this, 'register_settings'));
+
+        add_action(self::CRON_HOOK, array($this, 'run_generation'));
+
+        register_activation_hook(__FILE__, array($this, 'on_activate'));
+        register_deactivation_hook(__FILE__, array($this, 'on_deactivate'));
+    }
+
+    public function register_menu() {
+        add_options_page(
+            'AYNIX Generate AI Articles',
+            'AYNIX AI Articles',
+            'manage_options',
+            'aynix-generate-ai-articles',
+            array($this, 'render_settings_page')
+        );
+    }
+
+    public function register_settings() {
+        register_setting('aynix_generate_ai_articles', self::OPTION_KEY, array($this, 'sanitize_settings'));
+
+        add_settings_section(
+            'aynix_ai_articles_main',
+            'AI Article Generation Settings',
+            '__return_false',
+            'aynix-generate-ai-articles'
+        );
+
+        add_settings_field(
+            'articles_per_run',
+            'Articles per run',
+            array($this, 'field_articles_per_run'),
+            'aynix-generate-ai-articles',
+            'aynix_ai_articles_main'
+        );
+
+        add_settings_field(
+            'frequency',
+            'Frequency',
+            array($this, 'field_frequency'),
+            'aynix-generate-ai-articles',
+            'aynix_ai_articles_main'
+        );
+
+        add_settings_field(
+            'languages',
+            'Languages',
+            array($this, 'field_languages'),
+            'aynix-generate-ai-articles',
+            'aynix_ai_articles_main'
+        );
+
+        add_settings_field(
+            'post_status',
+            'Post status',
+            array($this, 'field_post_status'),
+            'aynix-generate-ai-articles',
+            'aynix_ai_articles_main'
+        );
+
+        add_settings_field(
+            'categories',
+            'Categories',
+            array($this, 'field_categories'),
+            'aynix-generate-ai-articles',
+            'aynix_ai_articles_main'
+        );
+
+        add_settings_field(
+            'custom_prompt',
+            'Custom prompt',
+            array($this, 'field_custom_prompt'),
+            'aynix-generate-ai-articles',
+            'aynix_ai_articles_main'
+        );
+
+        add_settings_field(
+            'generate_images',
+            'Generate images',
+            array($this, 'field_generate_images'),
+            'aynix-generate-ai-articles',
+            'aynix_ai_articles_main'
+        );
+
+        add_settings_field(
+            'tags',
+            'Tags',
+            array($this, 'field_tags'),
+            'aynix-generate-ai-articles',
+            'aynix_ai_articles_main'
+        );
+
+        add_settings_field(
+            'tone',
+            'Tone',
+            array($this, 'field_tone'),
+            'aynix-generate-ai-articles',
+            'aynix_ai_articles_main'
+        );
+
+        add_settings_field(
+            'length',
+            'Length',
+            array($this, 'field_length'),
+            'aynix-generate-ai-articles',
+            'aynix_ai_articles_main'
+        );
+
+        add_settings_field(
+            'author',
+            'Author',
+            array($this, 'field_author'),
+            'aynix-generate-ai-articles',
+            'aynix_ai_articles_main'
+        );
+    }
+
+    public function sanitize_settings($input) {
+        $output = array();
+        $output['articles_per_run'] = max(1, min(20, intval($input['articles_per_run'] ?? 1)));
+
+        $allowed_frequencies = array('hourly', 'twicedaily', 'daily');
+        $frequency = $input['frequency'] ?? 'daily';
+        $output['frequency'] = in_array($frequency, $allowed_frequencies, true) ? $frequency : 'daily';
+
+        $allowed_languages = array('it', 'en', 'es', 'pt');
+        $langs = isset($input['languages']) && is_array($input['languages']) ? $input['languages'] : array('it');
+        $langs = array_values(array_intersect($allowed_languages, $langs));
+        $output['languages'] = !empty($langs) ? $langs : array('it');
+
+        $allowed_status = array('draft', 'publish');
+        $status = $input['post_status'] ?? 'draft';
+        $output['post_status'] = in_array($status, $allowed_status, true) ? $status : 'draft';
+
+        $categories = isset($input['categories']) && is_array($input['categories']) ? array_map('intval', $input['categories']) : array();
+        $output['categories'] = array_values(array_filter($categories));
+
+        $output['custom_prompt'] = isset($input['custom_prompt']) ? wp_kses_post($input['custom_prompt']) : '';
+        $output['generate_images'] = !empty($input['generate_images']) ? 1 : 0;
+
+        $output['tags'] = isset($input['tags']) ? sanitize_text_field($input['tags']) : '';
+
+        $allowed_tones = array('professional', 'friendly', 'technical', 'marketing');
+        $tone = $input['tone'] ?? 'professional';
+        $output['tone'] = in_array($tone, $allowed_tones, true) ? $tone : 'professional';
+
+        $allowed_lengths = array('short', 'medium', 'long');
+        $length = $input['length'] ?? 'medium';
+        $output['length'] = in_array($length, $allowed_lengths, true) ? $length : 'medium';
+
+        $author = isset($input['author']) ? intval($input['author']) : 0;
+        $output['author'] = $author > 0 ? $author : 0;
+
+        $this->reschedule_event($output['frequency']);
+
+        return $output;
+    }
+
+    public function render_settings_page() {
+        if (!current_user_can('manage_options')) {
+            return;
+        }
+        ?>
+        <div class="wrap">
+            <h1>AYNIX Generate AI Articles</h1>
+            <form method="post" action="options.php">
+                <?php
+                settings_fields('aynix_generate_ai_articles');
+                do_settings_sections('aynix-generate-ai-articles');
+                submit_button();
+                ?>
+            </form>
+        </div>
+        <?php
+    }
+
+    public function field_articles_per_run() {
+        $options = $this->get_settings();
+        $value = intval($options['articles_per_run']);
+        echo '<input type="number" min="1" max="20" name="' . esc_attr(self::OPTION_KEY) . '[articles_per_run]" value="' . esc_attr($value) . '" />';
+    }
+
+    public function field_frequency() {
+        $options = $this->get_settings();
+        $value = $options['frequency'];
+        $choices = array(
+            'hourly' => 'Hourly',
+            'twicedaily' => 'Twice Daily',
+            'daily' => 'Daily',
+        );
+        echo '<select name="' . esc_attr(self::OPTION_KEY) . '[frequency]">';
+        foreach ($choices as $key => $label) {
+            printf('<option value="%s" %s>%s</option>', esc_attr($key), selected($value, $key, false), esc_html($label));
+        }
+        echo '</select>';
+    }
+
+    public function field_languages() {
+        $options = $this->get_settings();
+        $selected = $options['languages'];
+        $choices = array(
+            'it' => 'Italiano',
+            'en' => 'English',
+            'es' => 'Español',
+            'pt' => 'Português',
+        );
+        foreach ($choices as $key => $label) {
+            $checked = in_array($key, $selected, true) ? 'checked' : '';
+            echo '<label style="display:block; margin:4px 0;">';
+            echo '<input type="checkbox" name="' . esc_attr(self::OPTION_KEY) . '[languages][]" value="' . esc_attr($key) . '" ' . $checked . ' /> ' . esc_html($label);
+            echo '</label>';
+        }
+    }
+
+    public function field_post_status() {
+        $options = $this->get_settings();
+        $value = $options['post_status'];
+        echo '<select name="' . esc_attr(self::OPTION_KEY) . '[post_status]">';
+        echo '<option value="draft" ' . selected($value, 'draft', false) . '>Draft</option>';
+        echo '<option value="publish" ' . selected($value, 'publish', false) . '>Publish</option>';
+        echo '</select>';
+    }
+
+    public function field_categories() {
+        $options = $this->get_settings();
+        $selected = $options['categories'];
+        $categories = get_categories(array('hide_empty' => false));
+        if (empty($categories)) {
+            echo '<p>No categories found.</p>';
+            return;
+        }
+        foreach ($categories as $category) {
+            $checked = in_array($category->term_id, $selected, true) ? 'checked' : '';
+            echo '<label style="display:block; margin:4px 0;">';
+            echo '<input type="checkbox" name="' . esc_attr(self::OPTION_KEY) . '[categories][]" value="' . esc_attr($category->term_id) . '" ' . $checked . ' /> ' . esc_html($category->name);
+            echo '</label>';
+        }
+    }
+
+    public function field_custom_prompt() {
+        $options = $this->get_settings();
+        $value = $options['custom_prompt'];
+        echo '<textarea name="' . esc_attr(self::OPTION_KEY) . '[custom_prompt]" rows="6" style="width:100%;" placeholder="Use placeholders: {site_name}, {language}, {category}">' . esc_textarea($value) . '</textarea>';
+        echo '<p class="description">Placeholders available: {site_name}, {language}, {category}. Leave empty to use default prompt.</p>';
+    }
+
+    public function field_generate_images() {
+        $options = $this->get_settings();
+        $checked = !empty($options['generate_images']) ? 'checked' : '';
+        echo '<label><input type="checkbox" name="' . esc_attr(self::OPTION_KEY) . '[generate_images]" value="1" ' . $checked . ' /> Generate and set a featured image</label>';
+    }
+
+    public function field_tags() {
+        $options = $this->get_settings();
+        $value = $options['tags'];
+        echo '<input type="text" style="width:100%;" name="' . esc_attr(self::OPTION_KEY) . '[tags]" value="' . esc_attr($value) . '" placeholder="tag1, tag2, tag3" />';
+        echo '<p class="description">Comma-separated tags to apply to each post.</p>';
+    }
+
+    public function field_tone() {
+        $options = $this->get_settings();
+        $value = $options['tone'];
+        $choices = array(
+            'professional' => 'Professional',
+            'friendly' => 'Friendly',
+            'technical' => 'Technical',
+            'marketing' => 'Marketing',
+        );
+        echo '<select name="' . esc_attr(self::OPTION_KEY) . '[tone]">';
+        foreach ($choices as $key => $label) {
+            printf('<option value="%s" %s>%s</option>', esc_attr($key), selected($value, $key, false), esc_html($label));
+        }
+        echo '</select>';
+    }
+
+    public function field_length() {
+        $options = $this->get_settings();
+        $value = $options['length'];
+        $choices = array(
+            'short' => 'Short (300-500 words)',
+            'medium' => 'Medium (700-900 words)',
+            'long' => 'Long (1200-1500 words)',
+        );
+        echo '<select name="' . esc_attr(self::OPTION_KEY) . '[length]">';
+        foreach ($choices as $key => $label) {
+            printf('<option value="%s" %s>%s</option>', esc_attr($key), selected($value, $key, false), esc_html($label));
+        }
+        echo '</select>';
+    }
+
+    public function field_author() {
+        $options = $this->get_settings();
+        $value = intval($options['author']);
+        $users = get_users(array('who' => 'authors'));
+        echo '<select name="' . esc_attr(self::OPTION_KEY) . '[author]">';
+        echo '<option value="0">Default</option>';
+        foreach ($users as $user) {
+            printf('<option value="%d" %s>%s</option>', esc_attr($user->ID), selected($value, $user->ID, false), esc_html($user->display_name));
+        }
+        echo '</select>';
+    }
+
+    private function get_settings() {
+        $defaults = array(
+            'articles_per_run' => 1,
+            'frequency' => 'daily',
+            'languages' => array('it'),
+            'post_status' => 'draft',
+            'categories' => array(),
+            'custom_prompt' => '',
+            'generate_images' => 0,
+            'tags' => '',
+            'tone' => 'professional',
+            'length' => 'medium',
+            'author' => 0,
+        );
+        $options = get_option(self::OPTION_KEY, array());
+        return wp_parse_args($options, $defaults);
+    }
+
+    public function on_activate() {
+        $settings = $this->get_settings();
+        $this->reschedule_event($settings['frequency']);
+    }
+
+    public function on_deactivate() {
+        $timestamp = wp_next_scheduled(self::CRON_HOOK);
+        if ($timestamp) {
+            wp_unschedule_event($timestamp, self::CRON_HOOK);
+        }
+    }
+
+    private function reschedule_event($frequency) {
+        $timestamp = wp_next_scheduled(self::CRON_HOOK);
+        if ($timestamp) {
+            wp_unschedule_event($timestamp, self::CRON_HOOK);
+        }
+        if (!wp_next_scheduled(self::CRON_HOOK)) {
+            wp_schedule_event(time() + 300, $frequency, self::CRON_HOOK);
+        }
+    }
+
+    public function run_generation() {
+        $settings = $this->get_settings();
+        $langs = $settings['languages'];
+        $articles_per_run = intval($settings['articles_per_run']);
+
+        if (!defined('OPENAI_API_KEY')) {
+            error_log('AYNIX AI Articles: OPENAI_API_KEY not configured');
+            return;
+        }
+
+        for ($i = 0; $i < $articles_per_run; $i++) {
+            $lang = $langs[array_rand($langs)];
+            $this->generate_article($lang, $settings['post_status']);
+        }
+    }
+
+    private function generate_article($lang, $status) {
+        $settings = $this->get_settings();
+        $prompt = $this->build_prompt($lang, $settings);
+        $response = $this->call_openai($prompt, $lang);
+
+        if (!$response) {
+            return;
+        }
+
+        $title = $response['title'] ?? null;
+        $content = $response['content'] ?? null;
+
+        if (!$title || !$content) {
+            error_log('AYNIX AI Articles: Missing title/content in response');
+            return;
+        }
+
+        $post_id = wp_insert_post(array(
+            'post_title' => wp_strip_all_tags($title),
+            'post_content' => $content,
+            'post_status' => $status,
+            'post_type' => 'post',
+            'post_category' => $this->pick_categories($settings['categories']),
+            'post_author' => $settings['author'] ?: get_current_user_id(),
+        ));
+
+        if ($post_id && !empty($settings['generate_images'])) {
+            $this->attach_featured_image($post_id, $title, $lang);
+        }
+
+        if ($post_id && !empty($settings['tags'])) {
+            $tags = array_map('trim', explode(',', $settings['tags']));
+            $tags = array_values(array_filter($tags));
+            if (!empty($tags)) {
+                wp_set_post_tags($post_id, $tags, false);
+            }
+        }
+    }
+
+    private function build_prompt($lang, $settings) {
+        $site_name = get_bloginfo('name');
+        $category_label = $this->get_random_category_label($settings['categories']);
+
+        $instructions = array(
+            'it' => "Scrivi un articolo informativo per il sito {$site_name}. Rispondi in italiano.",
+            'en' => "Write an informative article for {$site_name}. Respond in English.",
+            'es' => "Escribe un artículo informativo para {$site_name}. Responde en español.",
+            'pt' => "Escreva um artigo informativo para {$site_name}. Responda em português.",
+        );
+
+        $prompt = $instructions[$lang] ?? $instructions['it'];
+        if (!empty($settings['custom_prompt'])) {
+            $prompt = $settings['custom_prompt'];
+        }
+
+        $prompt = str_replace(
+            array('{site_name}', '{language}', '{category}'),
+            array($site_name, $lang, $category_label ?: 'general'),
+            $prompt
+        );
+
+        $tone_map = array(
+            'professional' => 'professional and authoritative',
+            'friendly' => 'friendly and approachable',
+            'technical' => 'technical and precise',
+            'marketing' => 'persuasive and marketing-oriented',
+        );
+        $length_map = array(
+            'short' => '300-500 words',
+            'medium' => '700-900 words',
+            'long' => '1200-1500 words',
+        );
+
+        if ($category_label) {
+            $prompt .= "\nCategory focus: {$category_label}.";
+        }
+        $prompt .= "\nTone: " . ($tone_map[$settings['tone']] ?? 'professional and authoritative') . ".";
+        $prompt .= "\nLength: " . ($length_map[$settings['length']] ?? '700-900 words') . ".";
+
+        return $prompt;
+    }
+
+    private function call_openai($prompt, $lang) {
+        $api_key = OPENAI_API_KEY;
+
+        $body = array(
+            'model' => 'gpt-4o-mini',
+            'messages' => array(
+                array(
+                    'role' => 'system',
+                    'content' => 'You are a professional blog writer. Provide a JSON response with keys "title" and "content". Content should be in HTML with headings and paragraphs.'
+                ),
+                array(
+                    'role' => 'user',
+                    'content' => $prompt
+                )
+            ),
+            'temperature' => 0.7,
+            'max_tokens' => 800,
+            'response_format' => array('type' => 'json_object'),
+        );
+
+        $response = wp_remote_post('https://api.openai.com/v1/chat/completions', array(
+            'headers' => array(
+                'Authorization' => 'Bearer ' . $api_key,
+                'Content-Type' => 'application/json',
+            ),
+            'body' => wp_json_encode($body),
+            'timeout' => 30,
+        ));
+
+        if (is_wp_error($response)) {
+            error_log('AYNIX AI Articles: OpenAI error ' . $response->get_error_message());
+            return null;
+        }
+
+        $data = json_decode(wp_remote_retrieve_body($response), true);
+        if (!isset($data['choices'][0]['message']['content'])) {
+            error_log('AYNIX AI Articles: Invalid OpenAI response');
+            return null;
+        }
+
+        $content = json_decode($data['choices'][0]['message']['content'], true);
+        if (!is_array($content)) {
+            error_log('AYNIX AI Articles: Invalid JSON content');
+            return null;
+        }
+
+        return $content;
+    }
+
+    private function pick_categories($categories) {
+        if (empty($categories)) {
+            return array();
+        }
+        $count = count($categories);
+        if ($count === 1) {
+            return $categories;
+        }
+        $selected = array($categories[array_rand($categories)]);
+        return array_values(array_unique($selected));
+    }
+
+    private function get_random_category_label($categories) {
+        if (empty($categories)) {
+            return '';
+        }
+        $cat_id = $categories[array_rand($categories)];
+        $term = get_term($cat_id, 'category');
+        return $term && !is_wp_error($term) ? $term->name : '';
+    }
+
+    private function attach_featured_image($post_id, $title, $lang) {
+        $image_prompt = "Create a modern, professional blog header image for: {$title}.";
+
+        $image_url = $this->call_openai_image($image_prompt);
+        if (!$image_url) {
+            return;
+        }
+
+        $tmp = download_url($image_url);
+        if (is_wp_error($tmp)) {
+            error_log('AYNIX AI Articles: Failed to download image');
+            return;
+        }
+
+        $file_array = array(
+            'name' => sanitize_file_name('ai-article-' . $post_id . '.png'),
+            'tmp_name' => $tmp,
+        );
+
+        $attachment_id = media_handle_sideload($file_array, $post_id, $title);
+        if (is_wp_error($attachment_id)) {
+            @unlink($tmp);
+            error_log('AYNIX AI Articles: Failed to sideload image');
+            return;
+        }
+
+        set_post_thumbnail($post_id, $attachment_id);
+    }
+
+    private function call_openai_image($prompt) {
+        $api_key = OPENAI_API_KEY;
+        $body = array(
+            'model' => 'gpt-image-1',
+            'prompt' => $prompt,
+            'size' => '1024x1024'
+        );
+
+        $response = wp_remote_post('https://api.openai.com/v1/images', array(
+            'headers' => array(
+                'Authorization' => 'Bearer ' . $api_key,
+                'Content-Type' => 'application/json',
+            ),
+            'body' => wp_json_encode($body),
+            'timeout' => 60,
+        ));
+
+        if (is_wp_error($response)) {
+            error_log('AYNIX AI Articles: OpenAI image error ' . $response->get_error_message());
+            return null;
+        }
+
+        $data = json_decode(wp_remote_retrieve_body($response), true);
+        if (!isset($data['data'][0]['url'])) {
+            error_log('AYNIX AI Articles: Invalid image response');
+            return null;
+        }
+
+        return $data['data'][0]['url'];
+    }
+}
+
+new AYNIX_Generate_AI_Articles();
