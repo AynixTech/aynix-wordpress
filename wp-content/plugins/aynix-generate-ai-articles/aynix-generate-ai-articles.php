@@ -783,13 +783,16 @@ class AYNIX_Generate_AI_Articles {
                 set_post_thumbnail($post_id, $reuse_id);
                 delete_post_meta($post_id, '_aynix_ai_needs_image');
                 $this->write_log('IMAGE_QUEUE_REUSE: post_id=' . $post_id . ' image_id=' . $reuse_id);
+                $this->propagate_group_image($group_id, $reuse_id, $post_id);
                 continue;
             }
 
             $this->write_log('IMAGE_QUEUE_GENERATE: post_id=' . $post_id . ' lang=' . $lang);
             $this->attach_featured_image($post_id, get_the_title($post_id), $lang);
             delete_post_meta($post_id, '_aynix_ai_needs_image');
-            $this->write_log('IMAGE_QUEUE_GENERATED: post_id=' . $post_id);
+            $new_image_id = get_post_thumbnail_id($post_id);
+            $this->write_log('IMAGE_QUEUE_GENERATED: post_id=' . $post_id . ' image_id=' . $new_image_id);
+            $this->propagate_group_image($group_id, $new_image_id, $post_id);
         }
 
         wp_reset_postdata();
@@ -832,6 +835,34 @@ class AYNIX_Generate_AI_Articles {
 
         wp_reset_postdata();
         return 0;
+    }
+
+    private function propagate_group_image($group_id, $image_id, $source_post_id) {
+        if (!$group_id || !$image_id) {
+            return;
+        }
+
+        $query = new WP_Query(array(
+            'post_type' => 'post',
+            'post_status' => array('draft', 'publish', 'pending', 'private'),
+            'meta_key' => '_aynix_ai_group_id',
+            'meta_value' => $group_id,
+            'posts_per_page' => -1,
+            'fields' => 'ids',
+        ));
+
+        if ($query->have_posts()) {
+            foreach ($query->posts as $post_id) {
+                if ($post_id == $source_post_id) {
+                    continue;
+                }
+                set_post_thumbnail($post_id, $image_id);
+                delete_post_meta($post_id, '_aynix_ai_needs_image');
+                $this->write_log('IMAGE_QUEUE_PROPAGATE: post_id=' . $post_id . ' image_id=' . $image_id);
+            }
+        }
+
+        wp_reset_postdata();
     }
 
     private function build_prompt($lang, $settings, $langs) {
