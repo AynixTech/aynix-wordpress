@@ -628,6 +628,7 @@ class AYNIX_Generate_AI_Articles {
             return;
         }
 
+        $this->log_response_language_keys($response);
         $normalized = $this->normalize_multilang_response($response, $langs);
         $title = $normalized['title'] ?? null;
         $content = $normalized['content'] ?? null;
@@ -908,15 +909,20 @@ class AYNIX_Generate_AI_Articles {
     private function attach_featured_image($post_id, $title, $lang) {
         $image_prompt = "Create a modern, professional blog header image for: {$title}.";
 
-        $image_url = $this->call_openai_image($image_prompt);
-        if (!$image_url) {
+        $image_result = $this->call_openai_image($image_prompt);
+        if (!$image_result) {
             return;
         }
 
-        $tmp = download_url($image_url);
-        if (is_wp_error($tmp)) {
-            error_log('AYNIX AI Articles: Failed to download image');
-            return;
+        if (is_array($image_result) && ($image_result['type'] ?? '') === 'file') {
+            $tmp = $image_result['value'];
+        } else {
+            $image_url = is_array($image_result) ? ($image_result['value'] ?? '') : $image_result;
+            $tmp = download_url($image_url);
+            if (is_wp_error($tmp)) {
+                error_log('AYNIX AI Articles: Failed to download image');
+                return;
+            }
         }
 
         $file_array = array(
@@ -1013,14 +1019,39 @@ class AYNIX_Generate_AI_Articles {
         $image_status = wp_remote_retrieve_response_code($response);
         $this->write_log('OPENAI_IMAGE_HTTP_STATUS: ' . $image_status);
         $data = json_decode($image_body, true);
-        if (!isset($data['data'][0]['url'])) {
-            error_log('AYNIX AI Articles: Invalid image response');
-            $this->log_error('Invalid image response');
-            $this->write_log('OPENAI_IMAGE_RAW_RESPONSE: ' . $this->truncate_log($image_body));
-            return null;
+        if (isset($data['data'][0]['url'])) {
+            $this->write_log('OPENAI_IMAGE_TYPE: url');
+            return array('type' => 'url', 'value' => $data['data'][0]['url']);
         }
 
-        return $data['data'][0]['url'];
+        if (isset($data['data'][0]['b64_json'])) {
+            $this->write_log('OPENAI_IMAGE_TYPE: b64_json');
+            $binary = base64_decode($data['data'][0]['b64_json']);
+            if ($binary === false) {
+                $this->write_log('OPENAI_IMAGE_B64_DECODE: failed');
+                return null;
+            }
+            $tmp = wp_tempnam('ai-image');
+            if (!$tmp) {
+                $this->write_log('OPENAI_IMAGE_TMP: failed');
+                return null;
+            }
+            file_put_contents($tmp, $binary);
+            return array('type' => 'file', 'value' => $tmp);
+        }
+
+        error_log('AYNIX AI Articles: Invalid image response');
+        $this->log_error('Invalid image response');
+        $this->write_log('OPENAI_IMAGE_RAW_RESPONSE: ' . $this->truncate_log($image_body));
+        return null;
+    }
+
+    private function log_response_language_keys($response) {
+        if (!is_array($response)) {
+            return;
+        }
+        $keys = array_keys($response);
+        $this->write_log('OPENAI_RESPONSE_KEYS: ' . implode(',', $keys));
     }
 
     private function log_status($status) {
