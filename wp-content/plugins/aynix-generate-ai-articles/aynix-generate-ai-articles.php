@@ -581,7 +581,10 @@ class AYNIX_Generate_AI_Articles {
         return $next->getTimestamp();
     }
 
-    public function run_generation() {
+    public function run_generation($clear_log = true) {
+        if ($clear_log) {
+            $this->clear_log_file();
+        }
         $this->log_status('started');
         $settings = $this->get_settings();
         $langs = $settings['languages'];
@@ -619,8 +622,9 @@ class AYNIX_Generate_AI_Articles {
     }
 
     public function run_generation_test() {
+        $this->clear_log_file();
         $this->log_status('test_started');
-        $this->run_generation();
+        $this->run_generation(false);
         $this->log_status('test_completed');
     }
 
@@ -1168,6 +1172,14 @@ class AYNIX_Generate_AI_Articles {
         $line = '[' . $time . '] ' . $message . "\n";
         $path = trailingslashit(WP_CONTENT_DIR) . self::LOG_FILE;
         @file_put_contents($path, $line, FILE_APPEND | LOCK_EX);
+    }
+
+    private function clear_log_file() {
+        if (!defined('WP_CONTENT_DIR')) {
+            return;
+        }
+        $path = trailingslashit(WP_CONTENT_DIR) . self::LOG_FILE;
+        @file_put_contents($path, '');
     }
 
     private function extract_json_object($text) {
