@@ -642,6 +642,7 @@ class AYNIX_Generate_AI_Articles {
             return;
         }
         $base_post_id = $base['post_id'] ?? 0;
+        $this->write_log('ARTICLE_SET_BASE_DONE: post_id=' . $base_post_id . ' lang=' . $base_lang);
         $base_image_id = $base_post_id ? get_post_thumbnail_id($base_post_id) : 0;
         if ($base_image_id) {
             $this->write_log('BASE_IMAGE_READY: post_id=' . $base_post_id . ' image_id=' . $base_image_id);
@@ -1008,6 +1009,7 @@ class AYNIX_Generate_AI_Articles {
         }
 
         set_post_thumbnail($post_id, $attachment_id);
+        $this->write_log('FEATURED_IMAGE_SET: post_id=' . $post_id . ' image_id=' . $attachment_id);
     }
 
     private function normalize_multilang_response($response, $langs) {
