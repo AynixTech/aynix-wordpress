@@ -998,6 +998,13 @@ class AYNIX_Generate_AI_Articles {
             $this->write_log('OPENAI_SANITIZE_CHANGED: no');
         }
         $content = json_decode($sanitized, true, 512, $json_flags);
+        if (!is_array($content)) {
+            $sanitized_global = str_replace(array("\r\n", "\r", "\n"), '\\n', $sanitized);
+            if ($sanitized_global !== $sanitized) {
+                $this->write_log('OPENAI_SANITIZE_GLOBAL_NEWLINES: yes');
+            }
+            $content = json_decode($sanitized_global, true, 512, $json_flags);
+        }
         if (is_string($content)) {
             $content = json_decode($content, true, 512, $json_flags);
         }
@@ -1032,7 +1039,7 @@ class AYNIX_Generate_AI_Articles {
 
         if (!is_array($content)) {
             $this->write_log('OPENAI_JSON_DECODE_STAGE: extracted_object_failed');
-            $content = $this->fallback_parse_json_like($raw_content, $langs);
+            $content = $this->fallback_parse_json_like($sanitized, $langs);
             if (is_array($content)) {
                 $this->write_log('OPENAI_JSON_FALLBACK: used regex parser');
             }
@@ -1321,6 +1328,8 @@ class AYNIX_Generate_AI_Articles {
     }
 
     private function fallback_parse_json_like($text, $langs) {
+        $text = $this->sanitize_json_text($text);
+        $text = str_replace(array("\r\n", "\r", "\n"), '\\n', $text);
         $langs = is_array($langs) ? $langs : array();
         $this->write_log('OPENAI_FALLBACK_LANGS: ' . implode(',', $langs));
         $multilang = $this->fallback_parse_multilang($text, $langs);
