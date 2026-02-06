@@ -16,6 +16,7 @@ class AYNIX_Generate_AI_Articles {
     const LOG_FILE = 'aynix-ai-articles.log';
     const CRON_HOOK = 'aynix_generate_ai_articles_cron';
     const CRON_TEST_HOOK = 'aynix_generate_ai_articles_test_cron';
+    const CRON_IMAGE_HOOK = 'aynix_generate_ai_articles_image_cron';
 
     public function __construct() {
         add_action('admin_menu', array($this, 'register_menu'));
@@ -23,6 +24,7 @@ class AYNIX_Generate_AI_Articles {
 
         add_action(self::CRON_HOOK, array($this, 'run_generation'));
         add_action(self::CRON_TEST_HOOK, array($this, 'run_generation_test'));
+        add_action(self::CRON_IMAGE_HOOK, array($this, 'run_image_queue'));
         add_action('admin_post_aynix_ai_articles_test', array($this, 'handle_test_generation'));
 
         add_filter('manage_posts_columns', array($this, 'add_lang_column'));
@@ -635,6 +637,7 @@ class AYNIX_Generate_AI_Articles {
         }
 
         $base_lang = $langs[0];
+        $group_id = 'ai_' . wp_generate_uuid4();
         $this->write_log('OPENAI_LANG_SELECTED: base=' . $base_lang . ' all=' . implode(',', $langs));
         $base = $this->generate_article($base_lang, $status);
         if (!is_array($base) || empty($base['title']) || empty($base['content'])) {
@@ -642,6 +645,9 @@ class AYNIX_Generate_AI_Articles {
             return;
         }
         $base_post_id = $base['post_id'] ?? 0;
+        if ($base_post_id) {
+            update_post_meta($base_post_id, '_aynix_ai_group_id', $group_id);
+        }
         $this->write_log('ARTICLE_SET_BASE_DONE: post_id=' . $base_post_id . ' lang=' . $base_lang);
         $base_image_id = $base_post_id ? get_post_thumbnail_id($base_post_id) : 0;
         if ($base_image_id) {
@@ -659,7 +665,7 @@ class AYNIX_Generate_AI_Articles {
                 $this->write_log('OPENAI_TRANSLATE_FAIL: ' . $base_lang . '->' . $lang . ' base_post_id=' . $base_post_id);
                 continue;
             }
-            $translated_id = $this->insert_article_post($translated['title'], $translated['content'], $lang, $status, $base_image_id);
+            $translated_id = $this->insert_article_post($translated['title'], $translated['content'], $lang, $status, $base_image_id, $group_id);
             $this->write_log('OPENAI_TRANSLATE_DONE: ' . $base_lang . '->' . $lang . ' base_post_id=' . $base_post_id . ' translated_post_id=' . $translated_id);
         }
     }
@@ -693,7 +699,7 @@ class AYNIX_Generate_AI_Articles {
         return array('title' => $title, 'content' => $content, 'post_id' => $post_id);
     }
 
-    private function insert_article_post($title, $content, $lang, $status, $featured_image_id = 0) {
+    private function insert_article_post($title, $content, $lang, $status, $featured_image_id = 0, $group_id = '') {
         $settings = $this->get_settings();
         $post_id = wp_insert_post(array(
             'post_title' => wp_strip_all_tags($title),
@@ -708,6 +714,9 @@ class AYNIX_Generate_AI_Articles {
             update_post_meta($post_id, '_aynix_ai_article', '1');
             update_post_meta($post_id, '_aynix_ai_lang', $lang);
             update_post_meta($post_id, 'lang', $lang);
+            if ($group_id) {
+                update_post_meta($post_id, '_aynix_ai_group_id', $group_id);
+            }
             $this->log_generated_post($post_id);
             $this->write_log('ARTICLE_GENERATION_SUCCESS: post_id=' . $post_id . ' lang=' . $lang);
         } else {
@@ -718,7 +727,7 @@ class AYNIX_Generate_AI_Articles {
             set_post_thumbnail($post_id, $featured_image_id);
             $this->write_log('FEATURED_IMAGE_REUSED: post_id=' . $post_id . ' image_id=' . $featured_image_id);
         } elseif ($post_id && !empty($settings['generate_images'])) {
-            $this->attach_featured_image($post_id, $title, $lang);
+            $this->enqueue_image_generation($post_id);
         }
 
         if ($post_id && !empty($settings['tags'])) {
@@ -730,6 +739,78 @@ class AYNIX_Generate_AI_Articles {
         }
 
         return $post_id;
+    }
+
+    private function enqueue_image_generation($post_id) {
+        update_post_meta($post_id, '_aynix_ai_needs_image', '1');
+        $this->write_log('IMAGE_QUEUE_ADD: post_id=' . $post_id);
+        if (!wp_next_scheduled(self::CRON_IMAGE_HOOK)) {
+            wp_schedule_single_event(time() + 10, self::CRON_IMAGE_HOOK);
+        }
+    }
+
+    public function run_image_queue() {
+        $query = new WP_Query(array(
+            'post_type' => 'post',
+            'post_status' => array('draft', 'publish', 'pending', 'private'),
+            'meta_key' => '_aynix_ai_needs_image',
+            'meta_value' => '1',
+            'posts_per_page' => 5,
+            'orderby' => 'date',
+            'order' => 'ASC',
+        ));
+
+        if (!$query->have_posts()) {
+            $this->write_log('IMAGE_QUEUE_EMPTY');
+            return;
+        }
+
+        while ($query->have_posts()) {
+            $query->the_post();
+            $post_id = get_the_ID();
+            $group_id = get_post_meta($post_id, '_aynix_ai_group_id', true);
+            $lang = get_post_meta($post_id, '_aynix_ai_lang', true);
+
+            $reuse_id = 0;
+            if ($group_id) {
+                $reuse_id = $this->find_group_image($group_id);
+            }
+
+            if ($reuse_id) {
+                set_post_thumbnail($post_id, $reuse_id);
+                delete_post_meta($post_id, '_aynix_ai_needs_image');
+                $this->write_log('IMAGE_QUEUE_REUSE: post_id=' . $post_id . ' image_id=' . $reuse_id);
+                continue;
+            }
+
+            $this->write_log('IMAGE_QUEUE_GENERATE: post_id=' . $post_id . ' lang=' . $lang);
+            $this->attach_featured_image($post_id, get_the_title($post_id), $lang);
+            delete_post_meta($post_id, '_aynix_ai_needs_image');
+        }
+
+        wp_reset_postdata();
+    }
+
+    private function find_group_image($group_id) {
+        $query = new WP_Query(array(
+            'post_type' => 'post',
+            'post_status' => array('draft', 'publish', 'pending', 'private'),
+            'meta_key' => '_aynix_ai_group_id',
+            'meta_value' => $group_id,
+            'posts_per_page' => 1,
+            'orderby' => 'date',
+            'order' => 'ASC',
+        ));
+
+        if ($query->have_posts()) {
+            $query->the_post();
+            $image_id = get_post_thumbnail_id(get_the_ID());
+            wp_reset_postdata();
+            return $image_id ?: 0;
+        }
+
+        wp_reset_postdata();
+        return 0;
     }
 
     private function build_prompt($lang, $settings, $langs) {
