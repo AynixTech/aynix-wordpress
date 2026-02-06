@@ -647,6 +647,7 @@ class AYNIX_Generate_AI_Articles {
         $base_post_id = $base['post_id'] ?? 0;
         if ($base_post_id) {
             update_post_meta($base_post_id, '_aynix_ai_group_id', $group_id);
+            update_post_meta($base_post_id, '_aynix_ai_base_id', $base_post_id);
         }
         $this->write_log('ARTICLE_SET_BASE_DONE: post_id=' . $base_post_id . ' lang=' . $base_lang);
         $base_image_id = $base_post_id ? get_post_thumbnail_id($base_post_id) : 0;
@@ -665,7 +666,7 @@ class AYNIX_Generate_AI_Articles {
                 $this->write_log('OPENAI_TRANSLATE_FAIL: ' . $base_lang . '->' . $lang . ' base_post_id=' . $base_post_id);
                 continue;
             }
-            $translated_id = $this->insert_article_post($translated['title'], $translated['content'], $lang, $status, $base_image_id, $group_id);
+            $translated_id = $this->insert_article_post($translated['title'], $translated['content'], $lang, $status, $base_image_id, $group_id, $base_post_id);
             $this->write_log('OPENAI_TRANSLATE_DONE: ' . $base_lang . '->' . $lang . ' base_post_id=' . $base_post_id . ' translated_post_id=' . $translated_id);
         }
     }
@@ -702,7 +703,7 @@ class AYNIX_Generate_AI_Articles {
         return array('title' => $title, 'content' => $content, 'post_id' => $post_id);
     }
 
-    private function insert_article_post($title, $content, $lang, $status, $featured_image_id = 0, $group_id = '') {
+    private function insert_article_post($title, $content, $lang, $status, $featured_image_id = 0, $group_id = '', $base_post_id = 0) {
         $settings = $this->get_settings();
         $post_id = wp_insert_post(array(
             'post_title' => wp_strip_all_tags($title),
@@ -719,6 +720,9 @@ class AYNIX_Generate_AI_Articles {
             update_post_meta($post_id, 'lang', $lang);
             if ($group_id) {
                 update_post_meta($post_id, '_aynix_ai_group_id', $group_id);
+            }
+            if ($base_post_id) {
+                update_post_meta($post_id, '_aynix_ai_base_id', $base_post_id);
             }
             $this->log_generated_post($post_id);
             $this->write_log('ARTICLE_GENERATION_SUCCESS: post_id=' . $post_id . ' lang=' . $lang);
@@ -1547,18 +1551,23 @@ class AYNIX_Generate_AI_Articles {
             return $columns;
         }
         $columns['aynix_lang'] = 'Lang';
+        $columns['aynix_base'] = 'Base ID';
         return $columns;
     }
 
     public function render_lang_column($column, $post_id) {
-        if ($column !== 'aynix_lang') {
+        if ($column === 'aynix_lang') {
+            $lang = get_post_meta($post_id, 'lang', true);
+            if (!$lang) {
+                $lang = get_post_meta($post_id, '_aynix_ai_lang', true);
+            }
+            echo esc_html($lang ?: '-');
             return;
         }
-        $lang = get_post_meta($post_id, 'lang', true);
-        if (!$lang) {
-            $lang = get_post_meta($post_id, '_aynix_ai_lang', true);
+        if ($column === 'aynix_base') {
+            $base_id = get_post_meta($post_id, '_aynix_ai_base_id', true);
+            echo esc_html($base_id ?: '-');
         }
-        echo esc_html($lang ?: '-');
     }
 }
 
