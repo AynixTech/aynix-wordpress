@@ -989,13 +989,15 @@ class AYNIX_Generate_AI_Articles {
     }
 
     private function fallback_parse_json_like($text) {
-        $pattern = '/"title"\s*:\s*"(.*?)"\s*,\s*"content"\s*:\s*"(.*)"\s*\}?\s*$/s';
-        if (!preg_match($pattern, $text, $matches)) {
+        if (!preg_match('/"title"\s*:\s*"((?:\\\\.|[^\"])*)"/s', $text, $title_match)) {
+            return null;
+        }
+        if (!preg_match('/"content"\s*:\s*"((?:\\\\.|[^\"])*)"/s', $text, $content_match)) {
             return null;
         }
 
-        $title = $this->unescape_json_like($matches[1]);
-        $content = $this->unescape_json_like($matches[2]);
+        $title = $this->decode_json_string($title_match[1]);
+        $content = $this->decode_json_string($content_match[1]);
 
         if ($title === '' || $content === '') {
             return null;
@@ -1007,9 +1009,12 @@ class AYNIX_Generate_AI_Articles {
         );
     }
 
-    private function unescape_json_like($value) {
-        $value = str_replace(array('\\"', '\\n', '\\r', '\\t'), array('"', "\n", "\r", "\t"), $value);
-        return $value;
+    private function decode_json_string($value) {
+        $decoded = json_decode('"' . $value . '"');
+        if (is_string($decoded)) {
+            return $decoded;
+        }
+        return stripslashes($value);
     }
 
     private function truncate_log($text, $limit = 2000) {
