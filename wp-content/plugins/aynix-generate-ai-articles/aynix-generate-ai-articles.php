@@ -589,7 +589,8 @@ class AYNIX_Generate_AI_Articles {
         }
 
         for ($i = 0; $i < $articles_per_run; $i++) {
-            $this->generate_article($langs, $settings['post_status']);
+            $lang = $langs[array_rand($langs)];
+            $this->generate_article($lang, $settings['post_status']);
         }
 
         $this->log_status('completed');
@@ -604,7 +605,8 @@ class AYNIX_Generate_AI_Articles {
         $this->log_status('test_started');
         $settings = $this->get_settings();
         $langs = $settings['languages'];
-        $this->generate_article($langs, $settings['post_status']);
+        $lang = $langs[array_rand($langs)];
+        $this->generate_article($lang, $settings['post_status']);
 
         $this->log_status('test_completed');
 
@@ -613,15 +615,10 @@ class AYNIX_Generate_AI_Articles {
         exit;
     }
 
-    private function generate_article($langs, $status) {
+    private function generate_article($lang, $status) {
         $settings = $this->get_settings();
-        $langs = is_array($langs) ? array_values(array_unique($langs)) : array();
-        if (empty($langs)) {
-            $langs = $settings['languages'];
-        }
-        $primary_lang = $langs[0] ?? 'it';
-        $prompt = $this->build_prompt($primary_lang, $settings, $langs);
-        $response = $this->call_openai($prompt, $primary_lang, $langs);
+        $prompt = $this->build_prompt($lang, $settings, array($lang));
+        $response = $this->call_openai($prompt, $lang, array($lang));
 
         if (!$response) {
             $this->log_error('OpenAI response empty');
@@ -629,21 +626,8 @@ class AYNIX_Generate_AI_Articles {
         }
 
         $this->log_response_language_keys($response);
-        $language_payloads = $this->extract_language_payloads($response, $langs);
-        if (empty($language_payloads)) {
-            $normalized = $this->normalize_multilang_response($response, $langs);
-            if (!empty($normalized['title']) && !empty($normalized['content'])) {
-                $language_payloads[$primary_lang] = array(
-                    'title' => $normalized['title'],
-                    'content' => $normalized['content'],
-                );
-            }
-        }
-
-        $language_payloads = $this->fill_missing_languages($language_payloads, $langs);
-        $normalized = $this->normalize_multilang_response($language_payloads, $langs);
-        $title = $normalized['title'] ?? null;
-        $content = $normalized['content'] ?? null;
+        $title = $response['title'] ?? null;
+        $content = $response['content'] ?? null;
 
         if (!$title || !$content) {
             error_log('AYNIX AI Articles: Missing title/content in response');
@@ -662,13 +646,13 @@ class AYNIX_Generate_AI_Articles {
 
         if ($post_id) {
             update_post_meta($post_id, '_aynix_ai_article', '1');
-            update_post_meta($post_id, '_aynix_ai_lang', $primary_lang);
-            update_post_meta($post_id, '_aynix_ai_langs', implode(',', $langs));
+            update_post_meta($post_id, '_aynix_ai_lang', $lang);
+            update_post_meta($post_id, 'lang', $lang);
             $this->log_generated_post($post_id);
         }
 
         if ($post_id && !empty($settings['generate_images'])) {
-            $this->attach_featured_image($post_id, $title, $primary_lang);
+            $this->attach_featured_image($post_id, $title, $lang);
         }
 
         if ($post_id && !empty($settings['tags'])) {
@@ -754,12 +738,7 @@ class AYNIX_Generate_AI_Articles {
             $langs = array($lang);
         }
 
-        $system_prompt = "You are a professional blog writer. Respond ONLY with valid JSON and no extra text. Do not add comments or notes.";
-        if (count($langs) > 1) {
-            $system_prompt .= " Required JSON format: {\"it\":{\"title\":\"...\",\"content\":\"...\"},\"en\":{\"title\":\"...\",\"content\":\"...\"}}. Include ONLY the language keys requested. Content should be in HTML with headings and paragraphs.";
-        } else {
-            $system_prompt .= " Required JSON format: {\"title\":\"...\",\"content\":\"...\"}. Content should be in HTML with headings and paragraphs.";
-        }
+        $system_prompt = "You are a professional blog writer. Respond ONLY with valid JSON and no extra text. Do not add comments or notes. Required JSON format: {\"title\":\"...\",\"content\":\"...\"}. Content should be in HTML with headings and paragraphs.";
 
         $body = array(
             'model' => 'gpt-4o-mini',
@@ -1011,79 +990,6 @@ class AYNIX_Generate_AI_Articles {
         );
     }
 
-    private function extract_language_payloads($response, $langs) {
-        if (!is_array($response)) {
-            return array();
-        }
-        if (isset($response['title']) || isset($response['content'])) {
-            return array();
-        }
-        $langs = is_array($langs) ? $langs : array();
-        $payloads = array();
-        foreach ($langs as $code) {
-            if (isset($response[$code]) && is_array($response[$code])) {
-                $title = $response[$code]['title'] ?? '';
-                $content = $response[$code]['content'] ?? '';
-                if ($title && $content) {
-                    $payloads[$code] = array('title' => $title, 'content' => $content);
-                }
-            }
-        }
-        return $payloads;
-    }
-
-    private function fill_missing_languages($payloads, $langs) {
-        $payloads = is_array($payloads) ? $payloads : array();
-        $langs = is_array($langs) ? array_values(array_unique($langs)) : array();
-        if (empty($langs)) {
-            return $payloads;
-        }
-
-        $available = array_keys($payloads);
-        $missing = array_values(array_diff($langs, $available));
-        if (empty($missing)) {
-            return $payloads;
-        }
-
-        $this->write_log('OPENAI_LANG_MISSING: ' . implode(',', $missing));
-        $base_lang = $available[0] ?? null;
-        if (!$base_lang || empty($payloads[$base_lang]['title']) || empty($payloads[$base_lang]['content'])) {
-            $this->write_log('OPENAI_LANG_FILL: no base content');
-            return $payloads;
-        }
-
-        $source_title = $payloads[$base_lang]['title'];
-        $source_content = $payloads[$base_lang]['content'];
-
-        foreach ($missing as $lang) {
-            $prompt = $this->build_translation_prompt($source_title, $source_content, $lang, $base_lang);
-            $translated = $this->call_openai($prompt, $lang, array($lang));
-            if (is_array($translated) && !empty($translated['title']) && !empty($translated['content'])) {
-                $payloads[$lang] = array(
-                    'title' => $translated['title'],
-                    'content' => $translated['content'],
-                );
-                $this->write_log('OPENAI_LANG_FILLED: ' . $lang);
-            } else {
-                $this->write_log('OPENAI_LANG_FILL_FAILED: ' . $lang);
-            }
-        }
-
-        return $payloads;
-    }
-
-    private function build_translation_prompt($title, $content, $target_lang, $source_lang) {
-        $lang_labels = array(
-            'it' => 'Italian',
-            'en' => 'English',
-            'es' => 'Spanish',
-            'pt' => 'Portuguese',
-        );
-        $target_label = $lang_labels[$target_lang] ?? $target_lang;
-        $source_label = $lang_labels[$source_lang] ?? $source_lang;
-
-        return "Translate the following article from {$source_label} to {$target_label}. Keep the HTML structure and headings. Return JSON with keys \"title\" and \"content\" only.\n\nTitle: {$title}\n\nContent:\n{$content}";
-    }
 
     private function call_openai_image($prompt) {
         if (!defined('OPENAI_API_KEY') || !OPENAI_API_KEY) {
