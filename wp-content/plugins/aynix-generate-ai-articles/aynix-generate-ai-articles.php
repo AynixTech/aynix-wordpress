@@ -505,6 +505,10 @@ class AYNIX_Generate_AI_Articles {
     }
 
     private function call_openai($prompt, $lang) {
+        if (!defined('OPENAI_API_KEY') || !OPENAI_API_KEY) {
+            error_log('AYNIX AI Articles: OPENAI_API_KEY not configured');
+            return null;
+        }
         $api_key = OPENAI_API_KEY;
 
         $body = array(
@@ -629,6 +633,10 @@ class AYNIX_Generate_AI_Articles {
     }
 
     private function call_openai_image($prompt) {
+        if (!defined('OPENAI_API_KEY') || !OPENAI_API_KEY) {
+            error_log('AYNIX AI Articles: OPENAI_API_KEY not configured');
+            return null;
+        }
         $api_key = OPENAI_API_KEY;
         $body = array(
             'model' => 'gpt-image-1',
