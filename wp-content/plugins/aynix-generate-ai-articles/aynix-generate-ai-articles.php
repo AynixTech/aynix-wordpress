@@ -19,6 +19,7 @@ class AYNIX_Generate_AI_Articles {
         add_action('admin_init', array($this, 'register_settings'));
 
         add_action(self::CRON_HOOK, array($this, 'run_generation'));
+        add_action('admin_post_aynix_ai_articles_test', array($this, 'handle_test_generation'));
 
         register_activation_hook(__FILE__, array($this, 'on_activate'));
         register_deactivation_hook(__FILE__, array($this, 'on_deactivate'));
@@ -181,12 +182,25 @@ class AYNIX_Generate_AI_Articles {
         ?>
         <div class="wrap">
             <h1>AYNIX Generate AI Articles</h1>
+            <?php if (isset($_GET['aynix_ai_articles_test']) && $_GET['aynix_ai_articles_test'] === '1') : ?>
+                <div class="notice notice-success is-dismissible">
+                    <p>Test generation started. Check Posts for the new draft/published article.</p>
+                </div>
+            <?php endif; ?>
             <form method="post" action="options.php">
                 <?php
                 settings_fields('aynix_generate_ai_articles');
                 do_settings_sections('aynix-generate-ai-articles');
                 submit_button();
                 ?>
+            </form>
+            <hr />
+            <h2>Test generation</h2>
+            <p>Generate one article immediately using the current settings.</p>
+            <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+                <?php wp_nonce_field('aynix_ai_articles_test'); ?>
+                <input type="hidden" name="action" value="aynix_ai_articles_test" />
+                <?php submit_button('Generate Test Article', 'secondary', 'submit', false); ?>
             </form>
         </div>
         <?php
@@ -372,6 +386,23 @@ class AYNIX_Generate_AI_Articles {
             $lang = $langs[array_rand($langs)];
             $this->generate_article($lang, $settings['post_status']);
         }
+    }
+
+    public function handle_test_generation() {
+        if (!current_user_can('manage_options')) {
+            wp_die('Unauthorized', 403);
+        }
+        check_admin_referer('aynix_ai_articles_test');
+
+        $settings = $this->get_settings();
+        $langs = $settings['languages'];
+        $lang = $langs[array_rand($langs)];
+
+        $this->generate_article($lang, $settings['post_status']);
+
+        $redirect = add_query_arg('aynix_ai_articles_test', '1', admin_url('options-general.php?page=aynix-generate-ai-articles'));
+        wp_safe_redirect($redirect);
+        exit;
     }
 
     private function generate_article($lang, $status) {
