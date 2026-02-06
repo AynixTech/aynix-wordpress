@@ -26,11 +26,31 @@ class AYNIX_Generate_AI_Articles {
     }
 
     public function register_menu() {
-        add_options_page(
-            'AYNIX Generate AI Articles',
+        add_menu_page(
+            'AYNIX AI Articles',
             'AYNIX AI Articles',
             'manage_options',
-            'aynix-generate-ai-articles',
+            'aynix-ai-articles',
+            array($this, 'render_dashboard_page'),
+            'dashicons-welcome-write-blog',
+            58
+        );
+
+        add_submenu_page(
+            'aynix-ai-articles',
+            'Articles Dashboard',
+            'Dashboard',
+            'manage_options',
+            'aynix-ai-articles',
+            array($this, 'render_dashboard_page')
+        );
+
+        add_submenu_page(
+            'aynix-ai-articles',
+            'Settings',
+            'Settings',
+            'manage_options',
+            'aynix-ai-articles-settings',
             array($this, 'render_settings_page')
         );
     }
@@ -42,14 +62,14 @@ class AYNIX_Generate_AI_Articles {
             'aynix_ai_articles_main',
             'AI Article Generation Settings',
             '__return_false',
-            'aynix-generate-ai-articles'
+            'aynix-ai-articles-settings'
         );
 
         add_settings_field(
             'articles_per_run',
             'Articles per run',
             array($this, 'field_articles_per_run'),
-            'aynix-generate-ai-articles',
+            'aynix-ai-articles-settings',
             'aynix_ai_articles_main'
         );
 
@@ -57,7 +77,7 @@ class AYNIX_Generate_AI_Articles {
             'frequency',
             'Frequency',
             array($this, 'field_frequency'),
-            'aynix-generate-ai-articles',
+            'aynix-ai-articles-settings',
             'aynix_ai_articles_main'
         );
 
@@ -65,7 +85,7 @@ class AYNIX_Generate_AI_Articles {
             'languages',
             'Languages',
             array($this, 'field_languages'),
-            'aynix-generate-ai-articles',
+            'aynix-ai-articles-settings',
             'aynix_ai_articles_main'
         );
 
@@ -73,7 +93,7 @@ class AYNIX_Generate_AI_Articles {
             'post_status',
             'Post status',
             array($this, 'field_post_status'),
-            'aynix-generate-ai-articles',
+            'aynix-ai-articles-settings',
             'aynix_ai_articles_main'
         );
 
@@ -81,7 +101,7 @@ class AYNIX_Generate_AI_Articles {
             'categories',
             'Categories',
             array($this, 'field_categories'),
-            'aynix-generate-ai-articles',
+            'aynix-ai-articles-settings',
             'aynix_ai_articles_main'
         );
 
@@ -89,7 +109,7 @@ class AYNIX_Generate_AI_Articles {
             'categories_free_text',
             'Categories (free text)',
             array($this, 'field_categories_free_text'),
-            'aynix-generate-ai-articles',
+            'aynix-ai-articles-settings',
             'aynix_ai_articles_main'
         );
 
@@ -97,7 +117,7 @@ class AYNIX_Generate_AI_Articles {
             'custom_prompt',
             'Custom prompt',
             array($this, 'field_custom_prompt'),
-            'aynix-generate-ai-articles',
+            'aynix-ai-articles-settings',
             'aynix_ai_articles_main'
         );
 
@@ -105,7 +125,7 @@ class AYNIX_Generate_AI_Articles {
             'generate_images',
             'Generate images',
             array($this, 'field_generate_images'),
-            'aynix-generate-ai-articles',
+            'aynix-ai-articles-settings',
             'aynix_ai_articles_main'
         );
 
@@ -113,7 +133,7 @@ class AYNIX_Generate_AI_Articles {
             'tags',
             'Tags',
             array($this, 'field_tags'),
-            'aynix-generate-ai-articles',
+            'aynix-ai-articles-settings',
             'aynix_ai_articles_main'
         );
 
@@ -121,7 +141,7 @@ class AYNIX_Generate_AI_Articles {
             'tone',
             'Tone',
             array($this, 'field_tone'),
-            'aynix-generate-ai-articles',
+            'aynix-ai-articles-settings',
             'aynix_ai_articles_main'
         );
 
@@ -129,7 +149,7 @@ class AYNIX_Generate_AI_Articles {
             'length',
             'Length',
             array($this, 'field_length'),
-            'aynix-generate-ai-articles',
+            'aynix-ai-articles-settings',
             'aynix_ai_articles_main'
         );
 
@@ -137,7 +157,7 @@ class AYNIX_Generate_AI_Articles {
             'author',
             'Author',
             array($this, 'field_author'),
-            'aynix-generate-ai-articles',
+            'aynix-ai-articles-settings',
             'aynix_ai_articles_main'
         );
     }
@@ -199,7 +219,7 @@ class AYNIX_Generate_AI_Articles {
             <form method="post" action="options.php">
                 <?php
                 settings_fields('aynix_generate_ai_articles');
-                do_settings_sections('aynix-generate-ai-articles');
+                do_settings_sections('aynix-ai-articles-settings');
                 submit_button();
                 ?>
             </form>
@@ -211,6 +231,58 @@ class AYNIX_Generate_AI_Articles {
                 <input type="hidden" name="action" value="aynix_ai_articles_test" />
                 <?php submit_button('Generate Test Article', 'secondary', 'submit', false); ?>
             </form>
+        </div>
+        <?php
+    }
+
+    public function render_dashboard_page() {
+        if (!current_user_can('manage_options')) {
+            return;
+        }
+
+        $query = new WP_Query(array(
+            'post_type' => 'post',
+            'post_status' => array('draft', 'publish', 'pending', 'private'),
+            'meta_key' => '_aynix_ai_article',
+            'meta_value' => '1',
+            'posts_per_page' => 50,
+            'orderby' => 'date',
+            'order' => 'DESC',
+        ));
+        ?>
+        <div class="wrap">
+            <h1>AYNIX AI Articles - Dashboard</h1>
+            <p>Latest AI-generated articles (up to 50).</p>
+            <table class="widefat fixed striped">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Status</th>
+                        <th>Language</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php if ($query->have_posts()) : ?>
+                    <?php while ($query->have_posts()) : $query->the_post(); ?>
+                        <tr>
+                            <td>
+                                <a href="<?php echo esc_url(get_edit_post_link(get_the_ID())); ?>">
+                                    <?php echo esc_html(get_the_title()); ?>
+                                </a>
+                            </td>
+                            <td><?php echo esc_html(get_post_status(get_the_ID())); ?></td>
+                            <td><?php echo esc_html(get_post_meta(get_the_ID(), '_aynix_ai_lang', true)); ?></td>
+                            <td><?php echo esc_html(get_the_date('Y-m-d H:i')); ?></td>
+                        </tr>
+                    <?php endwhile; wp_reset_postdata(); ?>
+                <?php else : ?>
+                    <tr>
+                        <td colspan="4">No AI articles found yet.</td>
+                    </tr>
+                <?php endif; ?>
+                </tbody>
+            </table>
         </div>
         <?php
     }
@@ -447,6 +519,11 @@ class AYNIX_Generate_AI_Articles {
             'post_category' => $this->pick_categories($settings['categories'], $settings['categories_free_text']),
             'post_author' => $settings['author'] ?: get_current_user_id(),
         ));
+
+        if ($post_id) {
+            update_post_meta($post_id, '_aynix_ai_article', '1');
+            update_post_meta($post_id, '_aynix_ai_lang', $lang);
+        }
 
         if ($post_id && !empty($settings['generate_images'])) {
             $this->attach_featured_image($post_id, $title, $lang);
