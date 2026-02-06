@@ -589,8 +589,9 @@ class AYNIX_Generate_AI_Articles {
         }
 
         for ($i = 0; $i < $articles_per_run; $i++) {
-            $lang = $langs[array_rand($langs)];
-            $this->generate_article($lang, $settings['post_status']);
+            foreach ($langs as $lang) {
+                $this->generate_article($lang, $settings['post_status']);
+            }
         }
 
         $this->log_status('completed');
@@ -605,8 +606,9 @@ class AYNIX_Generate_AI_Articles {
         $this->log_status('test_started');
         $settings = $this->get_settings();
         $langs = $settings['languages'];
-        $lang = $langs[array_rand($langs)];
-        $this->generate_article($lang, $settings['post_status']);
+        foreach ($langs as $lang) {
+            $this->generate_article($lang, $settings['post_status']);
+        }
 
         $this->log_status('test_completed');
 
