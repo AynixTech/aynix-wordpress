@@ -637,20 +637,21 @@ class AYNIX_Generate_AI_Articles {
             $this->write_log('ARTICLE_SET_FAIL: base_missing lang=' . $base_lang);
             return;
         }
+        $base_post_id = $base['post_id'] ?? 0;
 
         foreach ($langs as $lang) {
             if ($lang === $base_lang) {
                 continue;
             }
-            $this->write_log('OPENAI_TRANSLATE_START: ' . $base_lang . '->' . $lang);
+            $this->write_log('OPENAI_TRANSLATE_START: ' . $base_lang . '->' . $lang . ' base_post_id=' . $base_post_id);
             $translated = $this->translate_article($base['title'], $base['content'], $base_lang, $lang);
             if (!is_array($translated) || empty($translated['title']) || empty($translated['content'])) {
                 $this->write_log('ARTICLE_SET_FAIL: translation_missing lang=' . $lang);
-                $this->write_log('OPENAI_TRANSLATE_FAIL: ' . $base_lang . '->' . $lang);
+                $this->write_log('OPENAI_TRANSLATE_FAIL: ' . $base_lang . '->' . $lang . ' base_post_id=' . $base_post_id);
                 continue;
             }
-            $this->insert_article_post($translated['title'], $translated['content'], $lang, $status);
-            $this->write_log('OPENAI_TRANSLATE_DONE: ' . $base_lang . '->' . $lang);
+            $translated_id = $this->insert_article_post($translated['title'], $translated['content'], $lang, $status);
+            $this->write_log('OPENAI_TRANSLATE_DONE: ' . $base_lang . '->' . $lang . ' base_post_id=' . $base_post_id . ' translated_post_id=' . $translated_id);
         }
     }
 
@@ -678,9 +679,9 @@ class AYNIX_Generate_AI_Articles {
             return null;
         }
 
-        $this->insert_article_post($title, $content, $lang, $status);
+        $post_id = $this->insert_article_post($title, $content, $lang, $status);
 
-        return array('title' => $title, 'content' => $content);
+        return array('title' => $title, 'content' => $content, 'post_id' => $post_id);
     }
 
     private function insert_article_post($title, $content, $lang, $status) {
@@ -715,6 +716,8 @@ class AYNIX_Generate_AI_Articles {
                 wp_set_post_tags($post_id, $tags, false);
             }
         }
+
+        return $post_id;
     }
 
     private function build_prompt($lang, $settings, $langs) {
