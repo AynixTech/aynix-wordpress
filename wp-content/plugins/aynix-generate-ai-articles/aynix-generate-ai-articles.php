@@ -753,10 +753,19 @@ class AYNIX_Generate_AI_Articles {
             return null;
         }
 
-        $content = json_decode($data['choices'][0]['message']['content'], true);
+        $raw_content = $data['choices'][0]['message']['content'];
+        $content = json_decode($raw_content, true);
+        if (!is_array($content)) {
+            $extracted = $this->extract_json_object($raw_content);
+            if ($extracted) {
+                $content = json_decode($extracted, true);
+            }
+        }
+
         if (!is_array($content)) {
             error_log('AYNIX AI Articles: Invalid JSON content');
             $this->log_error('Invalid JSON content');
+            $this->write_log('RAW_OPENAI_CONTENT: ' . $this->truncate_log($raw_content));
             return null;
         }
 
@@ -916,6 +925,23 @@ class AYNIX_Generate_AI_Articles {
         $line = '[' . $time . '] ' . $message . "\n";
         $path = trailingslashit(WP_CONTENT_DIR) . self::LOG_FILE;
         @file_put_contents($path, $line, FILE_APPEND | LOCK_EX);
+    }
+
+    private function extract_json_object($text) {
+        $start = strpos($text, '{');
+        $end = strrpos($text, '}');
+        if ($start === false || $end === false || $end <= $start) {
+            return null;
+        }
+        return substr($text, $start, $end - $start + 1);
+    }
+
+    private function truncate_log($text, $limit = 2000) {
+        $text = preg_replace('/\s+/', ' ', $text);
+        if (strlen($text) > $limit) {
+            return substr($text, 0, $limit) . '...';
+        }
+        return $text;
     }
 
     private function append_history($log, $status, $message) {
