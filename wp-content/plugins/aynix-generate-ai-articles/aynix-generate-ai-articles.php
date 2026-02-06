@@ -1132,7 +1132,7 @@ class AYNIX_Generate_AI_Articles {
             if ($ch === '\\' && $i + 1 < $length) {
                 $next = $text[$i + 1];
                 if ($next === 'n' || $next === 'r' || $next === 't') {
-                    $result .= "\n";
+                    $result .= '\\' . $next;
                     $i++;
                     continue;
                 }
