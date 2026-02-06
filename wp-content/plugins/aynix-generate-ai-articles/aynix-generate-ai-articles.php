@@ -86,6 +86,14 @@ class AYNIX_Generate_AI_Articles {
         );
 
         add_settings_field(
+            'categories_free_text',
+            'Categories (free text)',
+            array($this, 'field_categories_free_text'),
+            'aynix-generate-ai-articles',
+            'aynix_ai_articles_main'
+        );
+
+        add_settings_field(
             'custom_prompt',
             'Custom prompt',
             array($this, 'field_custom_prompt'),
@@ -153,6 +161,7 @@ class AYNIX_Generate_AI_Articles {
 
         $categories = isset($input['categories']) && is_array($input['categories']) ? array_map('intval', $input['categories']) : array();
         $output['categories'] = array_values(array_filter($categories));
+        $output['categories_free_text'] = isset($input['categories_free_text']) ? sanitize_text_field($input['categories_free_text']) : '';
 
         $output['custom_prompt'] = isset($input['custom_prompt']) ? wp_kses_post($input['custom_prompt']) : '';
         $output['generate_images'] = !empty($input['generate_images']) ? 1 : 0;
@@ -269,6 +278,13 @@ class AYNIX_Generate_AI_Articles {
         }
     }
 
+    public function field_categories_free_text() {
+        $options = $this->get_settings();
+        $value = $options['categories_free_text'];
+        echo '<input type="text" style="width:100%;" name="' . esc_attr(self::OPTION_KEY) . '[categories_free_text]" value="' . esc_attr($value) . '" placeholder="Marketing Digitale, Sviluppo Web" />';
+        echo '<p class="description">Comma-separated categories. They will be created if missing and used for assignment/prompt.</p>';
+    }
+
     public function field_custom_prompt() {
         $options = $this->get_settings();
         $value = $options['custom_prompt'];
@@ -339,6 +355,7 @@ class AYNIX_Generate_AI_Articles {
             'languages' => array('it'),
             'post_status' => 'draft',
             'categories' => array(),
+            'categories_free_text' => '',
             'custom_prompt' => '',
             'generate_images' => 0,
             'tags' => '',
@@ -427,7 +444,7 @@ class AYNIX_Generate_AI_Articles {
             'post_content' => $content,
             'post_status' => $status,
             'post_type' => 'post',
-            'post_category' => $this->pick_categories($settings['categories']),
+            'post_category' => $this->pick_categories($settings['categories'], $settings['categories_free_text']),
             'post_author' => $settings['author'] ?: get_current_user_id(),
         ));
 
@@ -446,7 +463,7 @@ class AYNIX_Generate_AI_Articles {
 
     private function build_prompt($lang, $settings) {
         $site_name = get_bloginfo('name');
-        $category_label = $this->get_random_category_label($settings['categories']);
+        $category_label = $this->get_random_category_label($settings['categories'], $settings['categories_free_text']);
 
         $instructions = array(
             'it' => "Scrivi un articolo informativo per il sito {$site_name}. Rispondi in italiano.",
@@ -536,25 +553,50 @@ class AYNIX_Generate_AI_Articles {
         return $content;
     }
 
-    private function pick_categories($categories) {
-        if (empty($categories)) {
+    private function pick_categories($categories, $free_text) {
+        $ids = is_array($categories) ? $categories : array();
+        $free = $this->parse_free_text_categories($free_text);
+        foreach ($free as $name) {
+            $term = term_exists($name, 'category');
+            if (!$term) {
+                $term = wp_insert_term($name, 'category');
+            }
+            if (is_array($term) && isset($term['term_id'])) {
+                $ids[] = intval($term['term_id']);
+            } elseif (is_int($term)) {
+                $ids[] = $term;
+            }
+        }
+
+        $ids = array_values(array_unique(array_filter($ids)));
+        if (empty($ids)) {
             return array();
         }
-        $count = count($categories);
-        if ($count === 1) {
-            return $categories;
-        }
-        $selected = array($categories[array_rand($categories)]);
-        return array_values(array_unique($selected));
+
+        return array($ids[array_rand($ids)]);
     }
 
-    private function get_random_category_label($categories) {
-        if (empty($categories)) {
+    private function get_random_category_label($categories, $free_text) {
+        $ids = is_array($categories) ? $categories : array();
+        $names = $this->parse_free_text_categories($free_text);
+        if (!empty($names)) {
+            return $names[array_rand($names)];
+        }
+        if (empty($ids)) {
             return '';
         }
-        $cat_id = $categories[array_rand($categories)];
+        $cat_id = $ids[array_rand($ids)];
         $term = get_term($cat_id, 'category');
         return $term && !is_wp_error($term) ? $term->name : '';
+    }
+
+    private function parse_free_text_categories($free_text) {
+        if (empty($free_text)) {
+            return array();
+        }
+        $parts = array_map('trim', explode(',', $free_text));
+        $parts = array_values(array_filter($parts));
+        return $parts;
     }
 
     private function attach_featured_image($post_id, $title, $lang) {
