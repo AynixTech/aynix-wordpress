@@ -624,6 +624,7 @@ class AYNIX_Generate_AI_Articles {
 
         if (!$response) {
             $this->log_error('OpenAI response empty');
+            $this->write_log('ARTICLE_GENERATION_FAIL: empty_response lang=' . $lang);
             return;
         }
 
@@ -635,6 +636,7 @@ class AYNIX_Generate_AI_Articles {
         if (!$title || !$content) {
             error_log('AYNIX AI Articles: Missing title/content in response');
             $this->log_error('Missing title/content in response');
+            $this->write_log('ARTICLE_GENERATION_FAIL: missing_title_content lang=' . $lang);
             return;
         }
 
@@ -652,6 +654,9 @@ class AYNIX_Generate_AI_Articles {
             update_post_meta($post_id, '_aynix_ai_lang', $lang);
             update_post_meta($post_id, 'lang', $lang);
             $this->log_generated_post($post_id);
+            $this->write_log('ARTICLE_GENERATION_SUCCESS: post_id=' . $post_id . ' lang=' . $lang);
+        } else {
+            $this->write_log('ARTICLE_GENERATION_FAIL: wp_insert_post_failed lang=' . $lang);
         }
 
         if ($post_id && !empty($settings['generate_images'])) {
