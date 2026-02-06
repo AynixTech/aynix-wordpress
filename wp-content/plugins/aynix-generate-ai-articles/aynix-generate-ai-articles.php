@@ -996,10 +996,14 @@ class AYNIX_Generate_AI_Articles {
             return null;
         }
 
-        $data = json_decode(wp_remote_retrieve_body($response), true);
+        $image_body = wp_remote_retrieve_body($response);
+        $image_status = wp_remote_retrieve_response_code($response);
+        $this->write_log('OPENAI_IMAGE_HTTP_STATUS: ' . $image_status);
+        $data = json_decode($image_body, true);
         if (!isset($data['data'][0]['url'])) {
             error_log('AYNIX AI Articles: Invalid image response');
             $this->log_error('Invalid image response');
+            $this->write_log('OPENAI_IMAGE_RAW_RESPONSE: ' . $this->truncate_log($image_body));
             return null;
         }
 
