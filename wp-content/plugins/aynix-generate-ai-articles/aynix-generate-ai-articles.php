@@ -789,9 +789,27 @@ class AYNIX_Generate_AI_Articles {
             $this->write_log('IMAGE_QUEUE_GENERATE: post_id=' . $post_id . ' lang=' . $lang);
             $this->attach_featured_image($post_id, get_the_title($post_id), $lang);
             delete_post_meta($post_id, '_aynix_ai_needs_image');
+            $this->write_log('IMAGE_QUEUE_GENERATED: post_id=' . $post_id);
         }
 
         wp_reset_postdata();
+
+        $remaining = new WP_Query(array(
+            'post_type' => 'post',
+            'post_status' => array('draft', 'publish', 'pending', 'private'),
+            'meta_key' => '_aynix_ai_needs_image',
+            'meta_value' => '1',
+            'posts_per_page' => 1,
+            'fields' => 'ids',
+        ));
+        if ($remaining->have_posts()) {
+            $this->write_log('IMAGE_QUEUE_REMAINING: yes');
+            if (!wp_next_scheduled(self::CRON_IMAGE_HOOK)) {
+                wp_schedule_single_event(time() + 20, self::CRON_IMAGE_HOOK);
+            }
+        } else {
+            $this->write_log('IMAGE_QUEUE_REMAINING: no');
+        }
     }
 
     private function find_group_image($group_id) {
