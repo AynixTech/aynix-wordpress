@@ -592,9 +592,7 @@ class AYNIX_Generate_AI_Articles {
         }
 
         for ($i = 0; $i < $articles_per_run; $i++) {
-            foreach ($langs as $lang) {
-                $this->generate_article($lang, $settings['post_status']);
-            }
+            $this->generate_article_set($langs, $settings['post_status']);
         }
 
         $this->log_status('completed');
@@ -609,15 +607,39 @@ class AYNIX_Generate_AI_Articles {
         $this->log_status('test_started');
         $settings = $this->get_settings();
         $langs = $settings['languages'];
-        foreach ($langs as $lang) {
-            $this->generate_article($lang, $settings['post_status']);
-        }
+        $this->generate_article_set($langs, $settings['post_status']);
 
         $this->log_status('test_completed');
 
         $redirect = add_query_arg('aynix_ai_articles_test', '1', admin_url('admin.php?page=aynix-ai-articles-settings'));
         wp_safe_redirect($redirect);
         exit;
+    }
+
+    private function generate_article_set($langs, $status) {
+        $langs = is_array($langs) ? array_values(array_unique($langs)) : array();
+        if (empty($langs)) {
+            $langs = array('it');
+        }
+
+        $base_lang = $langs[0];
+        $base = $this->generate_article($base_lang, $status);
+        if (!is_array($base) || empty($base['title']) || empty($base['content'])) {
+            $this->write_log('ARTICLE_SET_FAIL: base_missing lang=' . $base_lang);
+            return;
+        }
+
+        foreach ($langs as $lang) {
+            if ($lang === $base_lang) {
+                continue;
+            }
+            $translated = $this->translate_article($base['title'], $base['content'], $base_lang, $lang);
+            if (!is_array($translated) || empty($translated['title']) || empty($translated['content'])) {
+                $this->write_log('ARTICLE_SET_FAIL: translation_missing lang=' . $lang);
+                continue;
+            }
+            $this->insert_article_post($translated['title'], $translated['content'], $lang, $status);
+        }
     }
 
     private function generate_article($lang, $status) {
@@ -628,7 +650,7 @@ class AYNIX_Generate_AI_Articles {
         if (!$response) {
             $this->log_error('OpenAI response empty');
             $this->write_log('ARTICLE_GENERATION_FAIL: empty_response lang=' . $lang);
-            return;
+            return null;
         }
 
         $this->log_response_language_keys($response);
@@ -640,9 +662,16 @@ class AYNIX_Generate_AI_Articles {
             error_log('AYNIX AI Articles: Missing title/content in response');
             $this->log_error('Missing title/content in response');
             $this->write_log('ARTICLE_GENERATION_FAIL: missing_title_content lang=' . $lang);
-            return;
+            return null;
         }
 
+        $this->insert_article_post($title, $content, $lang, $status);
+
+        return array('title' => $title, 'content' => $content);
+    }
+
+    private function insert_article_post($title, $content, $lang, $status) {
+        $settings = $this->get_settings();
         $post_id = wp_insert_post(array(
             'post_title' => wp_strip_all_tags($title),
             'post_content' => $content,
@@ -1246,6 +1275,34 @@ class AYNIX_Generate_AI_Articles {
             return $decoded;
         }
         return stripslashes($value);
+    }
+
+    private function translate_article($title, $content, $source_lang, $target_lang) {
+        $prompt = $this->build_translation_prompt($title, $content, $target_lang, $source_lang);
+        $translated = $this->call_openai($prompt, $target_lang, array($target_lang));
+        if (!is_array($translated)) {
+            return null;
+        }
+        $translated = $this->unwrap_single_language_response($translated, $target_lang);
+        $out_title = $translated['title'] ?? null;
+        $out_content = $translated['content'] ?? null;
+        if (!$out_title || !$out_content) {
+            return null;
+        }
+        return array('title' => $out_title, 'content' => $out_content);
+    }
+
+    private function build_translation_prompt($title, $content, $target_lang, $source_lang) {
+        $lang_labels = array(
+            'it' => 'Italian',
+            'en' => 'English',
+            'es' => 'Spanish',
+            'pt' => 'Portuguese',
+        );
+        $target_label = $lang_labels[$target_lang] ?? $target_lang;
+        $source_label = $lang_labels[$source_lang] ?? $source_lang;
+
+        return "Translate the following article from {$source_label} to {$target_label}. Keep the HTML structure and headings. Return JSON with keys \"title\" and \"content\" only.\n\nTitle: {$title}\n\nContent:\n{$content}";
     }
 
     private function sanitize_json_text($text) {
