@@ -827,7 +827,7 @@ class AYNIX_Generate_AI_Articles {
         }
 
         if (!is_array($content)) {
-            $content = $this->fallback_parse_json_like($raw_content);
+            $content = $this->fallback_parse_json_like($raw_content, $langs);
             if (is_array($content)) {
                 $this->write_log('OPENAI_JSON_FALLBACK: used regex parser');
             }
@@ -1061,7 +1061,13 @@ class AYNIX_Generate_AI_Articles {
         return substr($text, $start, $end - $start + 1);
     }
 
-    private function fallback_parse_json_like($text) {
+    private function fallback_parse_json_like($text, $langs) {
+        $langs = is_array($langs) ? $langs : array();
+        $multilang = $this->fallback_parse_multilang($text, $langs);
+        if (is_array($multilang) && !empty($multilang)) {
+            return $multilang;
+        }
+
         if (!preg_match('/"title"\s*:\s*"((?:\\\\.|[^\"])*)"/s', $text, $title_match)) {
             return null;
         }
@@ -1080,6 +1086,77 @@ class AYNIX_Generate_AI_Articles {
             'title' => $title,
             'content' => $content,
         );
+    }
+
+    private function fallback_parse_multilang($text, $langs) {
+        if (empty($langs)) {
+            return null;
+        }
+
+        $result = array();
+        foreach ($langs as $code) {
+            $lang_key = '"' . $code . '"';
+            $lang_pos = strpos($text, $lang_key);
+            if ($lang_pos === false) {
+                continue;
+            }
+
+            $title = $this->extract_json_string_value($text, 'title', $lang_pos);
+            $content = $this->extract_json_string_value($text, 'content', $lang_pos);
+            if ($title === null || $content === null) {
+                continue;
+            }
+
+            $result[$code] = array(
+                'title' => $title,
+                'content' => $content,
+            );
+        }
+
+        return !empty($result) ? $result : null;
+    }
+
+    private function extract_json_string_value($text, $key, $offset) {
+        $key_pos = strpos($text, '"' . $key . '"', $offset);
+        if ($key_pos === false) {
+            return null;
+        }
+        $colon_pos = strpos($text, ':', $key_pos);
+        if ($colon_pos === false) {
+            return null;
+        }
+
+        $len = strlen($text);
+        $i = $colon_pos + 1;
+        while ($i < $len && ctype_space($text[$i])) {
+            $i++;
+        }
+        if ($i >= $len || $text[$i] !== '"') {
+            return null;
+        }
+        $i++;
+
+        $value = '';
+        $escaped = false;
+        for (; $i < $len; $i++) {
+            $ch = $text[$i];
+            if ($escaped) {
+                $value .= $ch;
+                $escaped = false;
+                continue;
+            }
+            if ($ch === '\\') {
+                $value .= $ch;
+                $escaped = true;
+                continue;
+            }
+            if ($ch === '"') {
+                break;
+            }
+            $value .= $ch;
+        }
+
+        return $this->decode_json_string($value);
     }
 
     private function decode_json_string($value) {
