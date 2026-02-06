@@ -626,6 +626,7 @@ class AYNIX_Generate_AI_Articles {
         }
 
         $this->log_response_language_keys($response);
+        $response = $this->unwrap_single_language_response($response, $lang);
         $title = $response['title'] ?? null;
         $content = $response['content'] ?? null;
 
@@ -1056,6 +1057,20 @@ class AYNIX_Generate_AI_Articles {
         }
         $keys = array_keys($response);
         $this->write_log('OPENAI_RESPONSE_KEYS: ' . implode(',', $keys));
+    }
+
+    private function unwrap_single_language_response($response, $lang) {
+        if (!is_array($response)) {
+            return $response;
+        }
+        if (isset($response['title']) || isset($response['content'])) {
+            return $response;
+        }
+        if ($lang && isset($response[$lang]) && is_array($response[$lang])) {
+            $this->write_log('OPENAI_RESPONSE_UNWRAP: ' . $lang);
+            return $response[$lang];
+        }
+        return $response;
     }
 
     private function log_status($status) {
