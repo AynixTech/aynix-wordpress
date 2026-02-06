@@ -589,8 +589,7 @@ class AYNIX_Generate_AI_Articles {
         }
 
         for ($i = 0; $i < $articles_per_run; $i++) {
-            $lang = $langs[array_rand($langs)];
-            $this->generate_article($lang, $settings['post_status']);
+            $this->generate_article($langs, $settings['post_status']);
         }
 
         $this->log_status('completed');
@@ -605,9 +604,7 @@ class AYNIX_Generate_AI_Articles {
         $this->log_status('test_started');
         $settings = $this->get_settings();
         $langs = $settings['languages'];
-        $lang = $langs[array_rand($langs)];
-
-        $this->generate_article($lang, $settings['post_status']);
+        $this->generate_article($langs, $settings['post_status']);
 
         $this->log_status('test_completed');
 
@@ -616,18 +613,24 @@ class AYNIX_Generate_AI_Articles {
         exit;
     }
 
-    private function generate_article($lang, $status) {
+    private function generate_article($langs, $status) {
         $settings = $this->get_settings();
-        $prompt = $this->build_prompt($lang, $settings);
-        $response = $this->call_openai($prompt, $lang);
+        $langs = is_array($langs) ? array_values(array_unique($langs)) : array();
+        if (empty($langs)) {
+            $langs = $settings['languages'];
+        }
+        $primary_lang = $langs[0] ?? 'it';
+        $prompt = $this->build_prompt($primary_lang, $settings, $langs);
+        $response = $this->call_openai($prompt, $primary_lang);
 
         if (!$response) {
             $this->log_error('OpenAI response empty');
             return;
         }
 
-        $title = $response['title'] ?? null;
-        $content = $response['content'] ?? null;
+        $normalized = $this->normalize_multilang_response($response, $langs);
+        $title = $normalized['title'] ?? null;
+        $content = $normalized['content'] ?? null;
 
         if (!$title || !$content) {
             error_log('AYNIX AI Articles: Missing title/content in response');
@@ -646,12 +649,13 @@ class AYNIX_Generate_AI_Articles {
 
         if ($post_id) {
             update_post_meta($post_id, '_aynix_ai_article', '1');
-            update_post_meta($post_id, '_aynix_ai_lang', $lang);
+            update_post_meta($post_id, '_aynix_ai_lang', $primary_lang);
+            update_post_meta($post_id, '_aynix_ai_langs', implode(',', $langs));
             $this->log_generated_post($post_id);
         }
 
         if ($post_id && !empty($settings['generate_images'])) {
-            $this->attach_featured_image($post_id, $title, $lang);
+            $this->attach_featured_image($post_id, $title, $primary_lang);
         }
 
         if ($post_id && !empty($settings['tags'])) {
@@ -663,7 +667,7 @@ class AYNIX_Generate_AI_Articles {
         }
     }
 
-    private function build_prompt($lang, $settings) {
+    private function build_prompt($lang, $settings, $langs) {
         $site_name = get_bloginfo('name');
         $category_label = $this->get_random_category_label($settings['categories'], $settings['categories_free_text']);
 
@@ -677,6 +681,22 @@ class AYNIX_Generate_AI_Articles {
         $prompt = $instructions[$lang] ?? $instructions['it'];
         if (!empty($settings['custom_prompt'])) {
             $prompt = $settings['custom_prompt'];
+        }
+
+        $langs = is_array($langs) ? $langs : array($lang);
+        $language_labels = array(
+            'it' => 'Italiano',
+            'en' => 'English',
+            'es' => 'Español',
+            'pt' => 'Português',
+        );
+        $requested = array();
+        foreach ($langs as $code) {
+            if (isset($language_labels[$code])) {
+                $requested[] = $code . ' (' . $language_labels[$code] . ')';
+            } else {
+                $requested[] = $code;
+            }
         }
 
         $prompt = str_replace(
@@ -702,6 +722,8 @@ class AYNIX_Generate_AI_Articles {
         }
         $prompt .= "\nTone: " . ($tone_map[$settings['tone']] ?? 'professional and authoritative') . ".";
         $prompt .= "\nLength: " . ($length_map[$settings['length']] ?? '700-900 words') . ".";
+        $prompt .= "\nGenerate ONE article and provide it in these languages: " . implode(', ', $requested) . ".";
+        $prompt .= "\nReturn a single JSON object with one key per language code. Each language value must be an object with keys \"title\" and \"content\".";
 
         return $prompt;
     }
@@ -719,7 +741,7 @@ class AYNIX_Generate_AI_Articles {
             'messages' => array(
                 array(
                     'role' => 'system',
-                    'content' => "You are a professional blog writer. Respond ONLY with valid JSON and no extra text. Do not add comments or notes. Required JSON format: {\"title\":\"...\",\"content\":\"...\"}. Content should be in HTML with headings and paragraphs."
+                    'content' => "You are a professional blog writer. Respond ONLY with valid JSON and no extra text. Do not add comments or notes. Required JSON format: {\"it\":{\"title\":\"...\",\"content\":\"...\"},\"en\":{\"title\":\"...\",\"content\":\"...\"}}. Include ONLY the language keys requested. Content should be in HTML with headings and paragraphs."
                 ),
                 array(
                     'role' => 'user',
@@ -897,6 +919,53 @@ class AYNIX_Generate_AI_Articles {
         }
 
         set_post_thumbnail($post_id, $attachment_id);
+    }
+
+    private function normalize_multilang_response($response, $langs) {
+        if (!is_array($response)) {
+            return array();
+        }
+
+        if (isset($response['title']) || isset($response['content'])) {
+            return array(
+                'title' => $response['title'] ?? null,
+                'content' => $response['content'] ?? null,
+            );
+        }
+
+        $langs = is_array($langs) ? $langs : array();
+        $language_labels = array(
+            'it' => 'Italiano',
+            'en' => 'English',
+            'es' => 'Español',
+            'pt' => 'Português',
+        );
+
+        $title = null;
+        $sections = array();
+        foreach ($langs as $code) {
+            if (!isset($response[$code]) || !is_array($response[$code])) {
+                continue;
+            }
+            $lang_title = $response[$code]['title'] ?? '';
+            $lang_content = $response[$code]['content'] ?? '';
+            if (!$title && $lang_title) {
+                $title = $lang_title;
+            }
+            if ($lang_content) {
+                $label = $language_labels[$code] ?? strtoupper($code);
+                $sections[] = '<hr /><h2>' . esc_html($label) . '</h2>' . $lang_content;
+            }
+        }
+
+        if (!$title || empty($sections)) {
+            return array();
+        }
+
+        return array(
+            'title' => $title,
+            'content' => implode("\n", $sections),
+        );
     }
 
     private function call_openai_image($prompt) {
