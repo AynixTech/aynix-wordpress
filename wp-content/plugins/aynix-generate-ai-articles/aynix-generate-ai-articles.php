@@ -12,6 +12,7 @@ if (!defined('ABSPATH')) {
 
 class AYNIX_Generate_AI_Articles {
     const OPTION_KEY = 'aynix_generate_ai_articles_settings';
+    const LOG_OPTION_KEY = 'aynix_generate_ai_articles_log';
     const CRON_HOOK = 'aynix_generate_ai_articles_cron';
 
     public function __construct() {
@@ -52,6 +53,15 @@ class AYNIX_Generate_AI_Articles {
             'manage_options',
             'aynix-ai-articles-settings',
             array($this, 'render_settings_page')
+        );
+
+        add_submenu_page(
+            'aynix-ai-articles',
+            'Debug',
+            'Debug',
+            'manage_options',
+            'aynix-ai-articles-debug',
+            array($this, 'render_debug_page')
         );
     }
 
@@ -240,6 +250,7 @@ class AYNIX_Generate_AI_Articles {
             return;
         }
 
+        $log = get_option(self::LOG_OPTION_KEY, array());
         $query = new WP_Query(array(
             'post_type' => 'post',
             'post_status' => array('draft', 'publish', 'pending', 'private'),
@@ -252,6 +263,13 @@ class AYNIX_Generate_AI_Articles {
         ?>
         <div class="wrap">
             <h1>AYNIX AI Articles - Dashboard</h1>
+            <div class="card" style="max-width: 100%; margin-bottom: 16px;">
+                <h2>Generation status</h2>
+                <p><strong>Last run:</strong> <?php echo !empty($log['last_run']) ? esc_html($log['last_run']) : 'Never'; ?></p>
+                <p><strong>Last status:</strong> <?php echo !empty($log['last_status']) ? esc_html($log['last_status']) : 'n/a'; ?></p>
+                <p><strong>Last error:</strong> <?php echo !empty($log['last_error']) ? esc_html($log['last_error']) : 'none'; ?></p>
+                <p><strong>Last generated IDs:</strong> <?php echo !empty($log['last_generated']) ? esc_html(implode(', ', $log['last_generated'])) : 'none'; ?></p>
+            </div>
             <p>Latest AI-generated articles (up to 50).</p>
             <table class="widefat fixed striped">
                 <thead>
@@ -279,6 +297,62 @@ class AYNIX_Generate_AI_Articles {
                 <?php else : ?>
                     <tr>
                         <td colspan="4">No AI articles found yet.</td>
+                    </tr>
+                <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+        <?php
+    }
+
+    public function render_debug_page() {
+        if (!current_user_can('manage_options')) {
+            return;
+        }
+
+        $log = get_option(self::LOG_OPTION_KEY, array());
+        $next_run = wp_next_scheduled(self::CRON_HOOK);
+        $timezone = wp_timezone();
+        $next_run_local = $next_run ? wp_date('Y-m-d H:i:s', $next_run, $timezone) : 'Not scheduled';
+        $history = isset($log['history']) && is_array($log['history']) ? $log['history'] : array();
+        ?>
+        <div class="wrap">
+            <h1>AYNIX AI Articles - Debug</h1>
+            <div class="card" style="max-width: 100%; margin-bottom: 16px;">
+                <h2>Schedule</h2>
+                <p><strong>Next run:</strong> <?php echo esc_html($next_run_local); ?></p>
+                <p><strong>Timezone:</strong> <?php echo esc_html($timezone->getName()); ?></p>
+            </div>
+
+            <div class="card" style="max-width: 100%; margin-bottom: 16px;">
+                <h2>Last status</h2>
+                <p><strong>Last run:</strong> <?php echo !empty($log['last_run']) ? esc_html($log['last_run']) : 'Never'; ?></p>
+                <p><strong>Last status:</strong> <?php echo !empty($log['last_status']) ? esc_html($log['last_status']) : 'n/a'; ?></p>
+                <p><strong>Last error:</strong> <?php echo !empty($log['last_error']) ? esc_html($log['last_error']) : 'none'; ?></p>
+                <p><strong>Last generated IDs:</strong> <?php echo !empty($log['last_generated']) ? esc_html(implode(', ', $log['last_generated'])) : 'none'; ?></p>
+            </div>
+
+            <h2>Recent runs</h2>
+            <table class="widefat fixed striped">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php if (!empty($history)) : ?>
+                    <?php foreach ($history as $entry) : ?>
+                        <tr>
+                            <td><?php echo esc_html($entry['time']); ?></td>
+                            <td><?php echo esc_html($entry['status']); ?></td>
+                            <td><?php echo esc_html($entry['message']); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <tr>
+                        <td colspan="3">No history yet.</td>
                     </tr>
                 <?php endif; ?>
                 </tbody>
@@ -411,7 +485,7 @@ class AYNIX_Generate_AI_Articles {
     public function field_author() {
         $options = $this->get_settings();
         $value = intval($options['author']);
-        $users = get_users(array('who' => 'authors'));
+        $users = get_users(array('capability' => array('edit_posts')));
         echo '<select name="' . esc_attr(self::OPTION_KEY) . '[author]">';
         echo '<option value="0">Default</option>';
         foreach ($users as $user) {
@@ -462,12 +536,14 @@ class AYNIX_Generate_AI_Articles {
     }
 
     public function run_generation() {
+        $this->log_status('started');
         $settings = $this->get_settings();
         $langs = $settings['languages'];
         $articles_per_run = intval($settings['articles_per_run']);
 
         if (!defined('OPENAI_API_KEY')) {
             error_log('AYNIX AI Articles: OPENAI_API_KEY not configured');
+            $this->log_error('OPENAI_API_KEY not configured');
             return;
         }
 
@@ -475,6 +551,8 @@ class AYNIX_Generate_AI_Articles {
             $lang = $langs[array_rand($langs)];
             $this->generate_article($lang, $settings['post_status']);
         }
+
+        $this->log_status('completed');
     }
 
     public function handle_test_generation() {
@@ -483,11 +561,14 @@ class AYNIX_Generate_AI_Articles {
         }
         check_admin_referer('aynix_ai_articles_test');
 
+        $this->log_status('test_started');
         $settings = $this->get_settings();
         $langs = $settings['languages'];
         $lang = $langs[array_rand($langs)];
 
         $this->generate_article($lang, $settings['post_status']);
+
+        $this->log_status('test_completed');
 
         $redirect = add_query_arg('aynix_ai_articles_test', '1', admin_url('admin.php?page=aynix-ai-articles-settings'));
         wp_safe_redirect($redirect);
@@ -500,6 +581,7 @@ class AYNIX_Generate_AI_Articles {
         $response = $this->call_openai($prompt, $lang);
 
         if (!$response) {
+            $this->log_error('OpenAI response empty');
             return;
         }
 
@@ -508,6 +590,7 @@ class AYNIX_Generate_AI_Articles {
 
         if (!$title || !$content) {
             error_log('AYNIX AI Articles: Missing title/content in response');
+            $this->log_error('Missing title/content in response');
             return;
         }
 
@@ -523,6 +606,7 @@ class AYNIX_Generate_AI_Articles {
         if ($post_id) {
             update_post_meta($post_id, '_aynix_ai_article', '1');
             update_post_meta($post_id, '_aynix_ai_lang', $lang);
+            $this->log_generated_post($post_id);
         }
 
         if ($post_id && !empty($settings['generate_images'])) {
@@ -584,6 +668,7 @@ class AYNIX_Generate_AI_Articles {
     private function call_openai($prompt, $lang) {
         if (!defined('OPENAI_API_KEY') || !OPENAI_API_KEY) {
             error_log('AYNIX AI Articles: OPENAI_API_KEY not configured');
+            $this->log_error('OPENAI_API_KEY not configured');
             return null;
         }
         $api_key = OPENAI_API_KEY;
@@ -616,18 +701,21 @@ class AYNIX_Generate_AI_Articles {
 
         if (is_wp_error($response)) {
             error_log('AYNIX AI Articles: OpenAI error ' . $response->get_error_message());
+            $this->log_error('OpenAI error: ' . $response->get_error_message());
             return null;
         }
 
         $data = json_decode(wp_remote_retrieve_body($response), true);
         if (!isset($data['choices'][0]['message']['content'])) {
             error_log('AYNIX AI Articles: Invalid OpenAI response');
+            $this->log_error('Invalid OpenAI response');
             return null;
         }
 
         $content = json_decode($data['choices'][0]['message']['content'], true);
         if (!is_array($content)) {
             error_log('AYNIX AI Articles: Invalid JSON content');
+            $this->log_error('Invalid JSON content');
             return null;
         }
 
@@ -712,6 +800,7 @@ class AYNIX_Generate_AI_Articles {
     private function call_openai_image($prompt) {
         if (!defined('OPENAI_API_KEY') || !OPENAI_API_KEY) {
             error_log('AYNIX AI Articles: OPENAI_API_KEY not configured');
+            $this->log_error('OPENAI_API_KEY not configured');
             return null;
         }
         $api_key = OPENAI_API_KEY;
@@ -732,16 +821,57 @@ class AYNIX_Generate_AI_Articles {
 
         if (is_wp_error($response)) {
             error_log('AYNIX AI Articles: OpenAI image error ' . $response->get_error_message());
+            $this->log_error('OpenAI image error: ' . $response->get_error_message());
             return null;
         }
 
         $data = json_decode(wp_remote_retrieve_body($response), true);
         if (!isset($data['data'][0]['url'])) {
             error_log('AYNIX AI Articles: Invalid image response');
+            $this->log_error('Invalid image response');
             return null;
         }
 
         return $data['data'][0]['url'];
+    }
+
+    private function log_status($status) {
+        $log = get_option(self::LOG_OPTION_KEY, array());
+        $log['last_status'] = $status;
+        $log['last_run'] = current_time('mysql');
+        $log['history'] = $this->append_history($log, $status, '');
+        update_option(self::LOG_OPTION_KEY, $log, false);
+    }
+
+    private function log_error($message) {
+        $log = get_option(self::LOG_OPTION_KEY, array());
+        $log['last_error'] = $message;
+        $log['last_status'] = 'error';
+        $log['last_run'] = current_time('mysql');
+        $log['history'] = $this->append_history($log, 'error', $message);
+        update_option(self::LOG_OPTION_KEY, $log, false);
+    }
+
+    private function log_generated_post($post_id) {
+        $log = get_option(self::LOG_OPTION_KEY, array());
+        $generated = isset($log['last_generated']) && is_array($log['last_generated']) ? $log['last_generated'] : array();
+        array_unshift($generated, $post_id);
+        $generated = array_values(array_unique(array_slice($generated, 0, 20)));
+        $log['last_generated'] = $generated;
+        $log['last_status'] = 'generated';
+        $log['last_run'] = current_time('mysql');
+        $log['history'] = $this->append_history($log, 'generated', 'Post ID ' . $post_id);
+        update_option(self::LOG_OPTION_KEY, $log, false);
+    }
+
+    private function append_history($log, $status, $message) {
+        $history = isset($log['history']) && is_array($log['history']) ? $log['history'] : array();
+        array_unshift($history, array(
+            'time' => current_time('mysql'),
+            'status' => $status,
+            'message' => $message,
+        ));
+        return array_slice($history, 0, 50);
     }
 }
 
