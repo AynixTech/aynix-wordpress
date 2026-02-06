@@ -686,6 +686,9 @@ class AYNIX_Generate_AI_Articles {
         $response = $this->unwrap_single_language_response($response, $lang);
         $title = $response['title'] ?? null;
         $content = $response['content'] ?? null;
+        if (is_string($content)) {
+            $content = $this->clean_generated_content($content);
+        }
 
         if (!$title || !$content) {
             error_log('AYNIX AI Articles: Missing title/content in response');
@@ -829,22 +832,6 @@ class AYNIX_Generate_AI_Articles {
             $prompt = $settings['custom_prompt'];
         }
 
-        $langs = is_array($langs) ? $langs : array($lang);
-        $language_labels = array(
-            'it' => 'Italiano',
-            'en' => 'English',
-            'es' => 'Español',
-            'pt' => 'Português',
-        );
-        $requested = array();
-        foreach ($langs as $code) {
-            if (isset($language_labels[$code])) {
-                $requested[] = $code . ' (' . $language_labels[$code] . ')';
-            } else {
-                $requested[] = $code;
-            }
-        }
-
         $prompt = str_replace(
             array('{site_name}', '{language}', '{category}'),
             array($site_name, $lang, $category_label ?: 'general'),
@@ -868,8 +855,7 @@ class AYNIX_Generate_AI_Articles {
         }
         $prompt .= "\nTone: " . ($tone_map[$settings['tone']] ?? 'professional and authoritative') . ".";
         $prompt .= "\nLength: " . ($length_map[$settings['length']] ?? '700-900 words') . ".";
-        $prompt .= "\nGenerate ONE article and provide it in these languages: " . implode(', ', $requested) . ".";
-        $prompt .= "\nReturn a single JSON object with one key per language code. Each language value must be an object with keys \"title\" and \"content\".";
+        $prompt .= "\nInclude a clear concluding section titled 'Conclusione' or 'Conclusion'.";
 
         return $prompt;
     }
@@ -1393,6 +1379,14 @@ class AYNIX_Generate_AI_Articles {
             return $decoded;
         }
         return stripslashes($value);
+    }
+
+    private function clean_generated_content($content) {
+        $content = str_replace("\\n", "\n", $content);
+        $content = preg_replace('/^\s*n+\s*/i', '', $content);
+        $content = preg_replace('/\n\s*n+\s*\n/i', "\n\n", $content);
+        $content = preg_replace('/\n{3,}/', "\n\n", $content);
+        return trim($content);
     }
 
     private function translate_article($title, $content, $source_lang, $target_lang) {
