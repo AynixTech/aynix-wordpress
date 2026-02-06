@@ -772,15 +772,34 @@ class AYNIX_Generate_AI_Articles {
         $raw_content = preg_replace('/\s*```$/', '', $raw_content);
         $raw_content = wp_check_invalid_utf8($raw_content, true);
         $raw_content = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F]/u', '', $raw_content);
+        $is_utf8 = function_exists('mb_check_encoding') ? mb_check_encoding($raw_content, 'UTF-8') : true;
+        $this->write_log('OPENAI_CONTENT_META: len=' . strlen($raw_content) . ' utf8=' . ($is_utf8 ? 'yes' : 'no'));
 
-        $content = json_decode($raw_content, true, 512, JSON_INVALID_UTF8_SUBSTITUTE);
+        $json_flags = defined('JSON_INVALID_UTF8_SUBSTITUTE') ? JSON_INVALID_UTF8_SUBSTITUTE : 0;
+        $content = json_decode($raw_content, true, 512, $json_flags);
         if (is_string($content)) {
-            $content = json_decode($content, true, 512, JSON_INVALID_UTF8_SUBSTITUTE);
+            $content = json_decode($content, true, 512, $json_flags);
+        }
+        if (!is_array($content)) {
+            if (function_exists('iconv')) {
+                $converted = @iconv('UTF-8', 'UTF-8//IGNORE', $raw_content);
+                if ($converted && $converted !== $raw_content) {
+                    $content = json_decode($converted, true, 512, $json_flags);
+                }
+            }
+        }
+        if (!is_array($content)) {
+            if (function_exists('utf8_encode')) {
+                $converted = utf8_encode($raw_content);
+                if ($converted && $converted !== $raw_content) {
+                    $content = json_decode($converted, true, 512, $json_flags);
+                }
+            }
         }
         if (!is_array($content)) {
             $extracted = $this->extract_json_object($raw_content);
             if ($extracted) {
-                $content = json_decode($extracted, true, 512, JSON_INVALID_UTF8_SUBSTITUTE);
+                $content = json_decode($extracted, true, 512, $json_flags);
             }
         }
 
@@ -789,6 +808,8 @@ class AYNIX_Generate_AI_Articles {
             error_log('AYNIX AI Articles: Invalid JSON content - ' . $json_error);
             $this->log_error('Invalid JSON content - ' . $json_error);
             $this->write_log('RAW_OPENAI_CONTENT: ' . $this->truncate_log($raw_content));
+            $this->write_log('OPENAI_JSON_ERROR: ' . $json_error);
+            $this->write_log('OPENAI_JSON_BYTES: ' . bin2hex(substr($raw_content, 0, 80)));
             return null;
         }
 
