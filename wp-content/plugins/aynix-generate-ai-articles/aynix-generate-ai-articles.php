@@ -642,6 +642,10 @@ class AYNIX_Generate_AI_Articles {
             return;
         }
         $base_post_id = $base['post_id'] ?? 0;
+        $base_image_id = $base_post_id ? get_post_thumbnail_id($base_post_id) : 0;
+        if ($base_image_id) {
+            $this->write_log('BASE_IMAGE_READY: post_id=' . $base_post_id . ' image_id=' . $base_image_id);
+        }
 
         foreach ($langs as $lang) {
             if ($lang === $base_lang) {
@@ -654,7 +658,7 @@ class AYNIX_Generate_AI_Articles {
                 $this->write_log('OPENAI_TRANSLATE_FAIL: ' . $base_lang . '->' . $lang . ' base_post_id=' . $base_post_id);
                 continue;
             }
-            $translated_id = $this->insert_article_post($translated['title'], $translated['content'], $lang, $status);
+            $translated_id = $this->insert_article_post($translated['title'], $translated['content'], $lang, $status, $base_image_id);
             $this->write_log('OPENAI_TRANSLATE_DONE: ' . $base_lang . '->' . $lang . ' base_post_id=' . $base_post_id . ' translated_post_id=' . $translated_id);
         }
     }
@@ -688,7 +692,7 @@ class AYNIX_Generate_AI_Articles {
         return array('title' => $title, 'content' => $content, 'post_id' => $post_id);
     }
 
-    private function insert_article_post($title, $content, $lang, $status) {
+    private function insert_article_post($title, $content, $lang, $status, $featured_image_id = 0) {
         $settings = $this->get_settings();
         $post_id = wp_insert_post(array(
             'post_title' => wp_strip_all_tags($title),
@@ -709,7 +713,10 @@ class AYNIX_Generate_AI_Articles {
             $this->write_log('ARTICLE_GENERATION_FAIL: wp_insert_post_failed lang=' . $lang);
         }
 
-        if ($post_id && !empty($settings['generate_images'])) {
+        if ($post_id && $featured_image_id) {
+            set_post_thumbnail($post_id, $featured_image_id);
+            $this->write_log('FEATURED_IMAGE_REUSED: post_id=' . $post_id . ' image_id=' . $featured_image_id);
+        } elseif ($post_id && !empty($settings['generate_images'])) {
             $this->attach_featured_image($post_id, $title, $lang);
         }
 
