@@ -13,6 +13,7 @@ if (!defined('ABSPATH')) {
 class AYNIX_Generate_AI_Articles {
     const OPTION_KEY = 'aynix_generate_ai_articles_settings';
     const LOG_OPTION_KEY = 'aynix_generate_ai_articles_log';
+    const LOG_FILE = 'aynix-ai-articles.log';
     const CRON_HOOK = 'aynix_generate_ai_articles_cron';
 
     public function __construct() {
@@ -881,6 +882,7 @@ class AYNIX_Generate_AI_Articles {
         $log['last_run'] = current_time('mysql');
         $log['history'] = $this->append_history($log, $status, '');
         update_option(self::LOG_OPTION_KEY, $log, false);
+        $this->write_log("STATUS: {$status}");
     }
 
     private function log_error($message) {
@@ -890,6 +892,7 @@ class AYNIX_Generate_AI_Articles {
         $log['last_run'] = current_time('mysql');
         $log['history'] = $this->append_history($log, 'error', $message);
         update_option(self::LOG_OPTION_KEY, $log, false);
+        $this->write_log("ERROR: {$message}");
     }
 
     private function log_generated_post($post_id) {
@@ -902,6 +905,17 @@ class AYNIX_Generate_AI_Articles {
         $log['last_run'] = current_time('mysql');
         $log['history'] = $this->append_history($log, 'generated', 'Post ID ' . $post_id);
         update_option(self::LOG_OPTION_KEY, $log, false);
+        $this->write_log("GENERATED: Post ID {$post_id}");
+    }
+
+    private function write_log($message) {
+        if (!defined('WP_CONTENT_DIR')) {
+            return;
+        }
+        $time = current_time('mysql');
+        $line = '[' . $time . '] ' . $message . "\n";
+        $path = trailingslashit(WP_CONTENT_DIR) . self::LOG_FILE;
+        @file_put_contents($path, $line, FILE_APPEND | LOCK_EX);
     }
 
     private function append_history($log, $status, $message) {
