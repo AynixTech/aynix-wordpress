@@ -736,11 +736,32 @@ class AYNIX_Generate_AI_Articles {
         $base_lang = $langs[0];
         $group_id = 'ai_' . wp_generate_uuid4();
         $settings = $this->get_settings();
-        $chosen_categories = $this->pick_categories($settings['categories'], $settings['categories_free_text']);
-        $chosen_category_label = $this->get_random_category_label($settings['categories'], $settings['categories_free_text']);
-        $this->write_log('CONTENT_PARAMS: tone=' . ($settings['tone'] ?? '') . ' length=' . ($settings['length'] ?? '') . ' status=' . ($settings['post_status'] ?? '') . ' languages=' . implode(',', $langs) . ' category_label=' . $chosen_category_label . ' categories_free_text=' . ($settings['categories_free_text'] ?? ''));
+        $category_source = 'random';
+        $chosen_category_label = '';
+        if (!empty($settings['custom_prompt'])) {
+            $chosen_category_label = $this->infer_category_label($settings['custom_prompt'], $settings['categories_free_text']);
+            if ($chosen_category_label) {
+                $category_source = 'ai';
+            }
+        }
+        if (!$chosen_category_label) {
+            $chosen_category_label = $this->get_random_category_label($settings['categories'], $settings['categories_free_text']);
+        }
+
+        $chosen_categories = array();
+        if ($chosen_category_label) {
+            $chosen_category_id = $this->ensure_category_term($chosen_category_label);
+            if ($chosen_category_id) {
+                $chosen_categories = array($chosen_category_id);
+            }
+        }
+        if (empty($chosen_categories)) {
+            $chosen_categories = $this->pick_categories($settings['categories'], $settings['categories_free_text']);
+        }
+
+        $this->write_log('CONTENT_PARAMS: tone=' . ($settings['tone'] ?? '') . ' length=' . ($settings['length'] ?? '') . ' status=' . ($settings['post_status'] ?? '') . ' languages=' . implode(',', $langs) . ' category_label=' . $chosen_category_label . ' category_source=' . $category_source . ' categories_free_text=' . ($settings['categories_free_text'] ?? ''));
         $this->write_log('OPENAI_LANG_SELECTED: base=' . $base_lang . ' all=' . implode(',', $langs));
-        $base = $this->generate_article($base_lang, $status, $chosen_categories);
+        $base = $this->generate_article($base_lang, $status, $chosen_categories, $chosen_category_label);
         if (!is_array($base) || empty($base['title']) || empty($base['content'])) {
             $this->write_log('ARTICLE_SET_FAIL: base_missing lang=' . $base_lang);
             return;
@@ -772,9 +793,9 @@ class AYNIX_Generate_AI_Articles {
         }
     }
 
-    private function generate_article($lang, $status, $categories = array()) {
+    private function generate_article($lang, $status, $categories = array(), $category_label = '') {
         $settings = $this->get_settings();
-        $prompt = $this->build_prompt($lang, $settings, array($lang));
+        $prompt = $this->build_prompt($lang, $settings, array($lang), $category_label);
         $this->write_log('OPENAI_LANG_REQUEST: ' . $lang);
         $response = $this->call_openai($prompt, $lang, array($lang));
 
@@ -995,9 +1016,11 @@ class AYNIX_Generate_AI_Articles {
         wp_reset_postdata();
     }
 
-    private function build_prompt($lang, $settings, $langs) {
+    private function build_prompt($lang, $settings, $langs, $category_label = '') {
         $site_name = get_bloginfo('name');
-        $category_label = $this->get_random_category_label($settings['categories'], $settings['categories_free_text']);
+        if (!$category_label) {
+            $category_label = $this->get_random_category_label($settings['categories'], $settings['categories_free_text']);
+        }
 
         $instructions = array(
             'it' => "Scrivi un articolo informativo per il sito {$site_name}. Rispondi in italiano.",
@@ -1189,6 +1212,62 @@ class AYNIX_Generate_AI_Articles {
         return $content;
     }
 
+    private function call_openai_category($prompt) {
+        if (!defined('OPENAI_API_KEY') || !OPENAI_API_KEY) {
+            return null;
+        }
+        $api_key = OPENAI_API_KEY;
+
+        $body = array(
+            'model' => 'gpt-4o-mini',
+            'messages' => array(
+                array(
+                    'role' => 'system',
+                    'content' => 'Respond ONLY with valid JSON. Do not add extra text.'
+                ),
+                array(
+                    'role' => 'user',
+                    'content' => $prompt
+                )
+            ),
+            'temperature' => 0.2,
+            'max_tokens' => 120,
+            'response_format' => array('type' => 'json_object'),
+        );
+
+        $response = wp_remote_post('https://api.openai.com/v1/chat/completions', array(
+            'headers' => array(
+                'Authorization' => 'Bearer ' . $api_key,
+                'Content-Type' => 'application/json',
+            ),
+            'body' => wp_json_encode($body),
+            'timeout' => 20,
+        ));
+
+        if (is_wp_error($response)) {
+            return null;
+        }
+
+        $data = json_decode(wp_remote_retrieve_body($response), true);
+        if (!isset($data['choices'][0]['message']['content'])) {
+            return null;
+        }
+
+        $raw_content = trim($data['choices'][0]['message']['content']);
+        $raw_content = preg_replace('/^```(?:json)?\s*/i', '', $raw_content);
+        $raw_content = preg_replace('/\s*```$/', '', $raw_content);
+
+        $parsed = json_decode($raw_content, true);
+        if (!is_array($parsed)) {
+            $extracted = $this->extract_json_object($raw_content);
+            if ($extracted) {
+                $parsed = json_decode($extracted, true);
+            }
+        }
+
+        return is_array($parsed) ? $parsed : null;
+    }
+
     private function pick_categories($categories, $free_text) {
         $ids = is_array($categories) ? $categories : array();
         $free = $this->parse_free_text_categories($free_text);
@@ -1233,6 +1312,43 @@ class AYNIX_Generate_AI_Articles {
         $parts = array_map('trim', explode(',', $free_text));
         $parts = array_values(array_filter($parts));
         return $parts;
+    }
+
+    private function infer_category_label($custom_prompt, $free_text) {
+        $categories = $this->parse_free_text_categories($free_text);
+        if (empty($categories)) {
+            return '';
+        }
+
+        $this->write_log('CATEGORY_AI_START');
+        $list = implode(', ', $categories);
+        $prompt = "Choose the single best category from this list: {$list}.\nUser prompt: {$custom_prompt}\nReturn JSON: {\"category\":\"...\"} using exactly one of the provided categories.";
+        $result = $this->call_openai_category($prompt);
+        $label = is_array($result) ? ($result['category'] ?? '') : '';
+        if ($label && in_array($label, $categories, true)) {
+            $this->write_log('CATEGORY_AI_SELECTED: ' . $label);
+            return $label;
+        }
+
+        $this->write_log('CATEGORY_AI_FAILED');
+        return '';
+    }
+
+    private function ensure_category_term($label) {
+        if (!$label) {
+            return 0;
+        }
+        $term = term_exists($label, 'category');
+        if (!$term) {
+            $term = wp_insert_term($label, 'category');
+        }
+        if (is_array($term) && isset($term['term_id'])) {
+            return intval($term['term_id']);
+        }
+        if (is_int($term)) {
+            return $term;
+        }
+        return 0;
     }
 
     private function attach_featured_image($post_id, $title, $lang) {
