@@ -125,8 +125,8 @@
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    width: clamp(220px, 40vw, 460px);
-    z-index: 1;
+    width: clamp(220px, 40vw, 660px);
+    z-index: 3;
     pointer-events: none;
 }
 
