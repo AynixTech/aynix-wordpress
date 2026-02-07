@@ -29,6 +29,8 @@
   "ai_agent_creation.description": "Design and development of autonomous agents to automate business processes and improve efficiency.",
   "latest_articles.title": "Resources & Insights",
   "latest_articles.description": "Practical articles to help you identify problems, evaluate solutions, and make informed decisions.",
+  "post.published_on": "Published on",
+  "post.by": "by",
   "partners.title": "Partners",
   "partners.description": "We collaborate with industry leaders to offer high-quality technology solutions.",
   "clients.title": "Clients",

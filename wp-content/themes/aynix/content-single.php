@@ -16,8 +16,8 @@
 
         <?php the_title('<h1 class="entry-title">', '</h1>'); ?>
         <div class="entry-meta">
-            <span class="posted-on">Pubblicato il <?php echo get_the_date(); ?></span>
-            <span class="byline"> di Aynix</span>
+            <span class="posted-on"><?php echo aynix_translate('post.published_on'); ?> <?php echo get_the_date(); ?></span>
+            <span class="byline"> <?php echo aynix_translate('post.by'); ?> Aynix</span>
         </div>
     </header>
 

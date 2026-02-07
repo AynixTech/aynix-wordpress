@@ -29,6 +29,8 @@
   "ai_agent_creation.description": "Progettazione e sviluppo di agenti autonomi per automatizzare i processi aziendali e migliorare l'efficienza.",
   "latest_articles.title": "Risorse e Approfondimenti",
   "latest_articles.description": "Articoli pratici per aiutarti a riconoscere problemi, valutare soluzioni e prendere decisioni informate.",
+  "post.published_on": "Pubblicato il",
+  "post.by": "di",
   "partners.title": "Partners",
   "partners.description": "Collaboriamo con leader del settore per offrire soluzioni tecnologiche di alta qualità.",
   "clients.title": "Clienti",
