@@ -214,7 +214,7 @@
 .metodo-home::before {
     top: -1px;
     transform: scaleY(-1);
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 180' preserveAspectRatio='none'><path fill='%23ffffff' d='M0,48 C240,144 480,144 720,72 C960,0 1200,0 1440,72 L1440,180 L0,180 Z'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 180' preserveAspectRatio='none'><path fill='%23ffffff' d='M0,72 C240,144 480,96 720,96 C960,96 1200,144 1440,72 L1440,180 L0,180 Z'/></svg>");
 }
 
 .metodo-home::after {
