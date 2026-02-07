@@ -26,6 +26,7 @@ class AYNIX_Generate_AI_Articles {
         add_action(self::CRON_TEST_HOOK, array($this, 'run_generation_test'));
         add_action(self::CRON_IMAGE_HOOK, array($this, 'run_image_queue'));
         add_action('admin_post_aynix_ai_articles_test', array($this, 'handle_test_generation'));
+        add_action('admin_post_aynix_ai_articles_cover', array($this, 'handle_cover_upload'));
 
         add_filter('manage_posts_columns', array($this, 'add_lang_column'));
         add_action('manage_posts_custom_column', array($this, 'render_lang_column'), 10, 2);
@@ -70,6 +71,15 @@ class AYNIX_Generate_AI_Articles {
             'manage_options',
             'aynix-ai-articles-debug',
             array($this, 'render_debug_page')
+        );
+
+        add_submenu_page(
+            'aynix-ai-articles',
+            'Aggiungi copertina',
+            'Aggiungi copertina',
+            'manage_options',
+            'aynix-ai-articles-cover',
+            array($this, 'render_cover_page')
         );
     }
 
@@ -380,6 +390,53 @@ class AYNIX_Generate_AI_Articles {
         <?php
     }
 
+    public function render_cover_page() {
+        if (!current_user_can('manage_options')) {
+            return;
+        }
+
+        $base_posts = $this->get_base_posts();
+        ?>
+        <div class="wrap">
+            <h1>Aggiungi copertina</h1>
+            <?php if (isset($_GET['aynix_cover_updated']) && $_GET['aynix_cover_updated'] === '1') : ?>
+                <div class="notice notice-success is-dismissible">
+                    <p>Copertina applicata agli articoli del gruppo.</p>
+                </div>
+            <?php endif; ?>
+
+            <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" enctype="multipart/form-data">
+                <?php wp_nonce_field('aynix_ai_articles_cover'); ?>
+                <input type="hidden" name="action" value="aynix_ai_articles_cover" />
+
+                <table class="form-table">
+                    <tr>
+                        <th scope="row"><label for="base_post_id">Articolo base</label></th>
+                        <td>
+                            <select name="base_post_id" id="base_post_id" required>
+                                <option value="">Seleziona un articolo base</option>
+                                <?php foreach ($base_posts as $post) : ?>
+                                    <option value="<?php echo esc_attr($post->ID); ?>">
+                                        <?php echo esc_html($post->post_title); ?> (ID <?php echo esc_html($post->ID); ?>)
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="cover_image">Immagine di copertina</label></th>
+                        <td>
+                            <input type="file" name="cover_image" id="cover_image" accept="image/*" required />
+                        </td>
+                    </tr>
+                </table>
+
+                <?php submit_button('Applica copertina'); ?>
+            </form>
+        </div>
+        <?php
+    }
+
     public function field_articles_per_run() {
         $options = $this->get_settings();
         $value = intval($options['articles_per_run']);
@@ -623,6 +680,54 @@ class AYNIX_Generate_AI_Articles {
         exit;
     }
 
+    public function handle_cover_upload() {
+        if (!current_user_can('manage_options')) {
+            wp_die('Unauthorized', 403);
+        }
+        check_admin_referer('aynix_ai_articles_cover');
+
+        $base_post_id = isset($_POST['base_post_id']) ? intval($_POST['base_post_id']) : 0;
+        if (!$base_post_id || !get_post($base_post_id)) {
+            wp_die('Invalid base post', 400);
+        }
+
+        if (empty($_FILES['cover_image']) || !isset($_FILES['cover_image']['name'])) {
+            wp_die('No image provided', 400);
+        }
+
+        require_once ABSPATH . 'wp-admin/includes/file.php';
+        require_once ABSPATH . 'wp-admin/includes/media.php';
+        require_once ABSPATH . 'wp-admin/includes/image.php';
+
+        $attachment_id = media_handle_upload('cover_image', $base_post_id);
+        if (is_wp_error($attachment_id)) {
+            wp_die($attachment_id->get_error_message(), 500);
+        }
+
+        set_post_thumbnail($base_post_id, $attachment_id);
+        update_post_meta($base_post_id, '_aynix_ai_base_id', $base_post_id);
+
+        $query = new WP_Query(array(
+            'post_type' => 'post',
+            'post_status' => array('draft', 'publish', 'pending', 'private'),
+            'meta_key' => '_aynix_ai_base_id',
+            'meta_value' => $base_post_id,
+            'posts_per_page' => -1,
+            'fields' => 'ids',
+        ));
+
+        if ($query->have_posts()) {
+            foreach ($query->posts as $post_id) {
+                set_post_thumbnail($post_id, $attachment_id);
+            }
+        }
+        wp_reset_postdata();
+
+        $redirect = add_query_arg('aynix_cover_updated', '1', admin_url('admin.php?page=aynix-ai-articles-cover'));
+        wp_safe_redirect($redirect);
+        exit;
+    }
+
     public function run_generation_test() {
         $this->clear_log_file();
         $this->log_status('test_started');
@@ -746,6 +851,30 @@ class AYNIX_Generate_AI_Articles {
         }
 
         return $post_id;
+    }
+
+    private function get_base_posts() {
+        $query = new WP_Query(array(
+            'post_type' => 'post',
+            'post_status' => array('draft', 'publish', 'pending', 'private'),
+            'meta_key' => '_aynix_ai_base_id',
+            'posts_per_page' => 200,
+            'orderby' => 'date',
+            'order' => 'DESC',
+        ));
+
+        $base_posts = array();
+        if ($query->have_posts()) {
+            foreach ($query->posts as $post) {
+                $base_id = get_post_meta($post->ID, '_aynix_ai_base_id', true);
+                if ($base_id && intval($base_id) === intval($post->ID)) {
+                    $base_posts[] = $post;
+                }
+            }
+        }
+        wp_reset_postdata();
+
+        return $base_posts;
     }
 
     private function enqueue_image_generation($post_id) {
