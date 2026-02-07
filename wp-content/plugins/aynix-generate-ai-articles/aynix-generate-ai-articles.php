@@ -244,7 +244,7 @@ class AYNIX_Generate_AI_Articles {
             <h1>AYNIX Generate AI Articles</h1>
             <?php if (isset($_GET['aynix_ai_articles_test']) && $_GET['aynix_ai_articles_test'] === '1') : ?>
                 <div class="notice notice-success is-dismissible">
-                    <p>Test generation started. Check Posts for the new draft/published article.</p>
+                    <p>Manual articles creation started. Check Posts for the new draft/published articles.</p>
                 </div>
             <?php endif; ?>
             <form method="post" action="options.php">
@@ -255,12 +255,12 @@ class AYNIX_Generate_AI_Articles {
                 ?>
             </form>
             <hr />
-            <h2>Test generation</h2>
-            <p>Generate one article immediately using the current settings.</p>
+            <h2>Manual articles creation</h2>
+            <p>Generate articles immediately using the current settings.</p>
             <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
                 <?php wp_nonce_field('aynix_ai_articles_test'); ?>
                 <input type="hidden" name="action" value="aynix_ai_articles_test" />
-                <?php submit_button('Generate Test Article', 'secondary', 'submit', false); ?>
+                <?php submit_button('Generate Articles Now', 'secondary', 'submit', false); ?>
             </form>
         </div>
         <?php
