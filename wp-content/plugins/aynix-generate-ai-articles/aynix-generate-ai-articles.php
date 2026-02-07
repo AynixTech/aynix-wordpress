@@ -2,7 +2,7 @@
 /**
  * Plugin Name: AYNIX Generate AI Articles
  * Description: Generates AI articles on a schedule using the configured OpenAI API key.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: AYNIX Tech
  */
 
@@ -1340,6 +1340,17 @@ class AYNIX_Generate_AI_Articles {
         }
 
         $this->write_log('OPENAI_FALLBACK_MODE: single');
+
+        $title_value = $this->extract_json_string_value($text, 'title', 0);
+        $content_value = $this->extract_json_string_value($text, 'content', 0);
+        if ($title_value !== null && $content_value !== null) {
+            $this->write_log('OPENAI_FALLBACK_SINGLE_EXTRACT: ok');
+            return array(
+                'title' => $title_value,
+                'content' => $content_value,
+            );
+        }
+        $this->write_log('OPENAI_FALLBACK_SINGLE_EXTRACT: failed');
 
         if (!preg_match('/"title"\s*:\s*"((?:\\\\.|[^\"])*)"/s', $text, $title_match)) {
             return null;
