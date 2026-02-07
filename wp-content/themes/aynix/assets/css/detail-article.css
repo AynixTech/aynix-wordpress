@@ -81,3 +81,139 @@
     border-radius: 10px;
     margin-bottom: 20px;
 }
+
+/* Commenti */
+#comments.comments-area {
+    margin-top: 40px;
+    padding: 24px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 12px 30px rgba(20, 20, 20, 0.08);
+}
+
+#comments .comment-respond {
+    padding: 20px;
+    border-radius: 14px;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+#comments .comment-reply-title {
+    margin: 0 0 16px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #111111;
+}
+
+#comments .comment-reply-title small a {
+    margin-left: 8px;
+    font-size: 0.9rem;
+    color: #555555;
+    text-decoration: none;
+}
+
+#comments .comment-reply-title small a:hover {
+    color: #000000;
+}
+
+#comments .logged-in-as {
+    margin-bottom: 16px;
+    font-size: 0.95rem;
+    color: #3a3a3a;
+}
+
+#comments .logged-in-as a {
+    color: #f89b29;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+#comments .logged-in-as a:hover {
+    color: #ff0f7b;
+}
+
+#comments .comment-form label {
+    display: block;
+    margin: 0 0 8px;
+    font-weight: 600;
+    color: #1c1c1c;
+}
+
+#comments .comment-form textarea,
+#comments .comment-form input[type="text"],
+#comments .comment-form input[type="email"],
+#comments .comment-form input[type="url"] {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: #fafafa;
+    font-size: 1rem;
+    color: #111111;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#comments .comment-form textarea {
+    min-height: 180px;
+    resize: vertical;
+}
+
+#comments .comment-form textarea:focus,
+#comments .comment-form input[type="text"]:focus,
+#comments .comment-form input[type="email"]:focus,
+#comments .comment-form input[type="url"]:focus {
+    border-color: var(--aynix-primary-color);
+    box-shadow: 0 0 0 3px rgba(248, 155, 41, 0.2);
+    outline: none;
+    background: #ffffff;
+}
+
+#comments .form-submit {
+    margin-top: 16px;
+}
+
+#comments .comment-form .submit {
+    border: none;
+    padding: 12px 22px;
+    border-radius: 999px;
+    background: linear-gradient(
+        135deg,
+        var(--aynix-primary-color),
+        var(--aynix-secondary-color),
+        var(--aynix-ternary-color)
+    );
+    color: #ffffff;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#comments .comment-form .submit:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+#comments .comment-form .submit:active {
+    transform: translateY(0);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+}
+
+#comments .required-field-message,
+#comments .required {
+    color: #c62828;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    #comments.comments-area {
+        padding: 18px;
+    }
+
+    #comments .comment-respond {
+        padding: 16px;
+    }
+
+    #comments .comment-reply-title {
+        font-size: 1.2rem;
+    }
+}
