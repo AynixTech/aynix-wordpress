@@ -201,7 +201,7 @@
 .fase-number {
     width: 45px;
     height: 45px;
-    background: linear-gradient(135deg, #438ef9, #2c6edc);
+    background: none;
     color: white;
     font-size: 1.5rem;
     font-weight: 700;
