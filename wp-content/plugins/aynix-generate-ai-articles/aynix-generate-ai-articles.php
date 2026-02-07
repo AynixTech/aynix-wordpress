@@ -737,6 +737,8 @@ class AYNIX_Generate_AI_Articles {
         $group_id = 'ai_' . wp_generate_uuid4();
         $settings = $this->get_settings();
         $chosen_categories = $this->pick_categories($settings['categories'], $settings['categories_free_text']);
+        $chosen_category_label = $this->get_random_category_label($settings['categories'], $settings['categories_free_text']);
+        $this->write_log('CONTENT_PARAMS: tone=' . ($settings['tone'] ?? '') . ' length=' . ($settings['length'] ?? '') . ' status=' . ($settings['post_status'] ?? '') . ' languages=' . implode(',', $langs) . ' category_label=' . $chosen_category_label . ' categories_free_text=' . ($settings['categories_free_text'] ?? ''));
         $this->write_log('OPENAI_LANG_SELECTED: base=' . $base_lang . ' all=' . implode(',', $langs));
         $base = $this->generate_article($base_lang, $status, $chosen_categories);
         if (!is_array($base) || empty($base['title']) || empty($base['content'])) {
