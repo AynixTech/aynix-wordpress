@@ -120,7 +120,8 @@
 .hero-right {
     position: absolute;
     right: 0;
-    bottom: -10px;
+    bottom: -20%;
+    zoom: 110%;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
