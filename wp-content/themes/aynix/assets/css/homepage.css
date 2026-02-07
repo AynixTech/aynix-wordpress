@@ -191,7 +191,7 @@
 /* Metodo Home Section */
 .metodo-home {
     position: relative;
-    padding: 4rem 0;
+    padding: calc(4rem + 90px) 0;
     /* margin: 3rem 0; */
     background: #4a8cf6;
     border-radius: 18px;
@@ -768,7 +768,7 @@
     }
 
     .metodo-home {
-        padding: 3rem 1rem;
+        padding: calc(3rem + 70px) 1rem;
         margin: 2rem 0;
     }
 
@@ -939,7 +939,7 @@
     }
 
     .metodo-home {
-        padding: 2.5rem 0.75rem;
+        padding: calc(2.5rem + 60px) 0.75rem;
         margin: 1.5rem 0;
     }
 
