@@ -193,7 +193,7 @@
     position: relative;
     padding: calc(4rem + 90px) 0;
     /* margin: 3rem 0; */
-    background-color: #4a8cf6;
+    /* background-color: #4a8cf6; */
     background-image: url("../images/diagnosi/fondo-diagnosi.svg");
     background-repeat: no-repeat;
     background-size: cover;
@@ -206,7 +206,7 @@
     position: relative;
     z-index: 2;
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 2fr;
     gap: 2rem;
     align-items: center;
     padding: 120px 1.5rem 200px;
