@@ -26,8 +26,8 @@
     </div>
 
     <footer class="entry-footer">
-        <div class="post-categories">Categorie: <?php the_category(', '); ?></div>
-        <div class="post-tags">Tag: <?php the_tags('', ', ', ''); ?></div>
+        <div class="post-categories"><?php echo aynix_translate('post.categories'); ?>: <?php the_category(', '); ?></div>
+        <div class="post-tags"><?php echo aynix_translate('post.tags'); ?>: <?php the_tags('', ', ', ''); ?></div>
     </footer>
 </article>
 
