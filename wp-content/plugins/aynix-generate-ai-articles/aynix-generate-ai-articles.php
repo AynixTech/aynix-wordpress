@@ -1030,10 +1030,10 @@ class AYNIX_Generate_AI_Articles {
             'long' => '1200-1500 words',
         );
 
+        if ($category_label) {
+            $prompt .= "\nCategory focus: {$category_label}.";
+        }
         if (!$has_custom) {
-            if ($category_label) {
-                $prompt .= "\nCategory focus: {$category_label}.";
-            }
             $prompt .= "\nTone: " . ($tone_map[$settings['tone']] ?? 'professional and authoritative') . ".";
             $prompt .= "\nLength: " . ($length_map[$settings['length']] ?? '700-900 words') . ".";
         }
