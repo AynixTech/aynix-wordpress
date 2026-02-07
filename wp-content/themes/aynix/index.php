@@ -56,9 +56,11 @@
     <div class="homepage-content">
         <!-- Metodo in 3 fasi -->
         <section class="metodo-home" itemscope itemtype="https://schema.org/HowTo">
-            <div class="metodo-inner">
-                <div class="metodo-visual" aria-hidden="true">
-                    <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/diagnosi/schermo.webp'); ?>" alt="" loading="lazy" width="460" height="320">
+            <div class="metodo-layout">
+                <div class="metodo-inner">
+                    <div class="metodo-visual" aria-hidden="true">
+                        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/diagnosi/schermo.webp'); ?>" alt="" loading="lazy" width="460" height="320">
+                    </div>
                 </div>
                 <div class="metodo-content">
                     <div class="section-title">

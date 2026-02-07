@@ -222,7 +222,7 @@
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 180' preserveAspectRatio='none'><path fill='%23ffffff' d='M0,48 C240,144 480,144 720,72 C960,0 1200,0 1440,72 L1440,180 L0,180 Z'/></svg>");
 }
 
-.metodo-inner {
+.metodo-layout {
     position: relative;
     z-index: 2;
     display: grid;
@@ -772,7 +772,7 @@
         margin: 2rem 0;
     }
 
-    .metodo-inner {
+    .metodo-layout {
         grid-template-columns: 1fr;
         gap: 1.5rem;
         padding: 0 0.5rem;
