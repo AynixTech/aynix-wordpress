@@ -193,7 +193,7 @@
     position: relative;
     padding: calc(4rem + 90px) 0;
     margin-top: -10%;
-    /* background-color: #4a8cf6; */
+    background-color: transparent;
     border-radius: 18px;
     overflow: hidden;
 }
