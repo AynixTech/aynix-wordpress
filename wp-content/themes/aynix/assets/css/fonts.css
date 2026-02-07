@@ -1,25 +1,65 @@
-/* Apply Oxanium to headings */
+@font-face {
+    font-family: "Goldplay";
+    src: url("../fonts/Latinotype%20-%20Goldplay%20Light.otf") format("opentype");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Goldplay";
+    src: url("../fonts/Goldplay%20Regular.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Goldplay";
+    src: url("../fonts/Goldplay%20Medium.otf") format("opentype");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Goldplay";
+    src: url("../fonts/Goldplay%20SemiBold.otf") format("opentype");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Goldplay";
+    src: url("../fonts/Goldplay%20Bold.otf") format("opentype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Apply Goldplay to headings */
 h1 {
-    font-family: "Oxanium", sans-serif;
-    font-weight: 800; /* ExtraBold */
+    font-family: "Goldplay", sans-serif;
+    font-weight: 700;
 }
 
 h2 {
-    font-family: "Oxanium", sans-serif;
-    font-weight: 700; /* Bold */
+    font-family: "Goldplay", sans-serif;
+    font-weight: 600;
 }
 
 h3 {
-    font-family: "Oxanium", sans-serif;
-    font-weight: 500; /* Medium */
+    font-family: "Goldplay", sans-serif;
+    font-weight: 500;
 }
 
 h4 {
-    font-family: "Oxanium", sans-serif;
-    font-weight: 400; /* Regular */
+    font-family: "Goldplay", sans-serif;
+    font-weight: 400;
 }
 
-/* Apply Inter to paragraphs, links, body text */
+/* Apply Goldplay to paragraphs, links, body text */
 body,
 p,
 a,
@@ -28,18 +68,18 @@ li,
 button,
 input,
 textarea {
-    font-family: "Inter", sans-serif;
-    font-weight: 400; /* Regular */
+    font-family: "Goldplay", sans-serif;
+    font-weight: 400;
 }
 
 strong,
 b {
-    font-family: "Inter", sans-serif;
-    font-weight: 700; /* Bold */
+    font-family: "Goldplay", sans-serif;
+    font-weight: 700;
 }
 
 em,
 i {
-    font-family: "Inter", sans-serif;
+    font-family: "Goldplay", sans-serif;
     font-style: italic;
 }

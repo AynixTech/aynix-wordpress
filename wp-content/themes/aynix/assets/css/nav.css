@@ -14,7 +14,7 @@
 .nav-menu a {
     display: inline-flex; /* Prevents block-level behavior */
     justify-content: center;
-    font-family: "Oxanium", sans-serif;
+    font-family: "Goldplay", sans-serif;
     align-items: center;
     padding: 8px 12px; /* Adds some clickable space */
     color: #484747; /* Light gray for readability */

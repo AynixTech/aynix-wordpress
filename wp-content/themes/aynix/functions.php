@@ -116,15 +116,9 @@ function custom_login_logo() { ?>
 add_action('login_head', 'custom_login_logo');
 
 /**
- * Caricamento font esterni (Inter, Oxanium, Font Awesome)
+ * Caricamento font (Font Awesome)
  */
 function aynix_enqueue_fonts() {
-    // Caricamento del font Inter da Google Fonts
-    wp_enqueue_style('inter-font', 'https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap', [], null);
-    
-    // Caricamento del font Oxanium da Google Fonts
-    wp_enqueue_style('oxanium-font', 'https://fonts.googleapis.com/css2?family=Oxanium:wght@400;600&display=swap', [], null);
-    
     // Caricamento di Font Awesome (Free)
     wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css', [], '6.0.0', 'all');
 }
