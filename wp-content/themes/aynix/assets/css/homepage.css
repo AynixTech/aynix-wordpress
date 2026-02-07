@@ -677,26 +677,28 @@
 
     .hero-content {
         min-height: auto;
-        flex-direction: column;
+        flex-direction: row;
         gap: 1.5rem;
         padding-right: 0;
     }
 
     .hero-left {
         padding: 1.5rem;
-        max-width: 100%;
+        max-width: 60%;
         background-color: rgba(255, 255, 255, 0.95);
     }
 
     .hero-right {
-        position: static;
-        width: 100%;
-        justify-content: center;
+        position: absolute;
+        width: clamp(200px, 35vw, 380px);
+        right: 0;
+        bottom: -8px;
+        justify-content: flex-end;
     }
 
     .hero-right img {
-        width: min(70vw, 320px);
-        max-height: 380px;
+        width: 100%;
+        max-height: 360px;
     }
 
     .hero-left h1 {
@@ -741,7 +743,7 @@
     .metodo-fasi-home,
     .problemi-grid-home,
     .perche-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 1.5rem;
     }
 
@@ -751,13 +753,9 @@
     }
 
     .metodo-layout {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 2fr;
         gap: 1.5rem;
         padding: 90px 0.5rem 70px;
-    }
-
-    .metodo-visual img {
-        width: min(80%, 280px);
     }
 
     .fase-home {
@@ -776,11 +774,11 @@
     }
 
     .fase-home h3 {
-        font-size: 1.15rem;
+        font-size: 1rem;
     }
 
     .fase-home p {
-        font-size: 0.95rem;
+        font-size: 0.85rem;
     }
 
     .problemi-home {
@@ -891,8 +889,8 @@
     }
 
     .hero-right img {
-        width: min(80vw, 260px);
-        max-height: 320px;
+        width: 100%;
+        max-height: 300px;
     }
 
     .hero-left h1 {
@@ -922,11 +920,8 @@
     }
 
     .metodo-layout {
+        grid-template-columns: 1fr 2fr;
         padding: 80px 0.5rem 60px;
-    }
-
-    .metodo-visual img {
-        width: min(85%, 240px);
     }
 
     .fase-home {
@@ -945,12 +940,12 @@
     }
 
     .fase-home h3 {
-        font-size: 1.05rem;
+        font-size: 0.95rem;
         margin-bottom: 0.6rem;
     }
 
     .fase-home p {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         line-height: 1.5;
     }
 
@@ -959,7 +954,7 @@
     .products-grid,
     .problemi-grid-home,
     .perche-grid {
-        grid-template-columns: 1fr !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
         gap: 1rem;
         max-width: 100%;
     }
