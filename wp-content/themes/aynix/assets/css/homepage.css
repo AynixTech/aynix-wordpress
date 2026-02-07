@@ -229,7 +229,7 @@
     grid-template-columns: 1fr 2fr;
     gap: 2rem;
     align-items: center;
-    padding: 90px 1.5rem 70px;
+    padding: 120px 1.5rem 90px;
 }
 
 .metodo-visual {
@@ -776,7 +776,7 @@
     .metodo-layout {
         grid-template-columns: 1fr;
         gap: 1.5rem;
-        padding: 70px 0.5rem 50px;
+        padding: 90px 0.5rem 70px;
     }
 
     .metodo-visual img {
@@ -945,7 +945,7 @@
     }
 
     .metodo-layout {
-        padding: 60px 0.5rem 40px;
+        padding: 80px 0.5rem 60px;
     }
 
     .metodo-visual img {
