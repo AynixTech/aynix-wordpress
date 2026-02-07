@@ -249,9 +249,10 @@
 }
 
 .metodo-visual img {
-    width: 100%;
-    height: auto;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+   position: absolute;
+    /* height: auto; */
+    /* box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18); */
+    zoom: 200%;
 }
 
 .metodo-content .section-title {
