@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_2" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 542.257 780.928">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <clipPath id="clippath">
+      <path class="cls-1" d="M542.257,780.928c-76.89-12.822-165.614-22.841-264.168-25.586-91.547-2.55-174.829,1.643-247.993,9.029L0,14.97C161.762,9.98,323.524,4.99,485.287,0c18.99,260.31,37.98,520.619,56.971,780.928Z"/>
+    </clipPath>
+  </defs>
+  <g id="Capa_1-2" data-name="Capa 1">
+    <g class="cls-2">
+      <image width="3200" height="5867" transform="translate(-25.767 -15.775) rotate(-3.54) scale(.137)" xlink:href="../Whisk_ad462a3e09.png"/>
+    </g>
+  </g>
+</svg>
