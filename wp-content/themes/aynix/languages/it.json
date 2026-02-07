@@ -152,7 +152,8 @@
   "nav.chi_siamo": "Chi Siamo",
   "nav.contattaci": "Contattaci",
   
-  "home.hero.title": "AYNIX non vende pacchetti. Capisce il problema e costruisce soluzioni.",
+  "home.hero.title_part1": "Aynix non vende pacchetti.",
+  "home.hero.title_part2": "Capisce il problema e costruisce soluzioni.",
   "home.hero.description": "Partiamo da una diagnosi, non da un catalogo. Ogni azienda è unica, e così il nostro approccio.",
   
   "home.metodo.title": "Il Nostro Metodo in 3 Fasi",
