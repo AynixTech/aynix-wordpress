@@ -143,7 +143,7 @@ class AYNIX_Generate_AI_Articles {
 
         add_settings_field(
             'custom_prompt',
-            'Custom prompt',
+            'Mandatory content prompt',
             array($this, 'field_custom_prompt'),
             'aynix-ai-articles-settings',
             'aynix_ai_articles_main'
@@ -509,8 +509,8 @@ class AYNIX_Generate_AI_Articles {
     public function field_custom_prompt() {
         $options = $this->get_settings();
         $value = $options['custom_prompt'];
-        echo '<textarea name="' . esc_attr(self::OPTION_KEY) . '[custom_prompt]" rows="6" style="width:100%;" placeholder="Use placeholders: {site_name}, {language}, {category}">' . esc_textarea($value) . '</textarea>';
-        echo '<p class="description">Placeholders available: {site_name}, {language}, {category}. Leave empty to use default prompt.</p>';
+        echo '<textarea name="' . esc_attr(self::OPTION_KEY) . '[custom_prompt]" rows="6" style="width:100%;" placeholder="Es: Genera articolo e parla di Angular">' . esc_textarea($value) . '</textarea>';
+        echo '<p class="description">This text has priority over category/tone/length. Placeholders: {site_name}, {language}, {category}. Leave empty to use default prompt.</p>';
     }
 
     public function field_generate_images() {
@@ -1007,7 +1007,8 @@ class AYNIX_Generate_AI_Articles {
         );
 
         $prompt = $instructions[$lang] ?? $instructions['it'];
-        if (!empty($settings['custom_prompt'])) {
+        $has_custom = !empty($settings['custom_prompt']);
+        if ($has_custom) {
             $prompt = $settings['custom_prompt'];
         }
 
@@ -1029,11 +1030,13 @@ class AYNIX_Generate_AI_Articles {
             'long' => '1200-1500 words',
         );
 
-        if ($category_label) {
-            $prompt .= "\nCategory focus: {$category_label}.";
+        if (!$has_custom) {
+            if ($category_label) {
+                $prompt .= "\nCategory focus: {$category_label}.";
+            }
+            $prompt .= "\nTone: " . ($tone_map[$settings['tone']] ?? 'professional and authoritative') . ".";
+            $prompt .= "\nLength: " . ($length_map[$settings['length']] ?? '700-900 words') . ".";
         }
-        $prompt .= "\nTone: " . ($tone_map[$settings['tone']] ?? 'professional and authoritative') . ".";
-        $prompt .= "\nLength: " . ($length_map[$settings['length']] ?? '700-900 words') . ".";
         $prompt .= "\nInclude a clear concluding section titled 'Conclusione' or 'Conclusion'.";
         $prompt .= "\nDo not include stray characters like single 'n' or 'nn'.";
         $prompt .= "\nReturn fully formatted HTML content in the JSON string (use <h1>, <h2>, <p>, <ul>, <li>), without Markdown.";
