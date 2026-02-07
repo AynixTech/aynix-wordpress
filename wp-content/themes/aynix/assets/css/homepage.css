@@ -249,10 +249,11 @@
 }
 
 .metodo-visual img {
-   position: absolute;
+    position: absolute;
     /* height: auto; */
     /* box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18); */
     zoom: 200%;
+    border-radius: 0 999px 999px 0;
 }
 
 .metodo-content .section-title {
