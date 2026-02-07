@@ -909,6 +909,8 @@ class AYNIX_Generate_AI_Articles {
         $prompt .= "\nTone: " . ($tone_map[$settings['tone']] ?? 'professional and authoritative') . ".";
         $prompt .= "\nLength: " . ($length_map[$settings['length']] ?? '700-900 words') . ".";
         $prompt .= "\nInclude a clear concluding section titled 'Conclusione' or 'Conclusion'.";
+        $prompt .= "\nDo not include stray characters like single 'n' or 'nn'.";
+        $prompt .= "\nReturn fully formatted HTML content in the JSON string (use <h1>, <h2>, <p>, <ul>, <li>), without Markdown.";
 
         return $prompt;
     }
@@ -926,7 +928,7 @@ class AYNIX_Generate_AI_Articles {
             $langs = array($lang);
         }
 
-        $system_prompt = "You are a professional blog writer. Respond ONLY with valid JSON and no extra text. Do not add comments or notes. Required JSON format: {\"title\":\"...\",\"content\":\"...\"}. Content should be in HTML with headings and paragraphs.";
+        $system_prompt = "You are a professional blog writer. Respond ONLY with valid JSON and no extra text. Do not add comments or notes. Required JSON format: {\"title\":\"...\",\"content\":\"...\"}. Content must be HTML already formatted with headings and paragraphs. Do not include stray characters like single 'n' or 'nn'.";
 
         $body = array(
             'model' => 'gpt-4o-mini',
