@@ -265,9 +265,17 @@
             </div>
             <?php
             // Query latest posts
+            $current_lang = function_exists('aynix_get_current_language') ? aynix_get_current_language() : 'it';
             $args = array(
                 'post_type'      => 'post',
                 'posts_per_page' => 4,
+                'meta_query'     => array(
+                    array(
+                        'key'     => 'lang',
+                        'value'   => $current_lang,
+                        'compare' => '=',
+                    ),
+                ),
             );
             $query = new WP_Query($args);
 
