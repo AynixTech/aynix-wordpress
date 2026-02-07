@@ -134,14 +134,6 @@ class AYNIX_Generate_AI_Articles {
         );
 
         add_settings_field(
-            'categories',
-            'Categories',
-            array($this, 'field_categories'),
-            'aynix-ai-articles-settings',
-            'aynix_ai_articles_main'
-        );
-
-        add_settings_field(
             'categories_free_text',
             'Categories (free text)',
             array($this, 'field_categories_free_text'),
