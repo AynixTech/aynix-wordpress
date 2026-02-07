@@ -57,6 +57,7 @@
         <!-- Metodo in 3 fasi -->
         <section class="metodo-home" itemscope itemtype="https://schema.org/HowTo">
             <div class="metodo-layout">
+                <div class="metodo-spacer" aria-hidden="true"></div>
                 <div class="metodo-content">
                     <div class="section-title">
                         <h2 itemprop="name"><?php echo aynix_translate('home.metodo.title'); ?></h2>
