@@ -229,7 +229,7 @@
     grid-template-columns: 1fr 2fr;
     gap: 2rem;
     align-items: center;
-    padding: 0 1.5rem;
+    padding: 90px 1.5rem 70px;
 }
 
 .metodo-visual {
@@ -244,6 +244,7 @@
 .metodo-content {
     position: relative;
     z-index: 4;
+    padding-top: 20px;
 }
 
 .metodo-visual img {
@@ -775,7 +776,7 @@
     .metodo-layout {
         grid-template-columns: 1fr;
         gap: 1.5rem;
-        padding: 0 0.5rem;
+        padding: 70px 0.5rem 50px;
     }
 
     .metodo-visual img {
@@ -941,6 +942,10 @@
     .metodo-home {
         padding: calc(2.5rem + 60px) 0.75rem;
         margin: 1.5rem 0;
+    }
+
+    .metodo-layout {
+        padding: 60px 0.5rem 40px;
     }
 
     .metodo-visual img {
