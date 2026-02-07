@@ -743,8 +743,10 @@ class AYNIX_Generate_AI_Articles {
 
         $base_lang = $langs[0];
         $group_id = 'ai_' . wp_generate_uuid4();
+        $settings = $this->get_settings();
+        $chosen_categories = $this->pick_categories($settings['categories'], $settings['categories_free_text']);
         $this->write_log('OPENAI_LANG_SELECTED: base=' . $base_lang . ' all=' . implode(',', $langs));
-        $base = $this->generate_article($base_lang, $status);
+        $base = $this->generate_article($base_lang, $status, $chosen_categories);
         if (!is_array($base) || empty($base['title']) || empty($base['content'])) {
             $this->write_log('ARTICLE_SET_FAIL: base_missing lang=' . $base_lang);
             return;
@@ -771,12 +773,12 @@ class AYNIX_Generate_AI_Articles {
                 $this->write_log('OPENAI_TRANSLATE_FAIL: ' . $base_lang . '->' . $lang . ' base_post_id=' . $base_post_id);
                 continue;
             }
-            $translated_id = $this->insert_article_post($translated['title'], $translated['content'], $lang, $status, $base_image_id, $group_id, $base_post_id);
+            $translated_id = $this->insert_article_post($translated['title'], $translated['content'], $lang, $status, $base_image_id, $group_id, $base_post_id, $chosen_categories);
             $this->write_log('OPENAI_TRANSLATE_DONE: ' . $base_lang . '->' . $lang . ' base_post_id=' . $base_post_id . ' translated_post_id=' . $translated_id);
         }
     }
 
-    private function generate_article($lang, $status) {
+    private function generate_article($lang, $status, $categories = array()) {
         $settings = $this->get_settings();
         $prompt = $this->build_prompt($lang, $settings, array($lang));
         $this->write_log('OPENAI_LANG_REQUEST: ' . $lang);
@@ -803,19 +805,20 @@ class AYNIX_Generate_AI_Articles {
             return null;
         }
 
-        $post_id = $this->insert_article_post($title, $content, $lang, $status);
+        $post_id = $this->insert_article_post($title, $content, $lang, $status, 0, '', 0, $categories);
 
         return array('title' => $title, 'content' => $content, 'post_id' => $post_id);
     }
 
-    private function insert_article_post($title, $content, $lang, $status, $featured_image_id = 0, $group_id = '', $base_post_id = 0) {
+    private function insert_article_post($title, $content, $lang, $status, $featured_image_id = 0, $group_id = '', $base_post_id = 0, $categories = array()) {
         $settings = $this->get_settings();
+        $post_categories = !empty($categories) ? $categories : $this->pick_categories($settings['categories'], $settings['categories_free_text']);
         $post_id = wp_insert_post(array(
             'post_title' => wp_strip_all_tags($title),
             'post_content' => $content,
             'post_status' => $status,
             'post_type' => 'post',
-            'post_category' => $this->pick_categories($settings['categories'], $settings['categories_free_text']),
+            'post_category' => $post_categories,
             'post_author' => $settings['author'] ?: get_current_user_id(),
         ));
 
