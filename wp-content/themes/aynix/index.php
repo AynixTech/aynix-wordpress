@@ -46,7 +46,7 @@
                     <p class="hero-microcopy"><?php echo aynix_translate('cta.microcopy'); ?></p>
                 </div>
                 <div class="hero-right" aria-hidden="true">
-                    <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/hero/ROBOT.svg'); ?>" alt="" loading="lazy" width="420" height="520">
+                    <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/hero/ROBOT.webp'); ?>" alt="" loading="lazy" width="420" height="520">
                 </div>
             </div>
         </div>
