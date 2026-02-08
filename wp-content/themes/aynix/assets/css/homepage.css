@@ -789,7 +789,7 @@
     }
 
     .metodo-layout {
-        grid-template-columns: 1fr 2fr;
+        grid-template-columns: 1fr;
         gap: 1.5rem;
         padding: 90px 0.5rem 70px;
     }
