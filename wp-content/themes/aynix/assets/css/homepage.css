@@ -11,6 +11,20 @@
     padding: 0;
 }
 
+@media (min-width: 1700px) {
+    .hero {
+        min-height: 80vh;
+    }
+
+    .hero .container {
+        max-width: 1500px;
+    }
+
+    .hero-content {
+        padding-right: clamp(220px, 26vw, 520px);
+    }
+}
+
 .hero .container {
     position: relative;
     width: 100%;
@@ -1011,6 +1025,16 @@
         padding-right: 0.75rem;
     }
 }
+
+    @media (min-width: 1700px) {
+        .metodo-home {
+            padding: calc(5rem + 120px) 0;
+        }
+
+        .metodo-layout {
+            padding: clamp(140px, 10vw, 180px) 2rem clamp(200px, 14vw, 260px);
+        }
+    }
 
 /* Responsive */
 @media (max-width: 768px) {
