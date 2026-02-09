@@ -768,9 +768,7 @@
 
 /* iPad Mini (768px width) */
 @media (max-width: 820px) and (min-width: 768px) {
-    .metodo-bg {
-        height: inherit;
-    }
+    
     .metodo-bg-desktop {
         display: none;
     }
