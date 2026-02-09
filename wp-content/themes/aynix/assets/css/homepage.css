@@ -825,8 +825,8 @@
 
     .metodo-layout {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
-        padding: 90px 0.5rem 70px;
+        gap: clamp(1rem, 3vw, 1.5rem);
+        padding: clamp(70px, 12vw, 90px) clamp(0.75rem, 4vw, 1.25rem) clamp(60px, 10vw, 80px);
     }
 
     .fase-home {
