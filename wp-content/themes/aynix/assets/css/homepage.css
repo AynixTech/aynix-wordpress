@@ -792,7 +792,7 @@
     }
 
     .metodo-spacer {
-        min-height: 200px;
+        display: none;
     }
 
     .homepage-content {
