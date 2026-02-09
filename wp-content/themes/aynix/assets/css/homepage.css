@@ -769,7 +769,6 @@
 /* iPad Mini (768px width) */
 @media (max-width: 820px) and (min-width: 768px) {
     .metodo-bg-mobile {
-        width: 100%;
         object-fit: cover;
         object-position: center;
     }
@@ -783,7 +782,7 @@
 
     .metodo-bg-mobile {
         display: block;
-        /* width: inherit; */
+        width: inherit;
     }
 
     .metodo-spacer {
