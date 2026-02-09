@@ -1038,7 +1038,7 @@
         }
 
         .metodo-layout {
-            padding: clamp(140px, 10vw, 180px) 2rem clamp(200px, 14vw, 260px);
+            /* padding: clamp(140px, 10vw, 180px) 2rem clamp(200px, 14vw, 260px); */
         }
     }
 
