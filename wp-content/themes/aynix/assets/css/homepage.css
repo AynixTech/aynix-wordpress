@@ -1034,7 +1034,7 @@
     .fase-number {
         width: 48px;
         height: 48px;
-        margin-bottom: 0.75rem;
+        margin: 0;
     }
 
     .fase-number img {
