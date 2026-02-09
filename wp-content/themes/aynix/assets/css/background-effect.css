@@ -20,7 +20,7 @@
 }
 
 .gradients-container {
-    filter: url(#goo) blur(40px);
+    filter: url(#goo) blur(20px);
     width: 100%;
     height: 100%;
 }
