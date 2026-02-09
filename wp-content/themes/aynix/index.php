@@ -56,7 +56,8 @@
     <div class="homepage-content">
         <!-- Metodo in 3 fasi -->
         <section class="metodo-home" itemscope itemtype="https://schema.org/HowTo">
-            <img class="metodo-bg" src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/diagnosi/fondo-diagnosi.svg'); ?>" alt="" loading="lazy" aria-hidden="true">
+            <img class="metodo-bg metodo-bg-desktop" src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/diagnosi/fondo-diagnosi.svg'); ?>" alt="" loading="lazy" aria-hidden="true">
+            <img class="metodo-bg metodo-bg-mobile" src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/diagnosi/fondo-diagnosi-mobile.svg'); ?>" alt="" loading="lazy" aria-hidden="true">
             <div class="metodo-layout">
                 <div class="metodo-spacer" aria-hidden="true"></div>
                 <div class="metodo-content">

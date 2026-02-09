@@ -222,9 +222,23 @@
     pointer-events: none;
 }
 
+.metodo-bg-mobile {
+    display: none;
+}
+
 @media (min-width: 1800px) {
     .metodo-bg {
         object-fit: cover;
+    }
+}
+
+@media (max-width: 768px) {
+    .metodo-bg-desktop {
+        display: none;
+    }
+
+    .metodo-bg-mobile {
+        display: block;
     }
 }
 
