@@ -753,23 +753,28 @@
 
     .hero-content {
         min-height: auto;
-        flex-direction: row;
-        gap: 1.5rem;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1.25rem;
         padding-right: 0;
+        padding-bottom: clamp(140px, 28vw, 220px);
     }
 
     .hero-left {
         padding: 1.5rem;
-        max-width: 60%;
+        max-width: 100%;
+        width: 100%;
         background-color: rgba(255, 255, 255, 0.95);
     }
 
     .hero-right {
         position: absolute;
-        width: clamp(200px, 35vw, 380px);
-        right: 0;
-        bottom: -8px;
+        width: clamp(160px, 38vw, 260px);
+        right: 0.5rem;
+        bottom: 0.5rem;
         justify-content: flex-end;
+        margin-top: 0;
+        order: 2;
     }
 
     .hero-right img {
