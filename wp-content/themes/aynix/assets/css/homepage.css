@@ -783,6 +783,11 @@
 
 /* Mobile (Phones) */
 @media (max-width: 767px) {
+
+    .metodo-bg {
+        height: inherit;
+    }
+
     .metodo-bg-desktop {
         display: none;
     }
