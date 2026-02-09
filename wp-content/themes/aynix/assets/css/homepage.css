@@ -301,10 +301,6 @@
         padding: clamp(60px, 12vw, 90px) 1rem clamp(80px, 16vw, 140px);
     }
 
-    .metodo-spacer {
-        display: none;
-    }
-
     .metodo-content {
         justify-self: center;
         width: 100%;
