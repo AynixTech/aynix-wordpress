@@ -737,6 +737,10 @@
 
 /* Responsive Mobile Styles */
 @media (max-width: 768px) {
+    .metodo-spacer {
+        min-height: 200px;
+    }
+
     .homepage-content {
         margin-top: -33%;
     }
