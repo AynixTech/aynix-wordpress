@@ -771,8 +771,6 @@
     .hero-right {
         position: absolute;
         width: clamp(160px, 38vw, 260px);
-        right: 0.5rem;
-        bottom: 0.5rem;
         justify-content: flex-end;
         margin-top: 0;
         order: 2;
