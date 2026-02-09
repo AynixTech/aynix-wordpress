@@ -874,11 +874,11 @@
     }
 
     .section-title h2 {
-        font-size: 1.8rem;
+        font-size: 1.2rem;
     }
 
     .section-title h3 {
-        font-size: 1.5rem;
+        font-size: 1.1rem;
     }
 
     .section-title p {
@@ -1044,7 +1044,7 @@
 
     .fase-home h3 {
         font-size: 0.95rem;
-        margin-bottom: 0.6rem;
+        margin: 0;
     }
 
     .fase-home p {
