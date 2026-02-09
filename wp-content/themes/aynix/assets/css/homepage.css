@@ -766,6 +766,14 @@
     }
 }
 
+/* iPad Mini (768px width) */
+@media (max-width: 820px) and (min-width: 768px) {
+    .metodo-bg-mobile {
+        object-fit: cover;
+        object-position: center;
+    }
+}
+
 /* Mobile (Phones) */
 @media (max-width: 768px) {
     .metodo-bg-desktop {
