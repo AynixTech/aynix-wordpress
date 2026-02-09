@@ -239,6 +239,7 @@
 
     .metodo-bg-mobile {
         display: block;
+        width: inherit;
     }
 }
 
