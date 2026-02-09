@@ -737,6 +737,10 @@
 
 /* Responsive Mobile Styles */
 @media (max-width: 768px) {
+    .homepage-content {
+        margin-top: -33%;
+    }
+
     .hero {
         min-height: auto;
         padding: 6rem 0 5rem 0; /* Aumentato padding-top per header fisso */
