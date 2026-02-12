@@ -120,7 +120,7 @@
 
 .soluzione-examples li {
     padding: 10px 0;
-    padding-left: 35px;
+    padding-left: 30px;
     position: relative;
     color: #666;
     line-height: 1.6;
@@ -129,7 +129,7 @@
 .soluzione-examples li:before {
     content: "✓";
     position: absolute;
-    left: 8px;
+    left: 0;
     top: 8px;
     color: var(--aynix-secondary-color);
     font-weight: bold;
@@ -418,6 +418,13 @@
         font-size: 0.9rem;
         line-height: 1.5;
         padding: 6px 0;
+        padding-left: 25px;
+    }
+    
+    .soluzione-examples li:before {
+        font-size: 1rem;
+        top: 6px;
+        left: 0;
     }
     
     .soluzioni-processo {
