@@ -55,6 +55,13 @@ a:hover {
     margin-top: 8vh;
 }
 
+/* Mobile: Remove margin-top */
+@media (max-width: 768px) {
+    .page-layout {
+        margin-top: 0;
+    }
+}
+
 .section-title {
     h2 {
         text-align: center;
