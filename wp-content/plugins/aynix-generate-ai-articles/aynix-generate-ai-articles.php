@@ -94,6 +94,14 @@ class AYNIX_Generate_AI_Articles {
         );
 
         add_settings_field(
+            'enabled',
+            'Enable automatic publication',
+            array($this, 'field_enabled'),
+            'aynix-ai-articles-settings',
+            'aynix_ai_articles_main'
+        );
+
+        add_settings_field(
             'articles_per_run',
             'Articles per run',
             array($this, 'field_articles_per_run'),
@@ -192,6 +200,7 @@ class AYNIX_Generate_AI_Articles {
 
     public function sanitize_settings($input) {
         $output = array();
+        $output['enabled'] = !empty($input['enabled']) ? 1 : 0;
         $output['articles_per_run'] = max(1, min(20, intval($input['articles_per_run'] ?? 1)));
 
         $allowed_frequencies = array('hourly', 'twicedaily', 'daily');
@@ -429,6 +438,13 @@ class AYNIX_Generate_AI_Articles {
         <?php
     }
 
+    public function field_enabled() {
+        $options = $this->get_settings();
+        $checked = !empty($options['enabled']) ? 'checked' : '';
+        echo '<label><input type="checkbox" name="' . esc_attr(self::OPTION_KEY) . '[enabled]" value="1" ' . $checked . ' /> Enable automatic article generation</label>';
+        echo '<p class="description">When disabled, automatic generation will be paused. Manual generation will still work.</p>';
+    }
+
     public function field_articles_per_run() {
         $options = $this->get_settings();
         $value = intval($options['articles_per_run']);
@@ -571,6 +587,7 @@ class AYNIX_Generate_AI_Articles {
 
     private function get_settings() {
         $defaults = array(
+            'enabled' => 1,
             'articles_per_run' => 1,
             'frequency' => 'daily',
             'publish_time' => '09:00',
@@ -633,11 +650,19 @@ class AYNIX_Generate_AI_Articles {
     }
 
     public function run_generation($clear_log = true) {
+        $settings = $this->get_settings();
+        
+        // Check if automatic publication is enabled
+        if (empty($settings['enabled'])) {
+            error_log('AYNIX AI Articles: Automatic publication is disabled');
+            $this->log_status('disabled');
+            return;
+        }
+        
         if ($clear_log) {
             $this->clear_log_file();
         }
         $this->log_status('started');
-        $settings = $this->get_settings();
         $langs = $settings['languages'];
         $articles_per_run = intval($settings['articles_per_run']);
 
