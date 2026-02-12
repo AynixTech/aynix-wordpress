@@ -258,7 +258,7 @@
     background: #ffffff;
     padding: 1.5rem;
     border-radius: 14px;
-    border: 1px solid rgba(0, 0, 0, 0.06);
+    border: 1px solid #448EF9;
     transition: all 0.3s ease;
     position: relative;
     margin: 0;
@@ -311,7 +311,6 @@
 /* Experience Products Section */
 .experience-products {
     padding: 3rem 0;
-    margin: 2rem 0;
 }
 
 .products-grid {
@@ -1076,7 +1075,6 @@
 
     .hero .container,
     .experience-products {
-        margin: 1.5rem 0 3rem;
         padding-left: 0.75rem;
         padding-right: 0.75rem;
     }
