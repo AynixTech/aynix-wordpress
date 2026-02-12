@@ -127,13 +127,13 @@
 }
 
 .soluzione-examples li:before {
-    content: "→";
+    content: "✓";
     position: absolute;
     left: 8px;
-    top: 10px;
+    top: 8px;
     color: var(--aynix-secondary-color);
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 1.2rem;
 }
 
 /* Processo Timeline */
