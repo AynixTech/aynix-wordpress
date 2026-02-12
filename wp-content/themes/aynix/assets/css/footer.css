@@ -189,9 +189,9 @@ footer .description {
     border: none;
 }
 
-/* Move language switcher up when sticky CTA is visible on mobile */
+/* Move language switcher up when sticky CTA is visible on mobile (homepage only) */
 @media (max-width: 768px) {
-    #languageSwitcher {
+    .home #languageSwitcher {
         bottom: 90px; /* Above sticky CTA mobile */
     }
 }
