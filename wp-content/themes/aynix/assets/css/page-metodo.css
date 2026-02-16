@@ -135,7 +135,7 @@
 
 .fase-list li {
     padding: 8px 0;
-    padding-left: 25px;
+    padding-left: 30px;
     position: relative;
     color: #555;
     line-height: 1.6;
@@ -145,6 +145,7 @@
     content: "✓";
     position: absolute;
     left: 0;
+    width: 20px;
     color: var(--aynix-primary-color);
     font-weight: bold;
 }
@@ -280,6 +281,10 @@
         font-size: 0.95rem;
     }
     
+    .fase-list li {
+        padding-left: 30px;
+    }
+    
     .no-pacchetti-reasons {
         grid-template-columns: 1fr;
         gap: 20px;
@@ -343,6 +348,7 @@
     .fase-list li {
         font-size: 0.9rem;
         padding: 6px 0;
+        padding-left: 32px;
     }
     
     .no-pacchetti-reasons {
