@@ -265,19 +265,15 @@
 
 .differenza-item ul li {
     padding: 8px 0;
-    padding-left: 35px;
-    position: relative;
+    padding-left: 0;
     color: #555;
     line-height: 1.6;
 }
 
 .differenza-item ul li:before {
-    content: "•";
-    position: absolute;
-    left: 0;
-    width: 25px;
+    content: "• ";
     font-size: 1.2rem;
-    text-align: center;
+    margin-right: 8px;
 }
 
 .differenza-item:not(.differenza-item--aynix) ul li:before {
@@ -369,10 +365,6 @@
     
     .differenza-box {
         padding: 30px 20px;
-    }
-    
-    .differenza-item ul li {
-        padding-left: 38px;
     }
 }
 
@@ -490,9 +482,9 @@
     }
     
     .differenza-item ul li {
-        padding-left: 40px;
         font-size: 0.9rem;
-    }    
+    }
+    
     .differenza-item i {
         font-size: 2.5rem;
         margin-bottom: 12px;
