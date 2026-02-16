@@ -265,7 +265,7 @@
 
 .differenza-item ul li {
     padding: 8px 0;
-    padding-left: 30px;
+    padding-left: 35px;
     position: relative;
     color: #555;
     line-height: 1.6;
@@ -275,8 +275,9 @@
     content: "•";
     position: absolute;
     left: 0;
-    width: 20px;
+    width: 25px;
     font-size: 1.2rem;
+    text-align: center;
 }
 
 .differenza-item:not(.differenza-item--aynix) ul li:before {
@@ -371,7 +372,7 @@
     }
     
     .differenza-item ul li {
-        padding-left: 32px;
+        padding-left: 38px;
     }
 }
 
@@ -486,9 +487,10 @@
     
     .differenza-item {
         padding: 20px;
-    }    
+    }
+    
     .differenza-item ul li {
-        padding-left: 35px;
+        padding-left: 40px;
         font-size: 0.9rem;
     }    
     .differenza-item i {
