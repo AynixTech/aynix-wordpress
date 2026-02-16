@@ -265,7 +265,7 @@
 
 .differenza-item ul li {
     padding: 8px 0;
-    padding-left: 25px;
+    padding-left: 30px;
     position: relative;
     color: #555;
     line-height: 1.6;
@@ -275,6 +275,7 @@
     content: "•";
     position: absolute;
     left: 0;
+    width: 20px;
     font-size: 1.2rem;
 }
 
@@ -367,6 +368,10 @@
     
     .differenza-box {
         padding: 30px 20px;
+    }
+    
+    .differenza-item ul li {
+        padding-left: 32px;
     }
 }
 
@@ -481,8 +486,11 @@
     
     .differenza-item {
         padding: 20px;
-    }
-    
+    }    
+    .differenza-item ul li {
+        padding-left: 35px;
+        font-size: 0.9rem;
+    }    
     .differenza-item i {
         font-size: 2.5rem;
         margin-bottom: 12px;
