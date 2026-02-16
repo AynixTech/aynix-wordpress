@@ -479,6 +479,10 @@
     
     .differenza-item {
         padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
     }
     
     .differenza-item ul li {
