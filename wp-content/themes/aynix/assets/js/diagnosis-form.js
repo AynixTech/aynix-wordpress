@@ -187,7 +187,7 @@
                 },
                 {
                     id: 'tempistiche',
-                    question: '¿En cuánto tiempo quieres lanzar?',
+                    question: '¿En cuánto tiempo lo quieres lanzar?',
                     type: 'radio',
                     options: ['< 1 mes', '1-3 meses', '3-6 meses', '> 6 meses', 'Sin plazo']
                 },
