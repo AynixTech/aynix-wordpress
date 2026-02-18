@@ -146,7 +146,7 @@ get_header();
                 <div class="cta-box">
                     <h2><?php echo aynix_translate('soluzioni.cta.title'); ?></h2>
                     <p><?php echo aynix_translate('soluzioni.cta.subtitle'); ?></p>
-                    <a href="<?php echo esc_url(home_url('/diagnosi')); ?>" class="btn-primary btn-large">
+                    <a href="<?php echo esc_url(aynix_get_translated_url('diagnosi')); ?>" class="btn-primary btn-large">
                         <?php echo aynix_translate('soluzioni.cta.button'); ?>
                     </a>
                 </div>

@@ -21,7 +21,7 @@ get_header();
                 </div>
                 
                 <div class="diagnosi-cta-hero">
-                    <a href="<?php echo esc_url(home_url('/questionario')); ?>" class="btn-primary btn-large">
+                    <a href="<?php echo esc_url(aynix_get_translated_url('questionario')); ?>" class="btn-primary btn-large">
                         <?php echo aynix_translate('diagnosi.cta.button'); ?>
                     </a>
                 </div>
@@ -101,7 +101,7 @@ get_header();
                     <h2><?php echo aynix_translate('diagnosi.cta.title'); ?></h2>
                     <p class="cta-note"><?php echo aynix_translate('diagnosi.cta.note'); ?></p>
                     
-                    <a href="<?php echo esc_url(home_url('/questionario')); ?>" class="btn-primary btn-large">
+                    <a href="<?php echo esc_url(aynix_get_translated_url('questionario')); ?>" class="btn-primary btn-large">
                         <?php echo aynix_translate('diagnosi.cta.button'); ?>
                     </a>
                 </div>

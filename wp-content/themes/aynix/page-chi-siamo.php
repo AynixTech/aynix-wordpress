@@ -115,7 +115,7 @@ get_header();
                     <i class="fas fa-compass"></i>
                     <h2><?php echo aynix_translate('chi_siamo.metodo.title'); ?></h2>
                     <p><?php echo aynix_translate('chi_siamo.metodo.text'); ?></p>
-                    <a href="<?php echo esc_url(home_url('/metodo')); ?>" class="btn-secondary">
+                    <a href="<?php echo esc_url(aynix_get_translated_url('metodo')); ?>" class="btn-secondary">
                         <?php echo aynix_translate('chi_siamo.metodo.button'); ?>
                     </a>
                 </div>
@@ -153,7 +153,7 @@ get_header();
                 <div class="cta-box">
                     <h2><?php echo aynix_translate('chi_siamo.cta.title'); ?></h2>
                     <p><?php echo aynix_translate('chi_siamo.cta.subtitle'); ?></p>
-                    <a href="<?php echo esc_url(home_url('/diagnosi')); ?>" class="btn-primary btn-large">
+                    <a href="<?php echo esc_url(aynix_get_translated_url('diagnosi')); ?>" class="btn-primary btn-large">
                         <?php echo aynix_translate('chi_siamo.cta.button'); ?>
                     </a>
                 </div>

@@ -65,6 +65,24 @@ function aynix_get_translated_slugs() {
             'en' => 'questionnaire',
             'es' => 'cuestionario',
             'pt' => 'questionario'
+        ],
+        'safe-fleet' => [
+            'it' => 'safe-fleet',
+            'en' => 'safe-fleet',
+            'es' => 'safe-fleet',
+            'pt' => 'safe-fleet'
+        ],
+        'navenza' => [
+            'it' => 'navenza',
+            'en' => 'navenza',
+            'es' => 'navenza',
+            'pt' => 'navenza'
+        ],
+        'pinguito' => [
+            'it' => 'pinguito',
+            'en' => 'pinguito',
+            'es' => 'pinguito',
+            'pt' => 'pinguito'
         ]
     ];
 }

@@ -37,7 +37,7 @@
                     <p itemprop="description"><?php echo aynix_translate('home.hero.description'); ?></p>
                     <div class="hero-buttons">
                         <a class="btn-primary btn-large" 
-                           href="<?php echo esc_url(home_url('/diagnosi')); ?>"
+                           href="<?php echo esc_url(aynix_get_translated_url('diagnosi')); ?>"
                            title="Avvia diagnosi gratuita - Analizza le tue esigenze software"
                            rel="noopener">
                             <?php echo aynix_translate('cta.avvia_diagnosi'); ?>
@@ -114,7 +114,7 @@
                         </div>
                         <h3 itemprop="name" class="sr-only">SafeFleet</h3>
                         <p itemprop="description"><?php echo aynix_translate('demo.safefleet.description'); ?></p>
-                        <a href="<?php echo home_url('/safe-fleet'); ?>" 
+                        <a href="<?php echo esc_url(aynix_get_translated_url('safe-fleet')); ?>" 
                            class="cta-button" 
                            itemprop="url"
                            title="Scopri il caso di studio SafeFleet - Gestione flotte aziendali"
@@ -135,7 +135,7 @@
                         </div>
                         <h3 itemprop="name" class="sr-only">Navenza</h3>
                         <p itemprop="description"><?php echo aynix_translate('innovation_solutions.navenza'); ?></p>
-                        <a href="<?php echo home_url('/navenza'); ?>" 
+                        <a href="<?php echo esc_url(aynix_get_translated_url('navenza')); ?>" 
                            class="cta-button" 
                            itemprop="url"
                            title="Scopri il caso di studio Navenza - Gestione spedizioni internazionali"
@@ -156,7 +156,7 @@
                         </div>
                         <h3 itemprop="name" class="sr-only">Pinguito</h3>
                         <p itemprop="description"><?php echo aynix_translate('innovation_solutions.pinguito'); ?></p>
-                        <a href="<?php echo home_url('/pinguito'); ?>" 
+                        <a href="<?php echo esc_url(aynix_get_translated_url('pinguito')); ?>" 
                            class="cta-button" 
                            itemprop="url"
                            title="Scopri il caso di studio Pinguito - Marketing automation social media"
@@ -198,7 +198,7 @@
                     </article>
                 </div>
                 <div class="problemi-cta-home">
-                    <a href="<?php echo esc_url(home_url('/problemi')); ?>" 
+                    <a href="<?php echo esc_url(aynix_get_translated_url('problemi')); ?>" 
                        class="btn-secondary"
                        title="Scopri tutti i problemi che risolviamo con soluzioni software"
                        rel="noopener">
@@ -349,7 +349,7 @@
                 <div class="cta-box">
                     <h2 itemprop="headline"><?php echo aynix_translate('home.cta.title'); ?></h2>
                     <p itemprop="description"><?php echo aynix_translate('home.cta.subtitle'); ?></p>
-                    <a href="<?php echo esc_url(home_url('/diagnosi')); ?>" 
+                    <a href="<?php echo esc_url(aynix_get_translated_url('diagnosi')); ?>" 
                        class="btn-primary btn-large"
                        title="Inizia la diagnosi gratuita - Scopri come AYNIX può aiutarti"
                        rel="noopener">

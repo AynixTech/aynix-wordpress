@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_form_submit']
 
         <!-- CTA Diagnosi -->
         <section class="cta-diagnosis">
-            <a href="<?php echo esc_url(home_url('/diagnosi')); ?>" class="btn-diagnosis-large">
+            <a href="<?php echo esc_url(aynix_get_translated_url('diagnosi')); ?>" class="btn-diagnosis-large">
                 <?php echo aynix_translate('contact.cta.button'); ?>
             </a>
             <p class="cta-microcopy"><?php echo aynix_translate('contact.cta.microcopy'); ?></p>

@@ -65,15 +65,15 @@
             <h5><?php echo aynix_translate('footer.navigation'); ?></h5>
             <ul>
                 <li><a href="<?php echo home_url('/'); ?>"><?php echo aynix_translate('nav.home'); ?></a></li>
-                <li><a href="<?php echo esc_url(home_url('/metodo')); ?>"><?php echo aynix_translate('nav.metodo'); ?></a></li>
-                <li><a href="<?php echo esc_url(home_url('/problemi')); ?>"><?php echo aynix_translate('nav.problemi'); ?></a></li>
-                <li><a href="<?php echo esc_url(home_url('/soluzioni')); ?>"><?php echo aynix_translate('nav.soluzioni'); ?></a></li>
-                <li><a href="<?php echo esc_url(home_url('/esperienza')); ?>"><?php echo aynix_translate('nav.esperienza'); ?></a></li>
-                <li><a href="<?php echo esc_url(home_url('/chi-siamo')); ?>"><?php echo aynix_translate('nav.chi_siamo'); ?></a></li>
-                <li><a href="<?php echo esc_url(home_url('/contattaci')); ?>"><?php echo aynix_translate('nav.contattaci'); ?></a></li>
+                <li><a href="<?php echo esc_url(aynix_get_translated_url('metodo')); ?>"><?php echo aynix_translate('nav.metodo'); ?></a></li>
+                <li><a href="<?php echo esc_url(aynix_get_translated_url('problemi')); ?>"><?php echo aynix_translate('nav.problemi'); ?></a></li>
+                <li><a href="<?php echo esc_url(aynix_get_translated_url('soluzioni')); ?>"><?php echo aynix_translate('nav.soluzioni'); ?></a></li>
+                <li><a href="<?php echo esc_url(aynix_get_translated_url('esperienza')); ?>"><?php echo aynix_translate('nav.esperienza'); ?></a></li>
+                <li><a href="<?php echo esc_url(aynix_get_translated_url('chi-siamo')); ?>"><?php echo aynix_translate('nav.chi_siamo'); ?></a></li>
+                <li><a href="<?php echo esc_url(aynix_get_translated_url('contattaci')); ?>"><?php echo aynix_translate('nav.contattaci'); ?></a></li>
             </ul>
             <div class="footer-cta" style="margin-top: 20px;">
-                <a href="<?php echo esc_url(home_url('/diagnosi')); ?>" class="btn-primary" style="display: inline-block; padding: 12px 24px; border-radius: 8px;">
+                <a href="<?php echo esc_url(aynix_get_translated_url('diagnosi')); ?>" class="btn-primary" style="display: inline-block; padding: 12px 24px; border-radius: 8px;">
                     <?php echo aynix_translate('cta.avvia_diagnosi'); ?>
                 </a>
             </div>

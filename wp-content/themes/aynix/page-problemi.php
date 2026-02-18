@@ -38,7 +38,7 @@ get_header();
                                 <p><?php echo aynix_translate('problemi.problema1.impatto'); ?></p>
                             </div>
                         </div>
-                        <a href="<?php echo esc_url(home_url('/diagnosi')); ?>" class="btn-primary">
+                        <a href="<?php echo esc_url(aynix_get_translated_url('diagnosi')); ?>" class="btn-primary">
                             <?php echo aynix_translate('problemi.cta_button'); ?>
                         </a>
                     </div>
@@ -56,7 +56,7 @@ get_header();
                                 <p><?php echo aynix_translate('problemi.problema2.impatto'); ?></p>
                             </div>
                         </div>
-                        <a href="<?php echo esc_url(home_url('/diagnosi')); ?>" class="btn-primary">
+                        <a href="<?php echo esc_url(aynix_get_translated_url('diagnosi')); ?>" class="btn-primary">
                             <?php echo aynix_translate('problemi.cta_button'); ?>
                         </a>
                     </div>
@@ -74,7 +74,7 @@ get_header();
                                 <p><?php echo aynix_translate('problemi.problema3.impatto'); ?></p>
                             </div>
                         </div>
-                        <a href="<?php echo esc_url(home_url('/diagnosi')); ?>" class="btn-primary">
+                        <a href="<?php echo esc_url(aynix_get_translated_url('diagnosi')); ?>" class="btn-primary">
                             <?php echo aynix_translate('problemi.cta_button'); ?>
                         </a>
                     </div>
@@ -92,7 +92,7 @@ get_header();
                                 <p><?php echo aynix_translate('problemi.problema4.impatto'); ?></p>
                             </div>
                         </div>
-                        <a href="<?php echo esc_url(home_url('/diagnosi')); ?>" class="btn-primary">
+                        <a href="<?php echo esc_url(aynix_get_translated_url('diagnosi')); ?>" class="btn-primary">
                             <?php echo aynix_translate('problemi.cta_button'); ?>
                         </a>
                     </div>
@@ -110,7 +110,7 @@ get_header();
                                 <p><?php echo aynix_translate('problemi.problema5.impatto'); ?></p>
                             </div>
                         </div>
-                        <a href="<?php echo esc_url(home_url('/diagnosi')); ?>" class="btn-primary">
+                        <a href="<?php echo esc_url(aynix_get_translated_url('diagnosi')); ?>" class="btn-primary">
                             <?php echo aynix_translate('problemi.cta_button'); ?>
                         </a>
                     </div>
@@ -128,7 +128,7 @@ get_header();
                                 <p><?php echo aynix_translate('problemi.problema6.impatto'); ?></p>
                             </div>
                         </div>
-                        <a href="<?php echo esc_url(home_url('/diagnosi')); ?>" class="btn-primary">
+                        <a href="<?php echo esc_url(aynix_get_translated_url('diagnosi')); ?>" class="btn-primary">
                             <?php echo aynix_translate('problemi.cta_button'); ?>
                         </a>
                     </div>
@@ -146,7 +146,7 @@ get_header();
                                 <p><?php echo aynix_translate('problemi.problema7.impatto'); ?></p>
                             </div>
                         </div>
-                        <a href="<?php echo esc_url(home_url('/diagnosi')); ?>" class="btn-primary">
+                        <a href="<?php echo esc_url(aynix_get_translated_url('diagnosi')); ?>" class="btn-primary">
                             <?php echo aynix_translate('problemi.cta_button'); ?>
                         </a>
                     </div>
@@ -164,7 +164,7 @@ get_header();
                                 <p><?php echo aynix_translate('problemi.problema8.impatto'); ?></p>
                             </div>
                         </div>
-                        <a href="<?php echo esc_url(home_url('/diagnosi')); ?>" class="btn-primary">
+                        <a href="<?php echo esc_url(aynix_get_translated_url('diagnosi')); ?>" class="btn-primary">
                             <?php echo aynix_translate('problemi.cta_button'); ?>
                         </a>
                     </div>
@@ -176,7 +176,7 @@ get_header();
                 <div class="cta-box">
                     <h2><?php echo aynix_translate('problemi.final_cta.title'); ?></h2>
                     <p><?php echo aynix_translate('problemi.final_cta.subtitle'); ?></p>
-                    <a href="<?php echo esc_url(home_url('/diagnosi')); ?>" class="btn-primary btn-large">
+                    <a href="<?php echo esc_url(aynix_get_translated_url('diagnosi')); ?>" class="btn-primary btn-large">
                         <?php echo aynix_translate('problemi.final_cta.button'); ?>
                     </a>
                 </div>
