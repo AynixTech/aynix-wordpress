@@ -10,6 +10,7 @@
         currentStep: 0,
         formData: {},
         totalSteps: 11, // 10 domande + email
+        isTransitioning: false, // Flag per prevenire avanzamenti multipli
 
         init: function() {
             this.renderForm();
@@ -422,7 +423,12 @@
             const self = this;
             
             // Radio click con auto-advance
-            $(document).on('click', '.radio-option', function() {
+            $(document).on('click', '.radio-option', function(e) {
+                // Previeni eventi multipli
+                if (self.isTransitioning) {
+                    return;
+                }
+                
                 const input = $(this).find('input');
                 const questionId = input.attr('name');
                 const value = input.val();
@@ -433,11 +439,13 @@
                 self.formData[questionId] = value;
                 
                 // Auto-advance solo se non siamo alla penultima domanda (prima dell'email)
+                self.isTransitioning = true;
                 setTimeout(() => {
                     if (self.currentStep < self.totalSteps - 2) {
                         self.nextStep();
                     }
-                }, 300);
+                    self.isTransitioning = false;
+                }, 400);
             });
             
             // Checkbox toggle
@@ -510,6 +518,9 @@
         },
 
         nextStep: function() {
+            if (this.isTransitioning && this.currentStep < this.totalSteps - 1) {
+                return; // Previeni avanzamenti durante transizione
+            }
             if (this.currentStep < this.totalSteps - 1) {
                 this.currentStep++;
                 this.renderQuestion();
