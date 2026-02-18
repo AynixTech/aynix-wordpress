@@ -101,26 +101,15 @@
     display: none; /* Hidden by default */
 }
 
-@media (max-width: 768px) {
-    .nav-menu {
-        display: none; /* Hide normal nav */
-    }
-
-    .hamburger {
-        cursor: pointer;
-        display: block;
-    }
-
-    .hamburger .line {
-        width: 30px;
-        height: 3px;
-        background: #438ef9;
-        margin: 5px;
-        transition: all 0.3s;
-    }
+.hamburger .line {
+    width: 30px;
+    height: 3px;
+    background: #438ef9;
+    margin: 5px;
+    transition: all 0.3s;
 }
 
-@media (min-width: 769px) and (max-width: 1350px) {
+@media (max-width: 1350px) {
     .nav-menu {
         display: none; /* Hide normal nav */
     }
