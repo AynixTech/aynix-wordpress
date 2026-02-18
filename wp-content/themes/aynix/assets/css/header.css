@@ -26,7 +26,7 @@
     width: 200px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1350px) {
     .header__logo a img {
         width: 200px;
     }
@@ -44,7 +44,7 @@
     align-items: center;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1350px) {
     .header {
         justify-content: space-between;
     }
@@ -107,7 +107,7 @@
 }
 
 /* Show sticky CTA only on mobile */
-@media (max-width: 768px) {
+@media (max-width: 1350px) {
     .sticky-cta-mobile {
         display: block;
     }
