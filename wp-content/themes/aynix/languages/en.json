@@ -363,7 +363,7 @@
   "esperienza.hero.title": "Experience: Real Cases",
   "esperienza.hero.subtitle": "Problem → Solution → Result",
   
-  "esperienza.named.title": "Named Experiences",
+  "esperienza.named.title": "Experience-Based Solutions",
   "esperienza.named.subtitle": "Systems we designed and built starting from real diagnostic processes.",
   "esperienza.named.subtitle2": "Custom paths shaped by real problems and real operational constraints.",
   "esperienza.named.intro": "Below are some concrete systems and platforms we have designed and built in real contexts. Each experience reflects a specific starting point, a clear problem, and a tailored approach.",
@@ -385,7 +385,7 @@
   
   "esperienza.intro.text": "These are real examples of problems we've solved. Your situation is unique, but the patterns are often similar.",
   
-  "esperienza.named_experiences.title": "Named Experiences",
+  "esperienza.named_experiences.title": "Soluciones Basadas en Experiencia",
   "esperienza.named_experiences.subtitle": "Systems built from real diagnostic processes.",
   "esperienza.named_experiences.intro": "These experiences represent projects that, starting from concrete and well-diagnosed problems, have been transformed into structured and reusable systems in similar contexts.",
   "esperienza.named_experiences.case_intro": "Experience developed in a real context, following an in-depth diagnosis of operational needs.",
