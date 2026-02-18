@@ -112,16 +112,22 @@ function aynix_add_translated_rewrite_rules() {
     $slugs = aynix_get_translated_slugs();
     
     foreach ($slugs as $original_slug => $translations) {
+        // Verifica che la pagina esista
+        $page = get_page_by_path($original_slug);
+        if (!$page) {
+            continue;
+        }
+        
         foreach ($translations as $lang => $translated_slug) {
             // Skip se è lo slug originale italiano
-            if ($lang === 'it') {
+            if ($lang === 'it' || $translated_slug === $original_slug) {
                 continue;
             }
             
-            // Aggiungi rewrite rule per ogni slug tradotto
+            // Aggiungi rewrite rule per ogni slug tradotto mappando al page_id
             add_rewrite_rule(
                 '^' . $translated_slug . '/?$',
-                'index.php?pagename=' . $original_slug,
+                'index.php?page_id=' . $page->ID,
                 'top'
             );
         }
