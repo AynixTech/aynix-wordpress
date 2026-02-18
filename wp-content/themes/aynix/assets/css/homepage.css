@@ -288,7 +288,6 @@
 
 .fase-number img {
     width: 108px;
-    height: 48px;
 }
 
 .fase-home h3 {
@@ -930,8 +929,7 @@
     }
 
     .fase-number img {
-        width: 36px;
-        height: 36px;
+        width: 60px;
     }
 
     .fase-home h3 {
@@ -1054,8 +1052,7 @@
     }
 
     .fase-number img {
-        width: 30px;
-        height: 30px;
+        width: 50px;
     }
 
     .fase-home h3 {
