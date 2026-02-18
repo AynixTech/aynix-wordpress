@@ -178,22 +178,22 @@
                 <div class="problemi-grid-home">
                     <article class="problema-home" itemprop="itemListElement" itemscope itemtype="https://schema.org/Thing">
                         <meta itemprop="position" content="1">
-                        <i class="fas fa-stopwatch" aria-hidden="true"></i>
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/problemi/problemi1.svg" alt="Problema 1 icon" class="problema-icon" aria-hidden="true">
                         <h3 itemprop="name"><?php echo aynix_translate('home.problemi.problema1'); ?></h3>
                     </article>
                     <article class="problema-home" itemprop="itemListElement" itemscope itemtype="https://schema.org/Thing">
                         <meta itemprop="position" content="2">
-                        <i class="fas fa-unlink" aria-hidden="true"></i>
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/problemi/problemi2.svg" alt="Problema 2 icon" class="problema-icon" aria-hidden="true">
                         <h3 itemprop="name"><?php echo aynix_translate('home.problemi.problema2'); ?></h3>
                     </article>
                     <article class="problema-home" itemprop="itemListElement" itemscope itemtype="https://schema.org/Thing">
                         <meta itemprop="position" content="3">
-                        <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/problemi/problemi3.svg" alt="Problema 3 icon" class="problema-icon" aria-hidden="true">
                         <h3 itemprop="name"><?php echo aynix_translate('home.problemi.problema3'); ?></h3>
                     </article>
                     <article class="problema-home" itemprop="itemListElement" itemscope itemtype="https://schema.org/Thing">
                         <meta itemprop="position" content="4">
-                        <i class="fas fa-database" aria-hidden="true"></i>
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/problemi/problemi4.svg" alt="Problema 4 icon" class="problema-icon" aria-hidden="true">
                         <h3 itemprop="name"><?php echo aynix_translate('home.problemi.problema4'); ?></h3>
                     </article>
                 </div>
@@ -215,19 +215,19 @@
                 <div class="perche-grid">
                     <article class="perche-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/Thing">
                         <meta itemprop="position" content="1">
-                        <i class="fas fa-stethoscope" aria-hidden="true"></i>
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/perche/perche1.svg" alt="Perché AYNIX 1 icon" class="perche-icon" aria-hidden="true">
                         <h3 itemprop="name"><?php echo aynix_translate('home.perche.punto1_title'); ?></h3>
                         <p itemprop="description"><?php echo aynix_translate('home.perche.punto1_desc'); ?></p>
                     </article>
                     <article class="perche-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/Thing">
                         <meta itemprop="position" content="2">
-                        <i class="fas fa-chart-line" aria-hidden="true"></i>
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/perche/perche2.svg" alt="Perché AYNIX 2 icon" class="perche-icon" aria-hidden="true">
                         <h3 itemprop="name"><?php echo aynix_translate('home.perche.punto2_title'); ?></h3>
                         <p itemprop="description"><?php echo aynix_translate('home.perche.punto2_desc'); ?></p>
                     </article>
                     <article class="perche-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/Thing">
                         <meta itemprop="position" content="3">
-                        <i class="fas fa-handshake" aria-hidden="true"></i>
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/perche/perche3.svg" alt="Perché AYNIX 3 icon" class="perche-icon" aria-hidden="true">
                         <h3 itemprop="name"><?php echo aynix_translate('home.perche.punto3_title'); ?></h3>
                         <p itemprop="description"><?php echo aynix_translate('home.perche.punto3_desc'); ?></p>
                     </article>
