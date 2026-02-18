@@ -259,6 +259,8 @@
   "metodo.no_pacchetti.reason2": "Incluyen funcionalidades que nunca usarás (y pagas)",
   "metodo.no_pacchetti.reason3": "No tienen lo que realmente necesitas",
   "metodo.no_pacchetti.reason4": "No escalan con tu negocio",
+  "metodo.no_pacchetti.reason5": "No se integran con tus sistemas actuales",
+  "metodo.no_pacchetti.reason6": "Te obligan a adaptarte al sistema, no al revés",
   
   "metodo.tecnologia.title": "La Tecnología Es un Medio, No un Fin",
   "metodo.tecnologia.text": "No hablamos de lenguajes de programación, frameworks o infraestructura cloud en el diagnóstico. Hablamos de problemas e impactos. La tecnología viene después, elegida según las necesidades reales.",

@@ -100,6 +100,14 @@ get_header();
                             <i class="fas fa-times-circle"></i>
                             <p><?php echo aynix_translate('metodo.no_pacchetti.reason4'); ?></p>
                         </div>
+                        <div class="reason-item">
+                            <i class="fas fa-times-circle"></i>
+                            <p><?php echo aynix_translate('metodo.no_pacchetti.reason5'); ?></p>
+                        </div>
+                        <div class="reason-item">
+                            <i class="fas fa-times-circle"></i>
+                            <p><?php echo aynix_translate('metodo.no_pacchetti.reason6'); ?></p>
+                        </div>
                     </div>
                 </div>
             </section>
