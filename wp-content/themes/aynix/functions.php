@@ -14,6 +14,113 @@ function aynix_setup() {
 add_action('after_setup_theme', 'aynix_setup');
 
 /**
+ * Sistema URL tradotti - Mappatura slug per ogni lingua
+ */
+function aynix_get_translated_slugs() {
+    return [
+        'diagnosi' => [
+            'it' => 'diagnosi',
+            'en' => 'diagnosis',
+            'es' => 'diagnostico',
+            'pt' => 'diagnostico'
+        ],
+        'metodo' => [
+            'it' => 'metodo',
+            'en' => 'method',
+            'es' => 'metodo',
+            'pt' => 'metodo'
+        ],
+        'problemi' => [
+            'it' => 'problemi',
+            'en' => 'problems',
+            'es' => 'problemas',
+            'pt' => 'problemas'
+        ],
+        'soluzioni' => [
+            'it' => 'soluzioni',
+            'en' => 'solutions',
+            'es' => 'soluciones',
+            'pt' => 'solucoes'
+        ],
+        'chi-siamo' => [
+            'it' => 'chi-siamo',
+            'en' => 'about-us',
+            'es' => 'quienes-somos',
+            'pt' => 'quem-somos'
+        ],
+        'contattaci' => [
+            'it' => 'contattaci',
+            'en' => 'contact',
+            'es' => 'contacto',
+            'pt' => 'contato'
+        ],
+        'esperienza' => [
+            'it' => 'esperienza',
+            'en' => 'experience',
+            'es' => 'experiencia',
+            'pt' => 'experiencia'
+        ],
+        'questionario' => [
+            'it' => 'questionario',
+            'en' => 'questionnaire',
+            'es' => 'cuestionario',
+            'pt' => 'questionario'
+        ]
+    ];
+}
+
+/**
+ * Ottieni URL tradotto per una pagina
+ */
+function aynix_get_translated_url($page_slug) {
+    $lang = aynix_get_current_language();
+    $slugs = aynix_get_translated_slugs();
+    
+    // Se la pagina non ha traduzioni, usa lo slug originale
+    if (!isset($slugs[$page_slug])) {
+        return home_url('/' . $page_slug);
+    }
+    
+    // Ottieni lo slug tradotto per la lingua corrente
+    $translated_slug = $slugs[$page_slug][$lang] ?? $slugs[$page_slug]['it'];
+    
+    return home_url('/' . $translated_slug);
+}
+
+/**
+ * Aggiungi rewrite rules per URL tradotti
+ */
+function aynix_add_translated_rewrite_rules() {
+    $slugs = aynix_get_translated_slugs();
+    
+    foreach ($slugs as $original_slug => $translations) {
+        foreach ($translations as $lang => $translated_slug) {
+            // Skip se è lo slug originale italiano
+            if ($lang === 'it') {
+                continue;
+            }
+            
+            // Aggiungi rewrite rule per ogni slug tradotto
+            add_rewrite_rule(
+                '^' . $translated_slug . '/?$',
+                'index.php?pagename=' . $original_slug,
+                'top'
+            );
+        }
+    }
+}
+add_action('init', 'aynix_add_translated_rewrite_rules');
+
+/**
+ * Flush rewrite rules all'attivazione del tema
+ */
+function aynix_flush_rewrite_rules() {
+    aynix_add_translated_rewrite_rules();
+    flush_rewrite_rules();
+}
+add_action('after_switch_theme', 'aynix_flush_rewrite_rules');
+
+/**
  * Caricamento script e stili
  */
 function aynix_scripts() {
