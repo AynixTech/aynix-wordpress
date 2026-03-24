@@ -10,36 +10,17 @@ get_header(); ?>
 <div id="primary" class="content-area">
 	<main id="main" class="site-main">
 		<div class="ai-tools-container">
-			<!-- Language Selector -->
-			<div class="language-selector">
-				<form method="post" id="lang-form">
-					<button type="submit" name="lang" value="es" class="lang-btn <?php echo (aynix_get_current_language() === 'es') ? 'active' : ''; ?>">📍 Español</button>
-					<button type="submit" name="lang" value="en" class="lang-btn <?php echo (aynix_get_current_language() === 'en') ? 'active' : ''; ?>">🌍 English</button>
-				</form>
-			</div>
-
-			<?php
-			// Handle language change
-			if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lang'])) {
-				$lang = sanitize_text_field($_POST['lang']);
-				if (in_array($lang, ['es', 'en', 'it', 'pt'])) {
-					setcookie('site_lang', $lang, time() + (365 * 24 * 60 * 60), '/');
-					wp_safe_remote_get(home_url()); // Refresh to apply new language
-				}
-			}
-			?>
-
 			<!-- Header Section -->
 			<section class="ai-tools-header">
-				<h1><?php echo aynix_translate('ai_tools.header.title'); ?></h1>
-				<p class="subtitle"><?php echo aynix_translate('ai_tools.header.subtitle'); ?></p>
+				<h1>🤖 IA para Líderes: Herramientas Prácticas</h1>
+				<p class="subtitle">Multiplica tu capacidad de ejecución con IA. Genera imágenes, videos y resúmenes en minutos.</p>
 			</section>
 
 			<!-- Intro Section -->
 			<section class="ai-tools-intro">
 				<div class="intro-box">
-					<h2><?php echo aynix_translate('ai_tools.intro.title'); ?></h2>
-					<p><?php echo aynix_translate('ai_tools.intro.text'); ?></p>
+					<h2>El Líder Aumentado</h2>
+					<p>No se trata de que la IA reemplace al líder, sino de multiplicar su capacidad de decisión y ejecución. Con las herramientas correctas, puedes:</p>
 					<ul>
 						<li>✓ Generar contenido visual profesional sin diseñador</li>
 						<li>✓ Crear videos de comunicados en minutos, no en horas</li>
@@ -55,8 +36,8 @@ get_header(); ?>
 				<!-- SECTION 1: IMAGE GENERATION -->
 				<section class="tool-category" id="images">
 					<div class="category-header">
-						<h2><?php echo aynix_translate('ai_tools.section.images'); ?></h2>
-						<p><?php echo aynix_translate('ai_tools.section.images_desc'); ?></p>
+						<h2>📸 Generación de Imágenes</h2>
+						<p>Crea recursos visuales profesionales para presentaciones, reportes y comunicaciones internas.</p>
 					</div>
 
 					<div class="tools-list">
@@ -65,16 +46,16 @@ get_header(); ?>
 							<div class="tool-logo">🎨</div>
 							<h3>DALL·E 3</h3>
 							<p class="tool-provider">OpenAI</p>
-							<p class="tool-description">Generador de imágenes con IA. Ideal para crear visuals profesionales, portadas, gráficos personalizados.</p>
+							<p class="tool-description">Generador de imágenes con IA. Ideal para crear piezas visuales profesionales, portadas y gráficos personalizados.</p>
 							<div class="tool-meta">
 								<span class="skill-level">Principiante</span>
-								<span class="price">Freemium</span>
+								<span class="price">Gratis y de pago</span>
 							</div>
 							<div class="tool-usecase">
 								<strong>Caso de uso para líderes:</strong>
 								<ul>
 									<li>Imágenes para reportes ejecutivos</li>
-									<li>Assets para comunicados internos</li>
+									<li>Recursos visuales para comunicados internos</li>
 									<li>Portadas de presentaciones</li>
 								</ul>
 							</div>
@@ -110,13 +91,13 @@ get_header(); ?>
 							<p class="tool-description">Especializada en imágenes con texto legible. Perfecta para gráficos con mensajes incorporados.</p>
 							<div class="tool-meta">
 								<span class="skill-level">Principiante</span>
-								<span class="price">Freemium</span>
+								<span class="price">Gratis y de pago</span>
 							</div>
 							<div class="tool-usecase">
 								<strong>Caso de uso para líderes:</strong>
 								<ul>
 									<li>Infografías con mensajes clave</li>
-									<li>Social media visuals con texto</li>
+									<li>Piezas visuales para redes sociales con texto</li>
 									<li>Posters y comunicados visuales</li>
 								</ul>
 							</div>
@@ -129,7 +110,7 @@ get_header(); ?>
 				<section class="tool-category" id="videos">
 					<div class="category-header">
 						<h2>🎬 Generación de Videos</h2>
-						<p>Crea videos de comunicación, onboarding y presentaciones sin necesidad de grabar o editar.</p>
+						<p>Crea videos de comunicación, incorporación y presentaciones sin necesidad de grabar o editar.</p>
 					</div>
 
 					<div class="tools-list">
@@ -149,7 +130,7 @@ get_header(); ?>
 									<li>Mensajes del CEO sin necesidad de estar en cámara</li>
 									<li>Videos en múltiples idiomas sin re-grabar</li>
 									<li>Comunicados corporativos automatizados</li>
-									<li>Onboarding de nuevos empleados</li>
+									<li>Incorporación de nuevos empleados</li>
 								</ul>
 							</div>
 							<a href="https://www.heygen.com" target="_blank" class="btn-tool">Ir a HeyGen</a>
@@ -169,7 +150,7 @@ get_header(); ?>
 								<strong>Caso de uso para líderes:</strong>
 								<ul>
 									<li>Comunicados ejecutivos globales</li>
-									<li>Training videos corporativos</li>
+									<li>Videos de capacitación corporativa</li>
 									<li>Explicación de políticas en video</li>
 									<li>Comunicación interna escalable</li>
 								</ul>
@@ -185,7 +166,7 @@ get_header(); ?>
 							<p class="tool-description">Crea y edita videos generados por IA. Transforma texto en video, genera efectos y ediciones.</p>
 							<div class="tool-meta">
 								<span class="skill-level">Intermediario</span>
-								<span class="price">Freemium - $12-55/mes</span>
+								<span class="price">Gratis y de pago - $12-55/mes</span>
 							</div>
 							<div class="tool-usecase">
 								<strong>Caso de uso para líderes:</strong>
@@ -207,7 +188,7 @@ get_header(); ?>
 							<p class="tool-description">Generador de video de texto a video con excelente calidad. Emergente y muy accesible.</p>
 							<div class="tool-meta">
 								<span class="skill-level">Fácil</span>
-								<span class="price">Freemium</span>
+								<span class="price">Gratis y de pago</span>
 							</div>
 							<div class="tool-usecase">
 								<strong>Caso de uso para líderes:</strong>
@@ -238,7 +219,7 @@ get_header(); ?>
 							<p class="tool-description">Modelo de IA versátil. Excelente para análisis, resumen y síntesis de información compleja.</p>
 							<div class="tool-meta">
 								<span class="skill-level">Intermedio-Avanzado</span>
-								<span class="price">Freemium - $20/mes</span>
+								<span class="price">Gratis y de pago - $20/mes</span>
 							</div>
 							<div class="tool-usecase">
 								<strong>Caso de uso para líderes:</strong>
@@ -260,7 +241,7 @@ get_header(); ?>
 							<p class="tool-description">Modelo conversacional más popular. Versátil para múltiples tareas de análisis y escritura.</p>
 							<div class="tool-meta">
 								<span class="skill-level">Principiante-Intermedio</span>
-								<span class="price">Freemium - $20/mes</span>
+								<span class="price">Gratis y de pago - $20/mes</span>
 							</div>
 							<div class="tool-usecase">
 								<strong>Caso de uso para líderes:</strong>
@@ -282,12 +263,12 @@ get_header(); ?>
 							<p class="tool-description">Sube documentos y haz preguntas sobre ellos. Crea podcast de audio sobre tu contenido.</p>
 							<div class="tool-meta">
 								<span class="skill-level">Fácil</span>
-								<span class="price">Freemium</span>
+								<span class="price">Gratis y de pago</span>
 							</div>
 							<div class="tool-usecase">
 								<strong>Caso de uso para líderes:</strong>
 								<ul>
-									<li>Q&A sobre documentos internos</li>
+									<li>Preguntas y respuestas sobre documentos internos</li>
 									<li>Generar podcast de reportes</li>
 									<li>Crear notas ejecutivas automáticas</li>
 									<li>Análisis comparativo de documentos</li>
@@ -304,7 +285,7 @@ get_header(); ?>
 							<p class="tool-description">Registra y resume automáticamente reuniones en video. Extrae tareas, decisiones y puntos clave.</p>
 							<div class="tool-meta">
 								<span class="skill-level">Muy Fácil</span>
-								<span class="price">Freemium - $12/mes</span>
+								<span class="price">Gratis y de pago - $12/mes</span>
 							</div>
 							<div class="tool-usecase">
 								<strong>Caso de uso para líderes:</strong>
@@ -336,7 +317,7 @@ get_header(); ?>
 							<p class="tool-description">Plataforma de diseño intuitiva con miles de templates. Crea presentaciones, infografías, posts y más sin experiencia de diseño.</p>
 							<div class="tool-meta">
 								<span class="skill-level">Muy Fácil</span>
-								<span class="price">Freemium - $13/mes</span>
+								<span class="price">Gratis y de pago - $13/mes</span>
 							</div>
 							<div class="tool-usecase">
 								<strong>Caso de uso para líderes:</strong>
@@ -356,7 +337,7 @@ get_header(); ?>
 							<div class="tool-logo">📊</div>
 							<h3>Microsoft PowerPoint</h3>
 							<p class="tool-provider">Microsoft</p>
-							<p class="tool-description">El estándar de presentaciones. Versáties online (PowerPoint Web) y desktop con IA integrada.</p>
+							<p class="tool-description">El estándar de presentaciones. Disponible en línea y en escritorio, con funciones de IA integradas.</p>
 							<div class="tool-meta">
 								<span class="skill-level">Fácil</span>
 								<span class="price">Gratuito Web / Office 365 desde $7/mes</span>
@@ -368,10 +349,10 @@ get_header(); ?>
 									<li>Reportes financieros y operacionales</li>
 									<li>Propuestas a clientes</li>
 									<li>Presentaciones con colaboración en tiempo real</li>
-									<li>Designer AI integrado para sugerencias</li>
+									<li>Diseñador con IA integrado para sugerencias</li>
 								</ul>
 							</div>
-							<a href="https://www.office.com/" target="_blank" class="btn-tool">Ir a PowerPoint Online</a>
+							<a href="https://www.office.com/" target="_blank" class="btn-tool">Ir a PowerPoint en línea</a>
 						</div>
 
 						<!-- Google Slides -->
@@ -402,10 +383,10 @@ get_header(); ?>
 							<div class="tool-logo">🖼️</div>
 							<h3>Photopea</h3>
 							<p class="tool-provider">Photopea</p>
-							<p class="tool-description">Editor de imágenes online compatible con Photoshop. Abre y edita archivos PSD directamente en el navegador.</p>
+							<p class="tool-description">Editor de imágenes en línea compatible con Photoshop. Abre y edita archivos PSD directamente en el navegador.</p>
 							<div class="tool-meta">
 								<span class="skill-level">Intermedio</span>
-								<span class="price">Freemium - $10/mes</span>
+								<span class="price">Gratis y de pago - $10/mes</span>
 							</div>
 							<div class="tool-usecase">
 								<strong>Caso de uso para líderes:</strong>
@@ -425,16 +406,16 @@ get_header(); ?>
 							<div class="tool-logo">✏️</div>
 							<h3>Figma</h3>
 							<p class="tool-provider">Figma Inc.</p>
-							<p class="tool-description">Herramienta de diseño colaborativo. Ideal para crear prototipos, mockups y colaborar en tiempo real.</p>
+							<p class="tool-description">Herramienta de diseño colaborativo. Ideal para crear prototipos visuales y colaborar en tiempo real.</p>
 							<div class="tool-meta">
 								<span class="skill-level">Intermedio</span>
-								<span class="price">Freemium - $12/mes</span>
+								<span class="price">Gratis y de pago - $12/mes</span>
 							</div>
 							<div class="tool-usecase">
 								<strong>Caso de uso para líderes:</strong>
 								<ul>
 									<li>Diseño de presentaciones profesionales</li>
-									<li>Mockups de ideas nuevas</li>
+									<li>Prototipos visuales de ideas nuevas</li>
 									<li>Colaboración de diseño con equipos</li>
 									<li>Componentes reutilizables de marca</li>
 									<li>Exportación directa a múltiples formatos</li>
@@ -451,7 +432,7 @@ get_header(); ?>
 							<p class="tool-description">Presenta tus ideas hermosas en segundos. Escribe tu idea y Gamma genera el diseño automáticamente.</p>
 							<div class="tool-meta">
 								<span class="skill-level">Muy Fácil</span>
-								<span class="price">Freemium - $15/mes</span>
+								<span class="price">Gratis y de pago - $15/mes</span>
 							</div>
 							<div class="tool-usecase">
 								<strong>Caso de uso para líderes:</strong>
@@ -471,15 +452,15 @@ get_header(); ?>
 							<div class="tool-logo">📄</div>
 							<h3>iLovePDF</h3>
 							<p class="tool-provider">Antiun Ltd.</p>
-							<p class="tool-description">Suite de herramientas para PDFs: mergiar, dividir, comprimir, convertir, editar sin software.</p>
+							<p class="tool-description">Suite de herramientas para PDF: unir, dividir, comprimir, convertir y editar sin instalar software.</p>
 							<div class="tool-meta">
 								<span class="skill-level">Muy Fácil</span>
-								<span class="price">Freemium - $5.99/mes</span>
+								<span class="price">Gratis y de pago - $5.99/mes</span>
 							</div>
 							<div class="tool-usecase">
 								<strong>Caso de uso para líderes:</strong>
 								<ul>
-									<li>Mergiar múltiples PDFs en uno</li>
+									<li>Unir varios PDF en un solo archivo</li>
 									<li>Dividir PDF en páginas individuales</li>
 									<li>Comprimir PDFs para envío por email</li>
 									<li>Convertir imágenes a PDF</li>
@@ -498,12 +479,12 @@ get_header(); ?>
 							<p class="tool-description">Plataforma integral para trabajar con PDFs. Similar a iLovePDF con características adicionales.</p>
 							<div class="tool-meta">
 								<span class="skill-level">Muy Fácil</span>
-								<span class="price">Freemium - $7.99/mes</span>
+								<span class="price">Gratis y de pago - $7.99/mes</span>
 							</div>
 							<div class="tool-usecase">
 								<strong>Caso de uso para líderes:</strong>
 								<ul>
-									<li>Editar PDFs directamente online</li>
+									<li>Editar PDF directamente en línea</li>
 									<li>Fragmentar y reorganizar páginas</li>
 									<li>Firmar PDFs digitalmente</li>
 									<li>Reconocimiento OCR para escaneos</li>
@@ -522,7 +503,7 @@ get_header(); ?>
 							<p class="tool-description">Herramienta rápida de Adobe para crear gráficos, videos cortos y posts. Más accesible que Creative Cloud.</p>
 							<div class="tool-meta">
 								<span class="skill-level">Fácil</span>
-								<span class="price">Freemium - $4.99/mes</span>
+								<span class="price">Gratis y de pago - $4.99/mes</span>
 							</div>
 							<div class="tool-usecase">
 								<strong>Caso de uso para líderes:</strong>
@@ -543,12 +524,12 @@ get_header(); ?>
 				<section class="tool-category" id="workflows">
 					<div class="category-header">
 						<h2>🔁 Flujos Combinados: El Diferenciador Real</h2>
-						<p>No uses herramientas sueltas. Encadénalas para crear un pipeline completo.</p>
+						<p>No uses herramientas sueltas. Encadénalas para crear un flujo completo.</p>
 					</div>
 
 					<div class="workflow-examples">
 						<div class="workflow-box">
-							<h3>Pipeline 1: Comunicado Corporativo Multiidioma</h3>
+							<h3>Flujo 1: Comunicado Corporativo Multilingüe</h3>
 							<div class="workflow-steps">
 								<div class="step">
 									<span class="step-num">1</span>
@@ -573,7 +554,7 @@ get_header(); ?>
 						</div>
 
 						<div class="workflow-box">
-							<h3>Pipeline 2: Reporte Ejecutivo a Contenido</h3>
+							<h3>Flujo 2: Del Reporte Ejecutivo al Contenido</h3>
 							<div class="workflow-steps">
 								<div class="step">
 									<span class="step-num">1</span>
@@ -598,7 +579,7 @@ get_header(); ?>
 						</div>
 
 						<div class="workflow-box">
-							<h3>Pipeline 3: Onboarding Automático</h3>
+							<h3>Flujo 3: Incorporación Automática</h3>
 							<div class="workflow-steps">
 								<div class="step">
 									<span class="step-num">1</span>
@@ -617,7 +598,7 @@ get_header(); ?>
 								<div class="step-arrow">↓</div>
 								<div class="step">
 									<span class="step-num">4</span>
-									<strong>Resultado:</strong> Experiencia de onboarding escalable y profesional
+									<strong>Resultado:</strong> Experiencia de incorporación escalable y profesional
 								</div>
 							</div>
 						</div>
@@ -657,7 +638,7 @@ get_header(); ?>
 							<h3>⚖️ Derechos de Imagen y Propiedad Intelectual</h3>
 							<p><strong>Legal:</strong> Entiende quién es dueño del contenido que generas.</p>
 							<ul>
-								<li>Herramientas tipo Freemium pueden usar tu contenido para entrenar</li>
+								<li>Las herramientas con plan gratuito pueden usar tu contenido para entrenar</li>
 								<li>Algunos generadores de imagen tienen limitaciones comerciales</li>
 								<li>Usa licencias comerciales si vas a usar el contenido públicamente</li>
 								<li>Para materiales corporativos críticos, opta por herramientas enterprise</li>
@@ -691,7 +672,7 @@ get_header(); ?>
 							<p><strong>Recomendación:</strong> Elige según tu caso de uso y presupuesto.</p>
 							<ul>
 								<li>Gratuitas: Ideales para experimentar y aprender</li>
-								<li>Freemium: Buen balance entre costo y funcionalidad</li>
+								<li>Gratis y de pago: Buen balance entre costo y funcionalidad</li>
 								<li>Enterprise: Cuando manejo de datos sensibles es crítico</li>
 								<li>Especializada: Para casos muy específicos (análisis legal, médico, etc.)</li>
 							</ul>
@@ -702,12 +683,11 @@ get_header(); ?>
 			</div>
 
 			<!-- CTA Section -->
-			<!-- CTA Section -->
 			<section class="ai-tools-cta">
 				<div class="cta-box">
-					<h2><?php echo aynix_translate('ai_tools.cta.title'); ?></h2>
-					<p><strong><?php echo aynix_translate('ai_tools.cta.text'); ?></strong></p>
-					<p><?php echo aynix_translate('ai_tools.cta.next'); ?></p>
+					<h2>¿Listo para comenzar?</h2>
+					<p><strong>¿Cuántas horas a la semana te están costando las cosas que hoy podrías automatizar con IA?</strong></p>
+					<p>El siguiente paso es elegir una herramienta, hacer una prueba gratuita y experimentar con un caso real de tu negocio.</p>
 					<div class="cta-buttons">
 						<a href="https://claude.ai" class="btn-primary">Empezar con Claude (Gratuito)</a>
 						<a href="https://chatgpt.com" class="btn-primary">Empezar con ChatGPT (Gratuito)</a>
@@ -1046,47 +1026,7 @@ get_header(); ?>
 	border-color: white;
 }
 
-.language-selector {
-	display: flex;
-	gap: 10px;
-	justify-content: flex-end;
-	margin-bottom: 30px;
-	flex-wrap: wrap;
-}
-
-.language-selector form {
-	display: flex;
-	gap: 10px;
-	flex-wrap: wrap;
-}
-
-.lang-btn {
-	background: #f0f0f0;
-	border: 2px solid #ddd;
-	padding: 8px 16px;
-	border-radius: 6px;
-	cursor: pointer;
-	font-weight: 600;
-	font-size: 0.9em;
-	transition: all 0.3s ease;
-}
-
-.lang-btn:hover {
-	background: #e0e0e0;
-	border-color: #0066cc;
-}
-
-.lang-btn.active {
-	background: #0066cc;
-	color: white;
-	border-color: #0066cc;
-}
-
 @media (max-width: 768px) {
-	.language-selector {
-		justify-content: center;
-	}
-
 	.ai-tools-header h1 {
 		font-size: 1.8em;
 	}
