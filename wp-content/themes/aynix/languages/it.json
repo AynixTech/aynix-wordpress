@@ -517,5 +517,27 @@
   
   "chi_siamo.cta.title": "Vuoi lavorare con noi?",
   "chi_siamo.cta.subtitle": "Iniziamo con una diagnosi. Vediamo se ha senso insieme.",
-  "chi_siamo.cta.button": "Avvia Diagnosi"
+  "chi_siamo.cta.button": "Avvia Diagnosi",
+  
+  "ai_tools.header.title": "🤖 IA per Leader: Strumenti Pratici",
+  "ai_tools.header.subtitle": "Moltiplica la tua capacità di esecuzione con l'IA. Genera immagini, video e riassunti in pochi minuti.",
+  "ai_tools.intro.title": "Il Leader Aumentato",
+  "ai_tools.intro.text": "Non si tratta di IA che sostituisce il leader, ma di moltiplicare la sua capacità decisionale e di esecuzione. Con gli strumenti giusti, puoi:",
+  
+  "ai_tools.section.images": "📸 Generazione di Immagini",
+  "ai_tools.section.images_desc": "Crea risorse visive professionali per presentazioni, report e comunicazioni interne.",
+  "ai_tools.section.videos": "🎬 Generazione di Video",
+  "ai_tools.section.videos_desc": "Crea video di comunicazione, onboarding e presentazioni senza necessità di registrare o montare.",
+  "ai_tools.section.summaries": "📝 Riassunti e Analisi di Documenti",
+  "ai_tools.section.summaries_desc": "Estrai spunti chiave da report lunghi, verbali e documenti in secondi.",
+  "ai_tools.section.complementary": "🛠️ Strumenti Complementari (Non-IA)",
+  "ai_tools.section.complementary_desc": "Applicazioni professionali per design, presentazioni e manipolazione di documenti.",
+  "ai_tools.section.workflows": "🔁 Flussi Combinati: Il Vero Differenziale",
+  "ai_tools.section.workflows_desc": "Non usare strumenti isolati. Concatenali per creare una pipeline completa.",
+  "ai_tools.section.considerations": "⚠️ Considerazioni Importanti per i Leader",
+  "ai_tools.section.considerations_desc": "Prima di usare questi strumenti, devi conoscere questi rischi e migliori pratiche.",
+  
+  "ai_tools.cta.title": "Pronto per iniziare?",
+  "ai_tools.cta.text": "Quante ore alla settimana ti stanno costando le cose che oggi potresti automatizzare con l'IA?",
+  "ai_tools.cta.next": "Prossimo passo: scegli uno strumento, prova gratuitamente e sperimenta con un caso reale del tuo business."
 }
