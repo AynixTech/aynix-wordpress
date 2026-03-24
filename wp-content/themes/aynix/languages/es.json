@@ -516,5 +516,27 @@
   
   "chi_siamo.cta.title": "¿Quieres trabajar con nosotros?",
   "chi_siamo.cta.subtitle": "Empecemos con un diagnóstico. Veamos si tiene sentido juntos.",
-  "chi_siamo.cta.button": "Iniciar Diagnóstico"
+  "chi_siamo.cta.button": "Iniciar Diagnóstico",
+  
+  "ai_tools.header.title": "🤖 IA para Líderes: Herramientas Prácticas",
+  "ai_tools.header.subtitle": "Multiplica tu capacidad de ejecución con IA. Genera imágenes, videos y resúmenes en minutos.",
+  "ai_tools.intro.title": "El Líder Aumentado",
+  "ai_tools.intro.text": "No se trata de que la IA reemplace al líder, sino de multiplicar su capacidad de decisión y ejecución. Con las herramientas correctas, puedes:",
+  
+  "ai_tools.section.images": "📸 Generación de Imágenes",
+  "ai_tools.section.images_desc": "Crea assets visuales profesionales para presentaciones, reportes y comunicaciones internas.",
+  "ai_tools.section.videos": "🎬 Generación de Videos",
+  "ai_tools.section.videos_desc": "Crea videos de comunicación, onboarding y presentaciones sin necesidad de grabar o editar.",
+  "ai_tools.section.summaries": "📝 Resúmenes y Análisis de Documentos",
+  "ai_tools.section.summaries_desc": "Extrae insights clave de reportes largos, actas y documentos en segundos.",
+  "ai_tools.section.complementary": "🛠️ Herramientas Complementarias (No-IA)",
+  "ai_tools.section.complementary_desc": "Aplicaciones profesionales para diseño, presentaciones y manipulación de documentos.",
+  "ai_tools.section.workflows": "🔁 Flujos Combinados: El Diferenciador Real",
+  "ai_tools.section.workflows_desc": "No uses herramientas sueltas. Encadénalas para crear un pipeline completo.",
+  "ai_tools.section.considerations": "⚠️ Consideraciones Importantes para Líderes",
+  "ai_tools.section.considerations_desc": "Antes de usar estas herramientas, debes conocer estos riesgos y mejores prácticas.",
+  
+  "ai_tools.cta.title": "¿Listo para comenzar?",
+  "ai_tools.cta.text": "¿Cuántas horas a la semana te están costando las cosas que hoy podrías automatizar con IA?",
+  "ai_tools.cta.next": "El próximo paso: elige una herramienta, haz una prueba gratuita y experimenta con un caso real de tu negocio."
 }

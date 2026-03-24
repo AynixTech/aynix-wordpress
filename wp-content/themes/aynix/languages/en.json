@@ -518,5 +518,27 @@
   
   "chi_siamo.cta.title": "Want to work with us?",
   "chi_siamo.cta.subtitle": "Let's start with a diagnosis. We'll see if it makes sense together.",
-  "chi_siamo.cta.button": "Start Diagnosis"
+  "chi_siamo.cta.button": "Start Diagnosis",
+  
+  "ai_tools.header.title": "🤖 AI for Leaders: Practical Tools",
+  "ai_tools.header.subtitle": "Multiply your execution capacity with AI. Generate images, videos and summaries in minutes.",
+  "ai_tools.intro.title": "The Augmented Leader",
+  "ai_tools.intro.text": "It's not about AI replacing the leader, but about multiplying their decision-making and execution capacity. With the right tools, you can:",
+  
+  "ai_tools.section.images": "📸 Image Generation",
+  "ai_tools.section.images_desc": "Create professional visual assets for presentations, reports and internal communications.",
+  "ai_tools.section.videos": "🎬 Video Generation",
+  "ai_tools.section.videos_desc": "Create communication, onboarding and presentation videos without needing to record or edit.",
+  "ai_tools.section.summaries": "📝 Document Summaries & Analysis",
+  "ai_tools.section.summaries_desc": "Extract key insights from long reports, minutes and documents in seconds.",
+  "ai_tools.section.complementary": "🛠️ Complementary Tools (Non-AI)",
+  "ai_tools.section.complementary_desc": "Professional applications for design, presentations and document manipulation.",
+  "ai_tools.section.workflows": "🔁 Combined Workflows: The Real Differentiator",
+  "ai_tools.section.workflows_desc": "Don't use tools separately. Chain them to create a complete pipeline.",
+  "ai_tools.section.considerations": "⚠️ Important Considerations for Leaders",
+  "ai_tools.section.considerations_desc": "Before using these tools, you should know these risks and best practices.",
+  
+  "ai_tools.cta.title": "Ready to start?",
+  "ai_tools.cta.text": "How many hours per week are you losing on things you could automate with AI today?",
+  "ai_tools.cta.next": "Next step: choose a tool, try it free and experiment with a real case from your business."
 }
