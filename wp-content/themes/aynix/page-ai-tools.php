@@ -200,6 +200,27 @@ get_header(); ?>
 							</div>
 							<a href="https://kling.kuaishou.com" target="_blank" class="btn-tool">Ir a Kling AI</a>
 						</div>
+
+						<!-- SUNO -->
+						<div class="tool-card">
+							<div class="tool-logo">🎵</div>
+							<h3>SUNO</h3>
+							<p class="tool-provider">Suno Inc.</p>
+							<p class="tool-description">Generador de canciones con IA a partir de texto. Crea música original, letra y estilo en minutos.</p>
+							<div class="tool-meta">
+								<span class="skill-level">Fácil</span>
+								<span class="price">Gratis y de pago</span>
+							</div>
+							<div class="tool-usecase">
+								<strong>Caso de uso para líderes:</strong>
+								<ul>
+									<li>Jingles para marca y campañas internas</li>
+									<li>Música de fondo para videos corporativos</li>
+									<li>Contenido creativo para redes sociales</li>
+								</ul>
+							</div>
+							<a href="https://suno.com" target="_blank" class="btn-tool">Ir a SUNO</a>
+						</div>
 					</div>
 				</section>
 
@@ -710,6 +731,7 @@ get_header(); ?>
 
 .ai-tools-header {
 	text-align: center;
+	padding-top: 80px;
 	margin-bottom: 60px;
 	border-bottom: 3px solid #0066cc;
 	padding-bottom: 30px;
