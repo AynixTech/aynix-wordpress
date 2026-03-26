@@ -247,7 +247,7 @@
 
 .metodo-fasi-home {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: clamp(0.75rem, 1.5vw, 1.25rem);
     margin-top: 0;
     margin-bottom: 0;
@@ -256,7 +256,7 @@
 
 .fase-home {
     background: #ffffff;
-    padding: 1.5rem;
+    padding: 1.25rem 1rem;
     border-radius: 14px;
     border: 1px solid #448EF9;
     transition: all 0.3s ease;
@@ -284,26 +284,31 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 0.75rem;
+    flex-shrink: 0;
 }
 
 .fase-number img {
-    width: 108px;
+    width: 90px;
+    height: auto;
+    object-fit: contain;
 }
 
 .fase-home h3 {
-    font-size: 1.3rem;
+    font-size: 1.15rem;
     color: #222;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
     font-weight: 600;
+    text-align: center;
 }
 
 .fase-home p {
     color: #666;
-    line-height: 1.6;
-    font-size: 1rem;
+    line-height: 1.5;
+    font-size: 0.95rem;
     margin: 0;
     word-wrap: break-word;
     overflow-wrap: break-word;
+    text-align: center;
 }
 
 /* Experience Products Section */
@@ -901,7 +906,11 @@
         font-size: 1rem;
     }
 
-    .metodo-fasi-home,
+    .metodo-fasi-home {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.5rem;
+    }
+
     .problemi-grid-home,
     .perche-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -920,7 +929,7 @@
     }
 
     .fase-home {
-        padding: 1.5rem 1.25rem;
+        padding: 1.25rem 1rem;
     }
 
     .fase-number {
@@ -930,15 +939,17 @@
     }
 
     .fase-number img {
-        width: 60px;
+        width: 70px;
     }
 
     .fase-home h3 {
         font-size: 1rem;
+        margin-bottom: 0.4rem;
     }
 
     .fase-home p {
         font-size: 0.85rem;
+        line-height: 1.4;
     }
 
     .problemi-home {
@@ -1043,27 +1054,27 @@
     }
 
     .fase-home {
-        padding: 0.8rem;
+        padding: 0.8rem 0.6rem;
     }
 
     .fase-number {
-        width: 48px;
-        height: 48px;
-        margin: 0 auto;
+        width: 52px;
+        height: 52px;
+        margin-bottom: 0.5rem;
     }
 
     .fase-number img {
-        width: 50px;
+        width: 60px;
     }
 
     .fase-home h3 {
-        font-size: 0.95rem;
-        margin: 0;
+        font-size: 0.9rem;
+        margin-bottom: 0.3rem;
     }
 
     .fase-home p {
-        font-size: 0.8rem;
-        line-height: 1.5;
+        font-size: 0.75rem;
+        line-height: 1.3;
     }
 
     /* Forza single column e previeni overflow */
