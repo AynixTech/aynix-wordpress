@@ -54,7 +54,7 @@
 
     <!-- Content Sections -->
     <div class="homepage-content">
-        <!-- Metodo in 3 fasi -->
+        <!-- Metodo in 4 fasi -->
         <section class="metodo-home" itemscope itemtype="https://schema.org/HowTo">
             <img class="metodo-bg metodo-bg-desktop" src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/diagnosi/fondo-diagnosi.svg'); ?>" alt="" loading="lazy" aria-hidden="true">
             <img class="metodo-bg metodo-bg-mobile" src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/diagnosi/fondo-diagnosi-mobile.svg'); ?>" alt="" loading="lazy" aria-hidden="true">
@@ -77,7 +77,7 @@
                         <article class="fase-home" itemscope itemtype="https://schema.org/HowToStep" itemprop="step">
                             <meta itemprop="position" content="2">
                             <div class="fase-number" aria-label="Fase 2">
-                                <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/diagnosi/progrettazione.svg'); ?>" alt="Progettazione" loading="lazy" width="90" height="90">
+                                <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/diagnosi/analisi-tecnologica.svg'); ?>" alt="Analisi Tecnologica" loading="lazy" width="90" height="90">
                             </div>
                             <h3 itemprop="name"><?php echo aynix_translate('home.metodo.fase2_title'); ?></h3>
                             <p itemprop="text"><?php echo aynix_translate('home.metodo.fase2_desc'); ?></p>
@@ -85,10 +85,18 @@
                         <article class="fase-home" itemscope itemtype="https://schema.org/HowToStep" itemprop="step">
                             <meta itemprop="position" content="3">
                             <div class="fase-number" aria-label="Fase 3">
-                                <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/diagnosi/implementazione.svg'); ?>" alt="Implementazione" loading="lazy" width="90" height="90">
+                                <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/diagnosi/progrettazione.svg'); ?>" alt="Progettazione" loading="lazy" width="90" height="90">
                             </div>
                             <h3 itemprop="name"><?php echo aynix_translate('home.metodo.fase3_title'); ?></h3>
                             <p itemprop="text"><?php echo aynix_translate('home.metodo.fase3_desc'); ?></p>
+                        </article>
+                        <article class="fase-home" itemscope itemtype="https://schema.org/HowToStep" itemprop="step">
+                            <meta itemprop="position" content="4">
+                            <div class="fase-number" aria-label="Fase 4">
+                                <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/diagnosi/implementazione.svg'); ?>" alt="Implementazione" loading="lazy" width="90" height="90">
+                            </div>
+                            <h3 itemprop="name"><?php echo aynix_translate('home.metodo.fase4_title'); ?></h3>
+                            <p itemprop="text"><?php echo aynix_translate('home.metodo.fase4_desc'); ?></p>
                         </article>
                     </div>
                 </div>

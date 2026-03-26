@@ -24,17 +24,19 @@ get_header();
             <section class="metodo-principio">
                 <h2><?php echo aynix_translate('metodo.principio.title'); ?></h2>
                 <div class="principio-content">
+                    <h3 class="principio-subtitle"><?php echo aynix_translate('metodo.principio.subtitle'); ?></h3>
                     <p class="lead-text"><?php echo aynix_translate('metodo.principio.text'); ?></p>
+                    <p class="principio-detail"><?php echo aynix_translate('metodo.principio.detail'); ?></p>
                 </div>
             </section>
 
-            <!-- 3 Fasi -->
+            <!-- 4 Fasi -->
             <section class="metodo-fasi">
                 <h2><?php echo aynix_translate('metodo.fasi.title'); ?></h2>
                 <div class="fasi-grid">
                     <div class="fase-card">
                         <div class="fase-icon">
-                            <i class="fas fa-search"></i>
+                            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/diagnosi/diagnosi.svg'); ?>" alt="Diagnosi" loading="lazy" width="90" height="90">
                         </div>
                         <div class="fase-content">
                             <h3><?php echo aynix_translate('metodo.fasi.fase1_title'); ?></h3>
@@ -49,7 +51,7 @@ get_header();
 
                     <div class="fase-card">
                         <div class="fase-icon">
-                            <i class="fas fa-drafting-compass"></i>
+                            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/diagnosi/analisi-tecnologica.svg'); ?>" alt="Analisi Tecnologica" loading="lazy" width="90" height="90">
                         </div>
                         <div class="fase-content">
                             <h3><?php echo aynix_translate('metodo.fasi.fase2_title'); ?></h3>
@@ -64,7 +66,7 @@ get_header();
 
                     <div class="fase-card">
                         <div class="fase-icon">
-                            <i class="fas fa-cogs"></i>
+                            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/diagnosi/progrettazione.svg'); ?>" alt="Progettazione" loading="lazy" width="90" height="90">
                         </div>
                         <div class="fase-content">
                             <h3><?php echo aynix_translate('metodo.fasi.fase3_title'); ?></h3>
@@ -76,6 +78,28 @@ get_header();
                             </ul>
                         </div>
                     </div>
+
+                    <div class="fase-card">
+                        <div class="fase-icon">
+                            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/diagnosi/implementazione.svg'); ?>" alt="Implementazione" loading="lazy" width="90" height="90">
+                        </div>
+                        <div class="fase-content">
+                            <h3><?php echo aynix_translate('metodo.fasi.fase4_title'); ?></h3>
+                            <p><?php echo aynix_translate('metodo.fasi.fase4_desc'); ?></p>
+                            <ul class="fase-list">
+                                <li><?php echo aynix_translate('metodo.fasi.fase4_point1'); ?></li>
+                                <li><?php echo aynix_translate('metodo.fasi.fase4_point2'); ?></li>
+                                <li><?php echo aynix_translate('metodo.fasi.fase4_point3'); ?></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Descripción del Método AYNIX -->
+            <section class="metodo-description">
+                <div class="method-description-box">
+                    <p class="metodo-desc-text"><?php echo aynix_translate('metodo.description'); ?></p>
                 </div>
             </section>
 
