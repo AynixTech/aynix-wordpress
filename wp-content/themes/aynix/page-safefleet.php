@@ -20,7 +20,7 @@ $sf_assets = get_template_directory_uri() . '/assets/images/safefleet';
             <div class="sf-hero-wave">
                 <div class="container sf-hero-claim">
                     <div class="sf-hero-claim-icon">
-                        <img src="<?php echo esc_url($sf_assets . '/icon-position.webp'); ?>" alt="Icono flota inteligente">
+                        <img src="<?php echo esc_url($sf_assets . '/logoandslogan.webp'); ?>" alt="Icono flota inteligente">
                     </div>
                     <p>La gestion de tu flota, mas inteligente.</p>
                 </div>

@@ -20,7 +20,7 @@
 #sf-product-page .sf-hero {
     position: relative;
     background: url('../images/safefleet/banner-safe-fleet.jpg') center/cover no-repeat;
-    min-height: 720px;
+    min-height: 540px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -39,7 +39,7 @@
 }
 
 #sf-product-page .sf-hero-inner {
-    padding: 98px 0 62px;
+    padding: 64px 0 40px;
 }
 
 #sf-product-page .sf-hero-card {
@@ -110,7 +110,7 @@
 #sf-product-page .sf-split {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    min-height: 600px;
+    min-height: 420px;
 }
 
 #sf-product-page .sf-split-light {
@@ -124,13 +124,14 @@
 }
 
 #sf-product-page .sf-col {
-    min-height: 600px;
+    min-height: 420px;
 }
 
 #sf-product-page .sf-col-content {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 2rem 1rem;
 }
 
 #sf-product-page .sf-content-wrap {
@@ -365,11 +366,11 @@
 
 @media (max-width: 768px) {
     #sf-product-page .sf-hero {
-        min-height: 580px;
+        min-height: 440px;
     }
 
     #sf-product-page .sf-hero-inner {
-        padding: 88px 0 36px;
+        padding: 56px 0 28px;
     }
 
     #sf-product-page .sf-hero-card {
