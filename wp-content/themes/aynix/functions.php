@@ -136,13 +136,83 @@ function aynix_add_translated_rewrite_rules() {
 add_action('init', 'aynix_add_translated_rewrite_rules');
 
 /**
+ * Mappa di pagine virtuali gestite via template file (senza Page nel backend)
+ */
+function aynix_get_virtual_page_templates() {
+    return [
+        'safe-fleet' => 'page-safefleet.php'
+    ];
+}
+
+/**
+ * Aggiungi rewrite rules per pagine virtuali
+ */
+function aynix_add_virtual_page_rewrite_rules() {
+    $virtual_pages = aynix_get_virtual_page_templates();
+
+    foreach ($virtual_pages as $slug => $template) {
+        add_rewrite_rule(
+            '^' . $slug . '/?$',
+            'index.php?aynix_virtual_page=' . $slug,
+            'top'
+        );
+    }
+}
+add_action('init', 'aynix_add_virtual_page_rewrite_rules');
+
+/**
+ * Registra query var per le pagine virtuali
+ */
+function aynix_register_virtual_page_query_var($vars) {
+    $vars[] = 'aynix_virtual_page';
+    return $vars;
+}
+add_filter('query_vars', 'aynix_register_virtual_page_query_var');
+
+/**
+ * Carica il template corretto per le pagine virtuali
+ */
+function aynix_virtual_page_template_include($template) {
+    $virtual_slug = get_query_var('aynix_virtual_page');
+    if (!$virtual_slug) {
+        return $template;
+    }
+
+    $virtual_pages = aynix_get_virtual_page_templates();
+    if (!isset($virtual_pages[$virtual_slug])) {
+        return $template;
+    }
+
+    $virtual_template = locate_template($virtual_pages[$virtual_slug]);
+    return $virtual_template ?: $template;
+}
+add_filter('template_include', 'aynix_virtual_page_template_include');
+
+/**
  * Flush rewrite rules all'attivazione del tema
  */
 function aynix_flush_rewrite_rules() {
     aynix_add_translated_rewrite_rules();
+    aynix_add_virtual_page_rewrite_rules();
     flush_rewrite_rules();
 }
 add_action('after_switch_theme', 'aynix_flush_rewrite_rules');
+
+/**
+ * Flush una tantum quando cambiano regole rewrite del tema
+ */
+function aynix_maybe_flush_rewrite_rules() {
+    $rewrite_version = '2026-03-26-virtual-pages-v1';
+    if (get_option('aynix_rewrite_version') === $rewrite_version) {
+        return;
+    }
+
+    aynix_add_translated_rewrite_rules();
+    aynix_add_virtual_page_rewrite_rules();
+    flush_rewrite_rules(false);
+    update_option('aynix_rewrite_version', $rewrite_version);
+}
+add_action('init', 'aynix_maybe_flush_rewrite_rules', 20);
 
 /**
  * Caricamento script e stili
