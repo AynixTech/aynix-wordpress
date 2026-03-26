@@ -4,169 +4,125 @@
  * Description: Pagina dedicata all'esperienza SafeFleet
  */
 get_header();
+$sf_assets = get_template_directory_uri() . '/assets/images/safefleet';
 ?>
 
 <main>
     <div id="sf-product-page" class="page-layout safefleet-page">
-        <!-- Hero Section -->
-        <section class="safefleet-hero">
-            <div class="container">
-                <div class="hero-content">
-                    <div class="safefleet-logo">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/safefleet/safefleet-logo.png" alt="SafeFleet">
+        <section class="sf-hero">
+            <div class="sf-hero-overlay"></div>
+            <div class="container sf-hero-inner">
+                <div class="sf-hero-card">
+                    <h1><span>Safe</span>Fleet</h1>
+                    <p>Safe Fleet es una plataforma modular para la gestion integrada de flotas y recursos humanos. Cada modulo puede activarse por separado, garantizando flexibilidad, eficiencia y escalabilidad.</p>
+                </div>
+            </div>
+            <div class="sf-hero-wave">
+                <div class="container sf-hero-claim">
+                    <div class="sf-hero-claim-icon">
+                        <img src="<?php echo esc_url($sf_assets . '/icon-position.webp'); ?>" alt="Icono flota inteligente">
                     </div>
-                    <h1>SafeFleet</h1>
-                    <p class="hero-subtitle">Safe Fleet es una plataforma modular para la gestión integrada de flotas y recursos humanos. Cada módulo puede activarse por separado, garantizando flexibilidad, eficiencia y escalabilidad.</p>
-                    <div class="hero-tags">
-                        <span class="tag">Panel principal</span>
-                        <span class="tag">Asistencias</span>
-                        <span class="tag">Usuarios</span>
-                        <span class="tag">Vehículos</span>
-                        <span class="tag">Calendario</span>
+                    <p>La gestion de tu flota, mas inteligente.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="sf-how">
+            <div class="sf-split sf-split-light">
+                <div class="sf-col sf-col-content">
+                    <div class="sf-content-wrap">
+                        <h2>Como funciona?</h2>
+                        <p class="sf-subtitle">Safe Fleet opera como una plataforma de gestion integrada (All-in-One).</p>
+                        <ul class="sf-feature-box">
+                            <li><strong>Panel principal:</strong> vision general de usuarios, vehiculos y asistencias.</li>
+                            <li><strong>Asistencias:</strong> control diario con graficos y filtros.</li>
+                            <li><strong>Usuarios:</strong> creacion, edicion y roles del personal.</li>
+                            <li><strong>Vehiculos:</strong> registro y control de flota.</li>
+                            <li><strong>Calendario:</strong> planificacion mensual y anual, exportacion Excel.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="sf-col sf-col-media sf-dark-panel">
+                    <p class="sf-media-caption">Safe<span>Fleet</span></p>
+                    <img src="<?php echo esc_url($sf_assets . '/image-middle.jpeg'); ?>" alt="Panel de SafeFleet">
+                </div>
+            </div>
+        </section>
+
+        <section class="sf-problems">
+            <div class="sf-split sf-split-dark">
+                <div class="sf-col sf-col-media">
+                    <img src="<?php echo esc_url($sf_assets . '/safefleet-screenshot-4.png'); ?>" alt="Problemas operativos de flota">
+                </div>
+                <div class="sf-col sf-col-content">
+                    <div class="sf-content-wrap">
+                        <h2>Que problemas resuelve?</h2>
+                        <p class="sf-subtitle">Conductores y administradores pierden tiempo con papeleo y comunicaciones ineficientes.</p>
+                        <div class="sf-problem-grid">
+                            <article class="sf-problem-item">
+                                <img src="<?php echo esc_url($sf_assets . '/icon-position.webp'); ?>" alt="Icono trazabilidad">
+                                <h3>Escasa <span>trazabilidad</span> de la flota</h3>
+                            </article>
+                            <article class="sf-problem-item">
+                                <img src="<?php echo esc_url($sf_assets . '/icon-problems.webp'); ?>" alt="Icono asistencias y permisos">
+                                <h3>Control manual de <span>asistencias y permisos</span></h3>
+                            </article>
+                            <article class="sf-problem-item">
+                                <img src="<?php echo esc_url($sf_assets . '/icon-expired.webp'); ?>" alt="Icono documentos vencidos">
+                                <h3><span>Documentos vencidos</span>: multas y bloqueos</h3>
+                            </article>
+                            <article class="sf-problem-item">
+                                <img src="<?php echo esc_url($sf_assets . '/icon-lento.webp'); ?>" alt="Icono soporte administrativo lento">
+                                <h3><span>Soporte</span> administrativo lento</h3>
+                            </article>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <div class="container">
-            <!-- Overview Section -->
-            <section class="safefleet-overview">
-                <h2>¿Cómo funciona?</h2>
-                <p class="lead-text">Safe Fleet opera como una plataforma de gestión integrada (All-in-One).</p>
-            </section>
-
-            <!-- Problem Section -->
-            <section class="safefleet-section">
-                <div class="section-content">
-                    <div class="section-icon problema-icon">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </div>
-                    <h2>¿Qué problemas resuelve?</h2>
-                    <p>Conductores y administradores pierden tiempo con papeleo y comunicaciones ineficientes.</p>
-                    <ul class="feature-list">
-                        <li>Escasa trazabilidad de la flota.</li>
-                        <li>Control manual de asistencias y permisos.</li>
-                        <li>Documentos vencidos: multas y bloqueos.</li>
-                        <li>Soporte administrativo lento.</li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- Solution Section -->
-            <section class="safefleet-section safefleet-solution">
-                <div class="section-content">
-                    <div class="section-icon soluzione-icon">
-                        <i class="fas fa-lightbulb"></i>
-                    </div>
-                    <h2>Solución</h2>
-                    <p>Una introducción modular que conecta operación diaria, control documental y automatización para flotas de cualquier tamaño.</p>
-                </div>
-            </section>
-
-            <!-- Features Grid -->
-            <section class="safefleet-features">
-                <h2>Módulos principales</h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-id-card"></i>
+        <section class="sf-solution">
+            <div class="sf-split sf-split-light">
+                <div class="sf-col sf-col-content">
+                    <div class="sf-content-wrap">
+                        <h2>Solucion</h2>
+                        <p class="sf-subtitle">(introduccion a los modulos)</p>
+                        <div class="sf-module-grid">
+                            <article class="sf-module-item">
+                                <img src="<?php echo esc_url($sf_assets . '/icon-folders.webp'); ?>" alt="Icono modulo documentos">
+                                <h3><span>Modulo 1</span> - Gestion proactiva de documentos</h3>
+                            </article>
+                            <article class="sf-module-item">
+                                <img src="<?php echo esc_url($sf_assets . '/icon-support.webp'); ?>" alt="Icono modulo asistencias">
+                                <h3><span>Modulo 2</span> - Asistencias digitales</h3>
+                            </article>
+                            <article class="sf-module-item">
+                                <img src="<?php echo esc_url($sf_assets . '/icon-timecarmoney.webp'); ?>" alt="Icono modulo inventario">
+                                <h3><span>Modulo 3</span> - Inventario Digital de la Flota</h3>
+                            </article>
+                            <article class="sf-module-item">
+                                <img src="<?php echo esc_url($sf_assets . '/icon-chatai.webp'); ?>" alt="Icono modulo asistente IA">
+                                <h3><span>Modulo 4</span> - Asistente IA (Chatbot)</h3>
+                            </article>
                         </div>
-                        <h3>Módulo 1</h3>
-                        <p>Gestión proactiva de documentos.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-calendar-check"></i>
-                        </div>
-                        <h3>Módulo 2</h3>
-                        <p>Asistencias digitales con filtros y métricas.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-life-ring"></i>
-                        </div>
-                        <h3>Módulo 3</h3>
-                        <p>Inventario digital de la flota y control operativo.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-truck"></i>
-                        </div>
-                        <h3>Módulo 4</h3>
-                        <p>Asistente IA (chatbot) para respuestas y seguimiento.</p>
                     </div>
                 </div>
-            </section>
-
-            <!-- Screenshots Section -->
-            <section class="safefleet-screenshots">
-                <h2>Visión de la plataforma</h2>
-                <div class="screenshots-grid">
-                    <div class="screenshot-item">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/safefleet/safefleet-screenshot-1.png" alt="SafeFleet Dashboard">
-                        <p>Panel principal: usuarios, vehículos y asistencias.</p>
-                    </div>
-                    <div class="screenshot-item">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/safefleet/safefleet-screenshot-2.png" alt="SafeFleet Driver Management">
-                        <p>Asistencias digitales y control diario.</p>
-                    </div>
-                    <div class="screenshot-item">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/safefleet/safefleet-screenshot-3.png" alt="SafeFleet Tire Management">
-                        <p>Gestión documental y vencimientos en tiempo real.</p>
-                    </div>
-                    <div class="screenshot-item">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/safefleet/safefleet-screenshot-4.png" alt="SafeFleet Vehicle Control">
-                        <p>Inventario de flota y seguimiento inteligente.</p>
-                    </div>
+                <div class="sf-col sf-col-media">
+                    <img src="<?php echo esc_url($sf_assets . '/imagen-bottom.png'); ?>" alt="Oficina de control de flota">
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Results Section -->
-            <section class="safefleet-results">
-                <h2>La gestión de tu flota, más inteligente</h2>
-                <div class="results-grid">
-                    <div class="result-card">
-                        <div class="result-icon">
-                            <i class="fas fa-eye"></i>
-                        </div>
-                        <h3>Visibilidad completa</h3>
-                        <p>Datos centralizados para decisiones rápidas.</p>
-                    </div>
-                    <div class="result-card">
-                        <div class="result-icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <h3>Procesos ordenados</h3>
-                        <p>Menos tareas manuales y más control operativo.</p>
-                    </div>
-                    <div class="result-card">
-                        <div class="result-icon">
-                            <i class="fas fa-cog"></i>
-                        </div>
-                        <h3>Automatización real</h3>
-                        <p>Alertas, seguimiento y trazabilidad en un solo flujo.</p>
-                    </div>
-                    <div class="result-card">
-                        <div class="result-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <h3>Ahorro de tiempo</h3>
-                        <p>Más foco en operación y menos fricción administrativa.</p>
-                    </div>
+        <section class="sf-cta">
+            <div class="container">
+                <div class="sf-cta-box">
+                    <h2>Solicita tu diagnostico personalizado</h2>
+                    <p>Analizamos tu operacion y disenamos una solucion tecnologica adaptada a las necesidades reales de tu empresa.</p>
+                    <a href="<?php echo esc_url(aynix_get_translated_url('diagnosi')); ?>" class="sf-cta-btn">Iniciar Diagnostico</a>
+                    <small>10 min · Sin coste · Sin venta</small>
                 </div>
-            </section>
-
-            <!-- CTA Demo -->
-            <section class="safefleet-cta">
-                <div class="cta-box">
-                    <h2>Solicita tu diagnóstico personalizado</h2>
-                    <p>Analizamos tu operación y diseñamos una solución tecnológica adaptada a las necesidades reales de tu empresa.</p>
-                    <a href="<?php echo esc_url(aynix_get_translated_url('diagnosi')); ?>" class="btn-primary btn-large">
-                        Iniciar Diagnóstico
-                    </a>
-                </div>
-            </section>
-        </div>
+            </div>
+        </section>
     </div>
 </main>
 

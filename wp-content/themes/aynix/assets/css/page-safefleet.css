@@ -1,453 +1,442 @@
-/* SafeFleet Page Styles */
+/* SafeFleet Page Styles - New Graphic */
 
 #sf-product-page {
-    --safefleet-primary: #49e682;
-    --safefleet-secondary: #25cb61;
-    --safefleet-accent: #7bffab;
-    --safefleet-dark: #30323a;
-    --safefleet-dark-2: #23252b;
-    --safefleet-light: #f1f2ed;
+    --sf-primary: #4ce883;
+    --sf-primary-2: #2bd067;
+    --sf-dark: #34363c;
+    --sf-dark-2: #2a2c31;
+    --sf-light: #eeeee9;
+    --sf-text: #3f4046;
+    --sf-white: #ffffff;
+    --sf-radius-lg: 30px;
 }
 
 #sf-product-page.safefleet-page {
-    background: #ffffff;
+    background: var(--sf-white);
+    width: 100%;
     overflow-x: clip;
-    width: 100%;
 }
 
-#sf-product-page .safefleet-page h2,
-#sf-product-page h2 {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 30px;
-    color: var(--safefleet-dark);
-}
-
-/* Hero Section */
-#sf-product-page .safefleet-hero {
+#sf-product-page .sf-hero {
     position: relative;
+    background: url('../images/safefleet/banner-safe-fleet.jpg') center/cover no-repeat;
+    min-height: 720px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-#sf-product-page .safefleet-hero {
-    background: linear-gradient(120deg, rgba(35, 37, 43, 0.94), rgba(35, 37, 43, 0.88)),
-        url('../images/safefleet/safefleet-screenshot-1.png') center/cover no-repeat;
-    color: white;
-    padding: 96px 20px 78px;
-    text-align: center;
-    overflow: hidden;
-}
-
-#sf-product-page .safefleet-hero::before {
-    content: '';
+#sf-product-page .sf-hero-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="none"/><path d="M0 50 Q 25 25, 50 50 T 100 50" stroke="rgba(255,255,255,0.1)" fill="none" stroke-width="2"/></svg>');
-    opacity: 0.3;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(20, 22, 27, 0.74), rgba(20, 22, 27, 0.55));
 }
 
-
-#sf-product-page .safefleet-logo {
-    margin-bottom: 30px;
+#sf-product-page .sf-hero-inner,
+#sf-product-page .sf-hero-wave {
+    position: relative;
+    z-index: 2;
 }
 
-#sf-product-page .safefleet-logo img {
-    height: 80px;
-    width: auto;
-    filter: none;
+#sf-product-page .sf-hero-inner {
+    padding: 98px 0 62px;
 }
 
-#sf-product-page .safefleet-hero h1 {
-    font-size: 3.5rem;
+#sf-product-page .sf-hero-card {
+    max-width: 760px;
+    background: rgba(52, 54, 60, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 22px;
+    backdrop-filter: blur(6px);
+    padding: 30px 34px;
+    color: var(--sf-white);
+}
+
+#sf-product-page .sf-hero-card h1 {
+    margin: 0 0 12px;
+    font-size: 3rem;
     font-weight: 700;
-    margin-bottom: 20px;
-    line-height: 1.2;
-    color: var(--safefleet-primary);
+    line-height: 1;
 }
 
-#sf-product-page .safefleet-hero .hero-subtitle {
-    font-size: 1.4rem;
-    font-weight: 400;
-    opacity: 0.95;
-    margin-bottom: 30px;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+#sf-product-page .sf-hero-card h1 span {
+    color: var(--sf-primary);
 }
 
-#sf-product-page .hero-tags {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 30px;
-}
-
-#sf-product-page .hero-tags .tag {
-    background: rgba(73, 230, 130, 0.2);
-    backdrop-filter: blur(10px);
-    padding: 10px 20px;
-    border-radius: 25px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    border: 1px solid rgba(73, 230, 130, 0.45);
-}
-
-/* Overview Section */
-#sf-product-page .safefleet-overview {
-    padding: 80px 1rem;
-    text-align: center;
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-#sf-product-page .safefleet-overview .lead-text {
-    font-size: 1.5rem;
-    line-height: 1.9;
-    color: #444;
-    font-weight: 400;
-    background: white;
-    padding: 50px 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-}
-
-/* Section Styles */
-#sf-product-page .safefleet-section {
-    padding: 60px 1rem;
-    margin-bottom: 40px;
-}
-
-#sf-product-page .section-content {
-    max-width: 900px;
-    margin: 0 auto;
-    background: white;
-    padding: 50px 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-}
-
-#sf-product-page .section-icon {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 30px;
-}
-
-#sf-product-page .problema-icon {
-    background: linear-gradient(135deg, #ef4444, #dc2626);
-}
-
-#sf-product-page .soluzione-icon {
-    background: linear-gradient(135deg, var(--safefleet-primary), var(--safefleet-secondary));
-}
-
-#sf-product-page .section-icon i {
-    font-size: 2.5rem;
-    color: white;
-}
-
-#sf-product-page .section-content h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    color: var(--safefleet-dark);
-}
-
-#sf-product-page .section-content p {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    color: #555;
-    margin-bottom: 20px;
-}
-
-#sf-product-page .feature-list {
-    list-style: none;
-    padding: 0;
-    margin-top: 30px;
-}
-
-#sf-product-page .feature-list li {
-    padding: 15px 0 15px 40px;
-    position: relative;
-    font-size: 1.1rem;
-    color: #444;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-#sf-product-page .feature-list li:last-child {
-    border-bottom: none;
-}
-
-#sf-product-page .feature-list li::before {
-    content: '✓';
-    position: absolute;
-    left: 0;
-    color: var(--safefleet-primary);
-    font-weight: bold;
-    font-size: 1.5rem;
-}
-
-/* Features Grid */
-#sf-product-page .safefleet-features {
-    padding: 80px 1rem;
-}
-
-#sf-product-page .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    margin-top: 40px;
-}
-
-#sf-product-page .feature-card {
-    background: white;
-    padding: 40px 30px;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
-    text-align: center;
-    border-top: 4px solid var(--safefleet-primary);
-}
-
-#sf-product-page .feature-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(81, 232, 125, 0.3);
-}
-
-#sf-product-page .feature-icon {
-    width: 70px;
-    height: 70px;
-    background: linear-gradient(135deg, var(--safefleet-primary), var(--safefleet-accent));
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 20px;
-}
-
-#sf-product-page .feature-icon i {
-    font-size: 2rem;
-    color: white;
-}
-
-#sf-product-page .feature-card h3 {
-    font-size: 1.4rem;
-    color: var(--safefleet-dark);
-    margin-bottom: 15px;
-}
-
-#sf-product-page .feature-card p {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #666;
-}
-
-/* Screenshots Section */
-#sf-product-page .safefleet-screenshots {
-    padding: 80px 1rem;
-    background: var(--safefleet-dark);
-}
-
-#sf-product-page .screenshots-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 40px;
-    margin-top: 40px;
-}
-
-#sf-product-page .screenshot-item {
-    background: white;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
-
-#sf-product-page .screenshot-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 50px rgba(81, 232, 125, 0.3);
-}
-
-#sf-product-page .screenshot-item img {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-bottom: 3px solid var(--safefleet-primary);
-}
-
-#sf-product-page .screenshot-item p {
-    padding: 20px;
-    font-size: 1rem;
-    color: #555;
-    text-align: center;
+#sf-product-page .sf-hero-card p {
     margin: 0;
+    font-size: 1.2rem;
+    line-height: 1.45;
+    opacity: 0.96;
+    max-width: 620px;
 }
 
-/* Results Section */
-#sf-product-page .safefleet-results {
-    padding: 80px 1rem;
-    background: var(--safefleet-light);
+#sf-product-page .sf-hero-wave {
+    background: var(--sf-dark);
+    padding: 38px 0 28px;
+    border-top-left-radius: 55% 84px;
+    border-top-right-radius: 55% 84px;
+    transform: translateY(1px);
 }
 
-#sf-product-page .results-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 30px;
-    margin-top: 40px;
+#sf-product-page .sf-hero-claim {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 14px;
+    color: var(--sf-white);
 }
 
-#sf-product-page .result-card {
-    background: white;
-    padding: 35px 25px;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-    text-align: center;
-    border: 2px solid #51E87D;
-    transition: all 0.3s ease;
-}
-
-#sf-product-page .result-card:hover {
-    border-color: var(--safefleet-primary);
-    background: linear-gradient(135deg, #ffffff 0%, #f0fff4 100%);
-    transform: translateY(-5px);
-}
-
-#sf-product-page .result-icon {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, var(--safefleet-primary), var(--safefleet-accent));
-    border-radius: 50%;
+#sf-product-page .sf-hero-claim-icon {
+    width: 64px;
+    height: 64px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 20px;
 }
 
-#sf-product-page .result-icon i {
-    font-size: 1.8rem;
-    color: white;
+#sf-product-page .sf-hero-claim-icon img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
 }
 
-#sf-product-page .result-card h3 {
-    font-size: 1.3rem;
-    color: var(--safefleet-dark);
-    margin-bottom: 12px;
+#sf-product-page .sf-hero-claim p {
+    margin: 0;
+    font-size: 2rem;
+    line-height: 1.1;
 }
 
-#sf-product-page .result-card p {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #666;
+#sf-product-page .sf-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 600px;
 }
 
-/* CTA Section */
-#sf-product-page .safefleet-cta {
-    padding: 80px 0;
+#sf-product-page .sf-split-light {
+    background: var(--sf-light);
+    color: var(--sf-text);
 }
 
-#sf-product-page .safefleet-cta h2 {
-    color: white;
+#sf-product-page .sf-split-dark {
+    background: var(--sf-dark);
+    color: var(--sf-white);
 }
 
-#sf-product-page .cta-box {
-    background: var(--safefleet-dark-2);
-    border: 1px solid rgba(73, 230, 130, 0.28);
+#sf-product-page .sf-col {
+    min-height: 600px;
 }
 
-#sf-product-page .cta-box p {
-    color: rgba(255, 255, 255, 0.9);
+#sf-product-page .sf-col-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#sf-product-page .btn-primary {
-    background: linear-gradient(135deg, var(--safefleet-primary), var(--safefleet-secondary));
-    border: none;
-    color: var(--safefleet-dark-2);
+#sf-product-page .sf-content-wrap {
+    width: min(540px, 88%);
+}
+
+#sf-product-page h2 {
+    margin: 0;
+    font-size: 2.9rem;
+    line-height: 1.06;
     font-weight: 700;
 }
 
-/* Responsive */
-@media (max-width: 992px) {
-    #sf-product-page .safefleet-hero h1 {
-        font-size: 2.8rem;
+#sf-product-page .sf-subtitle {
+    margin: 14px 0 0;
+    font-size: 2.05rem;
+    line-height: 1.3;
+}
+
+#sf-product-page .sf-feature-box {
+    margin: 30px 0 0;
+    list-style: none;
+    background: var(--sf-primary);
+    border-radius: 18px;
+    padding: 26px;
+}
+
+#sf-product-page .sf-feature-box li {
+    position: relative;
+    margin: 0 0 10px;
+    padding-left: 30px;
+    font-size: 1.25rem;
+    line-height: 1.25;
+}
+
+#sf-product-page .sf-feature-box li:last-child {
+    margin-bottom: 0;
+}
+
+#sf-product-page .sf-feature-box li::before {
+    content: '\f058';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: #198f48;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+#sf-product-page .sf-feature-box strong {
+    color: #0f7d3f;
+}
+
+#sf-product-page .sf-col-media {
+    position: relative;
+    overflow: hidden;
+}
+
+#sf-product-page .sf-col-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+#sf-product-page .sf-dark-panel {
+    background: #090a0f;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#sf-product-page .sf-media-caption {
+    color: #ffffff;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 20px 0 10px;
+}
+
+#sf-product-page .sf-media-caption span {
+    color: var(--sf-primary);
+}
+
+#sf-product-page .sf-dark-panel img {
+    object-fit: contain;
+    padding: 20px 26px 26px;
+}
+
+#sf-product-page .sf-problem-grid {
+    margin-top: 36px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 20px;
+}
+
+#sf-product-page .sf-problem-item {
+    text-align: center;
+}
+
+#sf-product-page .sf-problem-item img {
+    width: 78px;
+    height: 78px;
+    object-fit: contain;
+    margin-bottom: 14px;
+    filter: grayscale(1) brightness(3);
+}
+
+#sf-product-page .sf-problem-item h3 {
+    margin: 0;
+    font-size: 1.35rem;
+    line-height: 1.2;
+    font-weight: 400;
+}
+
+#sf-product-page .sf-problem-item h3 span {
+    color: var(--sf-primary);
+    font-weight: 700;
+}
+
+#sf-product-page .sf-module-grid {
+    margin-top: 36px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 26px;
+}
+
+#sf-product-page .sf-module-item {
+    text-align: center;
+}
+
+#sf-product-page .sf-module-item img {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    margin-bottom: 10px;
+    filter: grayscale(1) contrast(0.75);
+}
+
+#sf-product-page .sf-module-item h3 {
+    margin: 0;
+    font-size: 1.28rem;
+    line-height: 1.22;
+    color: var(--sf-text);
+    font-weight: 400;
+}
+
+#sf-product-page .sf-module-item h3 span {
+    color: #1aa14f;
+    font-weight: 700;
+}
+
+#sf-product-page .sf-cta {
+    background: var(--sf-dark);
+    padding: 42px 0 52px;
+}
+
+#sf-product-page .sf-cta-box {
+    max-width: 760px;
+    color: var(--sf-white);
+}
+
+#sf-product-page .sf-cta-box h2 {
+    margin: 0;
+    color: var(--sf-white);
+    font-size: 3rem;
+    text-align: left;
+}
+
+#sf-product-page .sf-cta-box p {
+    margin: 10px 0 0;
+    font-size: 1.45rem;
+    line-height: 1.35;
+    opacity: 0.95;
+}
+
+#sf-product-page .sf-cta-btn {
+    display: inline-block;
+    margin-top: 20px;
+    background: var(--sf-primary);
+    color: #0d4932;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.2rem;
+    padding: 12px 28px;
+    border-radius: 14px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+#sf-product-page .sf-cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 20px rgba(76, 232, 131, 0.32);
+}
+
+#sf-product-page .sf-cta-box small {
+    display: block;
+    margin-top: 8px;
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+@media (max-width: 1080px) {
+    #sf-product-page .sf-split {
+        grid-template-columns: 1fr;
     }
-    
-    #sf-product-page .safefleet-hero .hero-subtitle {
-        font-size: 1.2rem;
+
+    #sf-product-page .sf-col {
+        min-height: auto;
     }
-    
-    #sf-product-page h2 {
-        font-size: 2rem;
+
+    #sf-product-page .sf-col-media {
+        min-height: 360px;
     }
-    
-    #sf-product-page .features-grid,
-    #sf-product-page .results-grid {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+    #sf-product-page .sf-media-caption {
+        margin-top: 26px;
+    }
+
+    #sf-product-page .sf-problems .sf-col-media {
+        order: 2;
+    }
+
+    #sf-product-page .sf-problems .sf-col-content {
+        order: 1;
+    }
+
+    #sf-product-page .sf-content-wrap {
+        width: min(700px, 90%);
+        padding: 52px 0;
     }
 }
 
 @media (max-width: 768px) {
-    #sf-product-page .safefleet-hero {
-        padding: 80px 20px 60px;
+    #sf-product-page .sf-hero {
+        min-height: 580px;
     }
-    
-    #sf-product-page .safefleet-hero h1 {
-        font-size: 2.2rem;
+
+    #sf-product-page .sf-hero-inner {
+        padding: 88px 0 36px;
     }
-    
-    #sf-product-page .safefleet-hero .hero-subtitle {
-        font-size: 1.1rem;
+
+    #sf-product-page .sf-hero-card {
+        padding: 24px;
     }
-    
-    #sf-product-page .safefleet-logo img {
-        height: 60px;
-    }
-    
-    #sf-product-page .hero-tags .tag {
-        font-size: 0.85rem;
-        padding: 8px 15px;
-    }
-    
+
+    #sf-product-page .sf-hero-card h1,
     #sf-product-page h2 {
-        font-size: 1.8rem;
+        font-size: 2.7rem;
     }
-    
-    #sf-product-page .safefleet-overview,
-    #sf-product-page .safefleet-section,
-    #sf-product-page .safefleet-features,
-    #sf-product-page .safefleet-screenshots,
-    #sf-product-page .safefleet-results {
-        padding: 40px 0.75rem;
+
+    #sf-product-page .sf-hero-card p,
+    #sf-product-page .sf-subtitle {
+        font-size: 1.15rem;
     }
-    
-    #sf-product-page .section-content,
-    #sf-product-page .safefleet-overview .lead-text {
-        padding: 30px 20px;
+
+    #sf-product-page .sf-media-caption {
+        font-size: 1.9rem;
     }
-    
-    #sf-product-page .features-grid,
-    #sf-product-page .screenshots-grid,
-    #sf-product-page .results-grid {
+
+    #sf-product-page .sf-feature-box li,
+    #sf-product-page .sf-problem-item h3,
+    #sf-product-page .sf-module-item h3,
+    #sf-product-page .sf-cta-box p {
+        font-size: 1rem;
+    }
+
+    #sf-product-page .sf-problem-grid,
+    #sf-product-page .sf-module-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
+    }
+
+    #sf-product-page .sf-hero-claim {
+        justify-content: center;
+        text-align: center;
+    }
+
+    #sf-product-page .sf-hero-wave {
+        border-top-left-radius: 50% 56px;
+        border-top-right-radius: 50% 56px;
+        padding: 34px 0 26px;
+    }
+
+    #sf-product-page .sf-cta-box h2 {
+        font-size: 2.3rem;
     }
 }
 
 @media (max-width: 480px) {
-    #sf-product-page .safefleet-hero h1 {
-        font-size: 1.8rem;
+    #sf-product-page .sf-hero-card h1,
+    #sf-product-page h2 {
+        font-size: 2.2rem;
     }
-    
-    #sf-product-page .hero-tags {
-        gap: 10px;
+
+    #sf-product-page .sf-hero-card p,
+    #sf-product-page .sf-subtitle {
+        font-size: 1.05rem;
     }
-    
-    #sf-product-page .hero-tags .tag {
-        font-size: 0.8rem;
-        padding: 6px 12px;
+
+    #sf-product-page .sf-feature-box {
+        padding: 18px;
+    }
+
+    #sf-product-page .sf-feature-box li,
+    #sf-product-page .sf-problem-item h3,
+    #sf-product-page .sf-module-item h3,
+    #sf-product-page .sf-cta-box p {
+        font-size: 0.95rem;
     }
 }
