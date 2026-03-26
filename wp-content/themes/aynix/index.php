@@ -99,6 +99,7 @@
                             <p itemprop="text"><?php echo aynix_translate('home.metodo.fase4_desc'); ?></p>
                         </article>
                     </div>
+                    <p class="metodo-home-description"><?php echo aynix_translate('metodo.description'); ?></p>
                 </div>
             </div>
         </section>
