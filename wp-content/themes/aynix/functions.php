@@ -189,6 +189,40 @@ function aynix_virtual_page_template_include($template) {
 add_filter('template_include', 'aynix_virtual_page_template_include');
 
 /**
+ * Fallback: serve pagine virtuali anche se rewrite non aggiornate
+ */
+function aynix_render_virtual_page_fallback() {
+    if (is_admin() || !is_404()) {
+        return;
+    }
+
+    $request_uri = $_SERVER['REQUEST_URI'] ?? '';
+    $request_path = trim((string) parse_url($request_uri, PHP_URL_PATH), '/');
+
+    $site_path = trim((string) parse_url(home_url('/'), PHP_URL_PATH), '/');
+    if ($site_path !== '' && strpos($request_path, $site_path . '/') === 0) {
+        $request_path = substr($request_path, strlen($site_path) + 1);
+    } elseif ($site_path !== '' && $request_path === $site_path) {
+        $request_path = '';
+    }
+
+    $virtual_pages = aynix_get_virtual_page_templates();
+    if (!isset($virtual_pages[$request_path])) {
+        return;
+    }
+
+    $virtual_template = locate_template($virtual_pages[$request_path]);
+    if (!$virtual_template) {
+        return;
+    }
+
+    status_header(200);
+    include $virtual_template;
+    exit;
+}
+add_action('template_redirect', 'aynix_render_virtual_page_fallback', 1);
+
+/**
  * Flush rewrite rules all'attivazione del tema
  */
 function aynix_flush_rewrite_rules() {
