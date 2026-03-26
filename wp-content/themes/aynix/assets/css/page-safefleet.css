@@ -1,19 +1,22 @@
 /* SafeFleet Page Styles */
 
-:root {
-    --safefleet-primary: #51E87D;
-    --safefleet-secondary: #3dd46d;
-    --safefleet-accent: #6bff8f;
-    --safefleet-dark: #1e293b;
+#sf-product-page {
+    --safefleet-primary: #49e682;
+    --safefleet-secondary: #25cb61;
+    --safefleet-accent: #7bffab;
+    --safefleet-dark: #30323a;
+    --safefleet-dark-2: #23252b;
+    --safefleet-light: #f1f2ed;
 }
 
-.safefleet-page {
+#sf-product-page.safefleet-page {
     background: #ffffff;
     overflow-x: clip;
     width: 100%;
 }
 
-.safefleet-page h2 {
+#sf-product-page .safefleet-page h2,
+#sf-product-page h2 {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 30px;
@@ -21,16 +24,20 @@
 }
 
 /* Hero Section */
-.safefleet-hero {
-    background: linear-gradient(135deg, var(--safefleet-primary), var(--safefleet-secondary));
-    color: white;
-    padding: 100px 20px 80px;
-    text-align: center;
+#sf-product-page .safefleet-hero {
     position: relative;
+}
+
+#sf-product-page .safefleet-hero {
+    background: linear-gradient(120deg, rgba(35, 37, 43, 0.94), rgba(35, 37, 43, 0.88)),
+        url('../images/safefleet/safefleet-screenshot-1.png') center/cover no-repeat;
+    color: white;
+    padding: 96px 20px 78px;
+    text-align: center;
     overflow: hidden;
 }
 
-.safefleet-hero::before {
+#sf-product-page .safefleet-hero::before {
     content: '';
     position: absolute;
     top: 0;
@@ -42,24 +49,25 @@
 }
 
 
-.safefleet-logo {
+#sf-product-page .safefleet-logo {
     margin-bottom: 30px;
 }
 
-.safefleet-logo img {
+#sf-product-page .safefleet-logo img {
     height: 80px;
     width: auto;
-    filter: brightness(0) invert(1);
+    filter: none;
 }
 
-.safefleet-hero h1 {
+#sf-product-page .safefleet-hero h1 {
     font-size: 3.5rem;
     font-weight: 700;
     margin-bottom: 20px;
     line-height: 1.2;
+    color: var(--safefleet-primary);
 }
 
-.safefleet-hero .hero-subtitle {
+#sf-product-page .safefleet-hero .hero-subtitle {
     font-size: 1.4rem;
     font-weight: 400;
     opacity: 0.95;
@@ -69,7 +77,7 @@
     margin-right: auto;
 }
 
-.hero-tags {
+#sf-product-page .hero-tags {
     display: flex;
     gap: 15px;
     justify-content: center;
@@ -77,25 +85,25 @@
     margin-top: 30px;
 }
 
-.hero-tags .tag {
-    background: rgba(255, 255, 255, 0.2);
+#sf-product-page .hero-tags .tag {
+    background: rgba(73, 230, 130, 0.2);
     backdrop-filter: blur(10px);
     padding: 10px 20px;
     border-radius: 25px;
     font-size: 0.95rem;
-    font-weight: 500;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-weight: 600;
+    border: 1px solid rgba(73, 230, 130, 0.45);
 }
 
 /* Overview Section */
-.safefleet-overview {
+#sf-product-page .safefleet-overview {
     padding: 80px 1rem;
     text-align: center;
     max-width: 900px;
     margin: 0 auto;
 }
 
-.safefleet-overview .lead-text {
+#sf-product-page .safefleet-overview .lead-text {
     font-size: 1.5rem;
     line-height: 1.9;
     color: #444;
@@ -107,12 +115,12 @@
 }
 
 /* Section Styles */
-.safefleet-section {
+#sf-product-page .safefleet-section {
     padding: 60px 1rem;
     margin-bottom: 40px;
 }
 
-.section-content {
+#sf-product-page .section-content {
     max-width: 900px;
     margin: 0 auto;
     background: white;
@@ -121,7 +129,7 @@
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
 }
 
-.section-icon {
+#sf-product-page .section-icon {
     width: 80px;
     height: 80px;
     border-radius: 50%;
@@ -131,39 +139,39 @@
     margin: 0 auto 30px;
 }
 
-.problema-icon {
+#sf-product-page .problema-icon {
     background: linear-gradient(135deg, #ef4444, #dc2626);
 }
 
-.soluzione-icon {
-    background: linear-gradient(135deg, #10b981, #059669);
+#sf-product-page .soluzione-icon {
+    background: linear-gradient(135deg, var(--safefleet-primary), var(--safefleet-secondary));
 }
 
-.section-icon i {
+#sf-product-page .section-icon i {
     font-size: 2.5rem;
     color: white;
 }
 
-.section-content h2 {
+#sf-product-page .section-content h2 {
     font-size: 2rem;
     margin-bottom: 20px;
     color: var(--safefleet-dark);
 }
 
-.section-content p {
+#sf-product-page .section-content p {
     font-size: 1.2rem;
     line-height: 1.8;
     color: #555;
     margin-bottom: 20px;
 }
 
-.feature-list {
+#sf-product-page .feature-list {
     list-style: none;
     padding: 0;
     margin-top: 30px;
 }
 
-.feature-list li {
+#sf-product-page .feature-list li {
     padding: 15px 0 15px 40px;
     position: relative;
     font-size: 1.1rem;
@@ -171,11 +179,11 @@
     border-bottom: 1px solid #f0f0f0;
 }
 
-.feature-list li:last-child {
+#sf-product-page .feature-list li:last-child {
     border-bottom: none;
 }
 
-.feature-list li::before {
+#sf-product-page .feature-list li::before {
     content: '✓';
     position: absolute;
     left: 0;
@@ -185,18 +193,18 @@
 }
 
 /* Features Grid */
-.safefleet-features {
+#sf-product-page .safefleet-features {
     padding: 80px 1rem;
 }
 
-.features-grid {
+#sf-product-page .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
     margin-top: 40px;
 }
 
-.feature-card {
+#sf-product-page .feature-card {
     background: white;
     padding: 40px 30px;
     border-radius: 15px;
@@ -206,12 +214,12 @@
     border-top: 4px solid var(--safefleet-primary);
 }
 
-.feature-card:hover {
+#sf-product-page .feature-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 15px 40px rgba(81, 232, 125, 0.3);
 }
 
-.feature-icon {
+#sf-product-page .feature-icon {
     width: 70px;
     height: 70px;
     background: linear-gradient(135deg, var(--safefleet-primary), var(--safefleet-accent));
@@ -222,37 +230,37 @@
     margin: 0 auto 20px;
 }
 
-.feature-icon i {
+#sf-product-page .feature-icon i {
     font-size: 2rem;
     color: white;
 }
 
-.feature-card h3 {
+#sf-product-page .feature-card h3 {
     font-size: 1.4rem;
     color: var(--safefleet-dark);
     margin-bottom: 15px;
 }
 
-.feature-card p {
+#sf-product-page .feature-card p {
     font-size: 1rem;
     line-height: 1.6;
     color: #666;
 }
 
 /* Screenshots Section */
-.safefleet-screenshots {
+#sf-product-page .safefleet-screenshots {
     padding: 80px 1rem;
-    background: #f8f9fa;
+    background: var(--safefleet-dark);
 }
 
-.screenshots-grid {
+#sf-product-page .screenshots-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 40px;
     margin-top: 40px;
 }
 
-.screenshot-item {
+#sf-product-page .screenshot-item {
     background: white;
     border-radius: 15px;
     overflow: hidden;
@@ -260,19 +268,19 @@
     transition: all 0.3s ease;
 }
 
-.screenshot-item:hover {
+#sf-product-page .screenshot-item:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 50px rgba(81, 232, 125, 0.3);
 }
 
-.screenshot-item img {
+#sf-product-page .screenshot-item img {
     width: 100%;
     height: auto;
     display: block;
     border-bottom: 3px solid var(--safefleet-primary);
 }
 
-.screenshot-item p {
+#sf-product-page .screenshot-item p {
     padding: 20px;
     font-size: 1rem;
     color: #555;
@@ -281,18 +289,19 @@
 }
 
 /* Results Section */
-.safefleet-results {
+#sf-product-page .safefleet-results {
     padding: 80px 1rem;
+    background: var(--safefleet-light);
 }
 
-.results-grid {
+#sf-product-page .results-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 30px;
     margin-top: 40px;
 }
 
-.result-card {
+#sf-product-page .result-card {
     background: white;
     padding: 35px 25px;
     border-radius: 15px;
@@ -302,13 +311,13 @@
     transition: all 0.3s ease;
 }
 
-.result-card:hover {
+#sf-product-page .result-card:hover {
     border-color: var(--safefleet-primary);
     background: linear-gradient(135deg, #ffffff 0%, #f0fff4 100%);
     transform: translateY(-5px);
 }
 
-.result-icon {
+#sf-product-page .result-icon {
     width: 60px;
     height: 60px;
     background: linear-gradient(135deg, var(--safefleet-primary), var(--safefleet-accent));
@@ -319,109 +328,125 @@
     margin: 0 auto 20px;
 }
 
-.result-icon i {
+#sf-product-page .result-icon i {
     font-size: 1.8rem;
     color: white;
 }
 
-.result-card h3 {
+#sf-product-page .result-card h3 {
     font-size: 1.3rem;
     color: var(--safefleet-dark);
     margin-bottom: 12px;
 }
 
-.result-card p {
+#sf-product-page .result-card p {
     font-size: 1rem;
     line-height: 1.6;
     color: #666;
 }
 
 /* CTA Section */
-.safefleet-cta {
+#sf-product-page .safefleet-cta {
     padding: 80px 0;
 }
 
-.safefleet-cta h2 {
+#sf-product-page .safefleet-cta h2 {
     color: white;
+}
+
+#sf-product-page .cta-box {
+    background: var(--safefleet-dark-2);
+    border: 1px solid rgba(73, 230, 130, 0.28);
+}
+
+#sf-product-page .cta-box p {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+#sf-product-page .btn-primary {
+    background: linear-gradient(135deg, var(--safefleet-primary), var(--safefleet-secondary));
+    border: none;
+    color: var(--safefleet-dark-2);
+    font-weight: 700;
 }
 
 /* Responsive */
 @media (max-width: 992px) {
-    .safefleet-hero h1 {
+    #sf-product-page .safefleet-hero h1 {
         font-size: 2.8rem;
     }
     
-    .safefleet-hero .hero-subtitle {
+    #sf-product-page .safefleet-hero .hero-subtitle {
         font-size: 1.2rem;
     }
     
-    .safefleet-page h2 {
+    #sf-product-page h2 {
         font-size: 2rem;
     }
     
-    .features-grid,
-    .results-grid {
+    #sf-product-page .features-grid,
+    #sf-product-page .results-grid {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
 }
 
 @media (max-width: 768px) {
-    .safefleet-hero {
+    #sf-product-page .safefleet-hero {
         padding: 80px 20px 60px;
     }
     
-    .safefleet-hero h1 {
+    #sf-product-page .safefleet-hero h1 {
         font-size: 2.2rem;
     }
     
-    .safefleet-hero .hero-subtitle {
+    #sf-product-page .safefleet-hero .hero-subtitle {
         font-size: 1.1rem;
     }
     
-    .safefleet-logo img {
+    #sf-product-page .safefleet-logo img {
         height: 60px;
     }
     
-    .hero-tags .tag {
+    #sf-product-page .hero-tags .tag {
         font-size: 0.85rem;
         padding: 8px 15px;
     }
     
-    .safefleet-page h2 {
+    #sf-product-page h2 {
         font-size: 1.8rem;
     }
     
-    .safefleet-overview,
-    .safefleet-section,
-    .safefleet-features,
-    .safefleet-screenshots,
-    .safefleet-results {
+    #sf-product-page .safefleet-overview,
+    #sf-product-page .safefleet-section,
+    #sf-product-page .safefleet-features,
+    #sf-product-page .safefleet-screenshots,
+    #sf-product-page .safefleet-results {
         padding: 40px 0.75rem;
     }
     
-    .section-content,
-    .safefleet-overview .lead-text {
+    #sf-product-page .section-content,
+    #sf-product-page .safefleet-overview .lead-text {
         padding: 30px 20px;
     }
     
-    .features-grid,
-    .screenshots-grid,
-    .results-grid {
+    #sf-product-page .features-grid,
+    #sf-product-page .screenshots-grid,
+    #sf-product-page .results-grid {
         grid-template-columns: 1fr;
         gap: 20px;
     }
 }
 
 @media (max-width: 480px) {
-    .safefleet-hero h1 {
+    #sf-product-page .safefleet-hero h1 {
         font-size: 1.8rem;
     }
     
-    .hero-tags {
+    #sf-product-page .hero-tags {
         gap: 10px;
     }
     
-    .hero-tags .tag {
+    #sf-product-page .hero-tags .tag {
         font-size: 0.8rem;
         padding: 6px 12px;
     }
