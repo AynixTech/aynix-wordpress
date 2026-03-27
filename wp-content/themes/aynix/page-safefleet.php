@@ -17,64 +17,68 @@ $sf_assets = get_template_directory_uri() . '/assets/images/safefleet';
                     <p><?php echo aynix_translate('safefleet.hero.description'); ?></p>
                 </div>
             </div>
-            <div class="sf-hero-wave">
+            <!-- <div class="sf-hero-wave">
                 <div class="container sf-hero-claim">
                     <div class="sf-hero-claim-icon">
                         <img src="<?php echo esc_url($sf_assets . '/logoandslogan.png'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.smart_fleet_icon')); ?>">
                     </div>
                     <p><?php echo aynix_translate('safefleet.hero.claim'); ?></p>
                 </div>
-            </div>
+            </div> -->
         </section>
 
         <section class="sf-how">
-            <div class="sf-split sf-split-light">
-                <div class="sf-col sf-col-content">
-                    <div class="sf-content-wrap">
-                        <h2><?php echo aynix_translate('safefleet.how.title'); ?></h2>
-                        <p class="sf-subtitle"><?php echo aynix_translate('safefleet.how.subtitle'); ?></p>
-                        <ul class="sf-feature-box">
-                            <li><strong><?php echo aynix_translate('safefleet.how.feature1.title'); ?></strong> <?php echo aynix_translate('safefleet.how.feature1.text'); ?></li>
-                            <li><strong><?php echo aynix_translate('safefleet.how.feature2.title'); ?></strong> <?php echo aynix_translate('safefleet.how.feature2.text'); ?></li>
-                            <li><strong><?php echo aynix_translate('safefleet.how.feature3.title'); ?></strong> <?php echo aynix_translate('safefleet.how.feature3.text'); ?></li>
-                            <li><strong><?php echo aynix_translate('safefleet.how.feature4.title'); ?></strong> <?php echo aynix_translate('safefleet.how.feature4.text'); ?></li>
-                            <li><strong><?php echo aynix_translate('safefleet.how.feature5.title'); ?></strong> <?php echo aynix_translate('safefleet.how.feature5.text'); ?></li>
-                        </ul>
+            <div class="container">
+                <div class="sf-split sf-split-light">
+                    <div class="sf-col sf-col-content">
+                        <div class="sf-content-wrap">
+                            <h2><?php echo aynix_translate('safefleet.how.title'); ?></h2>
+                            <p class="sf-subtitle"><?php echo aynix_translate('safefleet.how.subtitle'); ?></p>
+                            <ul class="sf-feature-box">
+                                <li><strong><?php echo aynix_translate('safefleet.how.feature1.title'); ?></strong> <?php echo aynix_translate('safefleet.how.feature1.text'); ?></li>
+                                <li><strong><?php echo aynix_translate('safefleet.how.feature2.title'); ?></strong> <?php echo aynix_translate('safefleet.how.feature2.text'); ?></li>
+                                <li><strong><?php echo aynix_translate('safefleet.how.feature3.title'); ?></strong> <?php echo aynix_translate('safefleet.how.feature3.text'); ?></li>
+                                <li><strong><?php echo aynix_translate('safefleet.how.feature4.title'); ?></strong> <?php echo aynix_translate('safefleet.how.feature4.text'); ?></li>
+                                <li><strong><?php echo aynix_translate('safefleet.how.feature5.title'); ?></strong> <?php echo aynix_translate('safefleet.how.feature5.text'); ?></li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div class="sf-col sf-col-media sf-dark-panel">
-                    <p class="sf-media-caption">Safe<span>Fleet</span></p>
-                    <img src="<?php echo esc_url($sf_assets . '/image-middle.jpeg'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.dashboard_panel')); ?>">
+                    <div class="sf-col sf-col-media sf-dark-panel">
+                        <p class="sf-media-caption">Safe<span>Fleet</span></p>
+                        <img src="<?php echo esc_url($sf_assets . '/image-middle.jpeg'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.dashboard_panel')); ?>">
+                    </div>
                 </div>
             </div>
         </section>
 
         <section class="sf-problems">
-            <div class="sf-split sf-split-dark">
-                <div class="sf-col sf-col-media">
-                    <img src="<?php echo esc_url($sf_assets . '/safefleet-screenshot-4.png'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.operational_problems')); ?>">
-                </div>
-                <div class="sf-col sf-col-content">
-                    <div class="sf-content-wrap">
-                        <h2><?php echo aynix_translate('safefleet.problems.title'); ?></h2>
-                        <p class="sf-subtitle"><?php echo aynix_translate('safefleet.problems.subtitle'); ?></p>
-                        <div class="sf-problem-grid">
-                            <article class="sf-problem-item">
-                                <img src="<?php echo esc_url($sf_assets . '/icon-position.webp'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.traceability_icon')); ?>">
-                                <h3><?php echo aynix_translate('safefleet.problems.item1.prefix'); ?> <span><?php echo aynix_translate('safefleet.problems.item1.highlight'); ?></span> <?php echo aynix_translate('safefleet.problems.item1.suffix'); ?></h3>
-                            </article>
-                            <article class="sf-problem-item">
-                                <img src="<?php echo esc_url($sf_assets . '/icon-problems.webp'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.attendance_icon')); ?>">
-                                <h3><?php echo aynix_translate('safefleet.problems.item2.prefix'); ?> <span><?php echo aynix_translate('safefleet.problems.item2.highlight'); ?></span></h3>
-                            </article>
-                            <article class="sf-problem-item">
-                                <img src="<?php echo esc_url($sf_assets . '/icon-expired.webp'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.expired_docs_icon')); ?>">
-                                <h3><span><?php echo aynix_translate('safefleet.problems.item3.highlight'); ?></span><?php echo aynix_translate('safefleet.problems.item3.suffix'); ?></h3>
-                            </article>
-                            <article class="sf-problem-item">
-                                <img src="<?php echo esc_url($sf_assets . '/icon-lento.webp'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.slow_support_icon')); ?>">
-                                <h3><span><?php echo aynix_translate('safefleet.problems.item4.highlight'); ?></span> <?php echo aynix_translate('safefleet.problems.item4.suffix'); ?></h3>
-                            </article>
+            <div class="container">
+                <div class="sf-split sf-split-dark">
+                    <div class="sf-col sf-col-media">
+                        <img src="<?php echo esc_url($sf_assets . '/safefleet-screenshot-4.png'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.operational_problems')); ?>">
+                    </div>
+                    <div class="sf-col sf-col-content">
+                        <div class="sf-content-wrap">
+                            <h2><?php echo aynix_translate('safefleet.problems.title'); ?></h2>
+                            <p class="sf-subtitle"><?php echo aynix_translate('safefleet.problems.subtitle'); ?></p>
+                            <div class="sf-problem-grid">
+                                <article class="sf-problem-item">
+                                    <img src="<?php echo esc_url($sf_assets . '/icon-position.webp'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.traceability_icon')); ?>">
+                                    <h3><?php echo aynix_translate('safefleet.problems.item1.prefix'); ?> <span><?php echo aynix_translate('safefleet.problems.item1.highlight'); ?></span> <?php echo aynix_translate('safefleet.problems.item1.suffix'); ?></h3>
+                                </article>
+                                <article class="sf-problem-item">
+                                    <img src="<?php echo esc_url($sf_assets . '/icon-problems.webp'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.attendance_icon')); ?>">
+                                    <h3><?php echo aynix_translate('safefleet.problems.item2.prefix'); ?> <span><?php echo aynix_translate('safefleet.problems.item2.highlight'); ?></span></h3>
+                                </article>
+                                <article class="sf-problem-item">
+                                    <img src="<?php echo esc_url($sf_assets . '/icon-expired.webp'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.expired_docs_icon')); ?>">
+                                    <h3><span><?php echo aynix_translate('safefleet.problems.item3.highlight'); ?></span><?php echo aynix_translate('safefleet.problems.item3.suffix'); ?></h3>
+                                </article>
+                                <article class="sf-problem-item">
+                                    <img src="<?php echo esc_url($sf_assets . '/icon-lento.webp'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.slow_support_icon')); ?>">
+                                    <h3><span><?php echo aynix_translate('safefleet.problems.item4.highlight'); ?></span> <?php echo aynix_translate('safefleet.problems.item4.suffix'); ?></h3>
+                                </article>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -82,33 +86,35 @@ $sf_assets = get_template_directory_uri() . '/assets/images/safefleet';
         </section>
 
         <section class="sf-solution">
-            <div class="sf-split sf-split-light">
-                <div class="sf-col sf-col-content">
-                    <div class="sf-content-wrap">
-                        <h2><?php echo aynix_translate('safefleet.solution.title'); ?></h2>
-                        <p class="sf-subtitle"><?php echo aynix_translate('safefleet.solution.subtitle'); ?></p>
-                        <div class="sf-module-grid">
-                            <article class="sf-module-item">
-                                <img src="<?php echo esc_url($sf_assets . '/icon-folders.webp'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.module_docs_icon')); ?>">
-                                <h3><span><?php echo aynix_translate('safefleet.solution.module1.label'); ?></span> - <?php echo aynix_translate('safefleet.solution.module1.title'); ?></h3>
-                            </article>
-                            <article class="sf-module-item">
-                                <img src="<?php echo esc_url($sf_assets . '/icon-support.webp'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.module_attendance_icon')); ?>">
-                                <h3><span><?php echo aynix_translate('safefleet.solution.module2.label'); ?></span> - <?php echo aynix_translate('safefleet.solution.module2.title'); ?></h3>
-                            </article>
-                            <article class="sf-module-item">
-                                <img src="<?php echo esc_url($sf_assets . '/icon-timecarmoney.webp'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.module_inventory_icon')); ?>">
-                                <h3><span><?php echo aynix_translate('safefleet.solution.module3.label'); ?></span> - <?php echo aynix_translate('safefleet.solution.module3.title'); ?></h3>
-                            </article>
-                            <article class="sf-module-item">
-                                <img src="<?php echo esc_url($sf_assets . '/icon-chatai.webp'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.module_ai_icon')); ?>">
-                                <h3><span><?php echo aynix_translate('safefleet.solution.module4.label'); ?></span> - <?php echo aynix_translate('safefleet.solution.module4.title'); ?></h3>
-                            </article>
+            <div class="container">
+                <div class="sf-split sf-split-light">
+                    <div class="sf-col sf-col-content">
+                        <div class="sf-content-wrap">
+                            <h2><?php echo aynix_translate('safefleet.solution.title'); ?></h2>
+                            <p class="sf-subtitle"><?php echo aynix_translate('safefleet.solution.subtitle'); ?></p>
+                            <div class="sf-module-grid">
+                                <article class="sf-module-item">
+                                    <img src="<?php echo esc_url($sf_assets . '/icon-folders.webp'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.module_docs_icon')); ?>">
+                                    <h3><span><?php echo aynix_translate('safefleet.solution.module1.label'); ?></span> - <?php echo aynix_translate('safefleet.solution.module1.title'); ?></h3>
+                                </article>
+                                <article class="sf-module-item">
+                                    <img src="<?php echo esc_url($sf_assets . '/icon-support.webp'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.module_attendance_icon')); ?>">
+                                    <h3><span><?php echo aynix_translate('safefleet.solution.module2.label'); ?></span> - <?php echo aynix_translate('safefleet.solution.module2.title'); ?></h3>
+                                </article>
+                                <article class="sf-module-item">
+                                    <img src="<?php echo esc_url($sf_assets . '/icon-timecarmoney.webp'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.module_inventory_icon')); ?>">
+                                    <h3><span><?php echo aynix_translate('safefleet.solution.module3.label'); ?></span> - <?php echo aynix_translate('safefleet.solution.module3.title'); ?></h3>
+                                </article>
+                                <article class="sf-module-item">
+                                    <img src="<?php echo esc_url($sf_assets . '/icon-chatai.webp'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.module_ai_icon')); ?>">
+                                    <h3><span><?php echo aynix_translate('safefleet.solution.module4.label'); ?></span> - <?php echo aynix_translate('safefleet.solution.module4.title'); ?></h3>
+                                </article>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="sf-col sf-col-media">
-                    <img src="<?php echo esc_url($sf_assets . '/imagen-bottom.png'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.control_office')); ?>">
+                    <div class="sf-col sf-col-media">
+                        <img src="<?php echo esc_url($sf_assets . '/imagen-bottom.png'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.control_office')); ?>">
+                    </div>
                 </div>
             </div>
         </section>
