@@ -20,7 +20,7 @@
 #sf-product-page .sf-hero {
     position: relative;
     background: url('../images/safefleet/banner-safe-fleet.jpg') center/cover no-repeat;
-    min-height: 540px;
+    min-height: 95vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

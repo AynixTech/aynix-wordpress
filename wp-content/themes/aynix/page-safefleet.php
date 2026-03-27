@@ -14,15 +14,15 @@ $sf_assets = get_template_directory_uri() . '/assets/images/safefleet';
             <div class="container sf-hero-inner">
                 <div class="sf-hero-card">
                     <h1><span>Safe</span>Fleet</h1>
-                    <p>Safe Fleet es una plataforma modular para la gestion integrada de flotas y recursos humanos. Cada modulo puede activarse por separado, garantizando flexibilidad, eficiencia y escalabilidad.</p>
+                    <p><?php echo aynix_translate('safefleet.hero.description'); ?></p>
                 </div>
             </div>
             <div class="sf-hero-wave">
                 <div class="container sf-hero-claim">
                     <div class="sf-hero-claim-icon">
-                        <img src="<?php echo esc_url($sf_assets . '/logoandslogan.webp'); ?>" alt="Icono flota inteligente">
+                        <img src="<?php echo esc_url($sf_assets . '/logoandslogan.webp'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.smart_fleet_icon')); ?>">
                     </div>
-                    <p>La gestion de tu flota, mas inteligente.</p>
+                    <p><?php echo aynix_translate('safefleet.hero.claim'); ?></p>
                 </div>
             </div>
         </section>
@@ -31,20 +31,20 @@ $sf_assets = get_template_directory_uri() . '/assets/images/safefleet';
             <div class="sf-split sf-split-light">
                 <div class="sf-col sf-col-content">
                     <div class="sf-content-wrap">
-                        <h2>Como funciona?</h2>
-                        <p class="sf-subtitle">Safe Fleet opera como una plataforma de gestion integrada (All-in-One).</p>
+                        <h2><?php echo aynix_translate('safefleet.how.title'); ?></h2>
+                        <p class="sf-subtitle"><?php echo aynix_translate('safefleet.how.subtitle'); ?></p>
                         <ul class="sf-feature-box">
-                            <li><strong>Panel principal:</strong> vision general de usuarios, vehiculos y asistencias.</li>
-                            <li><strong>Asistencias:</strong> control diario con graficos y filtros.</li>
-                            <li><strong>Usuarios:</strong> creacion, edicion y roles del personal.</li>
-                            <li><strong>Vehiculos:</strong> registro y control de flota.</li>
-                            <li><strong>Calendario:</strong> planificacion mensual y anual, exportacion Excel.</li>
+                            <li><strong><?php echo aynix_translate('safefleet.how.feature1.title'); ?></strong> <?php echo aynix_translate('safefleet.how.feature1.text'); ?></li>
+                            <li><strong><?php echo aynix_translate('safefleet.how.feature2.title'); ?></strong> <?php echo aynix_translate('safefleet.how.feature2.text'); ?></li>
+                            <li><strong><?php echo aynix_translate('safefleet.how.feature3.title'); ?></strong> <?php echo aynix_translate('safefleet.how.feature3.text'); ?></li>
+                            <li><strong><?php echo aynix_translate('safefleet.how.feature4.title'); ?></strong> <?php echo aynix_translate('safefleet.how.feature4.text'); ?></li>
+                            <li><strong><?php echo aynix_translate('safefleet.how.feature5.title'); ?></strong> <?php echo aynix_translate('safefleet.how.feature5.text'); ?></li>
                         </ul>
                     </div>
                 </div>
                 <div class="sf-col sf-col-media sf-dark-panel">
                     <p class="sf-media-caption">Safe<span>Fleet</span></p>
-                    <img src="<?php echo esc_url($sf_assets . '/image-middle.jpeg'); ?>" alt="Panel de SafeFleet">
+                    <img src="<?php echo esc_url($sf_assets . '/image-middle.jpeg'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.dashboard_panel')); ?>">
                 </div>
             </div>
         </section>
@@ -52,28 +52,28 @@ $sf_assets = get_template_directory_uri() . '/assets/images/safefleet';
         <section class="sf-problems">
             <div class="sf-split sf-split-dark">
                 <div class="sf-col sf-col-media">
-                    <img src="<?php echo esc_url($sf_assets . '/safefleet-screenshot-4.png'); ?>" alt="Problemas operativos de flota">
+                    <img src="<?php echo esc_url($sf_assets . '/safefleet-screenshot-4.png'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.operational_problems')); ?>">
                 </div>
                 <div class="sf-col sf-col-content">
                     <div class="sf-content-wrap">
-                        <h2>Que problemas resuelve?</h2>
-                        <p class="sf-subtitle">Conductores y administradores pierden tiempo con papeleo y comunicaciones ineficientes.</p>
+                        <h2><?php echo aynix_translate('safefleet.problems.title'); ?></h2>
+                        <p class="sf-subtitle"><?php echo aynix_translate('safefleet.problems.subtitle'); ?></p>
                         <div class="sf-problem-grid">
                             <article class="sf-problem-item">
-                                <img src="<?php echo esc_url($sf_assets . '/icon-position.webp'); ?>" alt="Icono trazabilidad">
-                                <h3>Escasa <span>trazabilidad</span> de la flota</h3>
+                                <img src="<?php echo esc_url($sf_assets . '/icon-position.webp'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.traceability_icon')); ?>">
+                                <h3><?php echo aynix_translate('safefleet.problems.item1.prefix'); ?> <span><?php echo aynix_translate('safefleet.problems.item1.highlight'); ?></span> <?php echo aynix_translate('safefleet.problems.item1.suffix'); ?></h3>
                             </article>
                             <article class="sf-problem-item">
-                                <img src="<?php echo esc_url($sf_assets . '/icon-problems.webp'); ?>" alt="Icono asistencias y permisos">
-                                <h3>Control manual de <span>asistencias y permisos</span></h3>
+                                <img src="<?php echo esc_url($sf_assets . '/icon-problems.webp'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.attendance_icon')); ?>">
+                                <h3><?php echo aynix_translate('safefleet.problems.item2.prefix'); ?> <span><?php echo aynix_translate('safefleet.problems.item2.highlight'); ?></span></h3>
                             </article>
                             <article class="sf-problem-item">
-                                <img src="<?php echo esc_url($sf_assets . '/icon-expired.webp'); ?>" alt="Icono documentos vencidos">
-                                <h3><span>Documentos vencidos</span>: multas y bloqueos</h3>
+                                <img src="<?php echo esc_url($sf_assets . '/icon-expired.webp'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.expired_docs_icon')); ?>">
+                                <h3><span><?php echo aynix_translate('safefleet.problems.item3.highlight'); ?></span><?php echo aynix_translate('safefleet.problems.item3.suffix'); ?></h3>
                             </article>
                             <article class="sf-problem-item">
-                                <img src="<?php echo esc_url($sf_assets . '/icon-lento.webp'); ?>" alt="Icono soporte administrativo lento">
-                                <h3><span>Soporte</span> administrativo lento</h3>
+                                <img src="<?php echo esc_url($sf_assets . '/icon-lento.webp'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.slow_support_icon')); ?>">
+                                <h3><span><?php echo aynix_translate('safefleet.problems.item4.highlight'); ?></span> <?php echo aynix_translate('safefleet.problems.item4.suffix'); ?></h3>
                             </article>
                         </div>
                     </div>
@@ -85,30 +85,30 @@ $sf_assets = get_template_directory_uri() . '/assets/images/safefleet';
             <div class="sf-split sf-split-light">
                 <div class="sf-col sf-col-content">
                     <div class="sf-content-wrap">
-                        <h2>Solucion</h2>
-                        <p class="sf-subtitle">(introduccion a los modulos)</p>
+                        <h2><?php echo aynix_translate('safefleet.solution.title'); ?></h2>
+                        <p class="sf-subtitle"><?php echo aynix_translate('safefleet.solution.subtitle'); ?></p>
                         <div class="sf-module-grid">
                             <article class="sf-module-item">
-                                <img src="<?php echo esc_url($sf_assets . '/icon-folders.webp'); ?>" alt="Icono modulo documentos">
-                                <h3><span>Modulo 1</span> - Gestion proactiva de documentos</h3>
+                                <img src="<?php echo esc_url($sf_assets . '/icon-folders.webp'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.module_docs_icon')); ?>">
+                                <h3><span><?php echo aynix_translate('safefleet.solution.module1.label'); ?></span> - <?php echo aynix_translate('safefleet.solution.module1.title'); ?></h3>
                             </article>
                             <article class="sf-module-item">
-                                <img src="<?php echo esc_url($sf_assets . '/icon-support.webp'); ?>" alt="Icono modulo asistencias">
-                                <h3><span>Modulo 2</span> - Asistencias digitales</h3>
+                                <img src="<?php echo esc_url($sf_assets . '/icon-support.webp'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.module_attendance_icon')); ?>">
+                                <h3><span><?php echo aynix_translate('safefleet.solution.module2.label'); ?></span> - <?php echo aynix_translate('safefleet.solution.module2.title'); ?></h3>
                             </article>
                             <article class="sf-module-item">
-                                <img src="<?php echo esc_url($sf_assets . '/icon-timecarmoney.webp'); ?>" alt="Icono modulo inventario">
-                                <h3><span>Modulo 3</span> - Inventario Digital de la Flota</h3>
+                                <img src="<?php echo esc_url($sf_assets . '/icon-timecarmoney.webp'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.module_inventory_icon')); ?>">
+                                <h3><span><?php echo aynix_translate('safefleet.solution.module3.label'); ?></span> - <?php echo aynix_translate('safefleet.solution.module3.title'); ?></h3>
                             </article>
                             <article class="sf-module-item">
-                                <img src="<?php echo esc_url($sf_assets . '/icon-chatai.webp'); ?>" alt="Icono modulo asistente IA">
-                                <h3><span>Modulo 4</span> - Asistente IA (Chatbot)</h3>
+                                <img src="<?php echo esc_url($sf_assets . '/icon-chatai.webp'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.module_ai_icon')); ?>">
+                                <h3><span><?php echo aynix_translate('safefleet.solution.module4.label'); ?></span> - <?php echo aynix_translate('safefleet.solution.module4.title'); ?></h3>
                             </article>
                         </div>
                     </div>
                 </div>
                 <div class="sf-col sf-col-media">
-                    <img src="<?php echo esc_url($sf_assets . '/imagen-bottom.png'); ?>" alt="Oficina de control de flota">
+                    <img src="<?php echo esc_url($sf_assets . '/imagen-bottom.png'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.control_office')); ?>">
                 </div>
             </div>
         </section>
@@ -116,10 +116,10 @@ $sf_assets = get_template_directory_uri() . '/assets/images/safefleet';
         <section class="sf-cta">
             <div class="container">
                 <div class="sf-cta-box">
-                    <h2>Solicita tu diagnostico personalizado</h2>
-                    <p>Analizamos tu operacion y disenamos una solucion tecnologica adaptada a las necesidades reales de tu empresa.</p>
-                    <a href="<?php echo esc_url(aynix_get_translated_url('diagnosi')); ?>" class="sf-cta-btn">Iniciar Diagnostico</a>
-                    <small>10 min · Sin coste · Sin venta</small>
+                    <h2><?php echo aynix_translate('safefleet.cta.title'); ?></h2>
+                    <p><?php echo aynix_translate('safefleet.cta.text'); ?></p>
+                    <a href="<?php echo esc_url(aynix_get_translated_url('diagnosi')); ?>" class="sf-cta-btn"><?php echo aynix_translate('safefleet.cta.button'); ?></a>
+                    <small><?php echo aynix_translate('safefleet.cta.note'); ?></small>
                 </div>
             </div>
         </section>
