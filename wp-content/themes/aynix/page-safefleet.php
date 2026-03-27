@@ -5,6 +5,10 @@
  */
 get_header();
 $sf_assets = get_template_directory_uri() . '/assets/images/safefleet';
+$sf_captcha_a = wp_rand(1, 9);
+$sf_captcha_b = wp_rand(1, 9);
+$sf_captcha_token = wp_hash($sf_captcha_a . '|' . $sf_captcha_b . '|sf_modal');
+$sf_contact_nonce = wp_create_nonce('sf_contact_modal');
 ?>
 
 <main>
@@ -117,11 +121,169 @@ $sf_assets = get_template_directory_uri() . '/assets/images/safefleet';
             <div class="sf-cta-box">
                 <h2><?php echo aynix_translate('safefleet.cta.title'); ?></h2>
                 <p><?php echo aynix_translate('safefleet.cta.text'); ?></p>
-                <a href="<?php echo esc_url(aynix_get_translated_url('diagnosi')); ?>" class="sf-cta-btn"><?php echo aynix_translate('safefleet.cta.button'); ?></a>
+                <button type="button" class="sf-cta-btn" id="sf-open-contact-modal"><?php echo aynix_translate('safefleet.cta.button'); ?></button>
                 <small><?php echo aynix_translate('safefleet.cta.note'); ?></small>
             </div>
         </section>
+
+        <div id="sf-contact-modal" class="sf-modal" aria-hidden="true">
+            <div class="sf-modal__backdrop" data-sf-modal-close></div>
+            <div class="sf-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="sf-modal-title">
+                <button type="button" class="sf-modal__close" data-sf-modal-close aria-label="<?php echo esc_attr(aynix_translate('safefleet.modal.close')); ?>">&times;</button>
+                <h3 id="sf-modal-title"><?php echo aynix_translate('safefleet.modal.title'); ?></h3>
+                <p class="sf-modal__subtitle"><?php echo aynix_translate('safefleet.modal.subtitle'); ?></p>
+
+                <form id="sf-contact-form" class="sf-modal__form" novalidate>
+                    <input type="hidden" name="action" value="submit_contact_request">
+                    <input type="hidden" name="sf_contact_nonce" value="<?php echo esc_attr($sf_contact_nonce); ?>">
+                    <input type="hidden" name="sf_captcha_a" value="<?php echo esc_attr($sf_captcha_a); ?>">
+                    <input type="hidden" name="sf_captcha_b" value="<?php echo esc_attr($sf_captcha_b); ?>">
+                    <input type="hidden" name="sf_captcha_token" value="<?php echo esc_attr($sf_captcha_token); ?>">
+                    <input type="text" name="sf_website" class="sf-honeypot" tabindex="-1" autocomplete="off">
+
+                    <div class="sf-modal__grid">
+                        <div class="sf-modal__field">
+                            <label for="sf-nome"><?php echo aynix_translate('safefleet.modal.form.nome'); ?> *</label>
+                            <input type="text" id="sf-nome" name="nome" required>
+                        </div>
+                        <div class="sf-modal__field">
+                            <label for="sf-cognome"><?php echo aynix_translate('safefleet.modal.form.cognome'); ?> *</label>
+                            <input type="text" id="sf-cognome" name="cognome" required>
+                        </div>
+                    </div>
+
+                    <div class="sf-modal__grid">
+                        <div class="sf-modal__field">
+                            <label for="sf-email"><?php echo aynix_translate('safefleet.modal.form.email'); ?> *</label>
+                            <input type="email" id="sf-email" name="email" required>
+                        </div>
+                        <div class="sf-modal__field">
+                            <label for="sf-telefono"><?php echo aynix_translate('safefleet.modal.form.telefono'); ?> *</label>
+                            <input type="text" id="sf-telefono" name="telefono" required>
+                        </div>
+                    </div>
+
+                    <div class="sf-modal__field">
+                        <label for="sf-azienda"><?php echo aynix_translate('safefleet.modal.form.azienda'); ?></label>
+                        <input type="text" id="sf-azienda" name="azienda">
+                    </div>
+
+                    <div class="sf-modal__field">
+                        <label for="sf-note"><?php echo aynix_translate('safefleet.modal.form.note'); ?></label>
+                        <textarea id="sf-note" name="note" rows="4"></textarea>
+                    </div>
+
+                    <div class="sf-modal__field sf-modal__captcha">
+                        <label for="sf-captcha-answer"><?php echo aynix_translate('safefleet.modal.form.captcha_label'); ?></label>
+                        <div class="sf-modal__captcha-row">
+                            <span class="sf-modal__captcha-question"><?php echo esc_html($sf_captcha_a . ' + ' . $sf_captcha_b . ' = ?'); ?></span>
+                            <input type="number" id="sf-captcha-answer" name="sf_captcha_answer" min="0" required>
+                        </div>
+                    </div>
+
+                    <div id="sf-modal-feedback" class="sf-modal__feedback" aria-live="polite"></div>
+
+                    <button type="submit" class="sf-modal__submit"><?php echo aynix_translate('safefleet.modal.form.submit'); ?></button>
+                </form>
+            </div>
+        </div>
     </div>
 </main>
+
+<script>
+(function($) {
+    var modal = $('#sf-contact-modal');
+    var form = $('#sf-contact-form');
+    var openBtn = $('#sf-open-contact-modal');
+    var feedback = $('#sf-modal-feedback');
+    var submitBtn = form.find('button[type="submit"]');
+
+    var messages = {
+        required: <?php echo wp_json_encode(aynix_translate('safefleet.modal.messages.required')); ?>,
+        invalidEmail: <?php echo wp_json_encode(aynix_translate('safefleet.modal.messages.invalid_email')); ?>,
+        invalidCaptcha: <?php echo wp_json_encode(aynix_translate('safefleet.modal.messages.invalid_captcha')); ?>,
+        sending: <?php echo wp_json_encode(aynix_translate('safefleet.modal.messages.sending')); ?>,
+        success: <?php echo wp_json_encode(aynix_translate('safefleet.modal.messages.success')); ?>,
+        genericError: <?php echo wp_json_encode(aynix_translate('safefleet.modal.messages.generic_error')); ?>
+    };
+
+    function openModal() {
+        modal.addClass('is-open').attr('aria-hidden', 'false');
+        $('body').addClass('sf-modal-open');
+    }
+
+    function closeModal() {
+        modal.removeClass('is-open').attr('aria-hidden', 'true');
+        $('body').removeClass('sf-modal-open');
+    }
+
+    function setFeedback(type, text) {
+        feedback.removeClass('is-success is-error').addClass(type === 'success' ? 'is-success' : 'is-error').text(text);
+    }
+
+    openBtn.on('click', openModal);
+    modal.on('click', '[data-sf-modal-close]', closeModal);
+
+    $(document).on('keydown', function(e) {
+        if (e.key === 'Escape' && modal.hasClass('is-open')) {
+            closeModal();
+        }
+    });
+
+    form.on('submit', function(e) {
+        e.preventDefault();
+
+        var nome = $.trim($('#sf-nome').val());
+        var cognome = $.trim($('#sf-cognome').val());
+        var email = $.trim($('#sf-email').val());
+        var telefono = $.trim($('#sf-telefono').val());
+        var captchaA = parseInt(form.find('input[name="sf_captcha_a"]').val(), 10);
+        var captchaB = parseInt(form.find('input[name="sf_captcha_b"]').val(), 10);
+        var captchaAnswer = parseInt($('#sf-captcha-answer').val(), 10);
+
+        feedback.text('').removeClass('is-success is-error');
+
+        if (!nome || !cognome || !email || !telefono || Number.isNaN(captchaAnswer)) {
+            setFeedback('error', messages.required);
+            return;
+        }
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            setFeedback('error', messages.invalidEmail);
+            return;
+        }
+
+        if (captchaAnswer !== (captchaA + captchaB)) {
+            setFeedback('error', messages.invalidCaptcha);
+            return;
+        }
+
+        submitBtn.prop('disabled', true).text(messages.sending);
+
+        $.ajax({
+            url: <?php echo wp_json_encode(admin_url('admin-ajax.php')); ?>,
+            type: 'POST',
+            dataType: 'json',
+            data: form.serialize(),
+            success: function(response) {
+                if (response && response.success) {
+                    setFeedback('success', messages.success);
+                    form[0].reset();
+                    setTimeout(closeModal, 1200);
+                } else {
+                    var errorText = response && response.data && response.data.message ? response.data.message : messages.genericError;
+                    setFeedback('error', errorText);
+                }
+            },
+            error: function() {
+                setFeedback('error', messages.genericError);
+            },
+            complete: function() {
+                submitBtn.prop('disabled', false).text(<?php echo wp_json_encode(aynix_translate('safefleet.modal.form.submit')); ?>);
+            }
+        });
+    });
+})(jQuery);
+</script>
 
 <?php get_footer(); ?>

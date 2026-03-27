@@ -1144,6 +1144,35 @@ function submit_contact_request_handler() {
     $telefono = isset($_POST['telefono']) ? sanitize_text_field($_POST['telefono']) : '';
     $azienda = isset($_POST['azienda']) ? sanitize_text_field($_POST['azienda']) : '';
     $note = isset($_POST['note']) ? sanitize_textarea_field($_POST['note']) : '';
+
+    // Sicurezza per form modal SafeFleet (nonce + honeypot + captcha)
+    $sf_contact_nonce = isset($_POST['sf_contact_nonce']) ? sanitize_text_field($_POST['sf_contact_nonce']) : '';
+    $sf_website = isset($_POST['sf_website']) ? sanitize_text_field($_POST['sf_website']) : '';
+
+    if (!empty($sf_contact_nonce)) {
+        if (!wp_verify_nonce($sf_contact_nonce, 'sf_contact_modal')) {
+            wp_send_json_error(array('message' => 'Verifica sicurezza non valida'));
+            return;
+        }
+
+        if (!empty($sf_website)) {
+            wp_send_json_error(array('message' => 'Invio non valido'));
+            return;
+        }
+
+        $sf_captcha_a = isset($_POST['sf_captcha_a']) ? intval($_POST['sf_captcha_a']) : -1;
+        $sf_captcha_b = isset($_POST['sf_captcha_b']) ? intval($_POST['sf_captcha_b']) : -1;
+        $sf_captcha_answer = isset($_POST['sf_captcha_answer']) ? intval($_POST['sf_captcha_answer']) : -1;
+        $sf_captcha_token = isset($_POST['sf_captcha_token']) ? sanitize_text_field($_POST['sf_captcha_token']) : '';
+
+        $sf_expected_token = wp_hash($sf_captcha_a . '|' . $sf_captcha_b . '|sf_modal');
+        $sf_expected_answer = $sf_captcha_a + $sf_captcha_b;
+
+        if (empty($sf_captcha_token) || !hash_equals($sf_expected_token, $sf_captcha_token) || $sf_captcha_answer !== $sf_expected_answer) {
+            wp_send_json_error(array('message' => 'Captcha non valido'));
+            return;
+        }
+    }
     
     // Validazione
     if (empty($nome) || empty($cognome) || empty($email) || empty($telefono)) {

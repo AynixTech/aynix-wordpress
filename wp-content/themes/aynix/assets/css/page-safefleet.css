@@ -186,6 +186,9 @@
 
 #sf-product-page .sf-col-media {
     position: relative;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
     overflow: hidden;
     min-height: 320px;
 }
@@ -194,14 +197,15 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
     display: block;
 }
 
 #sf-product-page .sf-dark-panel {
     background: #090a0f;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    justify-content: stretch;
     align-items: stretch;
 }
 
@@ -218,10 +222,10 @@
 
 #sf-product-page .sf-dark-panel img {
     width: 100%;
-    flex: 1;
-    object-fit: cover;
+    height: 100%;
+    object-fit: contain;
     max-height: none;
-    padding: 0;
+    padding: 0 14px 14px;
 }
 
 #sf-product-page .sf-problem-grid {
@@ -289,7 +293,7 @@
 
 #sf-product-page .sf-cta {
     background: var(--sf-dark);
-    padding: 42px 0 52px;
+    padding: 2rem;
 }
 
 #sf-product-page .sf-cta-box {
@@ -336,6 +340,145 @@
     opacity: 0.8;
 }
 
+#sf-product-page .sf-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    z-index: 1200;
+}
+
+#sf-product-page .sf-modal.is-open {
+    display: block;
+}
+
+body.sf-modal-open {
+    overflow: hidden;
+}
+
+#sf-product-page .sf-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(9, 10, 15, 0.75);
+}
+
+#sf-product-page .sf-modal__dialog {
+    position: relative;
+    width: min(760px, calc(100% - 32px));
+    margin: 4vh auto;
+    max-height: 92vh;
+    overflow-y: auto;
+    background: var(--sf-white);
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+}
+
+#sf-product-page .sf-modal__close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    border: 0;
+    background: transparent;
+    font-size: 2rem;
+    line-height: 1;
+    color: #7b7e87;
+    cursor: pointer;
+}
+
+#sf-product-page .sf-modal__dialog h3 {
+    margin: 0;
+    font-size: 1.7rem;
+    color: #22242a;
+}
+
+#sf-product-page .sf-modal__subtitle {
+    margin: 8px 0 18px;
+    color: #5e6270;
+}
+
+#sf-product-page .sf-modal__form {
+    display: grid;
+    gap: 14px;
+}
+
+#sf-product-page .sf-modal__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+#sf-product-page .sf-modal__field {
+    display: grid;
+    gap: 6px;
+}
+
+#sf-product-page .sf-modal__field label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #2f3239;
+}
+
+#sf-product-page .sf-modal__field input,
+#sf-product-page .sf-modal__field textarea {
+    width: 100%;
+    border: 1px solid #d6d9e2;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font: inherit;
+}
+
+#sf-product-page .sf-modal__captcha-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#sf-product-page .sf-modal__captcha-question {
+    font-weight: 700;
+    color: #1f2229;
+    letter-spacing: 0.2px;
+}
+
+#sf-product-page .sf-modal__captcha-row input {
+    width: 130px;
+}
+
+#sf-product-page .sf-modal__feedback {
+    min-height: 20px;
+    font-size: 0.94rem;
+}
+
+#sf-product-page .sf-modal__feedback.is-error {
+    color: #b42318;
+}
+
+#sf-product-page .sf-modal__feedback.is-success {
+    color: #067647;
+}
+
+#sf-product-page .sf-modal__submit {
+    border: 0;
+    background: var(--sf-primary);
+    color: #0d4932;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 12px 18px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+#sf-product-page .sf-modal__submit:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+#sf-product-page .sf-honeypot {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+    pointer-events: none;
+}
+
 @media (max-width: 1080px) {
     #sf-product-page .sf-split {
         grid-template-columns: 1fr;
@@ -368,6 +511,24 @@
 }
 
 @media (max-width: 768px) {
+    #sf-product-page .sf-modal__dialog {
+        width: calc(100% - 20px);
+        padding: 18px;
+    }
+
+    #sf-product-page .sf-modal__grid {
+        grid-template-columns: 1fr;
+    }
+
+    #sf-product-page .sf-modal__captcha-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #sf-product-page .sf-modal__captcha-row input {
+        width: 100%;
+    }
+
     #sf-product-page .sf-hero {
         min-height: 440px;
     }
