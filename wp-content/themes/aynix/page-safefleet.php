@@ -20,7 +20,7 @@ $sf_assets = get_template_directory_uri() . '/assets/images/safefleet';
             <div class="sf-hero-wave">
                 <div class="container sf-hero-claim">
                     <div class="sf-hero-claim-icon">
-                        <img src="<?php echo esc_url($sf_assets . '/logoandslogan.webp'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.smart_fleet_icon')); ?>">
+                        <img src="<?php echo esc_url($sf_assets . '/logoandslogan.png'); ?>" alt="<?php echo esc_attr(aynix_translate('safefleet.alt.smart_fleet_icon')); ?>">
                     </div>
                     <p><?php echo aynix_translate('safefleet.hero.claim'); ?></p>
                 </div>
