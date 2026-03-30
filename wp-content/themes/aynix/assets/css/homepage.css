@@ -792,7 +792,7 @@
     .metodo-content {
         justify-self: center;
         width: 100%;
-        margin-top: 100px;
+        margin-top: 180px;
     }
 
     .metodo-fasi-home {
@@ -1000,7 +1000,6 @@
         width: 90%;
     }
 
-    .metodo-fasi-home,
     .problemi-grid-home,
     .perche-grid {
         grid-template-columns: 1fr;
@@ -1015,7 +1014,7 @@
 /* Small Mobile (Compact phones) */
 @media (max-width: 560px) {
     .metodo-fasi-home {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
