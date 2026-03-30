@@ -733,6 +733,16 @@
     padding: 18px 40px;
 }
 
+.btn-primary.btn-large {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    white-space: normal;
+}
+
 /* CTA Final Home */
 .home-cta-final {
     margin: 60px 0 40px;
@@ -895,11 +905,15 @@
     }
 
     .hero-left .hero-buttons {
+        width: 100%;
+        justify-content: center;
         margin-bottom: 0.75rem;
     }
 
     .hero-left .btn-primary {
         width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
         text-align: center;
         padding: 0.9rem 1.5rem;
         font-size: 1rem;
