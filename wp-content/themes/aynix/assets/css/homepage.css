@@ -249,11 +249,16 @@
     margin-top: 1.5rem;
     color: #ffffff;
     font-size: 0.95rem;
+    line-height: 1.6;
     text-align: center;
     opacity: 0.92;
     max-width: 860px;
     margin-left: auto;
     margin-right: auto;
+    background: rgba(17, 40, 84, 0.45);
+    border-radius: 10px;
+    padding: 0.55rem 0.85rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
 }
 
 .metodo-fasi-home {
@@ -791,7 +796,7 @@
     .metodo-content {
         justify-self: center;
         width: 100%;
-        margin-top: 180px;
+        margin-top: clamp(70px, 22vw, 180px);
     }
 
     .metodo-fasi-home {
