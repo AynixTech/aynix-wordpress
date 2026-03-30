@@ -249,7 +249,6 @@
     margin-top: 1.5rem;
     color: #ffffff;
     font-size: 0.95rem;
-    line-height: 1.7;
     text-align: center;
     opacity: 0.92;
     max-width: 860px;
@@ -943,8 +942,8 @@
 
     .fase-home {
         padding: 1.25rem 1rem;
-        height: 230px;
-        min-height: 230px;
+        height: 130px;
+        min-height: 130px;
     }
 
     .fase-number {
