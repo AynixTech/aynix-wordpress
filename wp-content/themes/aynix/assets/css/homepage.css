@@ -921,6 +921,7 @@
     .metodo-fasi-home {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 1.5rem;
+        align-items: stretch;
     }
 
     .problemi-grid-home,
@@ -942,12 +943,14 @@
 
     .fase-home {
         padding: 1.25rem 1rem;
+        height: 230px;
+        min-height: 230px;
     }
 
     .fase-number {
         width: 56px;
         height: 56px;
-        margin-bottom: 1rem;
+        margin-bottom: 0;
     }
 
     .fase-number img {
@@ -957,6 +960,8 @@
     .fase-home h3 {
         font-size: 1rem;
         margin-bottom: 0.4rem;
+        margin-top: 0;
+
     }
 
     .fase-home p {
@@ -1066,6 +1071,8 @@
 
     .fase-home {
         padding: 0.8rem 0.6rem;
+        height: 210px;
+        min-height: 210px;
     }
 
     .fase-number {
