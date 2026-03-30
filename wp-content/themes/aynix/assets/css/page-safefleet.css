@@ -513,6 +513,8 @@ body.sf-modal-open {
 @media (max-width: 768px) {
     #sf-product-page .sf-modal__dialog {
         width: calc(100% - 20px);
+        margin: 2vh auto;
+        max-height: 94vh;
         padding: 18px;
     }
 
@@ -530,29 +532,48 @@ body.sf-modal-open {
     }
 
     #sf-product-page .sf-hero {
-        min-height: 440px;
+        min-height: auto;
     }
 
     #sf-product-page .sf-hero-inner {
-        padding: 56px 0 28px;
+        padding: 42px 14px 20px;
     }
 
     #sf-product-page .sf-hero-card {
-        padding: 24px;
+        padding: 20px 18px;
+        border-radius: 16px;
     }
 
     #sf-product-page .sf-hero-card h1,
     #sf-product-page h2 {
-        font-size: 2.7rem;
+        font-size: 2.2rem;
     }
 
     #sf-product-page .sf-hero-card p,
     #sf-product-page .sf-subtitle {
-        font-size: 1.15rem;
+        font-size: 1.05rem;
+    }
+
+    #sf-product-page .sf-hero-claim {
+        gap: 10px;
+    }
+
+    #sf-product-page .sf-hero-claim-icon {
+        width: 44px;
+        height: 44px;
+    }
+
+    #sf-product-page .sf-hero-claim-icon img {
+        width: 160px;
+    }
+
+    #sf-product-page .sf-hero-claim p {
+        font-size: 1.35rem;
+        line-height: 1.2;
     }
 
     #sf-product-page .sf-media-caption {
-        font-size: 1.9rem;
+        font-size: 1.65rem;
     }
 
     #sf-product-page .sf-col-media {
@@ -577,6 +598,7 @@ body.sf-modal-open {
     #sf-product-page .sf-problem-grid,
     #sf-product-page .sf-module-grid {
         grid-template-columns: 1fr;
+        gap: 18px;
     }
 
     #sf-product-page .sf-hero-claim {
@@ -587,27 +609,57 @@ body.sf-modal-open {
     #sf-product-page .sf-hero-wave {
         border-top-left-radius: 50% 56px;
         border-top-right-radius: 50% 56px;
-        padding: 34px 0 26px;
+        padding: 24px 14px 20px;
+    }
+
+    #sf-product-page .sf-col-content {
+        padding: 0;
+    }
+
+    #sf-product-page .sf-content-wrap {
+        width: 100%;
+        padding: 30px 20px;
+    }
+
+    #sf-product-page .sf-cta {
+        padding: 1.25rem 1rem;
     }
 
     #sf-product-page .sf-cta-box h2 {
-        font-size: 2.3rem;
+        font-size: 2rem;
+    }
+
+    #sf-product-page .sf-cta-btn {
+        width: 100%;
+        text-align: center;
     }
 }
 
 @media (max-width: 480px) {
     #sf-product-page .sf-hero-card h1,
     #sf-product-page h2 {
-        font-size: 2.2rem;
+        font-size: 1.85rem;
     }
 
     #sf-product-page .sf-hero-card p,
     #sf-product-page .sf-subtitle {
-        font-size: 1.05rem;
+        font-size: 0.98rem;
+    }
+
+    #sf-product-page .sf-hero-card {
+        padding: 16px 14px;
+    }
+
+    #sf-product-page .sf-hero-claim-icon img {
+        width: 132px;
+    }
+
+    #sf-product-page .sf-hero-claim p {
+        font-size: 1.12rem;
     }
 
     #sf-product-page .sf-feature-box {
-        padding: 18px;
+        padding: 16px;
     }
 
     #sf-product-page .sf-feature-box li,
@@ -615,5 +667,22 @@ body.sf-modal-open {
     #sf-product-page .sf-module-item h3,
     #sf-product-page .sf-cta-box p {
         font-size: 0.95rem;
+    }
+
+    #sf-product-page .sf-feature-box li {
+        padding-left: 24px;
+    }
+
+    #sf-product-page .sf-media-caption {
+        font-size: 1.45rem;
+    }
+
+    #sf-product-page .sf-cta-box h2 {
+        font-size: 1.7rem;
+    }
+
+    #sf-product-page .sf-cta-btn {
+        font-size: 1rem;
+        padding: 11px 16px;
     }
 }
