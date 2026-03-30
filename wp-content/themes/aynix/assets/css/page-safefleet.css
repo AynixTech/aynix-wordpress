@@ -494,6 +494,7 @@ body.sf-modal-open {
 
     #sf-product-page .sf-media-caption {
         margin-top: 26px;
+        text-align: center;
     }
 
     #sf-product-page .sf-problems .sf-col-media {
@@ -574,6 +575,7 @@ body.sf-modal-open {
 
     #sf-product-page .sf-media-caption {
         font-size: 1.65rem;
+        text-align: center;
     }
 
     #sf-product-page .sf-col-media {
@@ -675,10 +677,12 @@ body.sf-modal-open {
 
     #sf-product-page .sf-media-caption {
         font-size: 1.45rem;
+        text-align: center;
     }
 
     #sf-product-page .sf-cta-box h2 {
         font-size: 1.7rem;
+        text-align: center;
     }
 
     #sf-product-page .sf-cta-btn {
