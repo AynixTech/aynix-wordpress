@@ -796,7 +796,7 @@
     .metodo-content {
         justify-self: center;
         width: 100%;
-        margin-top: clamp(70px, 22vw, 180px);
+        margin-top: clamp(70px, 26vw, 180px);
     }
 
     .metodo-fasi-home {
@@ -839,7 +839,7 @@
     }
 
     .homepage-content {
-        margin-top: -53%;
+        margin-top: -63%;
     }
 
     .hero {
