@@ -122,7 +122,6 @@ $sf_contact_nonce = wp_create_nonce('sf_contact_modal');
                 <h2><?php echo aynix_translate('safefleet.cta.title'); ?></h2>
                 <p><?php echo aynix_translate('safefleet.cta.text'); ?></p>
                 <button type="button" class="sf-cta-btn" id="sf-open-contact-modal"><?php echo aynix_translate('safefleet.cta.button'); ?></button>
-                <small><?php echo aynix_translate('safefleet.cta.note'); ?></small>
             </div>
         </section>
 

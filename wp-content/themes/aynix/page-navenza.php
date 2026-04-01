@@ -101,7 +101,6 @@ $nv_contact_nonce = wp_create_nonce('sf_contact_modal');
                     <h2><?php echo aynix_translate('navenza.cta.title'); ?></h2>
                     <p><?php echo aynix_translate('navenza.cta.text'); ?></p>
                     <button type="button" class="nv-cta-btn" id="nv-open-contact-modal"><?php echo aynix_translate('navenza.cta.button'); ?></button>
-                    <small><?php echo aynix_translate('navenza.cta.note'); ?></small>
                 </div>
             </div>
         </section>
