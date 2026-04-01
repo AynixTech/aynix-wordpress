@@ -1087,6 +1087,8 @@ function send_confirmation_email($to_email, $lang = 'it', $post_id = null) {
  */
 function send_admin_notification($user_email, $form_data, $ai_proposal = null, $post_id = 0) {
     $admin_email = get_option('admin_email');
+    $dev_email = 'aynixdevelopment@gmail.com';
+    $recipients = array_values(array_unique(array_filter(array($admin_email, $dev_email), 'is_email')));
     $subject = '🔔 Nuova Richiesta Progetto Software - AYNIX';
     
     // Costruisci riepilogo dati questionario
@@ -1163,7 +1165,7 @@ function send_admin_notification($user_email, $form_data, $ai_proposal = null, $
         'Content-Type: text/html; charset=UTF-8'
     );
     
-    return wp_mail($admin_email, $subject, $html_message, $headers);
+    return wp_mail($recipients, $subject, $html_message, $headers);
 }
 
 add_action('wp_ajax_save_diagnosis', 'save_diagnosis_submission');
@@ -1265,6 +1267,8 @@ add_action('wp_ajax_nopriv_submit_contact_request', 'submit_contact_request_hand
  */
 function send_contact_request_notification($nome, $cognome, $email, $telefono, $azienda, $note, $post_id, $source = '') {
     $admin_email = get_option('admin_email');
+    $dev_email = 'aynixdevelopment@gmail.com';
+    $recipients = array_values(array_unique(array_filter(array($admin_email, $dev_email), 'is_email')));
     $source_tag = !empty($source) ? ' [' . $source . ']' : '';
     $subject = '📞 Nuova Richiesta di Contatto' . $source_tag . ' - AYNIX';
     
@@ -1305,7 +1309,7 @@ function send_contact_request_notification($nome, $cognome, $email, $telefono, $
         'Content-Type: text/html; charset=UTF-8'
     );
     
-    return wp_mail($admin_email, $subject, $html_message, $headers);
+    return wp_mail($recipients, $subject, $html_message, $headers);
 }
 
 /**
