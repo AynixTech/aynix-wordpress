@@ -135,6 +135,7 @@ $sf_contact_nonce = wp_create_nonce('sf_contact_modal');
 
                 <form id="sf-contact-form" class="sf-modal__form" novalidate>
                     <input type="hidden" name="action" value="submit_contact_request">
+                    <input type="hidden" name="contact_source" value="SafeFleet">
                     <input type="hidden" name="sf_contact_nonce" value="<?php echo esc_attr($sf_contact_nonce); ?>">
                     <input type="hidden" name="sf_captcha_a" value="<?php echo esc_attr($sf_captcha_a); ?>">
                     <input type="hidden" name="sf_captcha_b" value="<?php echo esc_attr($sf_captcha_b); ?>">

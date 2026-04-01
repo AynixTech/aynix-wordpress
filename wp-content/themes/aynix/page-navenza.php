@@ -115,6 +115,7 @@ $nv_contact_nonce = wp_create_nonce('sf_contact_modal');
 
                 <form id="nv-contact-form" class="nv-modal__form" novalidate>
                     <input type="hidden" name="action" value="submit_contact_request">
+                    <input type="hidden" name="contact_source" value="Navenza">
                     <input type="hidden" name="sf_contact_nonce" value="<?php echo esc_attr($nv_contact_nonce); ?>">
                     <input type="hidden" name="sf_captcha_a" value="<?php echo esc_attr($nv_captcha_a); ?>">
                     <input type="hidden" name="sf_captcha_b" value="<?php echo esc_attr($nv_captcha_b); ?>">

@@ -363,114 +363,149 @@ add_action('wp_enqueue_scripts', 'aynix_enqueue_fonts');
 /**
  * Template email HTML con branding AYNIX
  */
-function aynix_email_template($content, $title = '') {
-    // URL assoluto del logo (PNG invece di SVG per compatibilità client email)
-    $logo_url = 'https://aynix.tech/wp-content/uploads/2025/03/logo_aynix_white-768x274.png';
-    
-    $html = '
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>' . esc_html($title) . '</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: "Inter", Arial, sans-serif;
-            background-color: #f4f4f4;
-        }
-        .email-wrapper {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #ffffff;
-        }
-        .email-header {
-            background: linear-gradient(135deg, #438ef9 0%, #ff6331 100%);
-            padding: 40px 20px;
-            text-align: center;
-        }
-        .email-logo {
-            max-width: 180px;
-            height: auto;
-            display: inline-block;
-        }
-        .email-body {
-            padding: 40px 30px;
-            color: #333333;
-            line-height: 1.6;
-        }
-        .email-body h1 {
-            color: #438ef9;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        .email-body h2 {
-            color: #438ef9;
-            font-size: 20px;
-            margin-top: 30px;
-            margin-bottom: 15px;
-        }
-        .email-body p {
-            margin-bottom: 15px;
-        }
-        .cta-button {
-            display: inline-block;
-            padding: 15px 30px;
-            background: linear-gradient(135deg, #438ef9 0%, #ff6331 100%);
-            color: #ffffff !important;
-            text-decoration: none;
-            border-radius: 5px;
-            margin: 20px 0;
-            font-weight: 600;
-        }
-        .email-footer {
-            background-color: #1a1a1a;
-            color: #ffffff;
-            padding: 30px;
-            text-align: center;
-            font-size: 14px;
-        }
-        .email-footer a {
-            color: #438ef9;
-            text-decoration: none;
-        }
-        .info-box {
-            background-color: #f8f9fa;
-            border-left: 4px solid #438ef9;
-            padding: 15px 20px;
-            margin: 20px 0;
-        }
-    </style>
-</head>
-<body>
-    <div class="email-wrapper">
-        <div class="email-header">
-            <img src="' . esc_url($logo_url) . '" alt="AYNIX" class="email-logo" style="max-width: 180px; height: auto; display: inline-block;">
-            <!--[if mso]>
-            <div style="font-family: \'Oxanium\', Arial, sans-serif; font-size: 36px; font-weight: 700; color: #ffffff; letter-spacing: 2px;">AYNIX</div>
-            <![endif]-->
-        </div>
-        <div class="email-body">
-            ' . $content . '
-        </div>
-        <div class="email-footer">
-            <p><strong>AYNIX Tech</strong></p>
-            <p>Sviluppiamo soluzioni software su misura</p>
-            <p>
-                <a href="https://aynix.tech">aynix.tech</a> | 
-                <a href="mailto:info@aynix.tech">info@aynix.tech</a>
-            </p>
-            <p style="font-size: 12px; color: #999; margin-top: 20px;">
-                Hai ricevuto questa email perché hai compilato il questionario sul nostro sito.
-            </p>
-        </div>
-    </div>
-</body>
-</html>
-    ';
-    
+function aynix_email_template($content, $title = '', $subtitle = '', $lang = 'it') {
+    $logo_blue_url    = get_template_directory_uri() . '/assets/images/email/logo-blue.png';
+    $logo_colored_url = get_template_directory_uri() . '/assets/images/email/logo-colored.png';
+    $site_url         = home_url('/');
+    $linkedin_url     = 'https://www.linkedin.com/company/aynix';
+
+    $footer_strings = array(
+        'it' => array(
+            'desc'   => 'Aynix sviluppa piattaforme AI, sistemi di automazione e software personalizzato per aiutare le aziende a crescere con la tecnologia intelligente.',
+            'legal'  => 'Hai ricevuto questa email perché hai richiesto informazioni o sei nella nostra lista contatti.',
+            'rights' => 'Tutti i diritti riservati.',
+        ),
+        'en' => array(
+            'desc'   => 'Aynix develops AI platforms, automation systems and custom software designed to help companies grow with intelligent technology.',
+            'legal'  => 'You received this email because you requested information or are on our contact list.',
+            'rights' => 'All rights reserved.',
+        ),
+        'es' => array(
+            'desc'   => 'Aynix desarrolla plataformas de IA, sistemas de automatización y software personalizado para ayudar a las empresas a crecer con tecnología inteligente.',
+            'legal'  => 'Este correo electrónico fue enviado a usted porque solicitó información o está en nuestra lista de contactos.',
+            'rights' => 'Todos los derechos reservados.',
+        ),
+        'pt' => array(
+            'desc'   => 'Aynix desenvolve plataformas de IA, sistemas de automação e software personalizado para ajudar as empresas a crescer com tecnologia inteligente.',
+            'legal'  => 'Recebeu este e-mail porque solicitou informações ou está na nossa lista de contactos.',
+            'rights' => 'Todos os direitos reservados.',
+        ),
+    );
+    $fs = $footer_strings[$lang] ?? $footer_strings['it'];
+
+    $subtitle_row = !empty($subtitle)
+        ? '<p style="margin:8px 0 0;font-size:15px;color:#6b7280;line-height:1.5;font-family:Arial,Helvetica,sans-serif;">' . esc_html($subtitle) . '</p>'
+        : '';
+
+    $html = '<!DOCTYPE html><html lang="' . esc_attr($lang) . '"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>' . esc_html($title) . '</title>
+<style>
+body{margin:0;padding:0;background-color:#eef2f8;font-family:Arial,Helvetica,sans-serif;}
+h1{margin:0 0 16px;font-size:20px;font-weight:700;color:#0e1f3d;line-height:1.3;}
+h2{margin:24px 0 10px;font-size:17px;font-weight:700;color:#0e1f3d;}
+p{margin:0 0 16px;font-size:15px;color:#374151;line-height:1.6;}
+ul{margin:8px 0 16px;padding-left:20px;}
+li{font-size:15px;color:#374151;line-height:1.6;margin-bottom:6px;}
+a{color:#438ef9;text-decoration:none;}
+.info-box{background:#f8fafc;border-radius:8px;padding:18px 20px;margin:16px 0;}
+.info-box p{margin:0 0 8px;}
+.info-box p:last-child{margin:0;}
+.cta-button{display:inline-block;background:#f05c2a;color:#ffffff !important;text-decoration:none;padding:16px 40px;border-radius:50px;font-size:16px;font-weight:700;}
+</style>
+</head><body>
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#eef2f8;">
+<tr><td align="center" style="padding:24px 16px;">
+<table width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;width:100%;">
+
+  <!-- HEADER -->
+  <tr>
+    <td style="background:#ffffff;padding:16px 28px;border-radius:10px 10px 0 0;">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+        <td style="vertical-align:middle;">
+          <img src="' . esc_url($logo_blue_url) . '" alt="AYNIX" height="26" style="display:block;height:26px;width:auto;">
+        </td>
+        <td align="right" style="vertical-align:middle;font-size:9px;letter-spacing:1.5px;color:#9ca3af;text-transform:uppercase;font-family:Arial,Helvetica,sans-serif;">AI &bull; AUTOMATION &bull; SOFTWARE ARCHITECTURE</td>
+      </tr></table>
+    </td>
+  </tr>
+  <tr><td style="background-color:#dde3ed;height:1px;font-size:1px;line-height:1px;">&nbsp;</td></tr>
+
+  <!-- HERO TITLE -->
+  <tr>
+    <td style="background-color:#eef2f8;padding:44px 32px 36px;text-align:center;">
+      <p style="margin:0;font-size:28px;font-weight:800;color:#0e1f3d;line-height:1.2;font-family:Arial,Helvetica,sans-serif;">' . esc_html($title) . '</p>
+      ' . $subtitle_row . '
+    </td>
+  </tr>
+
+  <!-- CONTENT CARD -->
+  <tr>
+    <td style="background-color:#eef2f8;padding:0 16px 24px;">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+        <td style="background:#ffffff;border-radius:12px;padding:32px;font-family:Arial,Helvetica,sans-serif;">
+          ' . $content . '
+        </td>
+      </tr></table>
+    </td>
+  </tr>
+
+  <!-- SERVICES -->
+  <tr>
+    <td style="background-color:#eef2f8;padding:0 16px 24px;">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f5f8fc;border-radius:8px;">
+        <tr>
+          <td align="center" style="padding:20px 4px 16px;vertical-align:top;width:25%;">
+            <div style="width:44px;height:44px;border-radius:50%;background:#e8eef8;margin:0 auto 10px;line-height:44px;text-align:center;font-size:20px;">&#9881;&#65039;</div>
+            <div style="font-size:12px;font-weight:700;color:#374151;line-height:1.4;font-family:Arial,Helvetica,sans-serif;">Automation<br>Systems</div>
+          </td>
+          <td align="center" style="padding:20px 4px 16px;vertical-align:top;width:25%;">
+            <div style="width:44px;height:44px;border-radius:50%;background:#e8eef8;margin:0 auto 10px;line-height:44px;text-align:center;font-size:20px;">&#129302;</div>
+            <div style="font-size:12px;font-weight:700;color:#374151;line-height:1.4;font-family:Arial,Helvetica,sans-serif;">AI<br>Integration</div>
+          </td>
+          <td align="center" style="padding:20px 4px 16px;vertical-align:top;width:25%;">
+            <div style="width:44px;height:44px;border-radius:50%;background:#e8eef8;margin:0 auto 10px;line-height:44px;text-align:center;font-size:15px;font-weight:800;color:#438ef9;font-family:Arial,Helvetica,sans-serif;">&lt;/&gt;</div>
+            <div style="font-size:12px;font-weight:700;color:#374151;line-height:1.4;font-family:Arial,Helvetica,sans-serif;">Custom<br>Software</div>
+          </td>
+          <td align="center" style="padding:20px 4px 16px;vertical-align:top;width:25%;">
+            <div style="width:44px;height:44px;border-radius:50%;background:#e8eef8;margin:0 auto 10px;line-height:44px;text-align:center;font-size:20px;">&#128200;</div>
+            <div style="font-size:12px;font-weight:700;color:#374151;line-height:1.4;font-family:Arial,Helvetica,sans-serif;">Business Process<br>Optimization</div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- FOOTER -->
+  <tr>
+    <td style="background:#ffffff;padding:20px 28px 16px;">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+        <td style="border-top:1px solid #e8edf5;padding-top:20px;vertical-align:top;padding-right:20px;width:55%;">
+          <img src="' . esc_url($logo_colored_url) . '" alt="AYNIX" height="24" style="display:block;height:24px;width:auto;margin-bottom:10px;">
+          <p style="margin:0;font-size:12px;color:#6b7280;line-height:1.5;font-family:Arial,Helvetica,sans-serif;">' . esc_html($fs['desc']) . '</p>
+        </td>
+        <td style="border-top:1px solid #e8edf5;padding-top:20px;vertical-align:top;text-align:right;white-space:nowrap;">
+          <p style="margin:0 0 6px;font-family:Arial,Helvetica,sans-serif;"><a href="' . esc_url($site_url) . '" style="color:#438ef9;text-decoration:none;font-size:13px;font-weight:600;">Website</a></p>
+          <p style="margin:0 0 6px;font-family:Arial,Helvetica,sans-serif;"><a href="mailto:info@aynix.tech" style="color:#438ef9;text-decoration:none;font-size:13px;font-weight:600;">Email</a></p>
+          <p style="margin:0;font-family:Arial,Helvetica,sans-serif;"><a href="' . esc_url($linkedin_url) . '" style="color:#438ef9;text-decoration:none;font-size:13px;font-weight:600;">LinkedIn</a></p>
+        </td>
+      </tr></table>
+    </td>
+  </tr>
+
+  <!-- LEGAL -->
+  <tr>
+    <td style="background:#f5f8fc;padding:14px 28px;border-top:1px solid #dde3ed;border-radius:0 0 10px 10px;">
+      <p style="margin:0 0 4px;font-size:11px;color:#9ca3af;line-height:1.5;font-family:Arial,Helvetica,sans-serif;">' . esc_html($fs['legal']) . '</p>
+      <p style="margin:0;font-size:11px;color:#9ca3af;font-family:Arial,Helvetica,sans-serif;">&copy; 2026 Aynix Consulting. ' . esc_html($fs['rights']) . '</p>
+    </td>
+  </tr>
+
+</table>
+</td></tr>
+</table></body></html>';
+
     return $html;
 }
 
@@ -920,7 +955,7 @@ function send_proposal_email($to_email, $proposal, $form_data, $lang = 'it', $po
         <p><strong>' . $t['team'] . '</strong></p>
     ';
     
-    $html_message = aynix_email_template($content, $t['email_title']);
+    $html_message = aynix_email_template($content, $t['email_title'], '', $lang);
     
     $headers = array(
         'From: AYNIX <info@aynix.tech>',
@@ -1036,7 +1071,7 @@ function send_confirmation_email($to_email, $lang = 'it', $post_id = null) {
         <p><strong>' . $t['team'] . '</strong></p>
     ';
     
-    $html_message = aynix_email_template($content, $t['email_title']);
+    $html_message = aynix_email_template($content, $t['email_title'], '', $lang);
     
     $headers = array(
         'From: AYNIX <info@aynix.tech>',
@@ -1145,6 +1180,9 @@ function submit_contact_request_handler() {
     $telefono = isset($_POST['telefono']) ? sanitize_text_field($_POST['telefono']) : '';
     $azienda = isset($_POST['azienda']) ? sanitize_text_field($_POST['azienda']) : '';
     $note = isset($_POST['note']) ? sanitize_textarea_field($_POST['note']) : '';
+    $source = isset($_POST['contact_source']) ? sanitize_text_field($_POST['contact_source']) : '';
+    $lang   = isset($_COOKIE['site_lang']) ? sanitize_text_field($_COOKIE['site_lang']) : 'it';
+    $lang   = in_array($lang, array('it','en','es','pt'), true) ? $lang : 'it';
 
     // Sicurezza per form modal SafeFleet (nonce + honeypot + captcha)
     $sf_contact_nonce = isset($_POST['sf_contact_nonce']) ? sanitize_text_field($_POST['sf_contact_nonce']) : '';
@@ -1211,10 +1249,10 @@ function submit_contact_request_handler() {
     update_post_meta($post_id, 'note', $note);
     
     // Invia email all'admin
-    send_contact_request_notification($nome, $cognome, $email, $telefono, $azienda, $note, $post_id);
+    send_contact_request_notification($nome, $cognome, $email, $telefono, $azienda, $note, $post_id, $source);
     
     // Invia conferma al cliente
-    send_contact_request_confirmation($email, $nome);
+    send_contact_request_confirmation($email, $nome, $cognome, $telefono, $azienda, $note, $source, $lang);
     
     wp_send_json_success(array('message' => 'Richiesta inviata con successo'));
 }
@@ -1225,9 +1263,10 @@ add_action('wp_ajax_nopriv_submit_contact_request', 'submit_contact_request_hand
 /**
  * Invia notifica admin per richiesta contatto
  */
-function send_contact_request_notification($nome, $cognome, $email, $telefono, $azienda, $note, $post_id) {
+function send_contact_request_notification($nome, $cognome, $email, $telefono, $azienda, $note, $post_id, $source = '') {
     $admin_email = get_option('admin_email');
-    $subject = '📞 Nuova Richiesta di Contatto - AYNIX';
+    $source_tag = !empty($source) ? ' [' . $source . ']' : '';
+    $subject = '📞 Nuova Richiesta di Contatto' . $source_tag . ' - AYNIX';
     
     $content = '
         <h1>📞 Nuova Richiesta di Contatto</h1>
@@ -1270,45 +1309,142 @@ function send_contact_request_notification($nome, $cognome, $email, $telefono, $
 }
 
 /**
- * Invia conferma al cliente per richiesta contatto
+ * Invia conferma al cliente per richiesta contatto (tradotta in base alla lingua)
  */
-function send_contact_request_confirmation($email, $nome) {
-    $subject = 'Richiesta Ricevuta - Ti Contatteremo Presto - AYNIX';
-    
-    $content = '
-        <h1>✅ Richiesta Ricevuta</h1>
-        <p>Ciao ' . esc_html($nome) . ',</p>
-        <p>Abbiamo ricevuto la tua richiesta di essere contattato.</p>
-        
-        <div class="info-box">
-            <p><strong>📞 Cosa succede ora?</strong></p>
-            <ul style="margin: 10px 0;">
-                <li>Ti contatteremo entro 24 ore</li>
-                <li>Fisseremo una call gratuita di 15-20 minuti</li>
-                <li>Discuteremo il tuo progetto in dettaglio</li>
-            </ul>
-        </div>
-        
-        <p><strong>Preparati per la call:</strong></p>
-        <ul>
-            <li>Pensa agli obiettivi principali del progetto</li>
-            <li>Identifica le criticità che vuoi risolvere</li>
-            <li>Annota eventuali domande specifiche</li>
-        </ul>
-        
-        <p>A presto!</p>
-        <p><strong>Il Team AYNIX</strong></p>
-    ';
-    
-    $html_message = aynix_email_template($content, 'Richiesta Ricevuta');
-    
+function send_contact_request_confirmation($email, $nome, $cognome = '', $telefono = '', $azienda = '', $note = '', $source = '', $lang = 'it') {
+    $allowed_langs = array('it', 'en', 'es', 'pt');
+    if (!in_array($lang, $allowed_langs, true)) {
+        $lang = 'it';
+    }
+    $source_tag = !empty($source) ? ' [' . $source . ']' : '';
+    $full_name  = trim($nome . ' ' . $cognome);
+
+    $translations = array(
+        'it' => array(
+            'subject'        => 'Richiesta Ricevuta' . $source_tag . ' - Ti contatteremo presto - AYNIX',
+            'email_title'    => 'Richiesta Ricevuta',
+            'email_subtitle' => 'Ti contatteremo entro 24 ore per organizzare una call.',
+            'greeting'       => 'Ciao',
+            'received'       => 'Abbiamo ricevuto la tua richiesta di contatto e ti ricontatteremo a breve.',
+            'summary_title'  => '📌 Riepilogo della tua richiesta',
+            'name_label'     => 'Nome',
+            'email_label'    => 'Email',
+            'phone_label'    => 'Telefono',
+            'company_label'  => 'Azienda',
+            'message_title'  => '📝 Il tuo messaggio',
+            'next_title'     => '📞 Cosa succede ora?',
+            'step1'          => 'Ti contatteremo entro 24 ore',
+            'step2'          => 'Organizzeremo una call gratuita di 15-20 minuti',
+            'step3'          => 'Analizzeremo il tuo progetto in dettaglio',
+            'cta_text'       => 'Visita il nostro sito',
+            'closing'        => 'A presto,',
+            'team'           => 'Il Team AYNIX',
+        ),
+        'en' => array(
+            'subject'        => 'Request Received' . $source_tag . ' - We will contact you soon - AYNIX',
+            'email_title'    => 'Request Received',
+            'email_subtitle' => 'We will contact you within 24 hours to schedule a call.',
+            'greeting'       => 'Hi',
+            'received'       => 'We have received your contact request and will get back to you shortly.',
+            'summary_title'  => '📌 Your Request Summary',
+            'name_label'     => 'Name',
+            'email_label'    => 'Email',
+            'phone_label'    => 'Phone',
+            'company_label'  => 'Company',
+            'message_title'  => '📝 Your Message',
+            'next_title'     => '📞 What happens next?',
+            'step1'          => 'We will contact you within 24 hours',
+            'step2'          => 'We will schedule a free 15-20 minute call',
+            'step3'          => 'We will analyse your project in detail',
+            'cta_text'       => 'Visit our website',
+            'closing'        => 'See you soon,',
+            'team'           => 'The AYNIX Team',
+        ),
+        'es' => array(
+            'subject'        => 'Solicitud Recibida' . $source_tag . ' - Te contactaremos pronto - AYNIX',
+            'email_title'    => 'Solicitud Recibida',
+            'email_subtitle' => 'Nos pondremos en contacto contigo en un plazo de 24 horas.',
+            'greeting'       => 'Hola',
+            'received'       => 'Hemos recibido tu solicitud de contacto y nos pondremos en contacto contigo en breve.',
+            'summary_title'  => '📌 Resumen de tu solicitud',
+            'name_label'     => 'Nombre',
+            'email_label'    => 'Email',
+            'phone_label'    => 'Teléfono',
+            'company_label'  => 'Empresa',
+            'message_title'  => '📝 Tu mensaje',
+            'next_title'     => '📞 ¿Qué pasa ahora?',
+            'step1'          => 'Nos pondremos en contacto contigo en un plazo de 24 horas',
+            'step2'          => 'Organizaremos una llamada gratuita de 15-20 minutos',
+            'step3'          => 'Analizaremos tu proyecto en detalle',
+            'cta_text'       => 'Visita nuestro sitio web',
+            'closing'        => '¡Hasta pronto,',
+            'team'           => 'El Equipo AYNIX',
+        ),
+        'pt' => array(
+            'subject'        => 'Pedido Recebido' . $source_tag . ' - Entraremos em contacto em breve - AYNIX',
+            'email_title'    => 'Pedido Recebido',
+            'email_subtitle' => 'Entraremos em contacto dentro de 24 horas para agendar uma chamada.',
+            'greeting'       => 'Olá',
+            'received'       => 'Recebemos o seu pedido de contacto e entraremos em contacto em breve.',
+            'summary_title'  => '📌 Resumo do seu pedido',
+            'name_label'     => 'Nome',
+            'email_label'    => 'Email',
+            'phone_label'    => 'Telefone',
+            'company_label'  => 'Empresa',
+            'message_title'  => '📝 A sua mensagem',
+            'next_title'     => '📞 O que acontece agora?',
+            'step1'          => 'Entraremos em contacto dentro de 24 horas',
+            'step2'          => 'Agendaremos uma chamada gratuita de 15-20 minutos',
+            'step3'          => 'Analisaremos o seu projeto em detalhe',
+            'cta_text'       => 'Visite o nosso site',
+            'closing'        => 'Até breve,',
+            'team'           => 'A Equipa AYNIX',
+        ),
+    );
+    $t = $translations[$lang];
+
+    $content  = '<p>' . esc_html($t['greeting']) . ' ' . esc_html($nome) . ',</p>';
+    $content .= '<p>' . esc_html($t['received']) . '</p>';
+    $content .= '<p style="font-size:16px;font-weight:700;color:#0e1f3d;margin:24px 0 10px;">' . esc_html($t['summary_title']) . '</p>';
+    $content .= '<div class="info-box">';
+    $content .= '<p><strong>' . esc_html($t['name_label']) . ':</strong> ' . esc_html($full_name) . '</p>';
+    $content .= '<p><strong>' . esc_html($t['email_label']) . ':</strong> ' . esc_html($email) . '</p>';
+    if (!empty($telefono)) {
+        $content .= '<p><strong>' . esc_html($t['phone_label']) . ':</strong> ' . esc_html($telefono) . '</p>';
+    }
+    if (!empty($azienda)) {
+        $content .= '<p><strong>' . esc_html($t['company_label']) . ':</strong> ' . esc_html($azienda) . '</p>';
+    }
+    $content .= '</div>';
+
+    if (!empty($note)) {
+        $content .= '<p style="font-size:16px;font-weight:700;color:#0e1f3d;margin:24px 0 10px;">' . esc_html($t['message_title']) . '</p>';
+        $content .= '<div class="info-box"><p>' . nl2br(esc_html($note)) . '</p></div>';
+    }
+
+    $content .= '<p style="font-size:16px;font-weight:700;color:#0e1f3d;margin:24px 0 10px;">' . esc_html($t['next_title']) . '</p>';
+    $content .= '<ul>';
+    $content .= '<li>' . esc_html($t['step1']) . '</li>';
+    $content .= '<li>' . esc_html($t['step2']) . '</li>';
+    $content .= '<li>' . esc_html($t['step3']) . '</li>';
+    $content .= '</ul>';
+
+    $content .= '<p style="text-align:center;margin:28px 0 8px;">';
+    $content .= '<a href="' . esc_url(home_url('/')) . '" class="cta-button" style="background:#f05c2a;color:#ffffff !important;text-decoration:none;padding:16px 40px;border-radius:50px;font-size:16px;font-weight:700;display:inline-block;">' . esc_html($t['cta_text']) . '</a>';
+    $content .= '</p>';
+
+    $content .= '<p style="margin-top:28px;">' . esc_html($t['closing']) . '</p>';
+    $content .= '<p><strong>' . esc_html($t['team']) . '</strong></p>';
+
+    $html_message = aynix_email_template($content, $t['email_title'], $t['email_subtitle'], $lang);
+
     $headers = array(
         'From: AYNIX <info@aynix.tech>',
         'Reply-To: info@aynix.tech',
-        'Content-Type: text/html; charset=UTF-8'
+        'Content-Type: text/html; charset=UTF-8',
     );
-    
-    return wp_mail($email, $subject, $html_message, $headers);
+
+    return wp_mail($email, $t['subject'], $html_message, $headers);
 }
 
 /**
