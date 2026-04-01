@@ -83,6 +83,7 @@
     gap: 12px;
     color: var(--nv-white);
     font-weight: 700;
+    justify-content: center;
 }
 
 #nv-product-page .nv-hero-claim i {
