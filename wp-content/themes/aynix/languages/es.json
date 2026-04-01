@@ -624,5 +624,55 @@
   
   "ai_tools.cta.title": "¿Listo para comenzar?",
   "ai_tools.cta.text": "¿Cuántas horas a la semana te están costando las cosas que hoy podrías automatizar con IA?",
-  "ai_tools.cta.next": "El próximo paso: elige una herramienta, haz una prueba gratuita y experimenta con un caso real de tu negocio."
+  "ai_tools.cta.next": "El próximo paso: elige una herramienta, haz una prueba gratuita y experimenta con un caso real de tu negocio.",
+
+  "navenza.hero.title": "Navenza",
+  "navenza.hero.description": "Navenza es una plataforma tecnológica desarrollada por Aynix que centraliza, automatiza y optimiza la operación de empresas logísticas, forwarders y compañías de transporte. Conecta el mundo físico con el digital, brindando control total, trazabilidad y toma de decisiones basada en datos.",
+  "navenza.hero.claim": "Gestión inteligente para tus importaciones",
+
+  "navenza.problem.title": "¿Qué problema resuelve Navenza?",
+  "navenza.problem.lead": "Cada día se pierde información, tiempo... y clientes.",
+  "navenza.problem.sublead": "Los datos están en Excel, los clientes en libretas, y la inteligencia del negocio en la cabeza de los vendedores.",
+  "navenza.problem.item1": "Los vendedores se van y se llevan la información.",
+  "navenza.problem.item2": "No existe trazabilidad ni historial comercial.",
+  "navenza.problem.item3": "Las tarifas se manejan manualmente y cambian sin control.",
+  "navenza.problem.item4": "Documentos dispersos -> errores, retrasos y pérdida de confianza.",
+  "navenza.problem.item5": "No hay dashboard ni KPIs para medir resultados.",
+
+  "navenza.vision.title": "Nuestra Visión:\nOrden, Visibilidad\ny Confianza",
+  "navenza.vision.lead": "Un sistema que le devuelve el control de su operación.",
+  "navenza.vision.text": "Navenza centraliza clientes, cotizaciones, documentos y finanzas, para que todo esté en un solo lugar, visible y bajo control.",
+  "navenza.alt.vision_image": "Interfaz de Navenza en una oficina logística",
+
+  "navenza.ecosystem.title": "Ecosistema Conectado",
+  "navenza.ecosystem.clients": "Clientes",
+  "navenza.ecosystem.quotations": "Cotizaciones",
+  "navenza.ecosystem.documents": "Documentos",
+  "navenza.ecosystem.billing": "Facturación",
+  "navenza.ecosystem.dashboard": "Dashboard",
+  "navenza.ecosystem.bot": "Bot",
+  "navenza.ecosystem.tracking": "Tracking",
+
+  "navenza.cta.title": "Solicita tu diagnóstico personalizado",
+  "navenza.cta.text": "Analizamos tu operación y diseñamos una solución tecnológica adaptada a las necesidades reales de tu empresa.",
+  "navenza.cta.button": "Contáctanos",
+  "navenza.cta.note": "10 min · Sin coste · Sin venta",
+
+  "navenza.modal.title": "Solicita más información",
+  "navenza.modal.subtitle": "Completa el formulario y te contactaremos para tu diagnóstico personalizado.",
+  "navenza.modal.close": "Cerrar modal",
+  "navenza.modal.form.nome": "Nombre",
+  "navenza.modal.form.cognome": "Apellido",
+  "navenza.modal.form.email": "Email",
+  "navenza.modal.form.telefono": "Teléfono",
+  "navenza.modal.form.azienda": "Empresa",
+  "navenza.modal.form.note": "Mensaje",
+  "navenza.modal.form.captcha_label": "Verificación de seguridad (captcha)",
+  "navenza.modal.form.submit": "Enviar solicitud",
+  "navenza.modal.messages.required": "Completa todos los campos obligatorios y resuelve el captcha.",
+  "navenza.modal.messages.invalid_email": "Introduce un email válido.",
+  "navenza.modal.messages.invalid_captcha": "Captcha incorrecto. Inténtalo de nuevo.",
+  "navenza.modal.messages.sending": "Enviando...",
+  "navenza.modal.messages.success": "Solicitud enviada correctamente. Te contactaremos pronto.",
+  "navenza.modal.messages.generic_error": "No se pudo enviar la solicitud. Inténtalo de nuevo."
 }

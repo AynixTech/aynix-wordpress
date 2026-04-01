@@ -17,38 +17,30 @@ $nv_contact_nonce = wp_create_nonce('sf_contact_modal');
             <div class="nv-hero-overlay"></div>
             <div class="nv-hero-inner">
                 <article class="nv-hero-card">
-                    <h1>Navenza</h1>
-                    <p>
-                        Navenza es una plataforma tecnológica desarrollada por Aynix que centraliza,
-                        automatiza y optimiza la operación de empresas logísticas, forwarders y compañías
-                        de transporte. Conecta el mundo físico con el digital, brindando control total,
-                        trazabilidad y toma de decisiones basada en datos.
-                    </p>
+                    <h1><?php echo aynix_translate('navenza.hero.title'); ?></h1>
+                    <p><?php echo aynix_translate('navenza.hero.description'); ?></p>
                 </article>
             </div>
             <div class="nv-hero-wave">
                 <div class="nv-hero-claim">
                     <i class="fa-solid fa-ship" aria-hidden="true"></i>
-                    <p>Gestión inteligente para tus importaciones</p>
+                    <p><?php echo aynix_translate('navenza.hero.claim'); ?></p>
                 </div>
             </div>
         </section>
 
         <section class="nv-problem" aria-labelledby="nv-problem-title">
             <div class="nv-container nv-problem-wrap">
-                <h2 id="nv-problem-title">El Problema que resuelve Navenza?</h2>
-                <p class="nv-problem-lead"><strong>Cada día se pierde información, tiempo... y clientes.</strong></p>
-                <p class="nv-problem-sublead">
-                    Los datos están en Excel, los clientes en libretas,
-                    y la inteligencia del negocio en la cabeza de los vendedores.
-                </p>
+                <h2 id="nv-problem-title"><?php echo aynix_translate('navenza.problem.title'); ?></h2>
+                <p class="nv-problem-lead"><strong><?php echo aynix_translate('navenza.problem.lead'); ?></strong></p>
+                <p class="nv-problem-sublead"><?php echo aynix_translate('navenza.problem.sublead'); ?></p>
 
                 <ul class="nv-problem-list">
-                    <li>Los vendedores se van y se llevan la información.</li>
-                    <li>No existe trazabilidad ni historial comercial.</li>
-                    <li>Las tarifas se manejan manualmente y cambian sin control.</li>
-                    <li>Documentos dispersos -> errores, retrasos y pérdida de confianza.</li>
-                    <li>No hay dashboard ni KPIs para medir resultados.</li>
+                    <li><?php echo aynix_translate('navenza.problem.item1'); ?></li>
+                    <li><?php echo aynix_translate('navenza.problem.item2'); ?></li>
+                    <li><?php echo aynix_translate('navenza.problem.item3'); ?></li>
+                    <li><?php echo aynix_translate('navenza.problem.item4'); ?></li>
+                    <li><?php echo aynix_translate('navenza.problem.item5'); ?></li>
                 </ul>
             </div>
         </section>
@@ -56,51 +48,48 @@ $nv_contact_nonce = wp_create_nonce('sf_contact_modal');
         <section class="nv-vision" aria-label="Nuestra vision">
             <div class="nv-vision-grid">
                 <div class="nv-vision-copy">
-                    <h2>Nuestra Visión:<br>Orden, Visibilidad<br>y Confianza</h2>
-                    <p><strong>Un sistema que le devuelve el control de su operación.</strong></p>
-                    <p>
-                        Navenza centraliza clientes, cotizaciones, documentos y finanzas,
-                        para que todo esté en un solo lugar, visible y bajo control.
-                    </p>
+                    <h2><?php echo nl2br(esc_html(aynix_translate('navenza.vision.title'))); ?></h2>
+                    <p><strong><?php echo aynix_translate('navenza.vision.lead'); ?></strong></p>
+                    <p><?php echo aynix_translate('navenza.vision.text'); ?></p>
                 </div>
                 <div class="nv-vision-media">
-                    <img src="<?php echo esc_url($nv_assets . '/image-midle.png'); ?>" alt="Interfaz de Navenza en una oficina logística">
+                    <img src="<?php echo esc_url($nv_assets . '/image-midle.png'); ?>" alt="<?php echo esc_attr(aynix_translate('navenza.alt.vision_image')); ?>">
                 </div>
             </div>
         </section>
 
         <section class="nv-ecosystem" aria-labelledby="nv-ecosystem-title">
             <div class="nv-container">
-                <h2 id="nv-ecosystem-title">Ecosistema Conectado</h2>
+                <h2 id="nv-ecosystem-title"><?php echo aynix_translate('navenza.ecosystem.title'); ?></h2>
 
                 <div class="nv-eco-grid">
                     <article class="nv-eco-item">
-                        <img src="<?php echo esc_url($nv_assets . '/icon-clients.png'); ?>" alt="Clientes">
-                        <h3>Clientes</h3>
+                        <img src="<?php echo esc_url($nv_assets . '/icon-clients.png'); ?>" alt="<?php echo esc_attr(aynix_translate('navenza.ecosystem.clients')); ?>">
+                        <h3><?php echo aynix_translate('navenza.ecosystem.clients'); ?></h3>
                     </article>
                     <article class="nv-eco-item">
-                        <img src="<?php echo esc_url($nv_assets . '/icon-cotizacion.png'); ?>" alt="Cotizaciones">
-                        <h3>Cotizaciones</h3>
+                        <img src="<?php echo esc_url($nv_assets . '/icon-cotizacion.png'); ?>" alt="<?php echo esc_attr(aynix_translate('navenza.ecosystem.quotations')); ?>">
+                        <h3><?php echo aynix_translate('navenza.ecosystem.quotations'); ?></h3>
                     </article>
                     <article class="nv-eco-item">
-                        <img src="<?php echo esc_url($nv_assets . '/icon-documents.png'); ?>" alt="Documentos">
-                        <h3>Documentos</h3>
+                        <img src="<?php echo esc_url($nv_assets . '/icon-documents.png'); ?>" alt="<?php echo esc_attr(aynix_translate('navenza.ecosystem.documents')); ?>">
+                        <h3><?php echo aynix_translate('navenza.ecosystem.documents'); ?></h3>
                     </article>
                     <article class="nv-eco-item">
-                        <img src="<?php echo esc_url($nv_assets . '/icon-factura.png'); ?>" alt="Facturación">
-                        <h3>Facturación</h3>
+                        <img src="<?php echo esc_url($nv_assets . '/icon-factura.png'); ?>" alt="<?php echo esc_attr(aynix_translate('navenza.ecosystem.billing')); ?>">
+                        <h3><?php echo aynix_translate('navenza.ecosystem.billing'); ?></h3>
                     </article>
                     <article class="nv-eco-item">
-                        <img src="<?php echo esc_url($nv_assets . '/icon-dashboard.png'); ?>" alt="Dashboard">
-                        <h3>Dashboard</h3>
+                        <img src="<?php echo esc_url($nv_assets . '/icon-dashboard.png'); ?>" alt="<?php echo esc_attr(aynix_translate('navenza.ecosystem.dashboard')); ?>">
+                        <h3><?php echo aynix_translate('navenza.ecosystem.dashboard'); ?></h3>
                     </article>
                     <article class="nv-eco-item">
-                        <img src="<?php echo esc_url($nv_assets . '/icon-bot.png'); ?>" alt="Bot">
-                        <h3>Bot</h3>
+                        <img src="<?php echo esc_url($nv_assets . '/icon-bot.png'); ?>" alt="<?php echo esc_attr(aynix_translate('navenza.ecosystem.bot')); ?>">
+                        <h3><?php echo aynix_translate('navenza.ecosystem.bot'); ?></h3>
                     </article>
                     <article class="nv-eco-item">
-                        <img src="<?php echo esc_url($nv_assets . '/icon-tracking.png'); ?>" alt="Tracking">
-                        <h3>Tracking</h3>
+                        <img src="<?php echo esc_url($nv_assets . '/icon-tracking.png'); ?>" alt="<?php echo esc_attr(aynix_translate('navenza.ecosystem.tracking')); ?>">
+                        <h3><?php echo aynix_translate('navenza.ecosystem.tracking'); ?></h3>
                     </article>
                 </div>
             </div>
@@ -109,13 +98,10 @@ $nv_contact_nonce = wp_create_nonce('sf_contact_modal');
         <section class="nv-cta" aria-label="Llamada a la accion">
             <div class="nv-container">
                 <div class="nv-cta-box">
-                    <h2>Solicita tu diagnóstico personalizado</h2>
-                    <p>
-                        Analizamos tu operación y diseñamos una solución tecnológica
-                        adaptada a las necesidades reales de tu empresa.
-                    </p>
-                    <button type="button" class="nv-cta-btn" id="nv-open-contact-modal">Contáctanos</button>
-                    <small>10 min · Sin coste · Sin venta</small>
+                    <h2><?php echo aynix_translate('navenza.cta.title'); ?></h2>
+                    <p><?php echo aynix_translate('navenza.cta.text'); ?></p>
+                    <button type="button" class="nv-cta-btn" id="nv-open-contact-modal"><?php echo aynix_translate('navenza.cta.button'); ?></button>
+                    <small><?php echo aynix_translate('navenza.cta.note'); ?></small>
                 </div>
             </div>
         </section>
@@ -123,9 +109,9 @@ $nv_contact_nonce = wp_create_nonce('sf_contact_modal');
         <div id="nv-contact-modal" class="nv-modal" aria-hidden="true">
             <div class="nv-modal__backdrop" data-nv-modal-close></div>
             <div class="nv-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="nv-modal-title">
-                <button type="button" class="nv-modal__close" data-nv-modal-close aria-label="Cerrar modal">&times;</button>
-                <h3 id="nv-modal-title">Solicita más información</h3>
-                <p class="nv-modal__subtitle">Completa el formulario y te contactaremos para tu diagnóstico personalizado.</p>
+                <button type="button" class="nv-modal__close" data-nv-modal-close aria-label="<?php echo esc_attr(aynix_translate('navenza.modal.close')); ?>">&times;</button>
+                <h3 id="nv-modal-title"><?php echo aynix_translate('navenza.modal.title'); ?></h3>
+                <p class="nv-modal__subtitle"><?php echo aynix_translate('navenza.modal.subtitle'); ?></p>
 
                 <form id="nv-contact-form" class="nv-modal__form" novalidate>
                     <input type="hidden" name="action" value="submit_contact_request">
@@ -137,38 +123,38 @@ $nv_contact_nonce = wp_create_nonce('sf_contact_modal');
 
                     <div class="nv-modal__grid">
                         <div class="nv-modal__field">
-                            <label for="nv-nome">Nombre *</label>
+                            <label for="nv-nome"><?php echo aynix_translate('navenza.modal.form.nome'); ?> *</label>
                             <input type="text" id="nv-nome" name="nome" required>
                         </div>
                         <div class="nv-modal__field">
-                            <label for="nv-cognome">Apellido *</label>
+                            <label for="nv-cognome"><?php echo aynix_translate('navenza.modal.form.cognome'); ?> *</label>
                             <input type="text" id="nv-cognome" name="cognome" required>
                         </div>
                     </div>
 
                     <div class="nv-modal__grid">
                         <div class="nv-modal__field">
-                            <label for="nv-email">Email *</label>
+                            <label for="nv-email"><?php echo aynix_translate('navenza.modal.form.email'); ?> *</label>
                             <input type="email" id="nv-email" name="email" required>
                         </div>
                         <div class="nv-modal__field">
-                            <label for="nv-telefono">Teléfono *</label>
+                            <label for="nv-telefono"><?php echo aynix_translate('navenza.modal.form.telefono'); ?> *</label>
                             <input type="text" id="nv-telefono" name="telefono" required>
                         </div>
                     </div>
 
                     <div class="nv-modal__field">
-                        <label for="nv-azienda">Empresa</label>
+                        <label for="nv-azienda"><?php echo aynix_translate('navenza.modal.form.azienda'); ?></label>
                         <input type="text" id="nv-azienda" name="azienda">
                     </div>
 
                     <div class="nv-modal__field">
-                        <label for="nv-note">Mensaje</label>
+                        <label for="nv-note"><?php echo aynix_translate('navenza.modal.form.note'); ?></label>
                         <textarea id="nv-note" name="note" rows="4"></textarea>
                     </div>
 
                     <div class="nv-modal__field nv-modal__captcha">
-                        <label for="nv-captcha-answer">Verificación de seguridad (captcha)</label>
+                        <label for="nv-captcha-answer"><?php echo aynix_translate('navenza.modal.form.captcha_label'); ?></label>
                         <div class="nv-modal__captcha-row">
                             <span class="nv-modal__captcha-question"><?php echo esc_html($nv_captcha_a . ' + ' . $nv_captcha_b . ' = ?'); ?></span>
                             <input type="number" id="nv-captcha-answer" name="sf_captcha_answer" min="0" required>
@@ -177,7 +163,7 @@ $nv_contact_nonce = wp_create_nonce('sf_contact_modal');
 
                     <div id="nv-modal-feedback" class="nv-modal__feedback" aria-live="polite"></div>
 
-                    <button type="submit" class="nv-modal__submit">Enviar solicitud</button>
+                    <button type="submit" class="nv-modal__submit"><?php echo aynix_translate('navenza.modal.form.submit'); ?></button>
                 </form>
             </div>
         </div>
@@ -193,12 +179,12 @@ $nv_contact_nonce = wp_create_nonce('sf_contact_modal');
     var submitBtn = form.find('button[type="submit"]');
 
     var messages = {
-        required: 'Completa todos los campos obligatorios y resuelve el captcha.',
-        invalidEmail: 'Introduce un email válido.',
-        invalidCaptcha: 'Captcha incorrecto. Inténtalo de nuevo.',
-        sending: 'Enviando...',
-        success: 'Solicitud enviada correctamente. Te contactaremos pronto.',
-        genericError: 'No se pudo enviar la solicitud. Inténtalo de nuevo.'
+        required: <?php echo wp_json_encode(aynix_translate('navenza.modal.messages.required')); ?>,
+        invalidEmail: <?php echo wp_json_encode(aynix_translate('navenza.modal.messages.invalid_email')); ?>,
+        invalidCaptcha: <?php echo wp_json_encode(aynix_translate('navenza.modal.messages.invalid_captcha')); ?>,
+        sending: <?php echo wp_json_encode(aynix_translate('navenza.modal.messages.sending')); ?>,
+        success: <?php echo wp_json_encode(aynix_translate('navenza.modal.messages.success')); ?>,
+        genericError: <?php echo wp_json_encode(aynix_translate('navenza.modal.messages.generic_error')); ?>
     };
 
     function openModal() {
@@ -273,7 +259,7 @@ $nv_contact_nonce = wp_create_nonce('sf_contact_modal');
                 setFeedback('error', messages.genericError);
             },
             complete: function() {
-                submitBtn.prop('disabled', false).text('Enviar solicitud');
+                submitBtn.prop('disabled', false).text(<?php echo wp_json_encode(aynix_translate('navenza.modal.form.submit')); ?>);
             }
         });
     });
