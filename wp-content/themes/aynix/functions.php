@@ -140,7 +140,8 @@ add_action('init', 'aynix_add_translated_rewrite_rules');
  */
 function aynix_get_virtual_page_templates() {
     return [
-        'safe-fleet' => 'page-safefleet.php'
+        'safe-fleet' => 'page-safefleet.php',
+        'navenza' => 'page-navenza.php'
     ];
 }
 
@@ -236,7 +237,7 @@ add_action('after_switch_theme', 'aynix_flush_rewrite_rules');
  * Flush una tantum quando cambiano regole rewrite del tema
  */
 function aynix_maybe_flush_rewrite_rules() {
-    $rewrite_version = '2026-03-26-virtual-pages-v1';
+    $rewrite_version = '2026-04-01-virtual-pages-v2';
     if (get_option('aynix_rewrite_version') === $rewrite_version) {
         return;
     }
