@@ -297,6 +297,144 @@
     opacity: 0.88;
 }
 
+#nv-product-page .nv-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    z-index: 1300;
+}
+
+#nv-product-page .nv-modal.is-open {
+    display: block;
+}
+
+body.nv-modal-open {
+    overflow: hidden;
+}
+
+#nv-product-page .nv-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(9, 16, 30, 0.76);
+}
+
+#nv-product-page .nv-modal__dialog {
+    position: relative;
+    width: min(760px, calc(100% - 32px));
+    margin: 4vh auto;
+    max-height: 92vh;
+    overflow-y: auto;
+    background: var(--nv-white);
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+}
+
+#nv-product-page .nv-modal__close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    border: 0;
+    background: transparent;
+    font-size: 2rem;
+    line-height: 1;
+    color: #6e7280;
+    cursor: pointer;
+}
+
+#nv-product-page .nv-modal__dialog h3 {
+    margin: 0;
+    font-size: 1.7rem;
+    color: #1b2f4a;
+}
+
+#nv-product-page .nv-modal__subtitle {
+    margin: 8px 0 18px;
+    color: #4e5f78;
+}
+
+#nv-product-page .nv-modal__form {
+    display: grid;
+    gap: 14px;
+}
+
+#nv-product-page .nv-modal__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+#nv-product-page .nv-modal__field {
+    display: grid;
+    gap: 6px;
+}
+
+#nv-product-page .nv-modal__field label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #213954;
+}
+
+#nv-product-page .nv-modal__field input,
+#nv-product-page .nv-modal__field textarea {
+    width: 100%;
+    border: 1px solid #ced8e6;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font: inherit;
+}
+
+#nv-product-page .nv-modal__captcha-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#nv-product-page .nv-modal__captcha-question {
+    font-weight: 700;
+    color: #1b2f4a;
+}
+
+#nv-product-page .nv-modal__captcha-row input {
+    width: 130px;
+}
+
+#nv-product-page .nv-modal__feedback {
+    min-height: 20px;
+    font-size: 0.94rem;
+}
+
+#nv-product-page .nv-modal__feedback.is-error {
+    color: #b42318;
+}
+
+#nv-product-page .nv-modal__feedback.is-success {
+    color: #067647;
+}
+
+#nv-product-page .nv-modal__submit {
+    border: 0;
+    background: #1b77df;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 12px 18px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+#nv-product-page .nv-modal__submit:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+#nv-product-page .nv-honeypot {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+    pointer-events: none;
+}
+
 @media (max-width: 1080px) {
     #nv-product-page .nv-hero-inner {
         padding: 96px 0 56px;
@@ -321,6 +459,26 @@
 }
 
 @media (max-width: 768px) {
+    #nv-product-page .nv-modal__dialog {
+        width: calc(100% - 20px);
+        margin: 2vh auto;
+        max-height: 94vh;
+        padding: 18px;
+    }
+
+    #nv-product-page .nv-modal__grid {
+        grid-template-columns: 1fr;
+    }
+
+    #nv-product-page .nv-modal__captcha-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #nv-product-page .nv-modal__captcha-row input {
+        width: 100%;
+    }
+
     #nv-product-page .nv-hero {
         min-height: 520px;
     }

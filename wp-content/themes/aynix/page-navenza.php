@@ -5,6 +5,10 @@
  */
 get_header();
 $nv_assets = get_template_directory_uri() . '/assets/images/navenza';
+$nv_captcha_a = wp_rand(1, 9);
+$nv_captcha_b = wp_rand(1, 9);
+$nv_captcha_token = wp_hash($nv_captcha_a . '|' . $nv_captcha_b . '|sf_modal');
+$nv_contact_nonce = wp_create_nonce('sf_contact_modal');
 ?>
 
 <main>
@@ -110,12 +114,170 @@ $nv_assets = get_template_directory_uri() . '/assets/images/navenza';
                         Analizamos tu operación y diseñamos una solución tecnológica
                         adaptada a las necesidades reales de tu empresa.
                     </p>
-                    <a class="nv-cta-btn" href="<?php echo esc_url(aynix_get_translated_url('diagnosi')); ?>">Iniciar Diagnóstico</a>
+                    <button type="button" class="nv-cta-btn" id="nv-open-contact-modal">Contáctanos</button>
                     <small>10 min · Sin coste · Sin venta</small>
                 </div>
             </div>
         </section>
+
+        <div id="nv-contact-modal" class="nv-modal" aria-hidden="true">
+            <div class="nv-modal__backdrop" data-nv-modal-close></div>
+            <div class="nv-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="nv-modal-title">
+                <button type="button" class="nv-modal__close" data-nv-modal-close aria-label="Cerrar modal">&times;</button>
+                <h3 id="nv-modal-title">Solicita más información</h3>
+                <p class="nv-modal__subtitle">Completa el formulario y te contactaremos para tu diagnóstico personalizado.</p>
+
+                <form id="nv-contact-form" class="nv-modal__form" novalidate>
+                    <input type="hidden" name="action" value="submit_contact_request">
+                    <input type="hidden" name="sf_contact_nonce" value="<?php echo esc_attr($nv_contact_nonce); ?>">
+                    <input type="hidden" name="sf_captcha_a" value="<?php echo esc_attr($nv_captcha_a); ?>">
+                    <input type="hidden" name="sf_captcha_b" value="<?php echo esc_attr($nv_captcha_b); ?>">
+                    <input type="hidden" name="sf_captcha_token" value="<?php echo esc_attr($nv_captcha_token); ?>">
+                    <input type="text" name="sf_website" class="nv-honeypot" tabindex="-1" autocomplete="off">
+
+                    <div class="nv-modal__grid">
+                        <div class="nv-modal__field">
+                            <label for="nv-nome">Nombre *</label>
+                            <input type="text" id="nv-nome" name="nome" required>
+                        </div>
+                        <div class="nv-modal__field">
+                            <label for="nv-cognome">Apellido *</label>
+                            <input type="text" id="nv-cognome" name="cognome" required>
+                        </div>
+                    </div>
+
+                    <div class="nv-modal__grid">
+                        <div class="nv-modal__field">
+                            <label for="nv-email">Email *</label>
+                            <input type="email" id="nv-email" name="email" required>
+                        </div>
+                        <div class="nv-modal__field">
+                            <label for="nv-telefono">Teléfono *</label>
+                            <input type="text" id="nv-telefono" name="telefono" required>
+                        </div>
+                    </div>
+
+                    <div class="nv-modal__field">
+                        <label for="nv-azienda">Empresa</label>
+                        <input type="text" id="nv-azienda" name="azienda">
+                    </div>
+
+                    <div class="nv-modal__field">
+                        <label for="nv-note">Mensaje</label>
+                        <textarea id="nv-note" name="note" rows="4"></textarea>
+                    </div>
+
+                    <div class="nv-modal__field nv-modal__captcha">
+                        <label for="nv-captcha-answer">Verificación de seguridad (captcha)</label>
+                        <div class="nv-modal__captcha-row">
+                            <span class="nv-modal__captcha-question"><?php echo esc_html($nv_captcha_a . ' + ' . $nv_captcha_b . ' = ?'); ?></span>
+                            <input type="number" id="nv-captcha-answer" name="sf_captcha_answer" min="0" required>
+                        </div>
+                    </div>
+
+                    <div id="nv-modal-feedback" class="nv-modal__feedback" aria-live="polite"></div>
+
+                    <button type="submit" class="nv-modal__submit">Enviar solicitud</button>
+                </form>
+            </div>
+        </div>
     </div>
 </main>
+
+<script>
+(function($) {
+    var modal = $('#nv-contact-modal');
+    var form = $('#nv-contact-form');
+    var openBtn = $('#nv-open-contact-modal');
+    var feedback = $('#nv-modal-feedback');
+    var submitBtn = form.find('button[type="submit"]');
+
+    var messages = {
+        required: 'Completa todos los campos obligatorios y resuelve el captcha.',
+        invalidEmail: 'Introduce un email válido.',
+        invalidCaptcha: 'Captcha incorrecto. Inténtalo de nuevo.',
+        sending: 'Enviando...',
+        success: 'Solicitud enviada correctamente. Te contactaremos pronto.',
+        genericError: 'No se pudo enviar la solicitud. Inténtalo de nuevo.'
+    };
+
+    function openModal() {
+        modal.addClass('is-open').attr('aria-hidden', 'false');
+        $('body').addClass('nv-modal-open');
+    }
+
+    function closeModal() {
+        modal.removeClass('is-open').attr('aria-hidden', 'true');
+        $('body').removeClass('nv-modal-open');
+    }
+
+    function setFeedback(type, text) {
+        feedback.removeClass('is-success is-error').addClass(type === 'success' ? 'is-success' : 'is-error').text(text);
+    }
+
+    openBtn.on('click', openModal);
+    modal.on('click', '[data-nv-modal-close]', closeModal);
+
+    $(document).on('keydown', function(e) {
+        if (e.key === 'Escape' && modal.hasClass('is-open')) {
+            closeModal();
+        }
+    });
+
+    form.on('submit', function(e) {
+        e.preventDefault();
+
+        var nome = $.trim($('#nv-nome').val());
+        var cognome = $.trim($('#nv-cognome').val());
+        var email = $.trim($('#nv-email').val());
+        var telefono = $.trim($('#nv-telefono').val());
+        var captchaA = parseInt(form.find('input[name="sf_captcha_a"]').val(), 10);
+        var captchaB = parseInt(form.find('input[name="sf_captcha_b"]').val(), 10);
+        var captchaAnswer = parseInt($('#nv-captcha-answer').val(), 10);
+
+        feedback.text('').removeClass('is-success is-error');
+
+        if (!nome || !cognome || !email || !telefono || Number.isNaN(captchaAnswer)) {
+            setFeedback('error', messages.required);
+            return;
+        }
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            setFeedback('error', messages.invalidEmail);
+            return;
+        }
+
+        if (captchaAnswer !== (captchaA + captchaB)) {
+            setFeedback('error', messages.invalidCaptcha);
+            return;
+        }
+
+        submitBtn.prop('disabled', true).text(messages.sending);
+
+        $.ajax({
+            url: <?php echo wp_json_encode(admin_url('admin-ajax.php')); ?>,
+            type: 'POST',
+            dataType: 'json',
+            data: form.serialize(),
+            success: function(response) {
+                if (response && response.success) {
+                    setFeedback('success', messages.success);
+                    form[0].reset();
+                    setTimeout(closeModal, 1200);
+                } else {
+                    var errorText = response && response.data && response.data.message ? response.data.message : messages.genericError;
+                    setFeedback('error', errorText);
+                }
+            },
+            error: function() {
+                setFeedback('error', messages.genericError);
+            },
+            complete: function() {
+                submitBtn.prop('disabled', false).text('Enviar solicitud');
+            }
+        });
+    });
+})(jQuery);
+</script>
 
 <?php get_footer(); ?>
