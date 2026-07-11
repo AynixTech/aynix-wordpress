@@ -3,7 +3,7 @@
  * Plugin Name: AYNIX Share Presentation
  * Plugin URI: https://aynix.tech
  * Description: Carica presentazioni (PDF o PPTX), assegna nome azienda e un PIN opzionale, genera un link da condividere con il cliente e gestisci l'elenco dei link generati.
- * Version: 1.1.2
+ * Version: 1.1.3
  * Author: AYNIX Tech
  * Author URI: https://aynix.tech
  * Text Domain: aynix-share-presentation
@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-define('AYNIX_SP_VERSION', '1.1.2');
+define('AYNIX_SP_VERSION', '1.1.3');
 define('AYNIX_SP_FILE', __FILE__);
 define('AYNIX_SP_DIR', plugin_dir_path(__FILE__));
 define('AYNIX_SP_URL', plugin_dir_url(__FILE__));
@@ -110,32 +110,9 @@ class AYNIX_Share_Presentation {
      * Site branding for the public viewer header
      * ------------------------------------------------------------------- */
     public function get_site_logo_html() {
-        // 1) Theme custom logo
-        if (function_exists('has_custom_logo') && has_custom_logo()) {
-            $logo_id = get_theme_mod('custom_logo');
-            if ($logo_id) {
-                $img = wp_get_attachment_image(
-                    $logo_id,
-                    'full',
-                    false,
-                    array('class' => 'aynix-sp-site-logo', 'alt' => get_bloginfo('name'))
-                );
-                if ($img) {
-                    return '<a href="' . esc_url(home_url('/')) . '" class="aynix-sp-brand-link" rel="home">' . $img . '</a>';
-                }
-            }
-        }
-
-        // 2) Site icon (favicon) as fallback image
-        if (function_exists('get_site_icon_url') && get_site_icon_url()) {
-            $icon = get_site_icon_url(192);
-            return '<a href="' . esc_url(home_url('/')) . '" class="aynix-sp-brand-link" rel="home">'
-                . '<img src="' . esc_url($icon) . '" alt="' . esc_attr(get_bloginfo('name')) . '" class="aynix-sp-site-logo" /></a>';
-        }
-
-        // 3) Text: site name
-        return '<a href="' . esc_url(home_url('/')) . '" class="aynix-sp-brand-link aynix-sp-brand-text" rel="home">'
-            . esc_html(get_bloginfo('name')) . '</a>';
+        $logo_url = 'https://aynix.tech/wp-content/uploads/2025/11/logo_aynix-1.png';
+        return '<a href="' . esc_url(home_url('/')) . '" class="aynix-sp-brand-link" rel="home">'
+            . '<img src="' . esc_url($logo_url) . '" alt="' . esc_attr__('Aynix logo', 'aynix-share-presentation') . '" class="aynix-sp-site-logo" /></a>';
     }
 
     public function get_site_header_html() {

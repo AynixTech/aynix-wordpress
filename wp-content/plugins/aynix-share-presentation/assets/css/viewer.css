@@ -70,6 +70,11 @@ body.aynix-sp-viewer {
     box-shadow: 0 10px 40px rgba(15,16,33,.08);
     text-align: center;
 }
+/* Wider panel when showing the presentation itself */
+.aynix-sp-content-panel {
+    max-width: 1400px;
+    padding: 32px 28px;
+}
 .aynix-sp-panel h1 {
     margin: 0 0 8px;
     font-size: 28px;
@@ -156,26 +161,20 @@ body.aynix-sp-viewer {
 .aynix-sp-pptx-render {
     width: 100%;
 }
-/* pptxjs outputs .slide blocks with fixed px size; make them fluid & centered */
+/* pptxjs outputs .slide blocks with fixed px size; we scale them via JS */
+.aynix-sp-pptx-render {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .aynix-sp-pptx-render .slide {
-    margin: 0 auto 20px !important;
-    max-width: 100% !important;
     box-shadow: 0 4px 18px rgba(15,16,33,.12);
     border-radius: 6px;
-    overflow: hidden;
+    transform-origin: top center;
+    flex: none;
 }
 .aynix-sp-pptx-render .divs2slidesjs-slide {
-    margin: 0 auto 20px !important;
-}
-.aynix-sp-pptx-render img,
-.aynix-sp-pptx-render svg,
-.aynix-sp-pptx-render canvas {
-    max-width: 100%;
-    height: auto;
-}
-.aynix-sp-pptx-wrapper {
-    max-width: 100%;
-    overflow-x: auto;
+    margin: 0 auto !important;
 }
 
 /* Loader */

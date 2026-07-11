@@ -34,6 +34,46 @@
         });
     }
 
+    function scaleSlides() {
+        var container = getContainer();
+        if (!container) {
+            return;
+        }
+        var slides = container.querySelectorAll('.slide');
+        if (!slides.length) {
+            return;
+        }
+        var avail = container.clientWidth;
+        if (!avail) {
+            return;
+        }
+
+        for (var i = 0; i < slides.length; i++) {
+            var slide = slides[i];
+            // Reset any previous scaling to read the intrinsic size
+            slide.style.transform = 'none';
+            slide.style.marginBottom = '';
+
+            var baseW = slide.offsetWidth;
+            var baseH = slide.offsetHeight;
+            if (!baseW) {
+                continue;
+            }
+
+            var scale = avail / baseW;
+            if (scale > 1) {
+                scale = 1; // never upscale beyond native size
+            }
+
+            slide.style.transformOrigin = 'top center';
+            slide.style.transform = 'scale(' + scale + ')';
+
+            // The element keeps its unscaled height in flow; pull the gap back
+            var gap = baseH - (baseH * scale);
+            slide.style.marginBottom = (20 - gap) + 'px';
+        }
+    }
+
     function render() {
         var container = getContainer();
         if (!container) {
@@ -51,6 +91,28 @@
                 mediaProcess: false,
                 jsZipV2: false,
                 slidesScale: ''
+            });
+
+            // Poll for slides, then scale to fit the container width
+            var tries = 0;
+            var scaleTimer = setInterval(function () {
+                tries++;
+                if (container.querySelector('.slide')) {
+                    scaleSlides();
+                    if (tries > 40) {
+                        clearInterval(scaleTimer);
+                    }
+                }
+                if (tries > 80) {
+                    clearInterval(scaleTimer);
+                }
+            }, 300);
+
+            // Re-scale on resize
+            var rz = null;
+            window.addEventListener('resize', function () {
+                clearTimeout(rz);
+                rz = setTimeout(scaleSlides, 200);
             });
 
             setTimeout(function () {
