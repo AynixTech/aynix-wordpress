@@ -107,6 +107,38 @@ class AYNIX_Share_Presentation {
     }
 
     /* ---------------------------------------------------------------------
+     * Site branding for the public viewer header
+     * ------------------------------------------------------------------- */
+    public function get_site_logo_html() {
+        // 1) Theme custom logo
+        if (function_exists('has_custom_logo') && has_custom_logo()) {
+            $logo_id = get_theme_mod('custom_logo');
+            if ($logo_id) {
+                $img = wp_get_attachment_image(
+                    $logo_id,
+                    'full',
+                    false,
+                    array('class' => 'aynix-sp-site-logo', 'alt' => get_bloginfo('name'))
+                );
+                if ($img) {
+                    return '<a href="' . esc_url(home_url('/')) . '" class="aynix-sp-brand-link" rel="home">' . $img . '</a>';
+                }
+            }
+        }
+
+        // 2) Site icon (favicon) as fallback image
+        if (function_exists('get_site_icon_url') && get_site_icon_url()) {
+            $icon = get_site_icon_url(192);
+            return '<a href="' . esc_url(home_url('/')) . '" class="aynix-sp-brand-link" rel="home">'
+                . '<img src="' . esc_url($icon) . '" alt="' . esc_attr(get_bloginfo('name')) . '" class="aynix-sp-site-logo" /></a>';
+        }
+
+        // 3) Text: site name
+        return '<a href="' . esc_url(home_url('/')) . '" class="aynix-sp-brand-link aynix-sp-brand-text" rel="home">'
+            . esc_html(get_bloginfo('name')) . '</a>';
+    }
+
+    /* ---------------------------------------------------------------------
      * Admin menu + assets
      * ------------------------------------------------------------------- */
     public function register_admin_menu() {

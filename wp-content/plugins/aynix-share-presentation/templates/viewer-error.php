@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
 </head>
 <body class="aynix-sp-viewer">
     <header class="aynix-sp-topbar">
-        <img src="<?php echo esc_url(AYNIX_SP_URL . 'assets/images/logo-aynix-white.png'); ?>" alt="AYNIX" class="aynix-sp-topbar-logo" />
+        <?php echo AYNIX_Share_Presentation::get_instance()->get_site_logo_html(); ?>
     </header>
     <main class="aynix-sp-main">
         <div class="aynix-sp-panel">

@@ -34,7 +34,7 @@ $download_endpoint = add_query_arg(array('download' => '1'), $file_endpoint);
 <body class="aynix-sp-viewer">
 
     <header class="aynix-sp-topbar">
-        <img src="<?php echo esc_url($logo); ?>" alt="AYNIX" class="aynix-sp-topbar-logo" />
+        <?php echo $plugin->get_site_logo_html(); ?>
     </header>
 
     <main class="aynix-sp-main">
@@ -102,7 +102,17 @@ $download_endpoint = add_query_arg(array('download' => '1'), $file_endpoint);
     </footer>
 
     <?php if ($pin_ok && $item->file_type !== 'pdf') : ?>
-        <script src="https://cdn.jsdelivr.net/npm/pptx-preview@1.0.6/dist/pptx-preview.umd.js"></script>
+        <?php $cdn = 'https://cdn.jsdelivr.net/gh/meshesha/PPTXjs@master'; ?>
+        <link rel="stylesheet" href="<?php echo esc_url($cdn . '/css/pptxjs.css'); ?>" />
+        <link rel="stylesheet" href="<?php echo esc_url($cdn . '/css/nv.d3.min.css'); ?>" />
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+        <script src="<?php echo esc_url($cdn . '/js/jszip.min.js'); ?>"></script>
+        <script src="<?php echo esc_url($cdn . '/js/filereader.js'); ?>"></script>
+        <script src="<?php echo esc_url($cdn . '/js/d3.min.js'); ?>"></script>
+        <script src="<?php echo esc_url($cdn . '/js/nv.d3.min.js'); ?>"></script>
+        <script src="<?php echo esc_url($cdn . '/js/dingbat.js'); ?>"></script>
+        <script src="<?php echo esc_url($cdn . '/js/pptxjs.js'); ?>"></script>
+        <script src="<?php echo esc_url($cdn . '/js/divs2slides.js'); ?>"></script>
         <script src="<?php echo esc_url(AYNIX_SP_URL . 'assets/js/viewer.js'); ?>?v=<?php echo esc_attr(AYNIX_SP_VERSION); ?>"></script>
     <?php endif; ?>
 
