@@ -38,22 +38,12 @@ body.aynix-sp-viewer {
     font-weight: 700;
     color: var(--aynix-dark);
 }
-.aynix-sp-topbar-logo {
-    height: 34px;
-    width: auto;
-}
-.aynix-sp-main {
-    flex: 1;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 40px 20px;
 }
 .aynix-sp-panel {
     width: 100%;
     max-width: 900px;
     background: #fff;
-    border-radius: 16px;
+    padding: calc(8vh + 40px) 20px 40px;
     padding: 36px;
     box-shadow: 0 10px 40px rgba(15,16,33,.08);
     text-align: center;
@@ -168,14 +158,28 @@ body.aynix-sp-viewer {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+.aynix-sp-site-header .aynix-sp-brand-link {
+    display: inline-flex;
+    align-items: center;
+}
+
+.aynix-sp-site-header .aynix-sp-site-logo {
+    width: 200px;
+    height: auto;
+}
+
+.aynix-sp-site-header .aynix-sp-brand-text {
+    font-family: "Goldplay", sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
     gap: 14px;
     padding: 60px 20px;
     color: #5c5f77;
 }
 .aynix-sp-spinner {
-    width: 44px;
-    height: 44px;
-    border: 4px solid #e0e2f0;
+    .aynix-sp-main { padding: 92px 12px 20px; }
     border-top-color: var(--aynix-primary);
     border-radius: 50%;
     animation: aynix-sp-spin 0.9s linear infinite;

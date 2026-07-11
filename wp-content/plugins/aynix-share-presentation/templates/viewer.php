@@ -30,12 +30,11 @@ $download_endpoint = add_query_arg(array('download' => '1'), $file_endpoint);
     <meta name="robots" content="noindex, nofollow" />
     <title><?php echo esc_html($item->company_name); ?> — AYNIX</title>
     <link rel="stylesheet" href="<?php echo esc_url(AYNIX_SP_URL . 'assets/css/viewer.css'); ?>?v=<?php echo esc_attr(AYNIX_SP_VERSION); ?>" />
+    <?php wp_head(); ?>
 </head>
-<body class="aynix-sp-viewer">
-
-    <header class="aynix-sp-topbar">
-        <?php echo $plugin->get_site_logo_html(); ?>
-    </header>
+<body <?php body_class('aynix-sp-viewer'); ?>>
+    <?php wp_body_open(); ?>
+    <?php echo $plugin->get_site_header_html(); ?>
 
     <main class="aynix-sp-main">
 
@@ -102,19 +101,21 @@ $download_endpoint = add_query_arg(array('download' => '1'), $file_endpoint);
     </footer>
 
     <?php if ($pin_ok && $item->file_type !== 'pdf') : ?>
-        <?php $cdn = 'https://cdn.jsdelivr.net/gh/meshesha/PPTXjs@master'; ?>
-        <link rel="stylesheet" href="<?php echo esc_url($cdn . '/css/pptxjs.css'); ?>" />
-        <link rel="stylesheet" href="<?php echo esc_url($cdn . '/css/nv.d3.min.css'); ?>" />
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
-        <script src="<?php echo esc_url($cdn . '/js/jszip.min.js'); ?>"></script>
-        <script src="<?php echo esc_url($cdn . '/js/filereader.js'); ?>"></script>
-        <script src="<?php echo esc_url($cdn . '/js/d3.min.js'); ?>"></script>
-        <script src="<?php echo esc_url($cdn . '/js/nv.d3.min.js'); ?>"></script>
-        <script src="<?php echo esc_url($cdn . '/js/dingbat.js'); ?>"></script>
-        <script src="<?php echo esc_url($cdn . '/js/pptxjs.js'); ?>"></script>
-        <script src="<?php echo esc_url($cdn . '/js/divs2slides.js'); ?>"></script>
+        <?php $vendor = AYNIX_SP_URL . 'assets/vendor/pptxjs'; ?>
+        <link rel="stylesheet" href="<?php echo esc_url($vendor . '/css/pptxjs.css'); ?>?v=<?php echo esc_attr(AYNIX_SP_VERSION); ?>" />
+        <link rel="stylesheet" href="<?php echo esc_url($vendor . '/css/nv.d3.min.css'); ?>?v=<?php echo esc_attr(AYNIX_SP_VERSION); ?>" />
+        <script src="<?php echo esc_url($vendor . '/js/jquery.min.js'); ?>"></script>
+        <script src="<?php echo esc_url($vendor . '/js/jszip.min.js'); ?>"></script>
+        <script src="<?php echo esc_url($vendor . '/js/filereader.js'); ?>"></script>
+        <script src="<?php echo esc_url($vendor . '/js/d3.min.js'); ?>"></script>
+        <script src="<?php echo esc_url($vendor . '/js/nv.d3.min.js'); ?>"></script>
+        <script src="<?php echo esc_url($vendor . '/js/dingbat.js'); ?>"></script>
+        <script src="<?php echo esc_url($vendor . '/js/pptxjs.js'); ?>"></script>
+        <script src="<?php echo esc_url($vendor . '/js/divs2slides.js'); ?>"></script>
         <script src="<?php echo esc_url(AYNIX_SP_URL . 'assets/js/viewer.js'); ?>?v=<?php echo esc_attr(AYNIX_SP_VERSION); ?>"></script>
     <?php endif; ?>
+
+    <?php wp_footer(); ?>
 
 </body>
 </html>

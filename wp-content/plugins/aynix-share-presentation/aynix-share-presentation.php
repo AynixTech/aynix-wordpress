@@ -3,7 +3,7 @@
  * Plugin Name: AYNIX Share Presentation
  * Plugin URI: https://aynix.tech
  * Description: Carica presentazioni (PDF o PPTX), assegna nome azienda e un PIN opzionale, genera un link da condividere con il cliente e gestisci l'elenco dei link generati.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: AYNIX Tech
  * Author URI: https://aynix.tech
  * Text Domain: aynix-share-presentation
@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-define('AYNIX_SP_VERSION', '1.0.0');
+define('AYNIX_SP_VERSION', '1.1.0');
 define('AYNIX_SP_FILE', __FILE__);
 define('AYNIX_SP_DIR', plugin_dir_path(__FILE__));
 define('AYNIX_SP_URL', plugin_dir_url(__FILE__));
@@ -136,6 +136,101 @@ class AYNIX_Share_Presentation {
         // 3) Text: site name
         return '<a href="' . esc_url(home_url('/')) . '" class="aynix-sp-brand-link aynix-sp-brand-text" rel="home">'
             . esc_html(get_bloginfo('name')) . '</a>';
+    }
+
+    public function get_site_header_html() {
+        $nav_items = array(
+            array(
+                'label' => function_exists('aynix_translate') ? aynix_translate('nav.home') : __('Home', 'aynix-share-presentation'),
+                'url'   => home_url('/'),
+            ),
+            array(
+                'label' => function_exists('aynix_translate') ? aynix_translate('nav.metodo') : __('Metodo', 'aynix-share-presentation'),
+                'url'   => $this->get_translated_page_url('metodo'),
+            ),
+            array(
+                'label' => function_exists('aynix_translate') ? aynix_translate('nav.problemi') : __('Problemi', 'aynix-share-presentation'),
+                'url'   => $this->get_translated_page_url('problemi'),
+            ),
+            array(
+                'label' => function_exists('aynix_translate') ? aynix_translate('nav.soluzioni') : __('Soluzioni', 'aynix-share-presentation'),
+                'url'   => $this->get_translated_page_url('soluzioni'),
+            ),
+            array(
+                'label' => function_exists('aynix_translate') ? aynix_translate('nav.esperienza') : __('Esperienza', 'aynix-share-presentation'),
+                'url'   => $this->get_translated_page_url('esperienza'),
+            ),
+            array(
+                'label' => function_exists('aynix_translate') ? aynix_translate('nav.chi_siamo') : __('Chi Siamo', 'aynix-share-presentation'),
+                'url'   => $this->get_translated_page_url('chi-siamo'),
+            ),
+            array(
+                'label' => function_exists('aynix_translate') ? aynix_translate('nav.contattaci') : __('Contattaci', 'aynix-share-presentation'),
+                'url'   => $this->get_translated_page_url('contattaci'),
+            ),
+        );
+
+        $cta_label = function_exists('aynix_translate') ? aynix_translate('cta.avvia_diagnosi') : __('Avvia Diagnosi', 'aynix-share-presentation');
+        $cta_url = $this->get_translated_page_url('diagnosi');
+
+        ob_start();
+        ?>
+        <header class="header aynix-sp-site-header">
+            <div class="header__logo">
+                <?php echo $this->get_site_logo_html(); ?>
+            </div>
+            <nav class="header__nav">
+                <ul class="nav-menu">
+                    <?php foreach ($nav_items as $item) : ?>
+                        <li><a href="<?php echo esc_url($item['url']); ?>"><?php echo esc_html($item['label']); ?></a></li>
+                    <?php endforeach; ?>
+                </ul>
+            </nav>
+            <div class="header__contact">
+                <a href="<?php echo esc_url($cta_url); ?>" class="contact-button">
+                    <button class="btn-primary btn-cta-header"><?php echo esc_html($cta_label); ?></button>
+                </a>
+            </div>
+            <div class="hamburger" onclick="toggleAynixShareMenu()">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </header>
+
+        <div id="aynix-sp-modal-menu" class="modal-menu">
+            <div class="menu-content">
+                <button class="menu-close" type="button" onclick="toggleAynixShareMenu()">✖</button>
+                <nav>
+                    <ul class="nav-menu">
+                        <?php foreach ($nav_items as $item) : ?>
+                            <li><a href="<?php echo esc_url($item['url']); ?>"><?php echo esc_html($item['label']); ?></a></li>
+                        <?php endforeach; ?>
+                        <li><a href="<?php echo esc_url($cta_url); ?>" class="menu-cta-link"><?php echo esc_html($cta_label); ?></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <script>
+            function toggleAynixShareMenu() {
+                var modal = document.getElementById('aynix-sp-modal-menu');
+                if (modal) {
+                    modal.classList.toggle('active');
+                }
+            }
+        </script>
+        <?php
+
+        return ob_get_clean();
+    }
+
+    private function get_translated_page_url($page_slug) {
+        if (function_exists('aynix_get_translated_url')) {
+            return aynix_get_translated_url($page_slug);
+        }
+
+        return home_url('/' . ltrim($page_slug, '/'));
     }
 
     /* ---------------------------------------------------------------------

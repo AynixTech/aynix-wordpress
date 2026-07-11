@@ -12,11 +12,11 @@ if (!defined('ABSPATH')) {
     <meta name="robots" content="noindex, nofollow" />
     <title>AYNIX</title>
     <link rel="stylesheet" href="<?php echo esc_url(AYNIX_SP_URL . 'assets/css/viewer.css'); ?>?v=<?php echo esc_attr(AYNIX_SP_VERSION); ?>" />
+    <?php wp_head(); ?>
 </head>
-<body class="aynix-sp-viewer">
-    <header class="aynix-sp-topbar">
-        <?php echo AYNIX_Share_Presentation::get_instance()->get_site_logo_html(); ?>
-    </header>
+<body <?php body_class('aynix-sp-viewer'); ?>>
+    <?php wp_body_open(); ?>
+    <?php echo AYNIX_Share_Presentation::get_instance()->get_site_header_html(); ?>
     <main class="aynix-sp-main">
         <div class="aynix-sp-panel">
             <h1>404</h1>
@@ -26,5 +26,6 @@ if (!defined('ABSPATH')) {
     <footer class="aynix-sp-footer">
         <span>Powered by <a href="https://aynix.tech" target="_blank" rel="noopener">AYNIX</a></span>
     </footer>
+    <?php wp_footer(); ?>
 </body>
 </html>
