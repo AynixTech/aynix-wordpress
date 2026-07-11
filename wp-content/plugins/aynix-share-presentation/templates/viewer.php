@@ -61,7 +61,7 @@ $download_endpoint = add_query_arg(array('download' => '1'), $file_endpoint);
             <!-- Content -->
             <div class="aynix-sp-panel aynix-sp-content-panel">
                 <h1><?php echo esc_html(sprintf(__('Hello, %s', 'aynix-share-presentation'), $client)); ?> 👋</h1>
-                <p class="aynix-sp-sub"><?php echo esc_html(sprintf(__('%s has shared a presentation with you.', 'aynix-share-presentation'), $item->company_name)); ?></p>
+                <p class="aynix-sp-sub"><?php esc_html_e('Aynix has shared a presentation with you.', 'aynix-share-presentation'); ?></p>
 
                 <?php if ($item->file_type === 'pdf') : ?>
                     <div class="aynix-sp-embed">
