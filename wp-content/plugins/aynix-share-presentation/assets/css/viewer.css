@@ -1,0 +1,222 @@
+:root {
+    --aynix-primary: #6c5ce7;
+    --aynix-dark: #0f1021;
+    --aynix-bg: #f4f5fb;
+}
+* { box-sizing: border-box; }
+body.aynix-sp-viewer {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--aynix-bg);
+    color: #1a1a2e;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.aynix-sp-topbar {
+    background: var(--aynix-dark);
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+}
+.aynix-sp-topbar-logo {
+    height: 34px;
+    width: auto;
+}
+.aynix-sp-main {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 40px 20px;
+}
+.aynix-sp-panel {
+    width: 100%;
+    max-width: 900px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 36px;
+    box-shadow: 0 10px 40px rgba(15,16,33,.08);
+    text-align: center;
+}
+.aynix-sp-panel h1 {
+    margin: 0 0 8px;
+    font-size: 28px;
+}
+.aynix-sp-sub {
+    color: #5c5f77;
+    margin: 0 0 24px;
+    font-size: 16px;
+}
+.aynix-sp-error {
+    background: #ffe9e9;
+    color: #b32d2e;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+/* PIN form */
+.aynix-sp-pin-form {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.aynix-sp-pin-form input {
+    padding: 14px 18px;
+    font-size: 18px;
+    letter-spacing: 4px;
+    text-align: center;
+    border: 2px solid #e0e2f0;
+    border-radius: 10px;
+    width: 200px;
+}
+.aynix-sp-pin-form input:focus {
+    outline: none;
+    border-color: var(--aynix-primary);
+}
+.aynix-sp-pin-form button,
+.aynix-sp-btn {
+    background: var(--aynix-primary);
+    color: #fff;
+    border: none;
+    padding: 14px 28px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform .15s ease, background .15s ease;
+}
+.aynix-sp-pin-form button:hover,
+.aynix-sp-btn:hover {
+    background: #5a4bd1;
+    transform: translateY(-1px);
+}
+/* Embed (PDF + PPTX) */
+.aynix-sp-embed {
+    width: 100%;
+    height: 70vh;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #e0e2f0;
+    margin-bottom: 20px;
+    background: #f8f9fd;
+}
+.aynix-sp-embed iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+/* PPTX renderer */
+.aynix-sp-pptx-embed {
+    height: auto;
+    min-height: 300px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 10px;
+}
+.aynix-sp-pptx-render {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+/* pptx-preview library output: keep slides fluid */
+.aynix-sp-pptx-render .pptx-preview-wrapper,
+.aynix-sp-pptx-render canvas,
+.aynix-sp-pptx-render svg {
+    max-width: 100% !important;
+    height: auto !important;
+}
+/* Loader */
+.aynix-sp-loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 60px 20px;
+    color: #5c5f77;
+}
+.aynix-sp-spinner {
+    width: 44px;
+    height: 44px;
+    border: 4px solid #e0e2f0;
+    border-top-color: var(--aynix-primary);
+    border-radius: 50%;
+    animation: aynix-sp-spin 0.9s linear infinite;
+}
+@keyframes aynix-sp-spin {
+    to { transform: rotate(360deg); }
+}
+.aynix-sp-render-error {
+    padding: 40px 20px;
+    color: #b32d2e;
+    text-align: center;
+}
+/* Buttons */
+.aynix-sp-actions {
+    margin-top: 8px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.aynix-sp-btn-outline {
+    background: transparent;
+    color: var(--aynix-primary);
+    border: 2px solid var(--aynix-primary);
+}
+.aynix-sp-btn-outline:hover {
+    background: var(--aynix-primary);
+    color: #fff;
+}
+.aynix-sp-ico {
+    font-weight: 700;
+    margin-right: 4px;
+}
+.aynix-sp-hint {
+    color: #8a8da3;
+    font-size: 13px;
+    margin-top: 14px;
+}
+.aynix-sp-footer {
+    text-align: center;
+    padding: 18px;
+    color: #8a8da3;
+    font-size: 13px;
+}
+.aynix-sp-footer a {
+    color: var(--aynix-primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* ---------------------------------------------------------------------
+ * Responsive
+ * ------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    .aynix-sp-topbar { padding: 14px 16px; }
+    .aynix-sp-topbar-logo { height: 28px; }
+    .aynix-sp-main { padding: 20px 12px; }
+    .aynix-sp-panel { padding: 22px 16px; border-radius: 12px; }
+    .aynix-sp-panel h1 { font-size: 22px; }
+    .aynix-sp-sub { font-size: 15px; }
+    .aynix-sp-embed { height: 60vh; }
+    .aynix-sp-pptx-embed { height: auto; }
+    .aynix-sp-actions { flex-direction: column; }
+    .aynix-sp-btn,
+    .aynix-sp-pin-form button { width: 100%; text-align: center; }
+    .aynix-sp-pin-form { flex-direction: column; align-items: stretch; }
+    .aynix-sp-pin-form input { width: 100%; }
+}
+@media (max-width: 420px) {
+    .aynix-sp-panel h1 { font-size: 19px; }
+    .aynix-sp-embed { height: 52vh; }
+}
