@@ -36,7 +36,7 @@ $download_endpoint = add_query_arg(array('download' => '1'), $file_endpoint);
     <?php wp_body_open(); ?>
     <?php echo $plugin->get_site_header_html(); ?>
 
-    <main class="aynix-sp-main">
+    <main class="aynix-sp-main<?php echo !$pin_ok ? ' aynix-sp-main-center' : ''; ?>">
 
         <?php if (!$pin_ok) : ?>
 
@@ -96,10 +96,6 @@ $download_endpoint = add_query_arg(array('download' => '1'), $file_endpoint);
         <?php endif; ?>
 
     </main>
-
-    <footer class="aynix-sp-footer">
-        <span>Powered by <a href="https://aynix.tech" target="_blank" rel="noopener">AYNIX</a></span>
-    </footer>
 
     <?php if ($pin_ok && $item->file_type !== 'pdf') : ?>
         <?php $vendor = AYNIX_SP_URL . 'assets/vendor/pptxjs'; ?>
