@@ -3,7 +3,7 @@
  * Plugin Name: AYNIX Share Presentation
  * Plugin URI: https://aynix.tech
  * Description: Carica presentazioni (PDF o PPTX), assegna nome azienda e un PIN opzionale, genera un link da condividere con il cliente e gestisci l'elenco dei link generati.
- * Version: 1.1.0
+ * Version: 1.1.1
  * Author: AYNIX Tech
  * Author URI: https://aynix.tech
  * Text Domain: aynix-share-presentation
@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-define('AYNIX_SP_VERSION', '1.1.0');
+define('AYNIX_SP_VERSION', '1.1.1');
 define('AYNIX_SP_FILE', __FILE__);
 define('AYNIX_SP_DIR', plugin_dir_path(__FILE__));
 define('AYNIX_SP_URL', plugin_dir_url(__FILE__));

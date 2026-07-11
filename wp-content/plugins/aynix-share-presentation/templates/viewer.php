@@ -77,6 +77,7 @@ $download_endpoint = add_query_arg(array('download' => '1'), $file_endpoint);
                         <div id="aynix-sp-pptx"
                              class="aynix-sp-pptx-render"
                              data-file="<?php echo esc_url($file_endpoint); ?>"
+                             data-vendor="<?php echo esc_url(AYNIX_SP_URL . 'assets/vendor/pptxjs'); ?>"
                              data-name="<?php echo esc_attr($item->file_name); ?>">
                             <div class="aynix-sp-loader">
                                 <div class="aynix-sp-spinner"></div>
@@ -104,14 +105,6 @@ $download_endpoint = add_query_arg(array('download' => '1'), $file_endpoint);
         <?php $vendor = AYNIX_SP_URL . 'assets/vendor/pptxjs'; ?>
         <link rel="stylesheet" href="<?php echo esc_url($vendor . '/css/pptxjs.css'); ?>?v=<?php echo esc_attr(AYNIX_SP_VERSION); ?>" />
         <link rel="stylesheet" href="<?php echo esc_url($vendor . '/css/nv.d3.min.css'); ?>?v=<?php echo esc_attr(AYNIX_SP_VERSION); ?>" />
-        <script src="<?php echo esc_url($vendor . '/js/jquery.min.js'); ?>"></script>
-        <script src="<?php echo esc_url($vendor . '/js/jszip.min.js'); ?>"></script>
-        <script src="<?php echo esc_url($vendor . '/js/filereader.js'); ?>"></script>
-        <script src="<?php echo esc_url($vendor . '/js/d3.min.js'); ?>"></script>
-        <script src="<?php echo esc_url($vendor . '/js/nv.d3.min.js'); ?>"></script>
-        <script src="<?php echo esc_url($vendor . '/js/dingbat.js'); ?>"></script>
-        <script src="<?php echo esc_url($vendor . '/js/pptxjs.js'); ?>"></script>
-        <script src="<?php echo esc_url($vendor . '/js/divs2slides.js'); ?>"></script>
         <script src="<?php echo esc_url(AYNIX_SP_URL . 'assets/js/viewer.js'); ?>?v=<?php echo esc_attr(AYNIX_SP_VERSION); ?>"></script>
     <?php endif; ?>
 
