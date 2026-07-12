@@ -6,6 +6,7 @@ if (!defined('ABSPATH')) {
 /** @var string $notice */
 /** @var string $msg */
 $plugin = AYNIX_Share_Presentation::get_instance();
+$default_intro_text = $plugin->get_default_intro_text();
 ?>
 <div class="wrap aynix-sp-wrap">
 
@@ -38,6 +39,12 @@ $plugin = AYNIX_Share_Presentation::get_instance();
                     <label for="client_name"><strong><?php esc_html_e('Nome cliente (opzionale)', 'aynix-share-presentation'); ?></strong></label>
                     <input type="text" id="client_name" name="client_name" class="regular-text" placeholder="<?php esc_attr_e('es. Mario Rossi', 'aynix-share-presentation'); ?>" />
                     <span class="description"><?php esc_html_e('Mostrato nel saluto: "Hello, ...".', 'aynix-share-presentation'); ?></span>
+                </p>
+
+                <p>
+                    <label for="intro_text"><strong><?php esc_html_e('Texto inicial de la presentación', 'aynix-share-presentation'); ?></strong></label>
+                    <textarea id="intro_text" name="intro_text" class="large-text" rows="4"><?php echo esc_textarea($default_intro_text); ?></textarea>
+                    <span class="description"><?php esc_html_e('Se muestra al inicio de la página compartida, antes de la presentación.', 'aynix-share-presentation'); ?></span>
                 </p>
 
                 <p>

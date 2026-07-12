@@ -3,7 +3,7 @@
  * Plugin Name: AYNIX Share Presentation
  * Plugin URI: https://aynix.tech
  * Description: Carica presentazioni (PDF o PPTX), assegna nome azienda e un PIN opzionale, genera un link da condividere con il cliente e gestisci l'elenco dei link generati.
- * Version: 1.1.4
+ * Version: 1.1.5
  * Author: AYNIX Tech
  * Author URI: https://aynix.tech
  * Text Domain: aynix-share-presentation
@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-define('AYNIX_SP_VERSION', '1.1.4');
+define('AYNIX_SP_VERSION', '1.1.5');
 define('AYNIX_SP_FILE', __FILE__);
 define('AYNIX_SP_DIR', plugin_dir_path(__FILE__));
 define('AYNIX_SP_URL', plugin_dir_url(__FILE__));
@@ -36,6 +36,8 @@ class AYNIX_Share_Presentation {
         register_activation_hook(AYNIX_SP_FILE, array($this, 'activate'));
         register_deactivation_hook(AYNIX_SP_FILE, array($this, 'deactivate'));
 
+        add_action('admin_init', array($this, 'maybe_upgrade_schema'));
+
         // Admin
         add_action('admin_menu', array($this, 'register_admin_menu'));
         add_action('admin_enqueue_scripts', array($this, 'admin_assets'));
@@ -55,6 +57,24 @@ class AYNIX_Share_Presentation {
      * Activation
      * ------------------------------------------------------------------- */
     public function activate() {
+        $this->create_or_update_table();
+        update_option('aynix_sp_db_version', AYNIX_SP_VERSION);
+
+        $this->add_rewrite();
+        flush_rewrite_rules();
+    }
+
+    public function maybe_upgrade_schema() {
+        $installed_version = get_option('aynix_sp_db_version', '1.0.0');
+        if (version_compare($installed_version, AYNIX_SP_VERSION, '>=')) {
+            return;
+        }
+
+        $this->create_or_update_table();
+        update_option('aynix_sp_db_version', AYNIX_SP_VERSION);
+    }
+
+    private function create_or_update_table() {
         global $wpdb;
         $table = $wpdb->prefix . 'aynix_presentations';
         $charset_collate = $wpdb->get_charset_collate();
@@ -64,6 +84,7 @@ class AYNIX_Share_Presentation {
             token VARCHAR(64) NOT NULL,
             company_name VARCHAR(191) NOT NULL,
             client_name VARCHAR(191) DEFAULT '',
+            intro_text TEXT NULL,
             file_url TEXT NOT NULL,
             file_name VARCHAR(255) NOT NULL,
             file_type VARCHAR(20) NOT NULL,
@@ -76,9 +97,6 @@ class AYNIX_Share_Presentation {
 
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
         dbDelta($sql);
-
-        $this->add_rewrite();
-        flush_rewrite_rules();
     }
 
     public function deactivate() {
@@ -104,6 +122,10 @@ class AYNIX_Share_Presentation {
 
     public function get_share_link($token) {
         return home_url('/p/' . $token);
+    }
+
+    public function get_default_intro_text() {
+        return 'Esta presentación representa una visión conceptual de la solución. Estamos convencidos de que, trabajando conjuntamente con el GAD, podremos adaptarla a las necesidades y prioridades específicas del cantón.';
     }
 
     /* ---------------------------------------------------------------------
@@ -255,6 +277,7 @@ class AYNIX_Share_Presentation {
 
         $company_name = isset($_POST['company_name']) ? sanitize_text_field(wp_unslash($_POST['company_name'])) : '';
         $client_name  = isset($_POST['client_name']) ? sanitize_text_field(wp_unslash($_POST['client_name'])) : '';
+        $intro_text   = isset($_POST['intro_text']) ? sanitize_textarea_field(wp_unslash($_POST['intro_text'])) : $this->get_default_intro_text();
         $pin          = isset($_POST['pin']) ? sanitize_text_field(wp_unslash($_POST['pin'])) : '';
 
         if (empty($company_name)) {
@@ -300,6 +323,7 @@ class AYNIX_Share_Presentation {
                 'token'        => $token,
                 'company_name' => $company_name,
                 'client_name'  => $client_name,
+                'intro_text'   => $intro_text,
                 'file_url'     => esc_url_raw($moved['url']),
                 'file_name'    => $filename,
                 'file_type'    => $ext,
@@ -307,7 +331,7 @@ class AYNIX_Share_Presentation {
                 'views'        => 0,
                 'created_at'   => current_time('mysql'),
             ),
-            array('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%s')
+            array('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%s')
         );
 
         $this->redirect_with_notice('success', __('Presentazione caricata! Link generato.', 'aynix-share-presentation'));

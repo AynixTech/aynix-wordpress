@@ -10,6 +10,7 @@ if (!defined('ABSPATH')) {
 $logo       = AYNIX_SP_URL . 'assets/images/logo-aynix-white.png';
 $client     = $item->client_name ? $item->client_name : $item->company_name;
 $plugin     = AYNIX_Share_Presentation::get_instance();
+$intro_text = !empty($item->intro_text) ? $item->intro_text : $plugin->get_default_intro_text();
 
 // Build file URL (through the streaming endpoint so PIN is respected)
 $file_endpoint = add_query_arg(
@@ -62,6 +63,9 @@ $download_endpoint = add_query_arg(array('download' => '1'), $file_endpoint);
             <div class="aynix-sp-panel aynix-sp-content-panel">
                 <h1><?php echo esc_html(sprintf(__('Hello, %s', 'aynix-share-presentation'), $client)); ?> 👋</h1>
                 <p class="aynix-sp-sub"><?php esc_html_e('Aynix has shared a presentation with you.', 'aynix-share-presentation'); ?></p>
+                <div class="aynix-sp-intro-text">
+                    <p><?php echo esc_html($intro_text); ?></p>
+                </div>
 
                 <?php if ($item->file_type === 'pdf') : ?>
                     <div class="aynix-sp-embed">
@@ -96,6 +100,10 @@ $download_endpoint = add_query_arg(array('download' => '1'), $file_endpoint);
         <?php endif; ?>
 
     </main>
+
+    <footer class="aynix-sp-footer">
+        <span>Powered by AYNIX SRL</span>
+    </footer>
 
     <?php if ($pin_ok && $item->file_type !== 'pdf') : ?>
         <?php $vendor = AYNIX_SP_URL . 'assets/vendor/pptxjs'; ?>

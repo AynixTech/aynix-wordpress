@@ -23,6 +23,9 @@ if (!defined('ABSPATH')) {
             <p class="aynix-sp-sub"><?php echo esc_html($message); ?></p>
         </div>
     </main>
+    <footer class="aynix-sp-footer">
+        <span>Powered by AYNIX SRL</span>
+    </footer>
     <?php wp_footer(); ?>
 </body>
 </html>

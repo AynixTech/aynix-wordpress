@@ -84,6 +84,21 @@ body.aynix-sp-viewer {
     margin: 0 0 24px;
     font-size: 16px;
 }
+.aynix-sp-intro-text {
+    max-width: 980px;
+    margin: 0 auto 24px;
+    padding: 16px 20px;
+    border: 1px solid #e0e2f0;
+    border-radius: 12px;
+    background: #f8f9fd;
+    text-align: left;
+}
+.aynix-sp-intro-text p {
+    margin: 0;
+    color: #3f435a;
+    font-size: 15px;
+    line-height: 1.65;
+}
 .aynix-sp-error {
     background: #ffe9e9;
     color: #b32d2e;
@@ -253,6 +268,7 @@ body.aynix-sp-viewer {
     .aynix-sp-panel { padding: 22px 16px; border-radius: 12px; }
     .aynix-sp-panel h1 { font-size: 22px; }
     .aynix-sp-sub { font-size: 15px; }
+    .aynix-sp-intro-text { padding: 14px 16px; }
     .aynix-sp-embed { height: 60vh; }
     .aynix-sp-pptx-embed { height: auto; }
     .aynix-sp-actions { flex-direction: column; }
