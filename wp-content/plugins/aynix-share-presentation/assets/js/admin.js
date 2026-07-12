@@ -1,4 +1,47 @@
 document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.aynix-sp-edit-toggle').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var targetId = btn.getAttribute('data-target');
+            var row = document.getElementById(targetId);
+
+            if (!row) {
+                return;
+            }
+
+            var isHidden = row.hasAttribute('hidden');
+
+            document.querySelectorAll('.aynix-sp-editor-row').forEach(function (editorRow) {
+                editorRow.setAttribute('hidden', 'hidden');
+            });
+
+            document.querySelectorAll('.aynix-sp-edit-toggle').forEach(function (toggle) {
+                toggle.setAttribute('aria-expanded', 'false');
+            });
+
+            if (isHidden) {
+                row.removeAttribute('hidden');
+                btn.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
+
+    document.querySelectorAll('.aynix-sp-editor-cancel').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var targetId = btn.getAttribute('data-target');
+            var row = document.getElementById(targetId);
+
+            if (!row) {
+                return;
+            }
+
+            row.setAttribute('hidden', 'hidden');
+
+            document.querySelectorAll('.aynix-sp-edit-toggle[data-target="' + targetId + '"]').forEach(function (toggle) {
+                toggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+    });
+
     document.querySelectorAll('.aynix-sp-copy').forEach(function (btn) {
         btn.addEventListener('click', function () {
             var link = btn.getAttribute('data-link');

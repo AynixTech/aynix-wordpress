@@ -3,7 +3,7 @@
  * Plugin Name: AYNIX Share Presentation
  * Plugin URI: https://aynix.tech
  * Description: Carica presentazioni (PDF o PPTX), assegna nome azienda e un PIN opzionale, genera un link da condividere con il cliente e gestisci l'elenco dei link generati.
- * Version: 1.1.5
+ * Version: 1.1.7
  * Author: AYNIX Tech
  * Author URI: https://aynix.tech
  * Text Domain: aynix-share-presentation
@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-define('AYNIX_SP_VERSION', '1.1.5');
+define('AYNIX_SP_VERSION', '1.1.7');
 define('AYNIX_SP_FILE', __FILE__);
 define('AYNIX_SP_DIR', plugin_dir_path(__FILE__));
 define('AYNIX_SP_URL', plugin_dir_url(__FILE__));
@@ -42,6 +42,7 @@ class AYNIX_Share_Presentation {
         add_action('admin_menu', array($this, 'register_admin_menu'));
         add_action('admin_enqueue_scripts', array($this, 'admin_assets'));
         add_action('admin_post_aynix_sp_save', array($this, 'handle_save'));
+        add_action('admin_post_aynix_sp_update_presentation', array($this, 'handle_update_presentation'));
         add_action('admin_post_aynix_sp_delete', array($this, 'handle_delete'));
 
         // Public viewer
@@ -349,6 +350,50 @@ class AYNIX_Share_Presentation {
             $wpdb->delete($this->table(), array('id' => $id), array('%d'));
         }
         $this->redirect_with_notice('success', __('Link eliminato.', 'aynix-share-presentation'));
+    }
+
+    public function handle_update_presentation() {
+        if (!current_user_can('manage_options')) {
+            wp_die(__('Permesso negato.', 'aynix-share-presentation'));
+        }
+
+        $id = isset($_POST['id']) ? absint($_POST['id']) : 0;
+        check_admin_referer('aynix_sp_update_presentation_' . $id);
+
+        $company_name = isset($_POST['company_name']) ? sanitize_text_field(wp_unslash($_POST['company_name'])) : '';
+        $client_name  = isset($_POST['client_name']) ? sanitize_text_field(wp_unslash($_POST['client_name'])) : '';
+        $intro_text   = isset($_POST['intro_text']) ? sanitize_textarea_field(wp_unslash($_POST['intro_text'])) : $this->get_default_intro_text();
+        $pin          = isset($_POST['pin']) ? sanitize_text_field(wp_unslash($_POST['pin'])) : '';
+
+        if (!$id) {
+            $this->redirect_with_notice('error', __('Presentazione non valida.', 'aynix-share-presentation'));
+        }
+
+        if (empty($company_name)) {
+            $this->redirect_with_notice('error', __('Il nome azienda è obbligatorio.', 'aynix-share-presentation'));
+        }
+
+        global $wpdb;
+        $updated = $wpdb->update(
+            $this->table(),
+            array(
+                'company_name' => $company_name,
+                'client_name'  => $client_name,
+                'intro_text'   => $intro_text,
+                'pin'          => $pin,
+            ),
+            array(
+                'id' => $id,
+            ),
+            array('%s', '%s', '%s', '%s'),
+            array('%d')
+        );
+
+        if ($updated === false) {
+            $this->redirect_with_notice('error', __('No se pudo actualizar la presentación.', 'aynix-share-presentation'));
+        }
+
+        $this->redirect_with_notice('success', __('Presentación actualizada.', 'aynix-share-presentation'));
     }
 
     private function generate_token() {

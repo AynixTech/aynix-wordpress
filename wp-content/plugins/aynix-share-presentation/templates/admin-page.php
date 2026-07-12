@@ -86,6 +86,7 @@ $default_intro_text = $plugin->get_default_intro_text();
                     <tbody>
                         <?php foreach ($rows as $row) :
                             $link = $plugin->get_share_link($row->token);
+                            $editor_id = 'aynix-sp-editor-' . $row->id;
                             $delete_url = wp_nonce_url(
                                 add_query_arg(array('action' => 'aynix_sp_delete', 'id' => $row->id), admin_url('admin-post.php')),
                                 'aynix_sp_delete_' . $row->id
@@ -105,7 +106,44 @@ $default_intro_text = $plugin->get_default_intro_text();
                                 </td>
                                 <td>
                                     <a href="<?php echo esc_url($link); ?>" target="_blank" class="button"><?php esc_html_e('Apri', 'aynix-share-presentation'); ?></a>
+                                    <button type="button" class="button aynix-sp-edit-toggle" data-target="<?php echo esc_attr($editor_id); ?>" aria-expanded="false"><?php esc_html_e('Editar', 'aynix-share-presentation'); ?></button>
                                     <a href="<?php echo esc_url($delete_url); ?>" class="button aynix-sp-delete" onclick="return confirm('<?php echo esc_js(__('Eliminare questo link?', 'aynix-share-presentation')); ?>');"><?php esc_html_e('Elimina', 'aynix-share-presentation'); ?></a>
+                                </td>
+                            </tr>
+                            <tr id="<?php echo esc_attr($editor_id); ?>" class="aynix-sp-editor-row" hidden>
+                                <td colspan="7">
+                                    <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" class="aynix-sp-editor-form">
+                                        <input type="hidden" name="action" value="aynix_sp_update_presentation" />
+                                        <input type="hidden" name="id" value="<?php echo esc_attr($row->id); ?>" />
+                                        <?php wp_nonce_field('aynix_sp_update_presentation_' . $row->id); ?>
+
+                                        <div class="aynix-sp-editor-grid">
+                                            <p>
+                                                <label for="company_name_<?php echo esc_attr($row->id); ?>"><strong><?php esc_html_e('Nome azienda', 'aynix-share-presentation'); ?></strong></label>
+                                                <input type="text" id="company_name_<?php echo esc_attr($row->id); ?>" name="company_name" value="<?php echo esc_attr($row->company_name); ?>" class="regular-text" required />
+                                            </p>
+
+                                            <p>
+                                                <label for="client_name_<?php echo esc_attr($row->id); ?>"><strong><?php esc_html_e('Nome cliente', 'aynix-share-presentation'); ?></strong></label>
+                                                <input type="text" id="client_name_<?php echo esc_attr($row->id); ?>" name="client_name" value="<?php echo esc_attr($row->client_name); ?>" class="regular-text" />
+                                            </p>
+
+                                            <p>
+                                                <label for="pin_<?php echo esc_attr($row->id); ?>"><strong><?php esc_html_e('PIN', 'aynix-share-presentation'); ?></strong></label>
+                                                <input type="text" id="pin_<?php echo esc_attr($row->id); ?>" name="pin" value="<?php echo esc_attr($row->pin); ?>" class="regular-text" autocomplete="off" />
+                                            </p>
+
+                                            <p class="aynix-sp-editor-full">
+                                                <label for="intro_text_<?php echo esc_attr($row->id); ?>"><strong><?php esc_html_e('Texto inicial de la presentación', 'aynix-share-presentation'); ?></strong></label>
+                                                <textarea id="intro_text_<?php echo esc_attr($row->id); ?>" name="intro_text" class="large-text" rows="4"><?php echo esc_textarea($row->intro_text ? $row->intro_text : $default_intro_text); ?></textarea>
+                                            </p>
+                                        </div>
+
+                                        <div class="aynix-sp-editor-actions">
+                                            <button type="submit" class="button button-primary"><?php esc_html_e('Guardar cambios', 'aynix-share-presentation'); ?></button>
+                                            <button type="button" class="button aynix-sp-editor-cancel" data-target="<?php echo esc_attr($editor_id); ?>"><?php esc_html_e('Cancelar', 'aynix-share-presentation'); ?></button>
+                                        </div>
+                                    </form>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

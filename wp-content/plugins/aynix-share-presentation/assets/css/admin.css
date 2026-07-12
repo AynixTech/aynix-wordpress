@@ -38,9 +38,30 @@
 }
 .aynix-sp-card label { display: block; margin-bottom: 4px; }
 .aynix-sp-card .regular-text { width: 100%; }
+.aynix-sp-card .large-text { width: 100%; }
 .aynix-sp-card .description { display: block; color: #787c82; font-size: 12px; margin-top: 4px; }
 .aynix-sp-empty { color: #787c82; }
 .aynix-sp-table th { font-weight: 600; }
+.aynix-sp-editor-row td {
+    background: #f6f7fb;
+    padding: 18px 16px;
+}
+.aynix-sp-editor-form p {
+    margin: 0;
+}
+.aynix-sp-editor-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px 16px;
+    margin-bottom: 16px;
+}
+.aynix-sp-editor-full {
+    grid-column: 1 / -1;
+}
+.aynix-sp-editor-actions {
+    display: flex;
+    gap: 8px;
+}
 .aynix-sp-link-cell { display: flex; gap: 6px; align-items: center; }
 .aynix-sp-link-input { width: 180px; font-size: 12px; }
 .aynix-sp-badge {
@@ -56,3 +77,14 @@
 .aynix-sp-badge-pptx, .aynix-sp-badge-ppt { background: #d35400; }
 .aynix-sp-delete { color: #b32d2e !important; border-color: #b32d2e !important; }
 .aynix-sp-copy.copied { background: #00a32a; color: #fff; border-color: #00a32a; }
+
+@media (max-width: 782px) {
+    .aynix-sp-editor-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .aynix-sp-editor-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
